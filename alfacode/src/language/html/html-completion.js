@@ -58,7 +58,7 @@ const SVG_TAGS = [
 ].map((name, index) => ({ name, rank: index + 1, description: "SVG graphic element" }));
 
 const HEAD_TAGS = ["meta", "link", "title", "script", "style", "base", "noscript"]
-  .map(name => HTML_TAG_CATALOG.find(item => item.name === name));
+  .map((name, index) => ({ ...HTML_TAG_CATALOG.find(item => item.name === name), rank: index + 1 }));
 
 const PHRASING_TAGS = new Set([
   "a", "span", "i", "strong", "em", "img", "script", "button", "input",
