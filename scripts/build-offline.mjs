@@ -222,6 +222,27 @@ async function main() {
       return 0;
     }
   }));
+  const sourceFileCounts = await Promise.all(inputPaths.map(async item => {
+    const full = path.join(ROOT, item);
+    try {
+      const stat = await fs.stat(full);
+      if (stat.isFile()) return 1;
+      if (!stat.isDirectory()) return 0;
+      let count = 0;
+      async function countFiles(dir) {
+        for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
+          const next = path.join(dir, entry.name);
+          if (entry.isDirectory()) await countFiles(next);
+          else if (entry.isFile()) count += 1;
+        }
+      }
+      await countFiles(full);
+      return count;
+    } catch {
+      return 0;
+    }
+  }));
+  const sourceFileCount = sourceFileCounts.reduce((sum, count) => sum + count, 0);
   const sourceBytes = inputBytes.reduce((sum, size) => sum + size, 0);
   const outputBytes = Buffer.byteLength(shell, "utf8");
   const report = [
