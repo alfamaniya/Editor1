@@ -54,6 +54,23 @@ customElements.define("app-header", OfflineAppHeader);
 `;
 }
 
+function makeHeaderActionComponent(tagName, markup, stylesheet, action, confirmation) {
+  return `
+class ${tagName.replace(/(^|-)([a-z])/g, (_, dash, letter) => letter.toUpperCase())} extends HTMLElement {
+  connectedCallback() {
+    if (this.shadowRoot) return;
+    const root = this.attachShadow({ mode: "open" });
+    root.innerHTML = "<style>" + ${JSON.stringify(stylesheet)} + "</style>" + ${JSON.stringify(markup)};
+    root.querySelector("button")?.addEventListener("click", () => {
+      if (!window.confirm(${JSON.stringify(confirmation)})) return;
+      document.dispatchEvent(new CustomEvent("alfacode:header-action", { detail: { action: ${JSON.stringify(action)} } }));
+    });
+  }
+}
+customElements.define(${JSON.stringify(tagName)}, ${tagName.replace(/(^|-)([a-z])/g, (_, dash, letter) => letter.toUpperCase())});
+`;
+}
+
 function makeDividerComponent(markup, stylesheet) {
   return `
 class OfflineWorkspaceDivider extends HTMLElement {
@@ -162,6 +179,9 @@ async function main() {
   const inputPaths = [
     "index.html", "style.css", "script.js",
     "core/header/header.html", "core/header/header.css", "core/header/header.js",
+    "core/clear-tabs/clear-tabs.html", "core/clear-tabs/clear-tabs.css", "core/clear-tabs/clear-tabs.js",
+    "core/project-reset/project-reset.html", "core/project-reset/project-reset.css", "core/project-reset/project-reset.js",
+    "core/clear-project-cookies/clear-project-cookies.html", "core/clear-project-cookies/clear-project-cookies.css", "core/clear-project-cookies/clear-project-cookies.js",
     "core/mobile-workspace/mobile-workspace.html", "core/mobile-workspace/mobile-workspace.css", "core/mobile-workspace/mobile-workspace.js",
     "core/workspace-divider/workspace-divider.html",
     "core/workspace-divider/workspace-divider.css",
@@ -175,12 +195,18 @@ async function main() {
   const [
     indexTemplate, rootCss, coordinator,
     headerMarkup, headerCss, headerModule,
+    clearTabsMarkup, clearTabsCss, clearTabsModule,
+    projectResetMarkup, projectResetCss, projectResetModule,
+    clearBrowserDataMarkup, clearBrowserDataCss, clearBrowserDataModule,
     mobileMarkup, mobileCss, mobileModule,
     dividerMarkup, dividerCss, dividerModule,
     editorTemplate, editorCss, previewTemplate, previewCss, previewScript
   ] = await Promise.all([
     read("index.html"), read("style.css"), read("script.js"),
     read("core/header/header.html"), read("core/header/header.css"), read("core/header/header.js"),
+    read("core/clear-tabs/clear-tabs.html"), read("core/clear-tabs/clear-tabs.css"), read("core/clear-tabs/clear-tabs.js"),
+    read("core/project-reset/project-reset.html"), read("core/project-reset/project-reset.css"), read("core/project-reset/project-reset.js"),
+    read("core/clear-project-cookies/clear-project-cookies.html"), read("core/clear-project-cookies/clear-project-cookies.css"), read("core/clear-project-cookies/clear-project-cookies.js"),
     read("core/mobile-workspace/mobile-workspace.html"), read("core/mobile-workspace/mobile-workspace.css"), read("core/mobile-workspace/mobile-workspace.js"),
     read("core/workspace-divider/workspace-divider.html"),
     read("core/workspace-divider/workspace-divider.css"),
@@ -191,6 +217,9 @@ async function main() {
 
   // Ensure source component modules remain part of the audited build inputs.
   if (!headerModule.includes("customElements.define") ||
+      !clearTabsModule.includes("customElements.define") ||
+      !projectResetModule.includes("customElements.define") ||
+      !clearBrowserDataModule.includes("customElements.define") ||
       !dividerModule.includes("customElements.define") ||
       !mobileModule.includes("customElements.define")) {
     throw new Error("A required UI component module is missing its custom-element registration.");
@@ -229,6 +258,9 @@ async function main() {
   const bootstrap = `
 (() => {
   ${makeHeaderComponent(headerMarkup, headerCss)}
+  ${makeHeaderActionComponent("clear-tabs-action", clearTabsMarkup, clearTabsCss, "clear-tabs", "Clear the contents of all HTML, CSS, and JavaScript tabs? This cannot be undone.")}
+  ${makeHeaderActionComponent("project-reset-action", projectResetMarkup, projectResetCss, "project-reset", "Reset the entire project to the original AlfaCode starter example? Your current code will be replaced.")}
+  ${makeHeaderActionComponent("clear-project-cookies-action", clearBrowserDataMarkup, clearBrowserDataCss, "clear-project-cookies", "Clear cookies and saved AlfaCode project data for this website only? Other websites will not be affected. The editor will reload with the starter example.")}
   ${makeDividerComponent(dividerMarkup, dividerCss)}
   ${makeMobileWorkspaceComponent(mobileMarkup, mobileCss)}
   const editorFrame = document.querySelector(".editor-panel .section-frame");
