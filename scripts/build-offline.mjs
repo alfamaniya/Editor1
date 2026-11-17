@@ -22,12 +22,12 @@ function injectBeforeBodyEnd(html, fragment) {
   return html + fragment;
 }
 
-function inlineEditorDocument(template, styles, bundle, tagSuggestionsTemplate) {
+function inlineEditorDocument(template, styles, bundle, tagSuggestionsTemplate, extraKeysTemplate, extraKeysCss) {
   let html = template;
   html = html.replace(/\s*<link\b[^>]*href=["'][^"']+["'][^>]*>/gi, "");
   html = html.replace(/\s*<script\b[^>]*src=["'][^"']*editor\.js["'][^>]*>\s*<\/script>/i, "");
   html = html.replace("</head>", "<style>\n" + styles + "\n</style>\n</head>");
-  const templateBootstrap = "<script>window.__ALFACODE_TAG_SUGGESTIONS_TEMPLATE__ = " + JSON.stringify(tagSuggestionsTemplate) + ";</script>";
+  const templateBootstrap = "<script>window.__ALFACODE_TAG_SUGGESTIONS_TEMPLATE__ = " + JSON.stringify(tagSuggestionsTemplate) + "; window.__ALFACODE_EXTRA_KEYS_ASSETS__ = { html: " + JSON.stringify(extraKeysTemplate) + ", css: " + JSON.stringify(extraKeysCss) + " };</script>";
   html = injectBeforeBodyEnd(html, templateBootstrap + "<script>\n" + escapeScript(bundle) + "\n</script>");
   return html;
 }
@@ -166,6 +166,7 @@ async function main() {
     "core/project-reset/project-reset.html", "core/project-reset/project-reset.css", "core/project-reset/project-reset.js",
     "core/clear-project-cookies/clear-project-cookies.html", "core/clear-project-cookies/clear-project-cookies.css", "core/clear-project-cookies/clear-project-cookies.js",
     "core/mobile-workspace/mobile-workspace.html", "core/mobile-workspace/mobile-workspace.css", "core/mobile-workspace/mobile-workspace.js",
+    "core/mobile-extra-keys/mobile-extra-keys.html", "core/mobile-extra-keys/mobile-extra-keys.css", "core/mobile-extra-keys/mobile-extra-keys.js",
     "core/workspace-divider/workspace-divider.html",
     "core/workspace-divider/workspace-divider.css",
     "core/workspace-divider/workspace-divider.js",
@@ -222,11 +223,15 @@ async function main() {
 
   const tagSuggestionsTemplate = await read("core/tag-suggestions/tag-suggestions.html");
   const tagSuggestionsCss = await read("core/tag-suggestions/tag-suggestions.css");
+  const extraKeysTemplate = await read("core/mobile-extra-keys/mobile-extra-keys.html");
+  const extraKeysCss = await read("core/mobile-extra-keys/mobile-extra-keys.css");
   const editorDocument = inlineEditorDocument(
     editorTemplate,
-    [editorCss, tagSuggestionsCss, await read("alfacode/src/themes/dark.css"), await read("alfacode/src/themes/light.css")].join("\n"),
+    [editorCss, tagSuggestionsCss, extraKeysCss, await read("alfacode/src/themes/dark.css"), await read("alfacode/src/themes/light.css")].join("\n"),
     editorBundle,
-    tagSuggestionsTemplate
+    tagSuggestionsTemplate,
+    extraKeysTemplate,
+    extraKeysCss
   );
   const previewDocument = inlinePreviewDocument(previewTemplate, previewCss, previewScript);
 
