@@ -681,7 +681,7 @@ node --experimental-default-type=module --test alfacode/tests/alfacode.test.mjs
 - `InputController` ورودی صفحه‌کلید و رویدادهای ورودی را به موتور متصل می‌کند.
 - `LanguageManager` سه زبان HTML، CSS و JavaScript را ثبت و زبان فعال را نگهداری می‌کند.
 - `ThemeManager` تم محلی AlfaCode را روی ریشه نمایش اعمال می‌کند.
-- کد منبع از طریق پیام مشخص `alfacode:source-change` به هماهنگ‌کننده اصلی ارسال می‌شود؛ هماهنگ‌کننده آن را با پیام `alfacode:render` به بخش Preview منتقل می‌کند.
+- کد منبع از طریق پیام مشخص `alfacode:source-change` به هماهنگ‌کننده اصلی ارسال می‌شود؛ هماهنگ‌کننده آخرین خروجی را تا آماده‌شدن iframe پیش‌نمایش نگه می‌دارد و سپس آن را با پیام `alfacode:render` منتقل می‌کند. بازترسیم هنگام composition فعال ورودی متوقف می‌شود و پس از پایان ترکیب دوباره انجام می‌گیرد.
 
 بخش Preview خروجی HTML را مستقیماً در iframe sandbox شده نمایش می‌دهد. برای حالت CSS و JavaScript، کد درون یک سند نمونه قرار می‌گیرد. iframe خروجی فقط مجوز `allow-scripts` دارد و مجوز `allow-same-origin` دریافت نمی‌کند.
 
