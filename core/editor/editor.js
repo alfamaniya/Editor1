@@ -11,6 +11,8 @@ import LineNumbers from "../../alfacode/src/features/line-numbers/line-numbers.j
 import BracketMatcher from "../../alfacode/src/features/bracket-matching/bracket-matcher.js";
 import ThemeManager from "../../alfacode/src/themes/theme-manager.js";
 import BrowserStorage from "../browser-storage/browser-storage.js";
+import { getHTMLTagSuggestions } from "../../alfacode/src/language/html/html-completion.js";
+import { createTagSuggestions } from "../tag-suggestions/tag-suggestions.js";
 
 const initialSources = {
   html: `<!DOCTYPE html>
@@ -237,6 +239,15 @@ viewElement.contentEditable = "true";
 viewElement.setAttribute("aria-label", "AlfaCode code editor");
 
 const input = new InputController(editor, { target: viewElement });
+let tagSuggestionMenu = null;
+let chainSuggestionMode = false;
+createTagSuggestions({
+  ownerDocument: document,
+  onSelect: applyTagSuggestion
+}).then(menu => {
+  tagSuggestionMenu = menu;
+  updateTagSuggestions();
+});
 const themes = new ThemeManager({ defaultTheme: "dark" });
 themes.apply(host);
 
@@ -245,6 +256,64 @@ function publishSource() {
     type: "alfacode:source-change",
     sources: { ...sources, [activeLanguage.id]: editor.text }
   }, "*");
+}
+
+function updateTagSuggestions() {
+  if (!tagSuggestionMenu) return;
+  if (activeLanguage.id !== "html" || !editor.selection.isEmpty) {
+    tagSuggestionMenu.hide();
+    chainSuggestionMode = false;
+    return;
+  }
+
+  const result = getHTMLTagSuggestions(editor.text, editor.selection.head, {
+    chain: chainSuggestionMode,
+    limit: 10
+  });
+  if (!result || !result.options.length) {
+    tagSuggestionMenu.hide();
+    if (chainSuggestionMode) chainSuggestionMode = false;
+    return;
+  }
+
+  const point = getDOMPointFromDocumentOffset(editor.selection.head);
+  let anchor = null;
+  if (point) {
+    try {
+      const range = document.createRange();
+      range.setStart(point.node, point.offset);
+      range.collapse(true);
+      const rect = range.getBoundingClientRect();
+      anchor = { left: rect.left, top: rect.top, bottom: rect.bottom };
+    } catch {
+      anchor = null;
+    }
+  }
+  tagSuggestionMenu.show(result, anchor);
+}
+
+function applyTagSuggestion(option) {
+  if (!option || !tagSuggestionMenu) return;
+
+  if (option.kind === "jump-close") {
+    chainSuggestionMode = false;
+    editor.moveTo(option.closeTo);
+    renderEditor();
+    view.focus();
+    return;
+  }
+
+  const from = option.from;
+  const to = option.to;
+  const isClosing = option.kind === "close";
+  const insertion = isClosing
+    ? option.label + ">"
+    : option.label + ">" + (option.isVoid ? "" : "</" + option.label + ">");
+  editor.transact(transaction => transaction.replace(from, to, insertion));
+  editor.moveTo(from + option.label.length + 1);
+  chainSuggestionMode = !isClosing && !option.isVoid;
+  renderEditor();
+  view.focus();
 }
 
 function renderEditor() {
@@ -271,6 +340,7 @@ function renderEditor() {
   browserStorage.schedule(sources);
   publishSource();
   status.textContent = activeLanguage.id.toUpperCase() + " · " + editor.document.getLineCount() + " lines";
+  updateTagSuggestions();
 }
 
 function getDocumentOffsetFromDOMPoint(node, offset) {
@@ -361,8 +431,41 @@ function restoreDOMSelection(anchor, head) {
 viewElement.addEventListener("keydown", () => {
   if (compositionStart === null) syncSelectionFromDOM(false);
 }, true);
+
+viewElement.addEventListener("keydown", event => {
+  if (tagSuggestionMenu?.isOpen) {
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      tagSuggestionMenu.setActive(tagSuggestionMenu.activeIndex + (event.key === "ArrowDown" ? 1 : -1));
+      return;
+    }
+    if (event.key === "Enter" || event.key === "Tab") {
+      const selected = tagSuggestionMenu.selectedOption;
+      if (selected) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        applyTagSuggestion(selected);
+      }
+      return;
+    }
+    if (event.key === "Escape") {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      tagSuggestionMenu.hide();
+      chainSuggestionMode = false;
+      return;
+    }
+  }
+  if (event.key.length === 1 || event.key === "Backspace" || event.key === "Delete") {
+    chainSuggestionMode = false;
+  }
+}, true);
 viewElement.addEventListener("beforeinput", event => {
   if (!event.isComposing && compositionStart === null) syncSelectionFromDOM(false);
+}, true);
+viewElement.addEventListener("beforeinput", event => {
+  if (!event.isComposing) chainSuggestionMode = false;
 }, true);
 viewElement.addEventListener("keydown", event => {
   if (!event.isComposing) queueMicrotask(renderEditor);
@@ -403,6 +506,8 @@ viewElement.addEventListener("compositionend", event => {
 
 tabs.forEach(tab => {
   tab.addEventListener("click", () => {
+    chainSuggestionMode = false;
+    tagSuggestionMenu?.hide();
     const nextLanguage = tab.dataset.language;
     if (!nextLanguage || nextLanguage === activeLanguage.id) return;
     sources[activeLanguage.id] = editor.text;
