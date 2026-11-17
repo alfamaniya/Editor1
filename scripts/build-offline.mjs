@@ -156,6 +156,7 @@ function makeMobileWorkspaceComponent(markup, stylesheet) {
     'customElements.define("mobile-workspace-switcher", OfflineMobileWorkspace);'
   ].join("\n");
 }
+// The offline shell embeds the mobile workspace controls and their responsive styles.
 async function main() {
   const inputPaths = [
     "index.html", "style.css", "script.js",
