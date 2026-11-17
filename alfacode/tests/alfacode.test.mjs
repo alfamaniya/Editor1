@@ -321,7 +321,8 @@ test("ThemeManager validates custom themes and rejects unknown ids", () => {
 
 
 test("HTML completion ranks common tags and limits the menu to ten entries", () => {
-  const result = getHTMLTagSuggestions("<", 1);
+  const source = "<body><";
+  const result = getHTMLTagSuggestions(source, source.length);
   assert.equal(result.mode, "open");
   assert.equal(result.options.length, 10);
   assert.deepEqual(result.options.slice(0, 7).map(item => item.label),
