@@ -104,6 +104,11 @@ function buildPairMap(source, tokens) {
       stack.pop();
       pairs.set(opening.index, index);
       pairs.set(index, opening.index);
+    } else if (opening) {
+      // A mismatched closer makes the pending nesting structurally invalid.
+      // Clear pending openings so crossing pairs such as "([)]" are not
+      // reported as valid matches.
+      stack.length = 0;
     }
   }
 
