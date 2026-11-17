@@ -239,6 +239,8 @@ const view = new EditorView(editor, { lineRenderer });
 const viewElement = view.mount(canvas);
 viewElement.contentEditable = "true";
 viewElement.setAttribute("aria-label", "AlfaCode code editor");
+viewElement.addEventListener("focus", () => publishEditorState(true));
+viewElement.addEventListener("blur", () => publishEditorState(false));
 
 const input = new InputController(editor, { target: viewElement });
 let tagSuggestionMenu = null;
@@ -252,6 +254,14 @@ createTagSuggestions({
 });
 const themes = new ThemeManager({ defaultTheme: "dark" });
 themes.apply(host);
+
+function publishEditorState(focused = true) {
+  window.parent.postMessage({
+    type: "alfacode:editor-state",
+    focused,
+    language: activeLanguage.id
+  }, "*");
+}
 
 function publishSource() {
   window.parent.postMessage({
@@ -514,6 +524,7 @@ tabs.forEach(tab => {
     if (!nextLanguage || nextLanguage === activeLanguage.id) return;
     sources[activeLanguage.id] = editor.text;
     activeLanguage = languages.setActive(nextLanguage);
+    publishEditorState(true);
     mobileExtraKeys?.setLanguage(nextLanguage);
     editor.setDocument(sources[nextLanguage]);
     tabs.forEach(item => {
@@ -527,8 +538,7 @@ tabs.forEach(tab => {
 });
 
 renderEditor();
-mobileExtraKeys?.addEventListener("alfacode:extra-key", event => {
-  const key = event.detail?.key;
+function applyExtraKey(key) {
   if (typeof key !== "string" || !key) return;
   syncSelectionFromDOM(false);
   if (["Tab", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Backspace"].includes(key)) {
@@ -553,14 +563,21 @@ mobileExtraKeys?.addEventListener("alfacode:extra-key", event => {
   editor.moveTo(selection.from + key.length);
   renderEditor();
   view.focus();
-});
+}
+
 window.addEventListener("pagehide", () => browserStorage.flush(sources));
 view.focus();
+publishEditorState(true);
 
 window.addEventListener("message", event => {
   if (event.source !== window.parent || event.origin !== window.location.origin) return;
   const command = event.data;
-  if (!command || command.type !== "alfacode:toolbar-command") return;
+  if (!command) return;
+  if (command.type === "alfacode:extra-key-command") {
+    applyExtraKey(command.key);
+    return;
+  }
+  if (command.type !== "alfacode:toolbar-command") return;
 
   if (command.action === "clear-tabs") {
     for (const key of Object.keys(sources)) sources[key] = "";
@@ -575,7 +592,7 @@ window.addEventListener("message", event => {
   if (command.action === "project-reset") {
     for (const key of Object.keys(initialSources)) sources[key] = initialSources[key];
     activeLanguage = languages.setActive("html");
-    mobileExtraKeys?.setLanguage("html");
+    publishEditorState(true);
     tabs.forEach(tab => {
       const selected = tab.dataset.language === "html";
       tab.classList.toggle("is-active", selected);
