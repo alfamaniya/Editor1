@@ -1,33 +1,35 @@
 :host {
   display: none;
-  flex: 0 0 48px;
+  flex: 0 0 8%;
   width: 100%;
   min-width: 0;
+  min-height: 0;
   font-family: Inter, "Segoe UI", Arial, sans-serif;
 }
 * { box-sizing: border-box; }
 .mobile-switcher {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  gap: 2%;
   width: 100%;
-  height: 48px;
-  padding: 5px 10px;
-  border-bottom: 1px solid #293344;
+  height: 100%;
+  padding: 2%;
+  border-bottom: 0.08em solid #293344;
   background: #171d29;
 }
 .switcher-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+  gap: 3%;
   min-width: 0;
-  min-height: 38px;
-  border: 1px solid transparent;
-  border-radius: 8px;
+  min-height: 100%;
+  padding: 1% 2%;
+  border: 0.08em solid transparent;
+  border-radius: 0.55em;
   background: transparent;
   color: #9aa9bd;
-  font: 600 13px/1 Inter, "Segoe UI", Arial, sans-serif;
+  font: 600 85%/1.2 Inter, "Segoe UI", Arial, sans-serif;
   cursor: pointer;
   touch-action: manipulation;
 }
@@ -37,11 +39,11 @@
   color: #f3f6fb;
 }
 .switcher-button:focus-visible {
-  outline: 2px solid #72a7f8;
-  outline-offset: 2px;
+  outline: 0.14em solid #72a7f8;
+  outline-offset: 0.12em;
 }
 .switcher-icon {
-  font: 700 14px/1 Consolas, monospace;
+  font: 700 90%/1 Consolas, monospace;
   color: #72a7f8;
 }
 @media (max-width: 700px) {
