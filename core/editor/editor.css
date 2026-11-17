@@ -48,19 +48,18 @@ html, body { width: 100%; height: 100%; min-height: 0; margin: 0; overflow: hidd
 .browser-storage-status[data-state="saving"] { color: #e6bd72; }
 .browser-storage-status[data-state="error"] { color: #ef8989; }
 
-
 @media (max-width: 700px) {
   .editor-tabs {
-    flex-basis: 46px;
-    gap: 2px;
-    padding-inline: 6px;
+    flex: 0 0 8%;
+    gap: 1%;
+    padding-inline: 1.5%;
     -webkit-overflow-scrolling: touch;
   }
   .editor-tab {
-    min-width: 84px;
-    min-height: 44px;
-    padding-inline: 13px;
-    font-size: 13px;
+    min-width: 18%;
+    min-height: 100%;
+    padding-inline: 2%;
+    font-size: 85%;
     touch-action: manipulation;
   }
   .editor-host {
@@ -69,32 +68,24 @@ html, body { width: 100%; height: 100%; min-height: 0; margin: 0; overflow: hidd
     -webkit-overflow-scrolling: touch;
     touch-action: pan-x pan-y;
   }
-  .alfacode-gutter-host { min-width: 38px; }
-  .alfacode-line-numbers { padding: 14px 8px 14px 0; }
-  .alfacode-editor-view {
-    padding: 14px !important;
-    font-size: 14px !important;
+  .alfacode-gutter-host { flex: 0 0 9%; min-width: 9%; }
+  .alfacode-line-numbers { padding: 4% 2% 4% 0; }
+  .editor-host .alfacode-editor-view {
+    padding: 4% !important;
+    font-size: 100% !important;
     line-height: 1.6 !important;
   }
   .editor-host .alfacode-line,
   .editor-host .alfacode-line-content,
   .alfacode-line-number { height: 1.6em; min-height: 1.6em; line-height: 1.6; }
   .editor-footer {
-    flex-basis: 26px;
-    gap: 6px;
-    padding-inline: 8px;
+    flex: 0 0 5%;
+    gap: 1%;
+    padding-inline: 1.5%;
   }
   .editor-status,
-  .browser-storage-status { font-size: 9px; }
+  .browser-storage-status { font-size: 72%; }
 }
-
-@media (max-width: 360px) {
-  .editor-tab { min-width: 76px; padding-inline: 10px; }
-  .editor-footer { gap: 4px; padding-inline: 6px; }
-  .editor-status,
-  .browser-storage-status { font-size: 8px; }
-}
-
 
 /* The popup is positioned against the editor iframe viewport. */
 .editor-host { position: relative; }
