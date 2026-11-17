@@ -107,7 +107,7 @@ let clickCount = 0;
 
 button.addEventListener("click", () => {
   clickCount += 1;
-  message.textContent = `Great! You clicked the button ${clickCount} time${clickCount === 1 ? "" : "s"}.`;
+  message.textContent = "Great! You clicked the button " + clickCount + " time" + (clickCount === 1 ? "" : "s") + ".";
 });`
 };
 
