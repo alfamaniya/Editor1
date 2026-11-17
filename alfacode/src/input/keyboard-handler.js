@@ -125,7 +125,7 @@ export class KeyboardHandler {
   _replaceSelection(text) {
     const { from, to } = this.editor.selection;
     this.editor.transact((transaction) => transaction.replace(from, to, text));
-    this.editor.moveTo(from + text.replace(/\\r\\n?/g, "\\n").length);
+    this.editor.moveTo(from + text.replace(/\r\n?/g, "\n").length);
   }
 
   _delete(direction) {
