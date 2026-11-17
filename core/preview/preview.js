@@ -3,7 +3,7 @@ const frame = document.getElementById("preview-frame");
 function insertBeforeClosingTag(source, tagName, content) {
   const closingTag = new RegExp("</" + tagName + "\\s*>", "i");
   if (closingTag.test(source)) {
-    return source.replace(closingTag, content + "</" + tagName + ">");
+    return source.replace(closingTag, () => content + "</" + tagName + ">");
   }
   return source + content;
 }
