@@ -22,12 +22,13 @@ function injectBeforeBodyEnd(html, fragment) {
   return html + fragment;
 }
 
-function inlineEditorDocument(template, styles, bundle) {
+function inlineEditorDocument(template, styles, bundle, tagSuggestionsTemplate) {
   let html = template;
   html = html.replace(/\s*<link\b[^>]*href=["'][^"']+["'][^>]*>/gi, "");
   html = html.replace(/\s*<script\b[^>]*src=["'][^"']*editor\.js["'][^>]*>\s*<\/script>/i, "");
   html = html.replace("</head>", "<style>\n" + styles + "\n</style>\n</head>");
-  html = injectBeforeBodyEnd(html, "<script>\n" + escapeScript(bundle) + "\n</script>");
+  const templateBootstrap = "<script>window.__ALFACODE_TAG_SUGGESTIONS_TEMPLATE__ = " + JSON.stringify(tagSuggestionsTemplate) + ";</script>";
+  html = injectBeforeBodyEnd(html, templateBootstrap + "<script>\n" + escapeScript(bundle) + "\n</script>");
   return html;
 }
 
@@ -166,6 +167,7 @@ async function main() {
     "core/workspace-divider/workspace-divider.css",
     "core/workspace-divider/workspace-divider.js",
     "core/editor/editor.html", "core/editor/editor.css", "core/editor/editor.js",
+    "core/tag-suggestions/tag-suggestions.html", "core/tag-suggestions/tag-suggestions.css", "core/tag-suggestions/tag-suggestions.js",
     "core/preview/preview.html", "core/preview/preview.css", "core/preview/preview.js",
     "alfacode/src"
   ];
@@ -206,10 +208,13 @@ async function main() {
   });
   const editorBundle = bundleResult.outputFiles[0].text;
 
+  const tagSuggestionsTemplate = await read("core/tag-suggestions/tag-suggestions.html");
+  const tagSuggestionsCss = await read("core/tag-suggestions/tag-suggestions.css");
   const editorDocument = inlineEditorDocument(
     editorTemplate,
-    [editorCss, await read("alfacode/src/themes/dark.css"), await read("alfacode/src/themes/light.css")].join("\n"),
-    editorBundle
+    [editorCss, tagSuggestionsCss, await read("alfacode/src/themes/dark.css"), await read("alfacode/src/themes/light.css")].join("\n"),
+    editorBundle,
+    tagSuggestionsTemplate
   );
   const previewDocument = inlinePreviewDocument(previewTemplate, previewCss, previewScript);
 
