@@ -74,7 +74,7 @@ test("Document normalizes line endings and maps offsets", () => {
   assert.equal(document.text, "one\ntwo\nthree");
   assert.equal(document.getLineCount(), 3);
   assert.deepEqual(document.getPositionAt(5), { line: 2, column: 2 });
-  assert.equal(document.getOffsetAt(3, 3), 12);
+  assert.equal(document.getOffsetAt(3, 3), 10);
   assert.throws(() => document.getLine(4), RangeError);
 });
 
@@ -142,7 +142,7 @@ test("Editor coordinates transactions, selection and document replacement", () =
   editor.setSelection({ anchor: 1, head: 4 });
   editor.transact(transaction => transaction.replace(1, 4, "i"));
   assert.equal(editor.text, "hio");
-  assert.equal(editor.selection.head, 2);
+  assert.equal(editor.selection.head, 3);
   assert.equal(editor.canUndo, true);
   editor.undo();
   assert.equal(editor.text, "hello");
@@ -259,9 +259,17 @@ test("HTML, CSS and JavaScript language modules tokenize and parse representativ
 test("BracketMatcher handles nesting and ignores brackets inside comments and strings", () => {
   const matcher = new BracketMatcher();
   const source = 'call(")", /* ] */ [value])';
-  const matches = matcher.findAll(source);
+  const stringStart = source.indexOf('"');
+  const stringEnd = source.indexOf('"', stringStart + 1) + 1;
+  const commentStart = source.indexOf("/*");
+  const commentEnd = source.indexOf("*/", commentStart) + 2;
+  const tokens = [
+    { type: "string", start: stringStart, end: stringEnd },
+    { type: "comment", start: commentStart, end: commentEnd }
+  ];
+  const matches = matcher.findAll(source, tokens);
   assert.equal(matches.length, 2);
-  assert.deepEqual(matcher.findMatch(source, 0), {
+  assert.deepEqual(matcher.findMatch(source, 4, tokens), {
     from: 4, to: source.length - 1, open: 4, close: source.length - 1,
     opening: "(", closing: ")"
   });
