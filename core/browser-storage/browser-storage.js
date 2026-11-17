@@ -7,6 +7,7 @@ export default class BrowserStorage {
     this.delay = delay;
     this.pendingTimer = null;
     this.pendingSources = null;
+    this.disabled = false;
   }
 
   load(fallbackSources) {
@@ -36,6 +37,7 @@ export default class BrowserStorage {
   }
 
   flush(sources = this.pendingSources) {
+    if (this.disabled) return false;
     if (this.pendingTimer !== null) {
       window.clearTimeout(this.pendingTimer);
       this.pendingTimer = null;
@@ -59,5 +61,44 @@ export default class BrowserStorage {
       this.onStatus("Browser save failed", "error");
       return false;
     }
+  }
+
+  clearProjectData() {
+    this.disabled = true;
+    if (this.pendingTimer !== null) {
+      window.clearTimeout(this.pendingTimer);
+      this.pendingTimer = null;
+    }
+    this.pendingSources = null;
+
+    let removedCookies = 0;
+    const cookieNames = document.cookie
+      .split(";")
+      .map(cookie => cookie.trim().split("=")[0])
+      .filter(Boolean);
+    const pathParts = window.location.pathname.split("/").filter(Boolean);
+    const paths = ["/"];
+    let currentPath = "";
+    for (const part of pathParts) {
+      currentPath += "/" + part;
+      paths.push(currentPath, currentPath + "/");
+    }
+    for (const name of new Set(cookieNames)) {
+      for (const path of new Set(paths)) {
+        document.cookie = name + "=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + path + "; SameSite=Lax";
+      }
+      removedCookies += 1;
+    }
+
+    let removedStorage = false;
+    try {
+      removedStorage = window.localStorage.getItem(STORAGE_KEY) !== null;
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch (error) {
+      this.onStatus("Browser data could not be fully cleared", "error");
+      return { removedCookies, removedStorage, error: true };
+    }
+    this.onStatus("Project browser data cleared", "saved");
+    return { removedCookies, removedStorage, error: false };
   }
 }
