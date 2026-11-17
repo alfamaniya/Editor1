@@ -124,6 +124,7 @@ export class SyntaxHighlighter {
 
       if (start > cursor) {
         fragment.appendChild(ownerDocument.createTextNode(source.slice(cursor, start)));
+        cursor = start;
       }
 
       if (end > start) {
