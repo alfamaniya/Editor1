@@ -56,8 +56,8 @@ export function tokenizeHTML(input) {
         add("equals", i, ++i);
         const ws3 = i; while (i < source.length && isSpace(source[i])) i++; add("whitespace", ws3, i);
         if (source[i] === '"' || source[i] === "'") {
-          const quote = source[i++]; while (i < source.length && source[i] !== quote) i++;
-          if (i < source.length) i++; add("attribute-value", ws3 === i ? i : (source[i - 1] === quote ? source.lastIndexOf(quote, i - 1) : i), i);
+          const valueStart = i, quote = source[i++]; while (i < source.length && source[i] !== quote) i++;
+          if (i < source.length) i++; add("attribute-value", valueStart, i);
         } else {
           const vs = i; while (i < source.length && !isSpace(source[i]) && source[i] !== ">" && !(source[i] === "/" && source[i + 1] === ">")) i++;
           add("attribute-value", vs, i);
@@ -136,6 +136,7 @@ export class HTMLParser {
           const match = re.exec(source), rawEnd = match ? match.index : source.length;
           if (rawEnd > end) element.children.push({ type: "Text", value: source.slice(end, rawEnd), start: end, end: rawEnd, raw: true });
           if (match) {
+            while (i < tokens.length && tokens[i].start < match.index) tokens.splice(i, 1);
             const close = tokenizeHTML(source.slice(match.index, match.index + match[0].length));
             tokens.splice(i, 0, ...close.map(x => ({ ...x, start: x.start + match.index, end: x.end + match.index })));
           } else errors.push({ code: "UNCLOSED_RAW_TEXT_ELEMENT", message: `Element <${name}> has no closing tag.`, start: t.start, end: source.length });
