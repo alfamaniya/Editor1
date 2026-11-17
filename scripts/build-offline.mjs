@@ -165,7 +165,6 @@ async function main() {
     "core/workspace-divider/workspace-divider.html",
     "core/workspace-divider/workspace-divider.css",
     "core/workspace-divider/workspace-divider.js",
-  shell = shell.replace(/\s*<script\b[^>]*mobile-workspace\.js["'][^>]*>\s*<\/script>/i, "");
     "core/editor/editor.html", "core/editor/editor.css", "core/editor/editor.js",
     "core/preview/preview.html", "core/preview/preview.css", "core/preview/preview.js",
     "alfacode/src"
@@ -218,6 +217,7 @@ async function main() {
   shell = shell.replace(/\s*<link\b[^>]*href="[^"]*style\.css"[^>]*>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*header\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*workspace-divider\.js["'][^>]*>\s*<\/script>/i, "");
+  shell = shell.replace(/\s*<script\b[^>]*mobile-workspace\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*src=["'][^"']*script\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace("</head>", "<style>\n" + rootCss + "\n</style>\n</head>");
 
