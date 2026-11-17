@@ -37,7 +37,7 @@ function readIdentifier(source, index) {
 const NUMBER = /^(?:0[xX][\da-fA-F](?:_?[\da-fA-F])*n?|0[bB][01](?:_?[01])*n?|0[oO][0-7](?:_?[0-7])*n?|(?:\d(?:_?\d)*)?\.?\d(?:_?\d)*(?:[eE][+-]?\d(?:_?\d)*)?n?)/;
 const OPEN = new Map([["(",")"],["[","]"],["{","}"]]);
 const CLOSE = new Map([[")","("],["]","["],["}","{"]]);
-const TRIVIA = new Set(["whitespace","line-comment","block-comment"]);
+const TRIVIA = new Set(["whitespace","line-comment","block-comment","invalid-comment"]);
 const isTrivia = token => TRIVIA.has(token.type);
 
 function regexMayStart(previous) {
@@ -100,7 +100,7 @@ export function tokenizeJavaScript(input) {
     if (source.startsWith("/*", i)) {
       const close = source.indexOf("*/", i + 2);
       i = close < 0 ? source.length : close + 2;
-      add("block-comment", start, i); continue;
+      add(close < 0 ? "invalid-comment" : "block-comment", start, i); continue;
     }
     if (char === "'" || char === '"') {
       const result = scanQuoted(source, i, char);
@@ -380,7 +380,8 @@ export class JavaScriptParser {
 
     const parseModule = () => {
       const from = i, exported = is("export"); i++;
-      if (exported && is("default")) {
+      const isDefault = exported && is("default");
+      if (isDefault) {
         i++;
         if (is("function") || (is("async") && sig[i+1]?.value === "function")) {
           const declaration = parseFunction(false);
@@ -392,7 +393,8 @@ export class JavaScriptParser {
         }
       }
       const consumed = consumeStatement();
-      return make(exported?"ExportDeclaration":"ImportDeclaration",from,consumed.to,{raw:raw(from,consumed.to).replace(/;$/,"").trim()});
+      const type = exported ? (isDefault ? "ExportDefaultDeclaration" : "ExportDeclaration") : "ImportDeclaration";
+      return make(type,from,consumed.to,{raw:raw(from,consumed.to).replace(/;$/,"").trim()});
     };
 
     const parseStatement = () => {
