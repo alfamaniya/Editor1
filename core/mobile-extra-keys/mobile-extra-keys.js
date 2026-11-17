@@ -93,7 +93,8 @@ export class MobileExtraKeys extends HTMLElement {
   }
 
   updateVisibility() {
-    const mobile = window.matchMedia("(max-width: 700px)").matches;
+    const mobile = window.matchMedia("(max-width: 700px)").matches ||
+      window.matchMedia("(pointer: coarse) and (max-height: 1000px)").matches;
     const viewport = window.visualViewport;
     const visibleHeight = Math.min(window.innerHeight, viewport?.height ?? window.innerHeight);
     const keyboardOpen = this.baselineHeight - visibleHeight > 100;
