@@ -37,7 +37,7 @@ AlfaCode یک موتور ویرایشگر کد مستقل و ماژولار اس
 
 ## وضعیت فعلی
 
-اسکلت ساختار ایجاد شده و چهارده مرحله نخست نقشه راه پیاده‌سازی شده‌اند: مدل سند در `src/core/document.js`، وضعیت ویرایشگر در `src/core/editor-state.js`، انتخاب متن در `src/core/selection.js`، تراکنش‌ها در `src/core/transaction.js`، تاریخچه تغییرات در `src/core/history.js` و رابط مرکزی موتور در `src/core/editor.js`، و لایه دریافت ورودی در `src/input/`، سیستم نمایش متن و مکان‌نما در `src/rendering/`، تحلیلگرهای HTML، CSS و JavaScript در `src/language/` و ماژول رنگ‌بندی نحوی در `src/features/syntax-highlighting/`.
+اسکلت ساختار ایجاد شده و چهارده مرحله نخست نقشه راه پیاده‌سازی شده‌اند: مدل سند در `src/core/document.js`، وضعیت ویرایشگر در `src/core/editor-state.js`، انتخاب متن در `src/core/selection.js`، تراکنش‌ها در `src/core/transaction.js`، تاریخچه تغییرات در `src/core/history.js` و رابط مرکزی موتور در `src/core/editor.js`، و لایه دریافت ورودی در `src/input/`، سیستم نمایش متن و مکان‌نما در `src/rendering/`، تحلیلگرهای HTML، CSS و JavaScript در `src/language/`، ماژول رنگ‌بندی نحوی در `src/features/syntax-highlighting/`، شماره‌گذاری خطوط در `src/features/line-numbers/` و تطبیق پرانتزها در `src/features/bracket-matching/`.
 
 ## مدل سند (Document)
 
