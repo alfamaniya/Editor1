@@ -66,6 +66,7 @@ const PHRASING_TAGS = new Set([
 ]);
 
 const CONTEXT_TAGS = Object.freeze({
+  html: ["head", "body"],
   list: ["li"],
   dl: ["dt", "dd", "div"],
   table: ["caption", "colgroup", "thead", "tbody", "tfoot"],
