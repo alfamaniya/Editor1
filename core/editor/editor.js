@@ -224,7 +224,6 @@ languageSelect.addEventListener("change", () => {
   activeLanguage = languages.setActive(languageSelect.value);
   renderEditor();
 });
-document.addEventListener("selectionchange", syncSelectionFromDOM);
 
 renderEditor();
 view.focus();
