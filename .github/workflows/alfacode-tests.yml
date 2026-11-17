@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - "alfacode/src/**"
+      - "core/editor/**"
+      - "core/preview/**"
+      - "script.js"
       - "alfacode/tests/**"
       - ".github/workflows/alfacode-tests.yml"
   pull_request:
@@ -24,5 +27,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Check integration JavaScript syntax
+        run: node --experimental-default-type=module --check core/editor/editor.js && node --check core/preview/preview.js && node --check script.js
       - name: Run AlfaCode tests
         run: node --experimental-default-type=module --test alfacode/tests/alfacode.test.mjs
