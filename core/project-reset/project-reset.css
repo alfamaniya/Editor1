@@ -3,4 +3,4 @@
 .header-action:hover { background: #2a3a50; }
 .header-action:focus-visible { outline: .15em solid #72a7f8; outline-offset: .12em; }
 .header-action span:first-child { color: #8db7f6; font-size: 1.25em; }
-@media (max-width: 700px) { .header-action { width: 44px; height: 44px; min-height: 44px; padding: 0; font-size: 20px; } .action-label { display: none; } }
+@media (max-width: 700px), (pointer: coarse) and (max-height: 1000px) { .header-action { width: 44px; height: 44px; min-height: 44px; padding: 0; font-size: 20px; } .action-label { display: none; } }
