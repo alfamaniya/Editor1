@@ -378,7 +378,7 @@ test("HTML chained completion offers child tags and a jump to the existing close
 
 test("HTML completion validates offsets and identifies void elements", () => {
   assert.throws(() => getHTMLTagSuggestions("<", 2), RangeError);
-  const source = "<im";
+  const source = "<body><im";
   const result = getHTMLTagSuggestions(source, source.length);
   assert.equal(result.options[0].label, "img");
   assert.equal(result.options[0].isVoid, true);
