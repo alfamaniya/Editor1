@@ -138,7 +138,7 @@ class OfflineMobileWorkspace extends HTMLElement {
   setView(view) {
     if (view !== "editor" && view !== "preview") return;
     document.body.dataset.mobileView = view;
-    for (const button of root.querySelectorAll("button[data-view]")) {
+    for (const button of this.shadowRoot.querySelectorAll("button[data-view]")) {
       const active = button.dataset.view === view;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", String(active));
