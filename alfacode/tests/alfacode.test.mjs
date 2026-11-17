@@ -341,7 +341,7 @@ test("HTML completion filters by prefix and respects head context", () => {
 });
 
 test("HTML completion suggests only currently open closing tags", () => {
-  const source = "<main><section><div></di";
+  const source = "<main><section><div></";
   const result = getHTMLTagSuggestions(source, source.length);
   assert.equal(result.mode, "close");
   assert.deepEqual(result.options.map(item => item.label), ["div", "section", "main"]);
