@@ -16,21 +16,20 @@
 * { box-sizing: border-box; }
 .extra-keys { display: grid; gap: 0.35rem; width: 100%; }
 .key-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 0.3rem;
   width: 100%;
   min-width: 0;
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
 }
-.key-row::-webkit-scrollbar { display: none; }
 .key-row button {
-  flex: 1 0 2.35rem;
-  min-width: 2.35rem;
-  min-height: 2.45rem;
-  padding: 0.25rem 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0.25rem 0.15rem;
   border: 1px solid #40516a;
   border-radius: 0.4rem;
   background: #28374b;
@@ -42,5 +41,4 @@
 }
 .key-row button:active { background: #36547a; border-color: #72a7f8; }
 .key-row button:focus-visible { outline: 2px solid #72a7f8; outline-offset: 1px; }
-.key-row--language button { flex-basis: 2.6rem; }
 @media (min-width: 701px) and (pointer: fine) { :host { display: none !important; } }
