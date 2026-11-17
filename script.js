@@ -29,9 +29,11 @@
 
   function setDividerPosition(clientX) {
     const bounds = workspace.getBoundingClientRect();
-    const minimum = Math.min(220, bounds.width * 0.2);
-    const usableWidth = bounds.width - 6;
-    const editorWidth = Math.max(minimum, Math.min(usableWidth - minimum, clientX - bounds.left));
+    const totalWidth = Math.max(workspace.clientWidth, workspace.scrollWidth);
+    const minimum = Math.min(220, totalWidth * 0.2);
+    const usableWidth = totalWidth - 6;
+    const localX = clientX - bounds.left + workspace.scrollLeft;
+    const editorWidth = Math.max(minimum, Math.min(usableWidth - minimum, localX));
     const ratio = editorWidth / usableWidth;
     workspace.style.gridTemplateColumns = `minmax(${minimum}px, ${ratio}fr) 6px minmax(${minimum}px, ${1 - ratio}fr)`;
     divider.setAttribute("aria-valuenow", String(Math.round(ratio * 100)));
@@ -53,8 +55,9 @@
     if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
     event.preventDefault();
     const bounds = workspace.getBoundingClientRect();
+    const totalWidth = Math.max(workspace.clientWidth, workspace.scrollWidth);
     const current = Number(divider.getAttribute("aria-valuenow")) || 50;
     const next = Math.max(20, Math.min(80, current + (event.key === "ArrowRight" ? 2 : -2)));
-    setDividerPosition(bounds.left + (bounds.width - 6) * next / 100);
+    setDividerPosition(bounds.left - workspace.scrollLeft + (totalWidth - 6) * next / 100);
   });
 })();
