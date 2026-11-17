@@ -22,12 +22,12 @@ function injectBeforeBodyEnd(html, fragment) {
   return html + fragment;
 }
 
-function inlineEditorDocument(template, styles, bundle, tagSuggestionsTemplate, extraKeysTemplate, extraKeysCss) {
+function inlineEditorDocument(template, styles, bundle, tagSuggestionsTemplate) {
   let html = template;
   html = html.replace(/\s*<link\b[^>]*href=["'][^"']+["'][^>]*>/gi, "");
   html = html.replace(/\s*<script\b[^>]*src=["'][^"']*editor\.js["'][^>]*>\s*<\/script>/i, "");
   html = html.replace("</head>", "<style>\n" + styles + "\n</style>\n</head>");
-  const templateBootstrap = "<script>window.__ALFACODE_TAG_SUGGESTIONS_TEMPLATE__ = " + JSON.stringify(tagSuggestionsTemplate) + "; window.__ALFACODE_EXTRA_KEYS_ASSETS__ = { html: " + JSON.stringify(extraKeysTemplate) + ", css: " + JSON.stringify(extraKeysCss) + " };</script>";
+  const templateBootstrap = "<script>window.__ALFACODE_TAG_SUGGESTIONS_TEMPLATE__ = " + JSON.stringify(tagSuggestionsTemplate) + ";</script>";
   html = injectBeforeBodyEnd(html, templateBootstrap + "<script>\n" + escapeScript(bundle) + "\n</script>");
   return html;
 }
@@ -242,11 +242,9 @@ async function main() {
   const extraKeysCss = await read("core/mobile-extra-keys/mobile-extra-keys.css");
   const editorDocument = inlineEditorDocument(
     editorTemplate,
-    [editorCss, tagSuggestionsCss, extraKeysCss, await read("alfacode/src/themes/dark.css"), await read("alfacode/src/themes/light.css")].join("\n"),
+    [editorCss, tagSuggestionsCss, await read("alfacode/src/themes/dark.css"), await read("alfacode/src/themes/light.css")].join("\n"),
     editorBundle,
-    tagSuggestionsTemplate,
-    extraKeysTemplate,
-    extraKeysCss
+    tagSuggestionsTemplate
   );
   const previewDocument = inlinePreviewDocument(previewTemplate, previewCss, previewScript);
 
