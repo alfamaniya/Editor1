@@ -21,8 +21,20 @@
 .header-content { display: flex; flex: 1 1 auto; align-items: center; justify-content: flex-end; gap: 1%; min-width: 0; }
 .header-content slot { display: contents; }
 @media (max-width: 700px) {
-  :host { flex: 0 0 8%; }
-  .header-bar { height: 100%; gap: 2%; padding-inline: 2%; overflow-x: auto; }
-  .brand { font-size: 80%; letter-spacing: 0.08em; }
-  .header-content { flex: 0 0 auto; gap: 1%; }
+  :host { flex: 0 0 56px; }
+  .header-bar {
+    height: 100%;
+    gap: 8px;
+    padding-inline: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .brand { font-size: 12px; letter-spacing: 0.08em; }
+  .header-content {
+    flex: 0 0 auto;
+    gap: 6px;
+    margin-left: auto;
+    min-width: max-content;
+  }
+  .header-content slot { display: contents; }
 }
