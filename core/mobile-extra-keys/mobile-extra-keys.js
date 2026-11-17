@@ -1,4 +1,4 @@
-// Mobile-only coding keys. The editor owns all document mutations.
+// Top-level mobile coding keys. All document changes are delegated to AlfaCode Editor.
 const LANGUAGE_KEYS = {
   html: ["<", ">", "/", "=", "\"", "'", "!", "-", "&", ";", "(", ")"],
   css: ["{", "}", ";", ":", "#", ".", "(", ")", "%", "!", "-", "/"],
@@ -10,14 +10,13 @@ export class MobileExtraKeys extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.activeLanguage = "html";
+    this.editorFocused = false;
+    this.baselineHeight = Math.max(window.innerHeight, window.visualViewport?.height || 0);
     this.onViewportChange = () => this.updateVisibility();
-    this.onFocusChange = () => this.updateVisibility();
-    this.onFocusOut = () => queueMicrotask(() => {
-      if (!document.activeElement?.isContentEditable) this.focusViewportHeight = null;
-      this.updateVisibility();
-    });
-    this.focusViewportHeight = null;
-    this.lastUnobstructedHeight = window.innerHeight;
+    this.onEditorState = event => {
+      const state = event.detail || {};
+      this.setEditorState(state.focused, state.language);
+    };
   }
 
   async connectedCallback() {
@@ -52,24 +51,31 @@ export class MobileExtraKeys extends HTMLElement {
       }));
     });
     this.renderLanguageKeys();
-    this.updateVisibility();
+    this.addEventListener("alfacode:editor-state", this.onEditorState);
     window.visualViewport?.addEventListener("resize", this.onViewportChange);
     window.addEventListener("resize", this.onViewportChange);
-    document.addEventListener("focusin", this.onFocusChange);
-    document.addEventListener("focusout", this.onFocusOut);
+    this.updateVisibility();
   }
 
   disconnectedCallback() {
+    this.removeEventListener("alfacode:editor-state", this.onEditorState);
     window.visualViewport?.removeEventListener("resize", this.onViewportChange);
     window.removeEventListener("resize", this.onViewportChange);
-    document.removeEventListener("focusin", this.onFocusChange);
-    document.removeEventListener("focusout", this.onFocusOut);
   }
 
-  setLanguage(language) {
-    if (!LANGUAGE_KEYS[language] || language === this.activeLanguage) return;
-    this.activeLanguage = language;
-    this.renderLanguageKeys();
+  setEditorState(focused, language = this.activeLanguage) {
+    this.editorFocused = focused === true;
+    if (LANGUAGE_KEYS[language]) {
+      this.activeLanguage = language;
+      this.renderLanguageKeys();
+    }
+    if (!this.editorFocused) {
+      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      if (viewportHeight >= window.innerHeight - 100) {
+        this.baselineHeight = Math.max(window.innerHeight, viewportHeight);
+      }
+    }
+    this.updateVisibility();
   }
 
   renderLanguageKeys() {
@@ -87,26 +93,17 @@ export class MobileExtraKeys extends HTMLElement {
 
   updateVisibility() {
     const mobile = window.matchMedia("(max-width: 700px)").matches;
-    const focused = document.activeElement?.isContentEditable === true;
     const viewport = window.visualViewport;
-    if (focused && this.focusViewportHeight === null) {
-      this.focusViewportHeight = this.lastUnobstructedHeight || window.innerHeight;
-    }
-    if (!focused) {
-      this.focusViewportHeight = null;
-      if (!viewport || viewport.height >= window.innerHeight - 100) {
-        this.lastUnobstructedHeight = window.innerHeight;
-      }
-    }
-    const keyboardOpen = Boolean(
-      viewport && viewport.scale <= 1.01 && this.focusViewportHeight !== null &&
-      this.focusViewportHeight - viewport.height > 110
-    );
+    const visibleHeight = Math.min(window.innerHeight, viewport?.height ?? window.innerHeight);
+    const keyboardOpen = this.baselineHeight - visibleHeight > 100;
     const viewportBottom = viewport
       ? Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop)
       : 0;
     this.style.setProperty("--extra-keys-viewport-bottom", viewportBottom + "px");
-    this.dataset.visible = String(mobile && focused && keyboardOpen);
+    this.dataset.visible = String(mobile && this.editorFocused && keyboardOpen);
+    if (!this.editorFocused && !keyboardOpen) {
+      this.baselineHeight = Math.max(this.baselineHeight, window.innerHeight, viewport?.height || 0);
+    }
   }
 }
 
