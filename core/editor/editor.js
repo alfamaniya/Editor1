@@ -165,6 +165,7 @@ function renderEditor() {
     const activeLine = editor.document.getPositionAt(editor.selection.head).line;
     gutterHost.replaceChildren(lineNumbers.render(editor.document, document, activeLine));
     view.render();
+    restoreDOMSelection(editor.selection.anchor, editor.selection.head);
   } catch (error) {
     status.textContent = "Render error: " + error.message;
     console.error(error);
@@ -199,12 +200,61 @@ function syncSelectionFromDOM(shouldRender = true) {
     const anchor = getDocumentOffsetFromDOMPoint(selection.anchorNode, selection.anchorOffset);
     const head = getDocumentOffsetFromDOMPoint(selection.focusNode, selection.focusOffset);
     if (anchor === null || head === null) return false;
+    const previous = editor.selection;
+    const changed = previous.anchor !== anchor || previous.head !== head;
+    if (!changed) return false;
     editor.setSelection({ anchor, head });
     if (shouldRender) renderEditor();
     return true;
   } catch {
     // Ignore transient browser selections while the rendered DOM is changing.
     return false;
+  }
+}
+
+// Rebuilds the browser selection from model offsets after a render replaces
+// the line DOM. This keeps the native caret aligned with the model caret.
+function getDOMPointFromDocumentOffset(offset) {
+  const position = editor.document.getPositionAt(offset);
+  const line = viewElement.querySelector(`.alfacode-line[data-line="${position.line}"]`);
+  const content = line?.querySelector(".alfacode-line-content");
+  if (!content) return null;
+
+  let remaining = position.column - 1;
+  const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+  let node;
+  let last = null;
+  while ((node = walker.nextNode())) {
+    last = node;
+    if (remaining <= node.data.length) return { node, offset: remaining };
+    remaining -= node.data.length;
+  }
+  if (last) return { node: last, offset: last.data.length };
+  return { node: content, offset: 0 };
+}
+
+function restoreDOMSelection(anchor, head) {
+  const browserSelection = window.getSelection();
+  if (!browserSelection) return;
+  const anchorPoint = getDOMPointFromDocumentOffset(anchor);
+  const headPoint = getDOMPointFromDocumentOffset(head);
+  if (!anchorPoint || !headPoint) return;
+
+  try {
+    if (typeof browserSelection.setBaseAndExtent === "function") {
+      browserSelection.setBaseAndExtent(
+        anchorPoint.node, anchorPoint.offset,
+        headPoint.node, headPoint.offset
+      );
+    } else {
+      const range = document.createRange();
+      range.setStart(anchorPoint.node, anchorPoint.offset);
+      range.setEnd(headPoint.node, headPoint.offset);
+      browserSelection.removeAllRanges();
+      browserSelection.addRange(range);
+    }
+  } catch {
+    // A transient browser DOM state must not interrupt editor input.
   }
 }
 
@@ -226,10 +276,18 @@ viewElement.addEventListener("beforeinput", event => {
 // Browser selection can change through touch handles without a reliable pointerup.
 // Synchronize the model without rendering during selectionchange.
 document.addEventListener("selectionchange", () => {
-  syncSelectionFromDOM(false);
+  // A click or touch selection moves the native caret. Update the model and
+  // redraw the visual caret only when the model position actually changed.
+  if (syncSelectionFromDOM(false)) renderEditor();
 });
-viewElement.addEventListener("keyup", syncSelectionFromDOM);
-viewElement.addEventListener("pointerup", () => queueMicrotask(syncSelectionFromDOM));
+viewElement.addEventListener("keyup", () => {
+  if (syncSelectionFromDOM(false)) renderEditor();
+});
+viewElement.addEventListener("pointerup", () => {
+  queueMicrotask(() => {
+    if (syncSelectionFromDOM(false)) renderEditor();
+  });
+});
 viewElement.addEventListener("cut", () => queueMicrotask(renderEditor));
 viewElement.addEventListener("paste", () => queueMicrotask(renderEditor));
 viewElement.addEventListener("compositionstart", () => {
