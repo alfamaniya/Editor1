@@ -12,6 +12,11 @@ export class MobileExtraKeys extends HTMLElement {
     this.activeLanguage = "html";
     this.onViewportChange = () => this.updateVisibility();
     this.onFocusChange = () => this.updateVisibility();
+    this.onFocusOut = () => queueMicrotask(() => {
+      if (!document.activeElement?.isContentEditable) this.focusViewportHeight = null;
+      this.updateVisibility();
+    });
+    this.focusViewportHeight = null;
   }
 
   async connectedCallback() {
@@ -50,13 +55,14 @@ export class MobileExtraKeys extends HTMLElement {
     window.visualViewport?.addEventListener("resize", this.onViewportChange);
     window.addEventListener("resize", this.onViewportChange);
     document.addEventListener("focusin", this.onFocusChange);
-    document.addEventListener("focusout", () => queueMicrotask(this.onFocusChange));
+    document.addEventListener("focusout", this.onFocusOut);
   }
 
   disconnectedCallback() {
     window.visualViewport?.removeEventListener("resize", this.onViewportChange);
     window.removeEventListener("resize", this.onViewportChange);
     document.removeEventListener("focusin", this.onFocusChange);
+    document.removeEventListener("focusout", this.onFocusOut);
   }
 
   setLanguage(language) {
@@ -82,10 +88,16 @@ export class MobileExtraKeys extends HTMLElement {
     const mobile = window.matchMedia("(max-width: 700px)").matches;
     const focused = document.activeElement?.isContentEditable === true;
     const viewport = window.visualViewport;
+    if (focused && this.focusViewportHeight === null) this.focusViewportHeight = window.innerHeight;
+    if (!focused) this.focusViewportHeight = null;
     const keyboardOpen = Boolean(
-      viewport && viewport.scale <= 1.01 &&
-      window.innerHeight - viewport.height > 110
+      viewport && viewport.scale <= 1.01 && this.focusViewportHeight !== null &&
+      this.focusViewportHeight - viewport.height > 110
     );
+    const viewportBottom = viewport
+      ? Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop)
+      : 0;
+    this.style.setProperty("--extra-keys-viewport-bottom", viewportBottom + "px");
     this.dataset.visible = String(mobile && focused && keyboardOpen);
   }
 }
