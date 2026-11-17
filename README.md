@@ -91,10 +91,18 @@ Editor1/
 │   │   ├── editor.css
 │   │   ├── editor.html
 │   │   └── editor.js
-│   └── preview/
-│       ├── preview.css
-│       ├── preview.html
-│       └── preview.js
+│   ├── header/
+│   │   ├── header.css
+│   │   ├── header.html
+│   │   └── header.js
+│   ├── preview/
+│   │   ├── preview.css
+│   │   ├── preview.html
+│   │   └── preview.js
+│   └── workspace-divider/
+│       ├── workspace-divider.css
+│       ├── workspace-divider.html
+│       └── workspace-divider.js
 ├── index.html
 ├── README.md
 ├── script.js
@@ -264,4 +272,4 @@ node --experimental-default-type=module --test alfacode/tests/alfacode.test.mjs
 - جداکننده عمودی میان دو پنل با ماوس، لمس و کلیدهای جهت‌دار قابل جابه‌جایی است.
 - پنل خروجی فقط محتوای پیش‌نمایش را نشان می‌دهد و هدر یا نوار ابزار داخلی ندارد.
 - ویرایشگر سه تب مستقل HTML، CSS و JavaScript دارد؛ محتوای هر تب هنگام جابه‌جایی حفظ می‌شود.
-- تغییرات این رابط در فایل‌های اصلی و پوشه‌های core/editor و core/preview انجام شده و معماری مستقل هسته AlfaCode حفظ شده است.
+- تب‌های زبان در `core/editor/` و خروجی زنده در `core/preview/` نگهداری می‌شوند. پیش‌نمایش، محتوای سه تب را با هم ترکیب می‌کند تا CSS روی HTML اعمال شود و JavaScript نیز در همان خروجی اجرا شود.\n- گردش‌کار CI اکنون بررسی نحوی فایل‌های هدر و تقسیم‌کننده را نیز انجام می‌دهد.
