@@ -13,6 +13,7 @@ import ThemeManager from "../../alfacode/src/themes/theme-manager.js";
 import BrowserStorage from "../browser-storage/browser-storage.js";
 import { getHTMLTagSuggestions } from "../../alfacode/src/language/html/html-completion.js";
 import { createTagSuggestions } from "../tag-suggestions/tag-suggestions.js";
+import "../mobile-extra-keys/mobile-extra-keys.js";
 
 const initialSources = {
   html: `<!DOCTYPE html>
@@ -116,6 +117,7 @@ button.addEventListener("click", () => {
 
 const host = document.getElementById("editor-host");
 const tabs = [...document.querySelectorAll(".editor-tab")];
+const mobileExtraKeys = document.querySelector("mobile-extra-keys");
 const status = document.getElementById("editor-status");
 const storageStatus = document.getElementById("storage-status");
 const browserStorage = new BrowserStorage({
@@ -512,6 +514,7 @@ tabs.forEach(tab => {
     if (!nextLanguage || nextLanguage === activeLanguage.id) return;
     sources[activeLanguage.id] = editor.text;
     activeLanguage = languages.setActive(nextLanguage);
+    mobileExtraKeys?.setLanguage(nextLanguage);
     editor.setDocument(sources[nextLanguage]);
     tabs.forEach(item => {
       const selected = item === tab;
@@ -524,6 +527,27 @@ tabs.forEach(tab => {
 });
 
 renderEditor();
+mobileExtraKeys?.addEventListener("alfacode:extra-key", event => {
+  const key = event.detail?.key;
+  if (typeof key !== "string" || !key) return;
+  syncSelectionFromDOM(false);
+  if (["Tab", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Backspace"].includes(key)) {
+    viewElement.dispatchEvent(new KeyboardEvent("keydown", {
+      key, bubbles: true, cancelable: true
+    }));
+    queueMicrotask(renderEditor);
+    view.focus();
+    return;
+  }
+  const pairs = { "(": ")", "[": "]", "{": "}", "\"": "\"", "'": "'" };
+  const selection = editor.selection;
+  const closing = pairs[key];
+  const insertion = closing ? key + closing : key;
+  editor.transact(transaction => transaction.replace(selection.from, selection.to, insertion));
+  editor.moveTo(selection.from + key.length);
+  renderEditor();
+  view.focus();
+});
 window.addEventListener("pagehide", () => browserStorage.flush(sources));
 view.focus();
 
