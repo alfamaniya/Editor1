@@ -54,23 +54,6 @@ customElements.define("app-header", OfflineAppHeader);
 `;
 }
 
-function makeHeaderActionComponent(tagName, markup, stylesheet, action, confirmation) {
-  return `
-class ${tagName.replace(/(^|-)([a-z])/g, (_, dash, letter) => letter.toUpperCase())} extends HTMLElement {
-  connectedCallback() {
-    if (this.shadowRoot) return;
-    const root = this.attachShadow({ mode: "open" });
-    root.innerHTML = "<style>" + ${JSON.stringify(stylesheet)} + "</style>" + ${JSON.stringify(markup)};
-    root.querySelector("button")?.addEventListener("click", () => {
-      if (!window.confirm(${JSON.stringify(confirmation)})) return;
-      document.dispatchEvent(new CustomEvent("alfacode:header-action", { detail: { action: ${JSON.stringify(action)} } }));
-    });
-  }
-}
-customElements.define(${JSON.stringify(tagName)}, ${tagName.replace(/(^|-)([a-z])/g, (_, dash, letter) => letter.toUpperCase())});
-`;
-}
-
 function makeDividerComponent(markup, stylesheet) {
   return `
 class OfflineWorkspaceDivider extends HTMLElement {
@@ -261,9 +244,14 @@ async function main() {
   const bootstrap = `
 (() => {
   ${makeHeaderComponent(headerMarkup, headerCss)}
-  ${makeHeaderActionComponent("clear-tabs-action", clearTabsMarkup, clearTabsCss, "clear-tabs", "Clear the contents of all HTML, CSS, and JavaScript tabs? This cannot be undone.")}
-  ${makeHeaderActionComponent("project-reset-action", projectResetMarkup, projectResetCss, "project-reset", "Reset the entire project to the original AlfaCode starter example? Your current code will be replaced.")}
-  ${makeHeaderActionComponent("clear-project-cookies-action", clearBrowserDataMarkup, clearBrowserDataCss, "clear-project-cookies", "Clear cookies and saved AlfaCode project data for this website only? Other websites will not be affected. The editor will reload with the starter example.")}
+  window.__ALFACODE_ACTION_ASSETS__ = {
+    "clear-tabs": { html: ${JSON.stringify(clearTabsMarkup)}, css: ${JSON.stringify(clearTabsCss)} },
+    "project-reset": { html: ${JSON.stringify(projectResetMarkup)}, css: ${JSON.stringify(projectResetCss)} },
+    "clear-project-cookies": { html: ${JSON.stringify(clearBrowserDataMarkup)}, css: ${JSON.stringify(clearBrowserDataCss)} }
+  };
+  ${clearTabsModule}
+  ${projectResetModule}
+  ${clearBrowserDataModule}
   ${makeDividerComponent(dividerMarkup, dividerCss)}
   ${makeMobileWorkspaceComponent(mobileMarkup, mobileCss)}
   const editorFrame = document.querySelector(".editor-panel .section-frame");
