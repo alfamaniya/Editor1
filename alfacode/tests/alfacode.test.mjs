@@ -1,4 +1,5 @@
 import test from "node:test";
+import { getHTMLTagSuggestions } from "../src/language/html/html-completion.js";
 import assert from "node:assert/strict";
 
 import Document from "../src/core/document.js";
@@ -316,4 +317,68 @@ test("ThemeManager validates custom themes and rejects unknown ids", () => {
   assert.equal(manager.get("contrast").className, "alfacode-theme-contrast");
   assert.throws(() => manager.setTheme("unknown"), RangeError);
   assert.throws(() => manager.register({ id: "bad id" }), TypeError);
+});
+
+
+test("HTML completion ranks common tags and limits the menu to ten entries", () => {
+  const result = getHTMLTagSuggestions("<", 1);
+  assert.equal(result.mode, "open");
+  assert.equal(result.options.length, 10);
+  assert.deepEqual(result.options.slice(0, 7).map(item => item.label),
+    ["div", "a", "span", "li", "script", "img", "p"]);
+  assert.equal(result.options.some(item => item.label === "link" || item.label === "meta"), false);
+});
+
+test("HTML completion filters by prefix and respects head context", () => {
+  const body = "<body><me";
+  const bodyResult = getHTMLTagSuggestions(body, body.length);
+  assert.equal(bodyResult, null);
+
+  const head = "<html><head><me";
+  const headResult = getHTMLTagSuggestions(head, head.length);
+  assert.deepEqual(headResult.options.map(item => item.label), ["meta"]);
+});
+
+test("HTML completion suggests only currently open closing tags", () => {
+  const source = "<main><section><div></di";
+  const result = getHTMLTagSuggestions(source, source.length);
+  assert.equal(result.mode, "close");
+  assert.deepEqual(result.options.map(item => item.label), ["div", "section", "main"]);
+});
+
+test("HTML completion does not activate inside comments, attributes or raw text", () => {
+  const samples = [
+    "<!-- <di",
+    '<div title="<di',
+    "<script>const sample = '<di"
+  ];
+  for (const source of samples) {
+    assert.equal(getHTMLTagSuggestions(source, source.length), null, source);
+  }
+});
+
+test("HTML completion offers contextual list and table children", () => {
+  const list = getHTMLTagSuggestions("<ul><", 5);
+  assert.deepEqual(list.options.map(item => item.label), ["li"]);
+
+  const row = getHTMLTagSuggestions("<table><tbody><tr><", 19);
+  assert.deepEqual(row.options.map(item => item.label), ["td", "th"]);
+});
+
+test("HTML chained completion offers child tags and a jump to the existing close tag", () => {
+  const source = "<div></div>";
+  const result = getHTMLTagSuggestions(source, 5, { chain: true });
+  assert.equal(result.mode, "chain");
+  assert.equal(result.options.length, 10);
+  assert.equal(result.options[0].kind, "child");
+  assert.equal(result.options.at(-1).kind, "jump-close");
+  assert.equal(result.options.at(-1).closeTo, source.length);
+});
+
+test("HTML completion validates offsets and identifies void elements", () => {
+  assert.throws(() => getHTMLTagSuggestions("<", 2), RangeError);
+  const source = "<im";
+  const result = getHTMLTagSuggestions(source, source.length);
+  assert.equal(result.options[0].label, "img");
+  assert.equal(result.options[0].isVoid, true);
 });
