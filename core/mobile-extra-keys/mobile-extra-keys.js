@@ -17,6 +17,7 @@ export class MobileExtraKeys extends HTMLElement {
       this.updateVisibility();
     });
     this.focusViewportHeight = null;
+    this.lastUnobstructedHeight = window.innerHeight;
   }
 
   async connectedCallback() {
@@ -88,8 +89,15 @@ export class MobileExtraKeys extends HTMLElement {
     const mobile = window.matchMedia("(max-width: 700px)").matches;
     const focused = document.activeElement?.isContentEditable === true;
     const viewport = window.visualViewport;
-    if (focused && this.focusViewportHeight === null) this.focusViewportHeight = window.innerHeight;
-    if (!focused) this.focusViewportHeight = null;
+    if (focused && this.focusViewportHeight === null) {
+      this.focusViewportHeight = this.lastUnobstructedHeight || window.innerHeight;
+    }
+    if (!focused) {
+      this.focusViewportHeight = null;
+      if (!viewport || viewport.height >= window.innerHeight - 100) {
+        this.lastUnobstructedHeight = window.innerHeight;
+      }
+    }
     const keyboardOpen = Boolean(
       viewport && viewport.scale <= 1.01 && this.focusViewportHeight !== null &&
       this.focusViewportHeight - viewport.height > 110
