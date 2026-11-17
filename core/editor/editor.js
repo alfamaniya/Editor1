@@ -569,6 +569,7 @@ window.addEventListener("message", event => {
   if (command.action === "project-reset") {
     for (const key of Object.keys(initialSources)) sources[key] = initialSources[key];
     activeLanguage = languages.setActive("html");
+    mobileExtraKeys?.setLanguage("html");
     tabs.forEach(tab => {
       const selected = tab.dataset.language === "html";
       tab.classList.toggle("is-active", selected);
