@@ -46,12 +46,11 @@ class OfflineAppHeader extends HTMLElement {
   connectedCallback() {
     if (this.shadowRoot) return;
     const root = this.attachShadow({ mode: "open" });
-    root.innerHTML = \`<style>${${JSON.stringify(stylesheet)}}</style>${${JSON.stringify(markup)}}\`;
+    root.innerHTML = "<style>" + ${JSON.stringify(stylesheet)} + "</style>" + ${JSON.stringify(markup)};
   }
 }
 customElements.define("app-header", OfflineAppHeader);
-`.replace("${${JSON.stringify(stylesheet)}}", "${JSON.stringify(stylesheet)}")
- .replace("${${JSON.stringify(markup)}}", "${JSON.stringify(markup)}");
+`;
 }
 
 function makeDividerComponent(markup, stylesheet) {
@@ -60,7 +59,7 @@ class OfflineWorkspaceDivider extends HTMLElement {
   connectedCallback() {
     if (this.shadowRoot) return;
     const root = this.attachShadow({ mode: "open" });
-    root.innerHTML = \`<style>${${JSON.stringify(stylesheet)}}</style>${${JSON.stringify(markup)}}\`;
+    root.innerHTML = "<style>" + ${JSON.stringify(stylesheet)} + "</style>" + ${JSON.stringify(markup)};
     this.setAttribute("role", "separator");
     this.setAttribute("aria-label", "Resize editor and preview panels");
     this.setAttribute("aria-orientation", "vertical");
@@ -86,8 +85,7 @@ class OfflineWorkspaceDivider extends HTMLElement {
       event.preventDefault();
       const workspace = this.closest(".workspace");
       if (!workspace) return;
-      const total = Math.max(workspace.clientWidth, workspace.scrollWidth);
-      const usable = total - 6;
+      const usable = Math.max(workspace.clientWidth, workspace.scrollWidth) - 6;
       const minimum = Math.min(220, usable / 2);
       const current = Number(this.getAttribute("aria-valuenow")) || 50;
       const next = Math.max(minimum, Math.min(usable - minimum,
@@ -106,12 +104,11 @@ class OfflineWorkspaceDivider extends HTMLElement {
     const bounds = workspace.getBoundingClientRect();
     const usable = Math.max(workspace.clientWidth, workspace.scrollWidth) - 6;
     const minimum = Math.min(220, usable / 2);
-    const left = Math.max(minimum, Math.min(usable - minimum,
-      clientX - bounds.left + workspace.scrollLeft));
+    const left = Math.max(minimum, Math.min(usable - minimum, clientX - bounds.left + workspace.scrollLeft));
     this.apply(workspace, left, usable - left);
   }
   apply(workspace, left, right) {
-    workspace.style.gridTemplateColumns = `${left}px 6px ${right}px`;
+    workspace.style.gridTemplateColumns = left + "px 6px " + right + "px";
     const total = left + right;
     const minPercent = total ? Math.ceil(Math.min(left, right) / total * 100) : 20;
     this.setAttribute("aria-valuemin", String(minPercent));
@@ -120,10 +117,8 @@ class OfflineWorkspaceDivider extends HTMLElement {
   }
 }
 customElements.define("workspace-divider", OfflineWorkspaceDivider);
-`.replace("${${JSON.stringify(stylesheet)}}", "${JSON.stringify(stylesheet)}")
- .replace("${${JSON.stringify(markup)}}", "${JSON.stringify(markup)}");
+`;
 }
-
 async function main() {
   const inputPaths = [
     "index.html", "style.css", "script.js",
