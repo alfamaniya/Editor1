@@ -1,0 +1,56 @@
+name: Build AlfaCode Offline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "style.css"
+      - "script.js"
+      - "core/editor/**"
+      - "core/header/**"
+      - "core/preview/**"
+      - "core/workspace-divider/**"
+      - "alfacode/src/**"
+      - "scripts/build-offline.mjs"
+      - ".github/workflows/build-offline.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: alfacode-offline-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install the pinned bundler
+        run: npm install --no-save --package-lock=false esbuild@0.25.12
+
+      - name: Build and validate the standalone HTML
+        run: node scripts/build-offline.mjs
+
+      - name: Commit the generated offline file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add offline/AlfaCode-Offline.html
+          if git diff --cached --quiet; then
+            echo "The offline file is already up to date."
+          else
+            git commit -m "Build AlfaCode offline HTML"
+            git push
+          fi
