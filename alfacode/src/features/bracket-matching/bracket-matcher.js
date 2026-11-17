@@ -62,7 +62,10 @@ function validateTokens(tokens, sourceLength) {
 
 function isIgnoredType(type) {
   if (IGNORED_TOKEN_TYPES.has(type)) return true;
-  return type.includes("comment") || type.startsWith("invalid-comment");
+  return type.includes("comment") ||
+    type.includes("string") ||
+    type.includes("template") ||
+    type.includes("regex");
 }
 
 function buildPairMap(source, tokens) {
