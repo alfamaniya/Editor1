@@ -175,20 +175,30 @@ function renderEditor() {
   status.textContent = activeLanguage.id.toUpperCase() + " · " + editor.document.getLineCount() + " lines";
 }
 
+function getDocumentOffsetFromDOMPoint(node, offset) {
+  const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+  const lineElement = element?.closest(".alfacode-line");
+  if (!lineElement || !viewElement.contains(lineElement)) return null;
+
+  const lineNumber = Number(lineElement.dataset.line);
+  if (!Number.isInteger(lineNumber) || lineNumber < 1 ||
+      lineNumber > editor.document.getLineCount()) return null;
+
+  const range = document.createRange();
+  range.selectNodeContents(lineElement);
+  range.setEnd(node, offset);
+  return editor.document.getLineStart(lineNumber) + range.toString().length;
+}
+
 function syncSelectionFromDOM() {
   if (rendering || compositionStart !== null) return;
   const selection = window.getSelection();
   if (!selection || !selection.anchorNode || !selection.focusNode ||
       !viewElement.contains(selection.anchorNode) || !viewElement.contains(selection.focusNode)) return;
   try {
-    const range = document.createRange();
-    range.selectNodeContents(viewElement);
-    range.setEnd(selection.anchorNode, selection.anchorOffset);
-    const anchor = range.toString().length;
-    const focusRange = document.createRange();
-    focusRange.selectNodeContents(viewElement);
-    focusRange.setEnd(selection.focusNode, selection.focusOffset);
-    const head = focusRange.toString().length;
+    const anchor = getDocumentOffsetFromDOMPoint(selection.anchorNode, selection.anchorOffset);
+    const head = getDocumentOffsetFromDOMPoint(selection.focusNode, selection.focusOffset);
+    if (anchor === null || head === null) return;
     editor.setSelection({ anchor, head });
     renderEditor();
   } catch {
