@@ -223,6 +223,11 @@ viewElement.addEventListener("keydown", event => {
 viewElement.addEventListener("beforeinput", event => {
   if (!event.isComposing) queueMicrotask(renderEditor);
 });
+// Browser selection can change through touch handles without a reliable pointerup.
+// Synchronize the model without rendering during selectionchange.
+document.addEventListener("selectionchange", () => {
+  syncSelectionFromDOM(false);
+});
 viewElement.addEventListener("keyup", syncSelectionFromDOM);
 viewElement.addEventListener("pointerup", () => queueMicrotask(syncSelectionFromDOM));
 viewElement.addEventListener("cut", () => queueMicrotask(renderEditor));
