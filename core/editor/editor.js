@@ -148,8 +148,7 @@ themes.apply(host);
 function publishSource() {
   window.parent.postMessage({
     type: "alfacode:source-change",
-    language: activeLanguage.id,
-    source: editor.text
+    sources: { ...sources, [activeLanguage.id]: editor.text }
   }, "*");
 }
 
