@@ -28,7 +28,8 @@ const initialSource = `<!DOCTYPE html>
 </html>`;
 
 const host = document.getElementById("editor-host");
-const languageSelect = document.getElementById("language-select");
+const tabs = [...document.querySelectorAll(".editor-tab")];
+const sources = { html: initialSource, css: "", javascript: "" };
 const status = document.getElementById("editor-status");
 
 const editor = new Editor({ text: initialSource });
@@ -154,6 +155,7 @@ function publishSource() {
 
 function renderEditor() {
   if (rendering) return;
+  sources[activeLanguage.id] = editor.text;
   rendering = true;
   try {
     activeTokens = activeLanguage.tokenize(editor.text);
@@ -304,9 +306,21 @@ viewElement.addEventListener("compositionend", event => {
   queueMicrotask(renderEditor);
 });
 
-languageSelect.addEventListener("change", () => {
-  activeLanguage = languages.setActive(languageSelect.value);
-  renderEditor();
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    const nextLanguage = tab.dataset.language;
+    if (!nextLanguage || nextLanguage === activeLanguage.id) return;
+    sources[activeLanguage.id] = editor.text;
+    activeLanguage = languages.setActive(nextLanguage);
+    editor.setDocument(sources[nextLanguage]);
+    tabs.forEach(item => {
+      const selected = item === tab;
+      item.classList.toggle("is-active", selected);
+      item.setAttribute("aria-selected", String(selected));
+    });
+    renderEditor();
+    view.focus();
+  });
 });
 
 renderEditor();
