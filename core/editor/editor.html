@@ -10,28 +10,16 @@
 </head>
 <body>
   <main class="section">
-    <header class="section-header">
-      <div>
-        <p class="eyebrow">ALFACODE WORKSPACE</p>
-        <h1>Editor</h1>
-      </div>
-      <label class="language-control" for="language-select">
-        <span>Language</span>
-        <select id="language-select" aria-label="Editor language">
-          <option value="html">HTML</option>
-          <option value="css">CSS</option>
-          <option value="javascript">JavaScript</option>
-        </select>
-      </label>
-    </header>
-    <div class="editor-surface">
-      <div class="surface-top">
-        <span class="dot dot-one"></span><span class="dot dot-two"></span><span class="dot dot-three"></span>
-        <span class="surface-label">ALFACODE</span>
-        <span id="editor-status" class="editor-status" role="status">Loading AlfaCode…</span>
-      </div>
-      <div id="editor-host" class="editor-host" aria-label="Code editor"></div>
-    </div>
+    <nav class="editor-tabs" role="tablist" aria-label="Code language">
+      <button class="editor-tab is-active" id="tab-html" type="button" role="tab"
+              aria-selected="true" aria-controls="editor-host" data-language="html">HTML</button>
+      <button class="editor-tab" id="tab-css" type="button" role="tab"
+              aria-selected="false" aria-controls="editor-host" data-language="css">CSS</button>
+      <button class="editor-tab" id="tab-javascript" type="button" role="tab"
+              aria-selected="false" aria-controls="editor-host" data-language="javascript">JavaScript</button>
+    </nav>
+    <div id="editor-host" class="editor-host" role="tabpanel" aria-label="Code editor"></div>
+    <span id="editor-status" class="editor-status" role="status">Loading AlfaCode…</span>
   </main>
   <script type="module" src="./editor.js"></script>
 </body>
