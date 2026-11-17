@@ -1,0 +1,6 @@
+:host { display: inline-flex; min-width: 0; }
+.header-action { display: inline-flex; align-items: center; justify-content: center; gap: .45em; min-height: 2.4em; padding: .35em .75em; border: 1px solid #39475b; border-radius: .5em; background: #202b3b; color: #dce6f4; font: 600 .82em/1.2 Inter, "Segoe UI", Arial, sans-serif; white-space: nowrap; cursor: pointer; touch-action: manipulation; }
+.header-action:hover { background: #2a3a50; }
+.header-action:focus-visible { outline: .15em solid #72a7f8; outline-offset: .12em; }
+.header-action span:first-child { color: #e6bd72; font-size: 1.1em; }
+@media (max-width: 700px) { .header-action { min-height: 100%; padding: 1% 2%; font-size: 75%; } .action-label { display: none; } }
