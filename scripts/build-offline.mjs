@@ -46,7 +46,7 @@ class OfflineAppHeader extends HTMLElement {
   connectedCallback() {
     if (this.shadowRoot) return;
     const root = this.attachShadow({ mode: "open" });
-    "    root.innerHTML = \"<style>\" + " + JSON.stringify(stylesheet) + " + \"</style>\" + " + JSON.stringify(markup) + ";",
+    root.innerHTML = "<style>" + ${JSON.stringify(stylesheet)} + "</style>" + ${JSON.stringify(markup)};
   }
 }
 customElements.define("app-header", OfflineAppHeader);
@@ -120,43 +120,43 @@ customElements.define("workspace-divider", OfflineWorkspaceDivider);
 `;
 }
 function makeMobileWorkspaceComponent(markup, stylesheet) {
-  return [
-    'class OfflineMobileWorkspace extends HTMLElement {',
-    '  connectedCallback() {',
-    '    if (this.shadowRoot) return;',
-    '    const root = this.attachShadow({ mode: "open" });',
-    '    root.innerHTML = "<style>" + ' + JSON.stringify(stylesheet) + ' + "</style>" + ' + JSON.stringify(markup) + ';
-    '    root.addEventListener("click", event => {',
-    '      const button = event.target.closest("button[data-view]");',
-    '      if (button) this.setView(button.dataset.view);',
-    '    });',
-    '    this.setView(document.body.dataset.mobileView || "editor");',
-    '    this.syncViewportHeight();',
-    '    window.visualViewport?.addEventListener("resize", () => this.syncViewportHeight());',
-    '    window.addEventListener("resize", () => this.syncViewportHeight());',
-    '  }',
-    '  setView(view) {',
-    '    if (view !== "editor" && view !== "preview") return;',
-    '    document.body.dataset.mobileView = view;',
-    '    for (const button of this.shadowRoot.querySelectorAll("button[data-view]")) {',
-    '      const active = button.dataset.view === view;',
-    '      button.classList.toggle("is-active", active);',
-    '      button.setAttribute("aria-pressed", String(active));',
-    '    }',
-    '  }',
-    '  syncViewportHeight() {',
-    '    const viewport = window.visualViewport;',
-    '    if (viewport && Math.abs(viewport.scale - 1) < 0.01) {',
-    '      document.documentElement.style.setProperty("--app-height", viewport.height + "px");',
-    '    } else if (!viewport) {',
-    '      document.documentElement.style.removeProperty("--app-height");',
-    '    }',
-    '  }',
-    '}',
-    'customElements.define("mobile-workspace-switcher", OfflineMobileWorkspace);'
-  ].join("\n");
+  return `
+class OfflineMobileWorkspace extends HTMLElement {
+  connectedCallback() {
+    if (this.shadowRoot) return;
+    const root = this.attachShadow({ mode: "open" });
+    root.innerHTML = "<style>" + ${JSON.stringify(stylesheet)} + "</style>" + ${JSON.stringify(markup)};
+    root.addEventListener("click", event => {
+      const button = event.target.closest("button[data-view]");
+      if (button) this.setView(button.dataset.view);
+    });
+    this.setView(document.body.dataset.mobileView || "editor");
+    this.syncViewportHeight();
+    window.visualViewport?.addEventListener("resize", () => this.syncViewportHeight());
+    window.addEventListener("resize", () => this.syncViewportHeight());
+  }
+  setView(view) {
+    if (view !== "editor" && view !== "preview") return;
+    document.body.dataset.mobileView = view;
+    for (const button of root.querySelectorAll("button[data-view]")) {
+      const active = button.dataset.view === view;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", String(active));
+    }
+  }
+  syncViewportHeight() {
+    const viewport = window.visualViewport;
+    if (viewport && Math.abs(viewport.scale - 1) < 0.01) {
+      document.documentElement.style.setProperty("--app-height", viewport.height + "px");
+    } else if (!viewport) {
+      document.documentElement.style.removeProperty("--app-height");
+    }
+  }
 }
-// The offline shell embeds the mobile workspace controls and their responsive styles.
+customElements.define("mobile-workspace-switcher", OfflineMobileWorkspace);
+`;
+}
+
 async function main() {
   const inputPaths = [
     "index.html", "style.css", "script.js",
