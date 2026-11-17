@@ -1,0 +1,137 @@
+/*
+ * AlfaCode light theme
+ * Apply ThemeManager's "alfacode-theme-light" class to the editor root or its wrapper.
+ */
+
+.alfacode-theme-light {
+  color-scheme: light;
+  --alfacode-background: #ffffff;
+  --alfacode-surface: #f3f3f3;
+  --alfacode-text: #1f1f1f;
+  --alfacode-muted: #6e7681;
+  --alfacode-border: #e5e5e5;
+  --alfacode-selection-background: #add6ff;
+  --alfacode-selection-text: #1f1f1f;
+  --alfacode-caret: #333333;
+  --alfacode-line-number: #999999;
+  --alfacode-line-number-active: #333333;
+  --alfacode-bracket-background: #e8e8e8;
+  --alfacode-bracket-outline: #9b9b9b;
+  --alfacode-token-keyword: #0000ff;
+  --alfacode-token-tag: #800000;
+  --alfacode-token-attribute: #e50000;
+  --alfacode-token-identifier: #267f99;
+  --alfacode-token-property: #795e26;
+  --alfacode-token-string: #a31515;
+  --alfacode-token-number: #098658;
+  --alfacode-token-literal: #0000ff;
+  --alfacode-token-comment: #008000;
+  --alfacode-token-operator: #333333;
+  --alfacode-token-punctuation: #333333;
+  --alfacode-token-meta: #af00db;
+  --alfacode-token-invalid: #cd3131;
+  --alfacode-token-plain: #1f1f1f;
+  --alfacode-token-other: #1f1f1f;
+}
+
+.alfacode-theme-light .alfacode-editor-view,
+.alfacode-theme-light.alfacode-editor-view {
+  color: var(--alfacode-text);
+  background: var(--alfacode-background);
+  caret-color: var(--alfacode-caret);
+}
+
+.alfacode-theme-light .alfacode-line,
+.alfacode-theme-light .alfacode-line-content {
+  color: inherit;
+}
+
+.alfacode-theme-light .alfacode-selection {
+  color: var(--alfacode-selection-text) !important;
+  background-color: var(--alfacode-selection-background) !important;
+}
+
+.alfacode-theme-light .alfacode-cursor {
+  color: var(--alfacode-caret);
+  border-left-color: var(--alfacode-caret);
+}
+
+.alfacode-theme-light .alfacode-line-numbers {
+  color: var(--alfacode-line-number);
+  background: var(--alfacode-surface);
+  border-right: 1px solid var(--alfacode-border);
+}
+
+.alfacode-theme-light .alfacode-line-number {
+  color: var(--alfacode-line-number);
+}
+
+.alfacode-theme-light .alfacode-line-number-active {
+  color: var(--alfacode-line-number-active);
+  font-weight: 600;
+}
+
+.alfacode-theme-light .alfacode-bracket-match {
+  background-color: var(--alfacode-bracket-background);
+  outline: 1px solid var(--alfacode-bracket-outline);
+  border-radius: 2px;
+}
+
+.alfacode-theme-light .alfacode-token--keyword {
+  color: var(--alfacode-token-keyword);
+}
+
+.alfacode-theme-light .alfacode-token--tag {
+  color: var(--alfacode-token-tag);
+}
+
+.alfacode-theme-light .alfacode-token--attribute {
+  color: var(--alfacode-token-attribute);
+}
+
+.alfacode-theme-light .alfacode-token--identifier {
+  color: var(--alfacode-token-identifier);
+}
+
+.alfacode-theme-light .alfacode-token--property {
+  color: var(--alfacode-token-property);
+}
+
+.alfacode-theme-light .alfacode-token--string {
+  color: var(--alfacode-token-string);
+}
+
+.alfacode-theme-light .alfacode-token--number {
+  color: var(--alfacode-token-number);
+}
+
+.alfacode-theme-light .alfacode-token--literal {
+  color: var(--alfacode-token-literal);
+}
+
+.alfacode-theme-light .alfacode-token--comment {
+  color: var(--alfacode-token-comment);
+  font-style: italic;
+}
+
+.alfacode-theme-light .alfacode-token--operator {
+  color: var(--alfacode-token-operator);
+}
+
+.alfacode-theme-light .alfacode-token--punctuation {
+  color: var(--alfacode-token-punctuation);
+}
+
+.alfacode-theme-light .alfacode-token--meta {
+  color: var(--alfacode-token-meta);
+}
+
+.alfacode-theme-light .alfacode-token--invalid {
+  color: var(--alfacode-token-invalid);
+  text-decoration: underline wavy var(--alfacode-token-invalid);
+}
+
+.alfacode-theme-light .alfacode-token--plain,
+.alfacode-theme-light .alfacode-token--other {
+  color: var(--alfacode-token-plain);
+}
