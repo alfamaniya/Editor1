@@ -24,9 +24,6 @@ class MobileWorkspace extends HTMLElement {
     });
 
     this.setView(document.body.dataset.mobileView || "editor");
-    this.syncViewportHeight();
-    window.visualViewport?.addEventListener("resize", () => this.syncViewportHeight());
-    window.addEventListener("resize", () => this.syncViewportHeight());
   }
 
   setView(view) {
@@ -38,17 +35,7 @@ class MobileWorkspace extends HTMLElement {
       button.setAttribute("aria-pressed", String(active));
     }
   }
-
-  syncViewportHeight() {
-    const viewport = window.visualViewport;
-    if (viewport && Math.abs(viewport.scale - 1) < 0.01) {
-      document.documentElement.style.setProperty("--app-height", viewport.height + "px");
-    } else if (!viewport) {
-      document.documentElement.style.removeProperty("--app-height");
-    }
-  }
 }
-
 if (!customElements.get("mobile-workspace-switcher")) {
   customElements.define("mobile-workspace-switcher", MobileWorkspace);
 }
