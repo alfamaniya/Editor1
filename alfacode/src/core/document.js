@@ -4,7 +4,7 @@
  *
  * Offsets use JavaScript string indexing (UTF-16 code units).
  * Line numbers and columns are 1-based.
- * All line endings are normalized to LF (\\n).
+ * All line endings are normalized to LF (\n).
  */
 export class Document {
   constructor(initialText = "") {
@@ -17,7 +17,7 @@ export class Document {
       throw new TypeError("Document content must be a string.");
     }
 
-    return value.replace(/\\r\\n?/g, "\\n");
+    return value.replace(/\r\n?/g, "\n");
   }
 
   get text() {
@@ -36,7 +36,7 @@ export class Document {
     let count = 1;
 
     for (let index = 0; index < this._text.length; index += 1) {
-      if (this._text[index] === "\\n") count += 1;
+      if (this._text[index] === "\n") count += 1;
     }
 
     return count;
@@ -68,7 +68,7 @@ export class Document {
     let currentLine = 1;
 
     for (let index = 0; index < this._text.length; index += 1) {
-      if (this._text[index] === "\\n") {
+      if (this._text[index] === "\n") {
         currentLine += 1;
         if (currentLine === lineNumber) return index + 1;
       }
@@ -79,7 +79,7 @@ export class Document {
 
   getLineEnd(lineNumber) {
     const start = this.getLineStart(lineNumber);
-    const newlineIndex = this._text.indexOf("\\n", start);
+    const newlineIndex = this._text.indexOf("\n", start);
 
     return newlineIndex === -1 ? this._text.length : newlineIndex;
   }
@@ -91,7 +91,7 @@ export class Document {
     let lineStart = 0;
 
     for (let index = 0; index < offset; index += 1) {
-      if (this._text[index] === "\\n") {
+      if (this._text[index] === "\n") {
         line += 1;
         lineStart = index + 1;
       }
