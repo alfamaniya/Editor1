@@ -11,6 +11,7 @@ on:
       - "core/preview/**"
       - "core/header/**"
       - "core/workspace-divider/**"
+      - "core/tag-suggestions/**"
       - "index.html"
       - "style.css"
       - "script.js"
@@ -41,6 +42,6 @@ jobs:
         with:
           node-version: 22
       - name: Check integration JavaScript syntax
-        run: node --experimental-default-type=module --check core/editor/editor.js && node --experimental-default-type=module --check core/mobile-workspace/mobile-workspace.js && node --experimental-default-type=module --check core/browser-storage/browser-storage.js && node --experimental-default-type=module --check core/header/header.js && node --experimental-default-type=module --check core/workspace-divider/workspace-divider.js && node --check core/preview/preview.js && node --check script.js
+        run: node --experimental-default-type=module --check core/editor/editor.js && node --experimental-default-type=module --check core/mobile-workspace/mobile-workspace.js && node --experimental-default-type=module --check core/browser-storage/browser-storage.js && node --experimental-default-type=module --check core/header/header.js && node --experimental-default-type=module --check core/workspace-divider/workspace-divider.js && node --experimental-default-type=module --check core/tag-suggestions/tag-suggestions.js && node --check core/preview/preview.js && node --check script.js
       - name: Run AlfaCode tests
         run: node --experimental-default-type=module --test alfacode/tests/alfacode.test.mjs
