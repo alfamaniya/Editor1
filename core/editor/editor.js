@@ -526,3 +526,35 @@ tabs.forEach(tab => {
 renderEditor();
 window.addEventListener("pagehide", () => browserStorage.flush(sources));
 view.focus();
+
+window.addEventListener("message", event => {
+  if (event.source !== window.parent || event.origin !== window.location.origin) return;
+  const command = event.data;
+  if (!command || command.type !== "alfacode:toolbar-command") return;
+
+  if (command.action === "clear-tabs") {
+    for (const key of Object.keys(sources)) sources[key] = "";
+    editor.setDocument(sources[activeLanguage.id]);
+    chainSuggestionMode = false;
+    tagSuggestionMenu?.hide();
+    renderEditor();
+    view.focus();
+    return;
+  }
+
+  if (command.action === "project-reset") {
+    for (const key of Object.keys(initialSources)) sources[key] = initialSources[key];
+    editor.setDocument(sources[activeLanguage.id]);
+    chainSuggestionMode = false;
+    tagSuggestionMenu?.hide();
+    renderEditor();
+    view.focus();
+    return;
+  }
+
+  if (command.action === "clear-project-cookies") {
+    browserStorage.clearProjectData();
+    window.parent.postMessage({ type: "alfacode:project-data-cleared" }, window.location.origin);
+  }
+});
+
