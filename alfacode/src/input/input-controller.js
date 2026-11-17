@@ -18,6 +18,7 @@ export class InputController {
     this.target = null;
 
     this._onKeyDown = (event) => this.keyboard.handleKeyDown(event);
+    this._onBeforeInput = (event) => this.keyboard.handleBeforeInput(event);
     this._onCopy = (event) => this.clipboard.handleCopy(event);
     this._onCut = (event) => this.clipboard.handleCut(event);
     this._onPaste = (event) => this.clipboard.handlePaste(event);
@@ -43,6 +44,7 @@ export class InputController {
 
     this.target = target;
     this.target.addEventListener("keydown", this._onKeyDown);
+    this.target.addEventListener("beforeinput", this._onBeforeInput);
     this.target.addEventListener("copy", this._onCopy);
     this.target.addEventListener("cut", this._onCut);
     this.target.addEventListener("paste", this._onPaste);
@@ -53,6 +55,7 @@ export class InputController {
     if (!this.target) return this;
 
     this.target.removeEventListener("keydown", this._onKeyDown);
+    this.target.removeEventListener("beforeinput", this._onBeforeInput);
     this.target.removeEventListener("copy", this._onCopy);
     this.target.removeEventListener("cut", this._onCut);
     this.target.removeEventListener("paste", this._onPaste);
