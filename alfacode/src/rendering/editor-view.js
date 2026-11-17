@@ -52,11 +52,9 @@ export class EditorView {
     this.element.tabIndex = 0;
 
     this.element.style.position = "relative";
-    this.element.style.overflow = "auto";
     this.element.style.whiteSpace = "pre";
     this.element.style.fontFamily = "monospace";
     this.element.style.fontSize = "14px";
-    this.element.style.lineHeight = "1.4";
     this.element.style.minHeight = "100%";
     this.element.style.outline = "none";
 
