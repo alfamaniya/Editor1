@@ -80,48 +80,92 @@ class OfflineAppHeader extends HTMLElement {
 }
 customElements.define("app-header", OfflineAppHeader);
 
-  
-class ClearTabsAction extends HTMLElement {
-  connectedCallback() {
-    if (this.shadowRoot) return;
-    const root = this.attachShadow({ mode: "open" });
-    root.innerHTML = "<style>" + ":host { display: inline-flex; min-width: 0; }\n.header-action { display: inline-flex; align-items: center; justify-content: center; gap: .45em; min-height: 2.4em; padding: .35em .75em; border: 1px solid #39475b; border-radius: .5em; background: #202b3b; color: #dce6f4; font: 600 .82em/1.2 Inter, \"Segoe UI\", Arial, sans-serif; white-space: nowrap; cursor: pointer; touch-action: manipulation; }\n.header-action:hover { background: #2a3a50; }\n.header-action:focus-visible { outline: .15em solid #72a7f8; outline-offset: .12em; }\n.header-action span:first-child { color: #e6bd72; font-size: 1.1em; }\n@media (max-width: 700px) { .header-action { min-height: 100%; padding: 1% 2%; font-size: 75%; } .action-label { display: none; } }" + "</style>" + "<button class=\"header-action\" type=\"button\" data-action=\"clear-tabs\" aria-label=\"Clear all editor tabs\" title=\"Clear all tabs\"><span aria-hidden=\"true\">⌫</span><span class=\"action-label\">Clear tabs</span></button>";
-    root.querySelector("button")?.addEventListener("click", () => {
+  window.__ALFACODE_ACTION_ASSETS__ = {
+    "clear-tabs": { html: "<button class=\"header-action\" type=\"button\" data-action=\"clear-tabs\" aria-label=\"Clear all editor tabs\" title=\"Clear all tabs\"><span aria-hidden=\"true\">⌫</span><span class=\"action-label\">Clear tabs</span></button>", css: ":host { display: inline-flex; min-width: 0; }\n.header-action { display: inline-flex; align-items: center; justify-content: center; gap: .45em; min-height: 2.4em; padding: .35em .75em; border: 1px solid #39475b; border-radius: .5em; background: #202b3b; color: #dce6f4; font: 600 .82em/1.2 Inter, \"Segoe UI\", Arial, sans-serif; white-space: nowrap; cursor: pointer; touch-action: manipulation; }\n.header-action:hover { background: #2a3a50; }\n.header-action:focus-visible { outline: .15em solid #72a7f8; outline-offset: .12em; }\n.header-action span:first-child { color: #e6bd72; font-size: 1.1em; }\n@media (max-width: 700px) { .header-action { min-height: 100%; padding: 1% 2%; font-size: 75%; } .action-label { display: none; } }" },
+    "project-reset": { html: "<button class=\"header-action\" type=\"button\" data-action=\"project-reset\" aria-label=\"Reset the entire project\" title=\"Reset project\"><span aria-hidden=\"true\">↺</span><span class=\"action-label\">Reset project</span></button>", css: ":host { display: inline-flex; min-width: 0; }\n.header-action { display: inline-flex; align-items: center; justify-content: center; gap: .45em; min-height: 2.4em; padding: .35em .75em; border: 1px solid #39475b; border-radius: .5em; background: #202b3b; color: #dce6f4; font: 600 .82em/1.2 Inter, \"Segoe UI\", Arial, sans-serif; white-space: nowrap; cursor: pointer; touch-action: manipulation; }\n.header-action:hover { background: #2a3a50; }\n.header-action:focus-visible { outline: .15em solid #72a7f8; outline-offset: .12em; }\n.header-action span:first-child { color: #8db7f6; font-size: 1.25em; }\n@media (max-width: 700px) { .header-action { min-height: 100%; padding: 1% 2%; font-size: 75%; } .action-label { display: none; } }" },
+    "clear-project-cookies": { html: "<button class=\"header-action\" type=\"button\" data-action=\"clear-project-cookies\" aria-label=\"Clear project browser data\" title=\"Clear project browser data\"><span aria-hidden=\"true\">⌫</span><span class=\"action-label\">Clear browser data</span></button>", css: ":host { display: inline-flex; min-width: 0; }\n.header-action { display: inline-flex; align-items: center; justify-content: center; gap: .45em; min-height: 2.4em; padding: .35em .75em; border: 1px solid #694044; border-radius: .5em; background: #38252c; color: #f4dfe2; font: 600 .82em/1.2 Inter, \"Segoe UI\", Arial, sans-serif; white-space: nowrap; cursor: pointer; touch-action: manipulation; }\n.header-action:hover { background: #4b2d36; }\n.header-action:focus-visible { outline: .15em solid #ef9999; outline-offset: .12em; }\n.header-action span:first-child { color: #f09a9a; font-size: 1.1em; }\n@media (max-width: 700px) { .header-action { min-height: 100%; padding: 1% 2%; font-size: 75%; } .action-label { display: none; } }" }
+  };
+  class ClearTabsAction extends HTMLElement {
+  constructor() { super(); this.attachShadow({ mode: "open" }); }
+  async connectedCallback() {
+    if (this.shadowRoot.childElementCount) return;
+    const embedded = window.__ALFACODE_ACTION_ASSETS__?.["clear-tabs"];
+    let markup;
+    let css;
+    if (embedded) {
+      ({ html: markup, css } = embedded);
+    } else {
+      const scriptUrl = document.querySelector('script[type="module"][src*="clear-tabs.js"]')?.src || window.location.href;
+      const base = new URL("./", scriptUrl);
+      [markup, css] = await Promise.all([
+        fetch(new URL("clear-tabs.html", base)).then(r => { if (!r.ok) throw new Error("Unable to load clear-tabs markup."); return r.text(); }),
+        fetch(new URL("clear-tabs.css", base)).then(r => { if (!r.ok) throw new Error("Unable to load clear-tabs styles."); return r.text(); })
+      ]);
+    }
+    const style = document.createElement("style"); style.textContent = css;
+    const template = document.createElement("template"); template.innerHTML = markup;
+    this.shadowRoot.append(style, template.content.cloneNode(true));
+    this.shadowRoot.querySelector("button").addEventListener("click", () => {
       if (!window.confirm("Clear the contents of all HTML, CSS, and JavaScript tabs? This cannot be undone.")) return;
       document.dispatchEvent(new CustomEvent("alfacode:header-action", { detail: { action: "clear-tabs" } }));
     });
   }
 }
-customElements.define("clear-tabs-action", ClearTabsAction);
-
-  
-class ProjectResetAction extends HTMLElement {
-  connectedCallback() {
-    if (this.shadowRoot) return;
-    const root = this.attachShadow({ mode: "open" });
-    root.innerHTML = "<style>" + ":host { display: inline-flex; min-width: 0; }\n.header-action { display: inline-flex; align-items: center; justify-content: center; gap: .45em; min-height: 2.4em; padding: .35em .75em; border: 1px solid #39475b; border-radius: .5em; background: #202b3b; color: #dce6f4; font: 600 .82em/1.2 Inter, \"Segoe UI\", Arial, sans-serif; white-space: nowrap; cursor: pointer; touch-action: manipulation; }\n.header-action:hover { background: #2a3a50; }\n.header-action:focus-visible { outline: .15em solid #72a7f8; outline-offset: .12em; }\n.header-action span:first-child { color: #8db7f6; font-size: 1.25em; }\n@media (max-width: 700px) { .header-action { min-height: 100%; padding: 1% 2%; font-size: 75%; } .action-label { display: none; } }" + "</style>" + "<button class=\"header-action\" type=\"button\" data-action=\"project-reset\" aria-label=\"Reset the entire project\" title=\"Reset project\"><span aria-hidden=\"true\">↺</span><span class=\"action-label\">Reset project</span></button>";
-    root.querySelector("button")?.addEventListener("click", () => {
+if (!customElements.get("clear-tabs-action")) customElements.define("clear-tabs-action", ClearTabsAction);
+  class ProjectResetAction extends HTMLElement {
+  constructor() { super(); this.attachShadow({ mode: "open" }); }
+  async connectedCallback() {
+    if (this.shadowRoot.childElementCount) return;
+    const embedded = window.__ALFACODE_ACTION_ASSETS__?.["project-reset"];
+    let markup;
+    let css;
+    if (embedded) {
+      ({ html: markup, css } = embedded);
+    } else {
+      const scriptUrl = document.querySelector('script[type="module"][src*="project-reset.js"]')?.src || window.location.href;
+      const base = new URL("./", scriptUrl);
+      [markup, css] = await Promise.all([
+        fetch(new URL("project-reset.html", base)).then(r => { if (!r.ok) throw new Error("Unable to load project-reset markup."); return r.text(); }),
+        fetch(new URL("project-reset.css", base)).then(r => { if (!r.ok) throw new Error("Unable to load project-reset styles."); return r.text(); })
+      ]);
+    }
+    const style = document.createElement("style"); style.textContent = css;
+    const template = document.createElement("template"); template.innerHTML = markup;
+    this.shadowRoot.append(style, template.content.cloneNode(true));
+    this.shadowRoot.querySelector("button").addEventListener("click", () => {
       if (!window.confirm("Reset the entire project to the original AlfaCode starter example? Your current code will be replaced.")) return;
       document.dispatchEvent(new CustomEvent("alfacode:header-action", { detail: { action: "project-reset" } }));
     });
   }
 }
-customElements.define("project-reset-action", ProjectResetAction);
-
-  
-class ClearProjectCookiesAction extends HTMLElement {
-  connectedCallback() {
-    if (this.shadowRoot) return;
-    const root = this.attachShadow({ mode: "open" });
-    root.innerHTML = "<style>" + ":host { display: inline-flex; min-width: 0; }\n.header-action { display: inline-flex; align-items: center; justify-content: center; gap: .45em; min-height: 2.4em; padding: .35em .75em; border: 1px solid #694044; border-radius: .5em; background: #38252c; color: #f4dfe2; font: 600 .82em/1.2 Inter, \"Segoe UI\", Arial, sans-serif; white-space: nowrap; cursor: pointer; touch-action: manipulation; }\n.header-action:hover { background: #4b2d36; }\n.header-action:focus-visible { outline: .15em solid #ef9999; outline-offset: .12em; }\n.header-action span:first-child { color: #f09a9a; font-size: 1.1em; }\n@media (max-width: 700px) { .header-action { min-height: 100%; padding: 1% 2%; font-size: 75%; } .action-label { display: none; } }" + "</style>" + "<button class=\"header-action\" type=\"button\" data-action=\"clear-project-cookies\" aria-label=\"Clear project browser data\" title=\"Clear project browser data\"><span aria-hidden=\"true\">⌫</span><span class=\"action-label\">Clear browser data</span></button>";
-    root.querySelector("button")?.addEventListener("click", () => {
+if (!customElements.get("project-reset-action")) customElements.define("project-reset-action", ProjectResetAction);
+  class ClearProjectCookiesAction extends HTMLElement {
+  constructor() { super(); this.attachShadow({ mode: "open" }); }
+  async connectedCallback() {
+    if (this.shadowRoot.childElementCount) return;
+    const embedded = window.__ALFACODE_ACTION_ASSETS__?.["clear-project-cookies"];
+    let markup;
+    let css;
+    if (embedded) {
+      ({ html: markup, css } = embedded);
+    } else {
+      const scriptUrl = document.querySelector('script[type="module"][src*="clear-project-cookies.js"]')?.src || window.location.href;
+      const base = new URL("./", scriptUrl);
+      [markup, css] = await Promise.all([
+        fetch(new URL("clear-project-cookies.html", base)).then(r => { if (!r.ok) throw new Error("Unable to load browser-data markup."); return r.text(); }),
+        fetch(new URL("clear-project-cookies.css", base)).then(r => { if (!r.ok) throw new Error("Unable to load browser-data styles."); return r.text(); })
+      ]);
+    }
+    const style = document.createElement("style"); style.textContent = css;
+    const template = document.createElement("template"); template.innerHTML = markup;
+    this.shadowRoot.append(style, template.content.cloneNode(true));
+    this.shadowRoot.querySelector("button").addEventListener("click", () => {
       if (!window.confirm("Clear cookies and saved AlfaCode project data for this website only? Other websites will not be affected. The editor will reload with the starter example.")) return;
       document.dispatchEvent(new CustomEvent("alfacode:header-action", { detail: { action: "clear-project-cookies" } }));
     });
   }
 }
-customElements.define("clear-project-cookies-action", ClearProjectCookiesAction);
-
+if (!customElements.get("clear-project-cookies-action")) customElements.define("clear-project-cookies-action", ClearProjectCookiesAction);
   
 class OfflineWorkspaceDivider extends HTMLElement {
   connectedCallback() {
