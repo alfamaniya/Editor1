@@ -8,6 +8,7 @@ on:
       - "style.css"
       - "script.js"
       - "core/editor/**"
+      - "core/browser-storage/**"
       - "core/header/**"
       - "core/preview/**"
       - "core/workspace-divider/**"
