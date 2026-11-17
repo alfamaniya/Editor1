@@ -106,7 +106,7 @@ export class KeyboardHandler {
         break;
       case "insertLineBreak":
       case "insertParagraph":
-        this._replaceSelection("\\n");
+        this._replaceSelection("\n");
         break;
       case "deleteContentBackward":
         this._delete(-1);
