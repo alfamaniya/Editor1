@@ -252,6 +252,9 @@ async function main() {
   shell = shell.replace(/\s*<script\b[^>]*header\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*workspace-divider\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*mobile-workspace\.js["'][^>]*>\s*<\/script>/i, "");
+  shell = shell.replace(/\s*<script\b[^>]*clear-tabs\.js["'][^>]*>\s*<\/script>/i, "");
+  shell = shell.replace(/\s*<script\b[^>]*project-reset\.js["'][^>]*>\s*<\/script>/i, "");
+  shell = shell.replace(/\s*<script\b[^>]*clear-project-cookies\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*src=["'][^"']*script\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace("</head>", "<style>\n" + rootCss + "\n</style>\n</head>");
 
