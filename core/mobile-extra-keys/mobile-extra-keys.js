@@ -21,7 +21,8 @@ export class MobileExtraKeys extends HTMLElement {
 
   async connectedCallback() {
     if (this.shadowRoot.childElementCount) return;
-    const base = new URL("./", import.meta.url);
+    const moduleUrl = document.querySelector('script[type="module"][src*="mobile-extra-keys.js"]')?.src || document.baseURI;
+    const base = new URL("./", moduleUrl);
     let assets = window.__ALFACODE_EXTRA_KEYS_ASSETS__;
     if (!assets) {
       const [markupResponse, cssResponse] = await Promise.all([
