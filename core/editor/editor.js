@@ -541,6 +541,12 @@ mobileExtraKeys?.addEventListener("alfacode:extra-key", event => {
   }
   const pairs = { "(": ")", "[": "]", "{": "}", "\"": "\"", "'": "'" };
   const selection = editor.selection;
+  if (selection.isEmpty && Object.values(pairs).includes(key) && editor.text[selection.head] === key) {
+    editor.moveTo(selection.head + key.length);
+    renderEditor();
+    view.focus();
+    return;
+  }
   const closing = pairs[key];
   const insertion = closing ? key + closing : key;
   editor.transact(transaction => transaction.replace(selection.from, selection.to, insertion));
