@@ -2,7 +2,7 @@
   display: none;
   position: fixed;
   inset-inline: 0;
-  bottom: 0;
+  bottom: var(--extra-keys-viewport-bottom, 0px);
   z-index: 1000;
   width: 100%;
   padding: 0.35rem 0.4rem max(0.35rem, env(safe-area-inset-bottom));
