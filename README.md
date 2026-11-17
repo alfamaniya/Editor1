@@ -87,6 +87,10 @@ Editor1/
 │   │   └── alfacode.test.mjs
 │   └── README.md
 ├── core/
+│   ├── browser-storage/
+│   │   ├── browser-storage.css
+│   │   ├── browser-storage.html
+│   │   └── browser-storage.js
 │   ├── editor/
 │   │   ├── editor.css
 │   │   ├── editor.html
