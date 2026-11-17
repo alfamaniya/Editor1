@@ -80,49 +80,6 @@ const CONTEXT_TAGS = Object.freeze({
   optgroup: ["option"]
 });
 
-function openElementPath(node, end) {
-  if (!node || node.type !== "Element" || node.closeStart !== undefined || node.end !== end) {
-    return [];
-  }
-  const children = node.children ?? [];
-  for (let index = children.length - 1; index >= 0; index--) {
-    const nested = openElementPath(children[index], end);
-    if (nested.length) return [node, ...nested];
-  }
-  return [node];
-}
-
-function getOpenStack(parsed, end) {
-  const children = parsed.root?.children ?? [];
-  for (let index = children.length - 1; index >= 0; index--) {
-    const path = openElementPath(children[index], end);
-    if (path.length) return path;
-  }
-  return [];
-}
-
-function getContextTags(stack) {
-  const parent = stack.at(-1)?.name?.toLowerCase() ?? "root";
-  if (stack.some(node => node.name.toLowerCase() === "svg")) return SVG_TAGS;
-  if (parent === "head") return HEAD_TAGS;
-  if (CONTEXT_TAGS[parent]) {
-    return CONTEXT_TAGS[parent]
-      .map((name, index) => {
-        const item = HTML_TAG_CATALOG.find(candidate => candidate.name === name) ?? {
-          name, description: "Context-specific HTML element"
-        };
-        return { ...item, rank: index + 1 };
-      });
-  }
-  if (parent === "p") {
-    return HTML_TAG_CATALOG.filter(item => PHRASING_TAGS.has(item.name));
-  }
-  if (parent === "root") {
-    return HTML_TAG_CATALOG.filter(item => item.contexts?.includes("root"));
-  }
-  return HTML_TAG_CATALOG.filter(item => !item.contexts || item.contexts.includes("body"));
-}
-
 function scanHTMLStack(source) {
   const stack = [];
   let index = 0;
