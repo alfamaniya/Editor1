@@ -115,7 +115,8 @@ alfacode/
 │   │   ├── html/
 │   │   │   ├── html-language.js
 │   │   │   ├── html-parser.js
-│   │   │   └── html-rules.js
+│   │   │   ├── html-rules.js
+│   │   │   └── html-completion.js
 │   │   ├── javascript/
 │   │   │   ├── javascript-language.js
 │   │   │   ├── javascript-parser.js
