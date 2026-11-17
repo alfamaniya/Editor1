@@ -544,7 +544,13 @@ window.addEventListener("message", event => {
 
   if (command.action === "project-reset") {
     for (const key of Object.keys(initialSources)) sources[key] = initialSources[key];
-    editor.setDocument(sources[activeLanguage.id]);
+    activeLanguage = languages.setActive("html");
+    tabs.forEach(tab => {
+      const selected = tab.dataset.language === "html";
+      tab.classList.toggle("is-active", selected);
+      tab.setAttribute("aria-selected", String(selected));
+    });
+    editor.setDocument(sources.html);
     chainSuggestionMode = false;
     tagSuggestionMenu?.hide();
     renderEditor();
