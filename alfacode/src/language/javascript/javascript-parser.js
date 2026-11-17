@@ -254,12 +254,20 @@ export class JavaScriptParser {
         while (i < sig.length && !is("}")) {
           if (is(";")) { i++; continue; }
           const memberStart = i;
-          let p = i;
-          while (p < sig.length && !["(",";","}"].includes(sig[p].value)) {
+          if (is("static") && sig[i + 1]?.value === "{") {
+            const staticStart = i++;
+            const staticBody = parseBlock();
+            members.push({ type:"StaticBlock", body:staticBody, start:sig[staticStart].start, end:staticBody?.end ?? sig[staticStart].end });
+            continue;
+          }
+          let p = i, hasInitializer = false;
+          while (p < sig.length && ![";","}"].includes(sig[p].value)) {
+            if (sig[p].value === "=") hasInitializer = true;
+            if (sig[p].value === "(" && !hasInitializer) break;
             if (OPEN.has(sig[p].value) && pairs.has(p)) p = pairs.get(p) + 1;
             else p++;
           }
-          if (sig[p]?.value === "(" && pairs.has(p)) {
+          if (sig[p]?.value === "(" && !hasInitializer && pairs.has(p)) {
             const close = pairs.get(p);
             let bodyStart = close + 1;
             while (bodyStart < sig.length && !["{",";","}"].includes(sig[bodyStart].value)) bodyStart++;
@@ -399,7 +407,18 @@ export class JavaScriptParser {
       if (is("switch")) return parseSwitch();
       if (is("try")) return parseTry();
       if (["return","throw","break","continue"].includes(t.value)) {
-        const from = i++, consumed = consumeStatement();
+        const from = i++;
+        const next = cur();
+        const hasLineTerminator = next && hasNewline(t,next);
+        if (hasLineTerminator && t.value === "throw") {
+          errors.push({code:"ILLEGAL_LINE_TERMINATOR_AFTER_THROW",message:"A line terminator is not allowed immediately after throw.",start:t.start,end:next.start});
+        }
+        if (hasLineTerminator) {
+          if (is(";")) i++;
+          const type = t.value[0].toUpperCase()+t.value.slice(1)+"Statement";
+          return {type,argument:null,start:t.start,end:sig[i-1]?.end??t.end};
+        }
+        const consumed = consumeStatement();
         const type = t.value[0].toUpperCase()+t.value.slice(1)+"Statement";
         return {type,argument:raw(from+1,consumed.to).replace(/;$/,"").trim()||null,start:t.start,end:sig[consumed.to-1]?.end??t.end};
       }
@@ -424,7 +443,8 @@ export class JavaScriptParser {
         errors.push({code:"INVALID_TOKEN",message:"Invalid or unterminated JavaScript token.",start:token.start,end:token.end});
       }
     }
-    return {type:"Program",sourceType:"script",body,tokens,errors,sourceLength:source.length,context};
+    const sourceType = body.some(statement => ["ImportDeclaration","ExportDeclaration","ExportDefaultDeclaration"].includes(statement.type)) ? "module" : "script";
+    return {type:"Program",sourceType,body,tokens,errors,sourceLength:source.length,context};
   }
 }
 
