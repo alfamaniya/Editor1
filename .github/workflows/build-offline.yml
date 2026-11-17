@@ -13,6 +13,7 @@ on:
       - "core/header/**"
       - "core/preview/**"
       - "core/workspace-divider/**"
+      - "core/tag-suggestions/**"
       - "alfacode/src/**"
       - "scripts/build-offline.mjs"
       - ".github/workflows/build-offline.yml"
