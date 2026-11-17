@@ -118,6 +118,75 @@ function getContextTags(stack) {
   return HTML_TAG_CATALOG.filter(item => !item.contexts || item.contexts.includes("body"));
 }
 
+function scanHTMLStack(source) {
+  const stack = [];
+  let index = 0;
+  let rawTextElement = null;
+
+  while (index < source.length) {
+    if (rawTextElement) {
+      const closing = new RegExp("</\\s*" + rawTextElement + "\\s*>", "i");
+      closing.lastIndex = index;
+      const match = closing.exec(source);
+      if (!match) break;
+      index = match.index;
+      rawTextElement = null;
+    }
+
+    if (source.startsWith("<!--", index)) {
+      const commentEnd = source.indexOf("-->", index + 4);
+      if (commentEnd < 0) break;
+      index = commentEnd + 3;
+      continue;
+    }
+
+    if (source[index] !== "<") {
+      index++;
+      continue;
+    }
+
+    const tagMatch = source.slice(index).match(/^<\s*(\/?)\s*([A-Za-z][A-Za-z0-9:-]*)/);
+    if (!tagMatch) {
+      index++;
+      continue;
+    }
+
+    const closingTag = tagMatch[1] === "/";
+    const tagName = tagMatch[2];
+    let end = index + tagMatch[0].length;
+    let quote = null;
+    for (; end < source.length; end++) {
+      const character = source[end];
+      if (quote) {
+        if (character === quote) quote = null;
+      } else if (character === '"' || character === "'") {
+        quote = character;
+      } else if (character === ">") {
+        break;
+      }
+    }
+    if (end >= source.length) break;
+
+    const selfClosing = !closingTag && source.slice(index, end).trimEnd().endsWith("/");
+    if (closingTag) {
+      for (let position = stack.length - 1; position >= 0; position--) {
+        if (stack[position].name.toLowerCase() === tagName.toLowerCase()) {
+          stack.splice(position);
+          break;
+        }
+      }
+    } else if (!selfClosing && !isVoidElement(tagName)) {
+      stack.push({ name: tagName });
+      if (["script", "style"].includes(tagName.toLowerCase())) {
+        rawTextElement = tagName;
+      }
+    }
+    index = end + 1;
+  }
+
+  return stack;
+}
+
 function isSuppressed(parsed, stack, cursor, closing) {
   const token = parsed.tokens.find(item =>
     item.start < cursor && cursor <= item.end &&
@@ -161,8 +230,7 @@ export function getHTMLTagSuggestions(source, cursor, options = {}) {
   const prefix = source.slice(0, cursor);
 
   if (chain) {
-    const parsed = parseHTML(prefix);
-    const stack = getOpenStack(parsed, prefix.length);
+    const stack = scanHTMLStack(prefix);
     const parentName = stack.at(-1)?.name?.toLowerCase() ?? "root";
     const candidates = getContextTags(stack);
     const optionsList = makeOptions(candidates, "", cursor, cursor, Math.max(1, limit - 1))
@@ -196,8 +264,7 @@ export function getHTMLTagSuggestions(source, cursor, options = {}) {
   const closing = Boolean(closingMatch);
   const tagStart = cursor - match[0].length;
   const contextSource = source.slice(0, tagStart);
-  const parsedContext = parseHTML(contextSource);
-  const stack = getOpenStack(parsedContext, contextSource.length);
+  const stack = scanHTMLStack(contextSource);
   const parsedPrefix = parseHTML(prefix);
   if (isSuppressed(parsedPrefix, stack, cursor, closing)) return null;
 
