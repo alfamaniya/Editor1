@@ -298,8 +298,8 @@ node --experimental-default-type=module --test alfacode/tests/alfacode.test.mjs
 گردش‌کار دستی `.github/workflows/send-offline-email.yml` آخرین نسخه `offline/AlfaCode-Offline.html` را از مخزن می‌خواند و محتوای آن را از طریق Gmail به نشانی `a.mamghanian@isaco.ir` ارسال می‌کند.
 
 - اجرا فقط با انتخاب دستی گردش‌کار **Send AlfaCode Offline by Gmail** از زبانه Actions انجام می‌شود؛ با push یا تغییر فایل‌ها ایمیلی ارسال نمی‌شود.
-- اسکریپت `scripts/send-offline-email.py` محتوای UTF-8 فایل را اعتبارسنجی می‌کند و آن را بدون ضمیمه، به بخش‌های متوالی حداکثر ۴۰٬۰۰۰ بایتی تقسیم می‌کند. هر بخش، بدنه یک ایمیل متنی مستقل با موضوع یکسان `AlfaCode Offline` است.
-- بخش‌ها به‌ترتیب و در یک اتصال امن TLS به سرور SMTP گوگل ارسال می‌شوند. هیچ عنوان، شماره بخش یا متن توضیحی به محتوای کد اضافه نمی‌شود.
+- اسکریپت `scripts/send-offline-email.py` محتوای UTF-8 فایل را اعتبارسنجی می‌کند و کل آن را بدون تقسیم‌بندی و بدون ضمیمه، در بدنه یک ایمیل متنی با موضوع `AlfaCode Offline` قرار می‌دهد.
+- کل متن فایل در یک پیام و از طریق اتصال امن TLS به سرور SMTP گوگل ارسال می‌شود. هیچ عنوان، شماره بخش یا متن توضیحی به محتوای کد اضافه نمی‌شود.
 - برای فعال‌سازی، در تنظیمات مخزن به مسیر **Settings → Secrets and variables → Actions → New repository secret** بروید و دو Secret زیر را بسازید:
   - `GMAIL_USERNAME`: آدرس کامل حساب Gmail فرستنده.
   - `GMAIL_APP_PASSWORD`: رمز اختصاصی برنامه گوگل (App Password)، نه رمز اصلی حساب.
