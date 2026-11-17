@@ -25,6 +25,13 @@ class WorkspaceDivider extends HTMLElement {
     this.setAttribute("aria-valuenow", "50");
     this.tabIndex = 0;
 
+    const workspace = this.getWorkspace();
+    if (workspace) {
+      const totalWidth = Math.max(workspace.clientWidth, workspace.scrollWidth);
+      const usableWidth = Math.max(0, totalWidth - 6);
+      this.applyWidths(workspace, usableWidth / 2, usableWidth / 2);
+    }
+
     this.addEventListener("pointerdown", event => {
       if (event.button !== undefined && event.button !== 0) return;
       this.dragging = true;
@@ -48,7 +55,7 @@ class WorkspaceDivider extends HTMLElement {
     const workspace = this.getWorkspace();
     if (!workspace) return;
     const bounds = workspace.getBoundingClientRect();
-    const totalWidth = Math.max(workspace.clientWidth, workspace.scrollWidth, 446);
+    const totalWidth = Math.max(workspace.clientWidth, workspace.scrollWidth);
     const usableWidth = totalWidth - 6;
     const minimum = Math.min(220, usableWidth / 2);
     const localX = clientX - bounds.left + workspace.scrollLeft;
@@ -58,7 +65,11 @@ class WorkspaceDivider extends HTMLElement {
 
   applyWidths(workspace, leftWidth, rightWidth) {
     workspace.style.gridTemplateColumns = `${leftWidth}px 6px ${rightWidth}px`;
-    const percent = Math.round(leftWidth / (leftWidth + rightWidth) * 100);
+    const usableWidth = leftWidth + rightWidth;
+    const minimumPercent = usableWidth > 0 ? Math.ceil(Math.min(leftWidth, rightWidth) / usableWidth * 100) : 50;
+    const percent = usableWidth > 0 ? Math.round(leftWidth / usableWidth * 100) : 50;
+    this.setAttribute("aria-valuemin", String(minimumPercent));
+    this.setAttribute("aria-valuemax", String(100 - minimumPercent));
     this.setAttribute("aria-valuenow", String(percent));
   }
 
@@ -67,7 +78,7 @@ class WorkspaceDivider extends HTMLElement {
     const workspace = this.getWorkspace();
     if (!workspace) return;
     event.preventDefault();
-    const totalWidth = Math.max(workspace.clientWidth, workspace.scrollWidth, 446);
+    const totalWidth = Math.max(workspace.clientWidth, workspace.scrollWidth);
     const usableWidth = totalWidth - 6;
     const minimum = Math.min(220, usableWidth / 2);
     const currentPercent = Number(this.getAttribute("aria-valuenow")) || 50;
