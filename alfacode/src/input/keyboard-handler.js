@@ -85,7 +85,7 @@ export class KeyboardHandler {
         else return false;
         break;
       default:
-        if (key.length === 1 && !event.isComposing) this._replaceSelection(key);
+        if (Array.from(key).length === 1 && !event.isComposing) this._replaceSelection(key);
         else return false;
     }
 
