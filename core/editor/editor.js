@@ -13,7 +13,6 @@ import ThemeManager from "../../alfacode/src/themes/theme-manager.js";
 import BrowserStorage from "../browser-storage/browser-storage.js";
 import { getHTMLTagSuggestions } from "../../alfacode/src/language/html/html-completion.js";
 import { createTagSuggestions } from "../tag-suggestions/tag-suggestions.js";
-import "../mobile-extra-keys/mobile-extra-keys.js";
 
 const initialSources = {
   html: `<!DOCTYPE html>
@@ -117,7 +116,6 @@ button.addEventListener("click", () => {
 
 const host = document.getElementById("editor-host");
 const tabs = [...document.querySelectorAll(".editor-tab")];
-const mobileExtraKeys = document.querySelector("mobile-extra-keys");
 const status = document.getElementById("editor-status");
 const storageStatus = document.getElementById("storage-status");
 const browserStorage = new BrowserStorage({
@@ -525,7 +523,6 @@ tabs.forEach(tab => {
     sources[activeLanguage.id] = editor.text;
     activeLanguage = languages.setActive(nextLanguage);
     publishEditorState(true);
-    mobileExtraKeys?.setLanguage(nextLanguage);
     editor.setDocument(sources[nextLanguage]);
     tabs.forEach(item => {
       const selected = item === tab;
