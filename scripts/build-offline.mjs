@@ -119,13 +119,52 @@ class OfflineWorkspaceDivider extends HTMLElement {
 customElements.define("workspace-divider", OfflineWorkspaceDivider);
 `;
 }
+function makeMobileWorkspaceComponent(markup, stylesheet) {
+  return [
+    'class OfflineMobileWorkspace extends HTMLElement {',
+    '  connectedCallback() {',
+    '    if (this.shadowRoot) return;',
+    '    const root = this.attachShadow({ mode: "open" });',
+    '    root.innerHTML = "<style>" + ' + JSON.stringify(stylesheet) + ' + "</style>" + ' + JSON.stringify(markup) + ';
+    '    root.addEventListener("click", event => {',
+    '      const button = event.target.closest("button[data-view]");',
+    '      if (button) this.setView(button.dataset.view);',
+    '    });',
+    '    this.setView(document.body.dataset.mobileView || "editor");',
+    '    this.syncViewportHeight();',
+    '    window.visualViewport?.addEventListener("resize", () => this.syncViewportHeight());',
+    '    window.addEventListener("resize", () => this.syncViewportHeight());',
+    '  }',
+    '  setView(view) {',
+    '    if (view !== "editor" && view !== "preview") return;',
+    '    document.body.dataset.mobileView = view;',
+    '    for (const button of this.shadowRoot.querySelectorAll("button[data-view]")) {',
+    '      const active = button.dataset.view === view;',
+    '      button.classList.toggle("is-active", active);',
+    '      button.setAttribute("aria-pressed", String(active));',
+    '    }',
+    '  }',
+    '  syncViewportHeight() {',
+    '    const viewport = window.visualViewport;',
+    '    if (viewport && Math.abs(viewport.scale - 1) < 0.01) {',
+    '      document.documentElement.style.setProperty("--app-height", viewport.height + "px");',
+    '    } else if (!viewport) {',
+    '      document.documentElement.style.removeProperty("--app-height");',
+    '    }',
+    '  }',
+    '}',
+    'customElements.define("mobile-workspace-switcher", OfflineMobileWorkspace);'
+  ].join("\n");
+}
 async function main() {
   const inputPaths = [
     "index.html", "style.css", "script.js",
     "core/header/header.html", "core/header/header.css", "core/header/header.js",
+    "core/mobile-workspace/mobile-workspace.html", "core/mobile-workspace/mobile-workspace.css", "core/mobile-workspace/mobile-workspace.js",
     "core/workspace-divider/workspace-divider.html",
     "core/workspace-divider/workspace-divider.css",
     "core/workspace-divider/workspace-divider.js",
+  shell = shell.replace(/\s*<script\b[^>]*mobile-workspace\.js["'][^>]*>\s*<\/script>/i, "");
     "core/editor/editor.html", "core/editor/editor.css", "core/editor/editor.js",
     "core/preview/preview.html", "core/preview/preview.css", "core/preview/preview.js",
     "alfacode/src"
@@ -134,11 +173,13 @@ async function main() {
   const [
     indexTemplate, rootCss, coordinator,
     headerMarkup, headerCss, headerModule,
+    mobileMarkup, mobileCss, mobileModule,
     dividerMarkup, dividerCss, dividerModule,
     editorTemplate, editorCss, previewTemplate, previewCss, previewScript
   ] = await Promise.all([
     read("index.html"), read("style.css"), read("script.js"),
     read("core/header/header.html"), read("core/header/header.css"), read("core/header/header.js"),
+    read("core/mobile-workspace/mobile-workspace.html"), read("core/mobile-workspace/mobile-workspace.css"), read("core/mobile-workspace/mobile-workspace.js"),
     read("core/workspace-divider/workspace-divider.html"),
     read("core/workspace-divider/workspace-divider.css"),
     read("core/workspace-divider/workspace-divider.js"),
@@ -148,7 +189,8 @@ async function main() {
 
   // Ensure source component modules remain part of the audited build inputs.
   if (!headerModule.includes("customElements.define") ||
-      !dividerModule.includes("customElements.define")) {
+      !dividerModule.includes("customElements.define") ||
+      !mobileModule.includes("customElements.define")) {
     throw new Error("A required UI component module is missing its custom-element registration.");
   }
 
@@ -182,6 +224,7 @@ async function main() {
 (() => {
   ${makeHeaderComponent(headerMarkup, headerCss)}
   ${makeDividerComponent(dividerMarkup, dividerCss)}
+  ${makeMobileWorkspaceComponent(mobileMarkup, mobileCss)}
   const editorFrame = document.querySelector(".editor-panel .section-frame");
   const previewFrame = document.querySelector(".preview-panel .section-frame");
   editorFrame.srcdoc = ${JSON.stringify(editorDocument)};
