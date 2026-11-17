@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ویرایشگر آنلاین HTML، CSS و JavaScript">
+  <title>ویرایشگر HTML، CSS و JavaScript</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="app-header">
+    <h1>ویرایشگر کد</h1>
+    <button id="run-button" type="button">اجرای کد</button>
+  </header>
+
+  <main class="workspace">
+    <section class="editors" aria-label="محیط ویرایش کد">
+      <div class="editor-panel">
+        <label for="html-code">HTML</label>
+        <textarea id="html-code" spellcheck="false" dir="ltr" aria-label="کد HTML"><h1>Hello, world!</h1>
+<p>ویرایشگر HTML، CSS و JavaScript</p></textarea>
+      </div>
+
+      <div class="editor-panel">
+        <label for="css-code">CSS</label>
+        <textarea id="css-code" spellcheck="false" dir="ltr" aria-label="کد CSS">body {
+  font-family: Arial, sans-serif;
+  padding: 24px;
+  color: #222;
+}
+h1 {
+  color: #2563eb;
+}</textarea>
+      </div>
+
+      <div class="editor-panel">
+        <label for="js-code">JavaScript</label>
+        <textarea id="js-code" spellcheck="false" dir="ltr" aria-label="کد JavaScript">console.log("Hello from JavaScript!");</textarea>
+      </div>
+    </section>
+
+    <section class="preview-panel" aria-label="پیش‌نمایش خروجی">
+      <h2>پیش‌نمایش</h2>
+      <iframe id="preview" title="پیش‌نمایش کد" sandbox="allow-scripts"></iframe>
+    </section>
+  </main>
+</body>
+</html>
