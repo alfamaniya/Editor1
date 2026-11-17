@@ -283,6 +283,6 @@ alfacode/
 - `new ClipboardHandler(editor)`
 - `handleCopy(event)`، `handleCut(event)` و `handlePaste(event)`
 - `new InputController(editor, { target, keyboard })`
-- `attach(target))، `detach())، `destroy()) و ویژگی `isAttached`
+- `attach(target)`، `detach()`، `destroy()` و ویژگی `isAttached`
 
 **محدوده این مرحله:** این پیاده‌سازی لایه منطق ورودی است؛ هنوز عنصر ورودی واقعی به رابط کاربری متصل نشده و آزمون‌های یکپارچه در مرحله ۱۶ انجام خواهند شد. رفتار IME و ترکیب متن چندمرحله‌ای نیز نیازمند بررسی اختصاصی در آزمون‌های ورودی است.
