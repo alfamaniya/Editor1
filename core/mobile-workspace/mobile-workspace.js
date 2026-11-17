@@ -1,3 +1,4 @@
+// Touch-first workspace navigation for narrow viewports.
 class MobileWorkspace extends HTMLElement {
   constructor() {
     super();
