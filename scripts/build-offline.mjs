@@ -46,7 +46,7 @@ class OfflineAppHeader extends HTMLElement {
   connectedCallback() {
     if (this.shadowRoot) return;
     const root = this.attachShadow({ mode: "open" });
-    root.innerHTML = "<style>" + ${JSON.stringify(stylesheet)} + "</style>" + ${JSON.stringify(markup)};
+    '    root.innerHTML = "<style>" + ' + JSON.stringify(stylesheet) + ' + "</style>" + ' + JSON.stringify(markup) + ';'
   }
 }
 customElements.define("app-header", OfflineAppHeader);
