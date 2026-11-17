@@ -94,3 +94,7 @@ html, body { width: 100%; height: 100%; min-height: 0; margin: 0; overflow: hidd
   .editor-status,
   .browser-storage-status { font-size: 8px; }
 }
+
+
+/* The popup is positioned against the editor iframe viewport. */
+.editor-host { position: relative; }
