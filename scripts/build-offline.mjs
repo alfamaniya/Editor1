@@ -238,8 +238,6 @@ async function main() {
 
   const tagSuggestionsTemplate = await read("core/tag-suggestions/tag-suggestions.html");
   const tagSuggestionsCss = await read("core/tag-suggestions/tag-suggestions.css");
-  const extraKeysTemplate = await read("core/mobile-extra-keys/mobile-extra-keys.html");
-  const extraKeysCss = await read("core/mobile-extra-keys/mobile-extra-keys.css");
   const editorDocument = inlineEditorDocument(
     editorTemplate,
     [editorCss, tagSuggestionsCss, await read("alfacode/src/themes/dark.css"), await read("alfacode/src/themes/light.css")].join("\n"),
