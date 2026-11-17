@@ -16,6 +16,10 @@
   });
 
   const extraKeys = document.querySelector("mobile-extra-keys");
+  let latestEditorState = { focused: false, language: "html" };
+  customElements.whenDefined("mobile-extra-keys").then(() => {
+    extraKeys?.setEditorState(latestEditorState.focused, latestEditorState.language);
+  });
 
   extraKeys?.addEventListener("alfacode:extra-key", event => {
     const key = event.detail?.key;
@@ -34,7 +38,10 @@
     if (editorFrame && event.source === editorFrame.contentWindow) {
       const data = event.data;
       if (data?.type === "alfacode:editor-state") {
-        extraKeys?.setEditorState(data.focused, data.language);
+        latestEditorState = { focused: data.focused === true, language: data.language };
+        if (typeof extraKeys?.setEditorState === "function") {
+          extraKeys.setEditorState(latestEditorState.focused, latestEditorState.language);
+        }
         return;
       }
       if (data?.type === "alfacode:project-data-cleared") {
