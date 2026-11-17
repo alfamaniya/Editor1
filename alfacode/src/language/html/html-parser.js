@@ -139,7 +139,10 @@ export class HTMLParser {
             while (i < tokens.length && tokens[i].start < match.index) tokens.splice(i, 1);
             const close = tokenizeHTML(source.slice(match.index, match.index + match[0].length));
             tokens.splice(i, 0, ...close.map(x => ({ ...x, start: x.start + match.index, end: x.end + match.index })));
-          } else errors.push({ code: "UNCLOSED_RAW_TEXT_ELEMENT", message: `Element <${name}> has no closing tag.`, start: t.start, end: source.length });
+          } else {
+            tokens.splice(i);
+            errors.push({ code: "UNCLOSED_RAW_TEXT_ELEMENT", message: `Element <${name}> has no closing tag.`, start: t.start, end: source.length });
+          }
         }
       }
     }
