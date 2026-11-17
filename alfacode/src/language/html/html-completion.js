@@ -107,8 +107,11 @@ function getContextTags(stack) {
   if (parent === "head") return HEAD_TAGS;
   if (CONTEXT_TAGS[parent]) {
     return CONTEXT_TAGS[parent]
-      .map(name => HTML_TAG_CATALOG.find(item => item.name === name) ?? {
-        name, rank: 50, description: "Context-specific HTML element"
+      .map((name, index) => {
+        const item = HTML_TAG_CATALOG.find(candidate => candidate.name === name) ?? {
+          name, description: "Context-specific HTML element"
+        };
+        return { ...item, rank: index + 1 };
       });
   }
   if (parent === "p") {
