@@ -3,31 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Editor</title>
+  <title>AlfaCode Editor</title>
   <link rel="stylesheet" href="./editor.css">
+  <link rel="stylesheet" href="../../alfacode/src/themes/dark.css">
+  <link rel="stylesheet" href="../../alfacode/src/themes/light.css">
 </head>
 <body>
   <main class="section">
     <header class="section-header">
       <div>
-        <p class="eyebrow">WORKSPACE</p>
+        <p class="eyebrow">ALFACODE WORKSPACE</p>
         <h1>Editor</h1>
       </div>
-      <span class="section-mark">01</span>
+      <label class="language-control" for="language-select">
+        <span>Language</span>
+        <select id="language-select" aria-label="Editor language">
+          <option value="html">HTML</option>
+          <option value="css">CSS</option>
+          <option value="javascript">JavaScript</option>
+        </select>
+      </label>
     </header>
-    <div class="editor-surface" aria-label="Editor visual area">
+    <div class="editor-surface">
       <div class="surface-top">
-        <span class="dot dot-one"></span>
-        <span class="dot dot-two"></span>
-        <span class="dot dot-three"></span>
-        <span class="surface-label">CODE AREA</span>
+        <span class="dot dot-one"></span><span class="dot dot-two"></span><span class="dot dot-three"></span>
+        <span class="surface-label">ALFACODE</span>
+        <span id="editor-status" class="editor-status" role="status">Loading AlfaCode…</span>
       </div>
-      <div class="editor-placeholder">
-        <span class="line-number">01</span>
-        <span class="placeholder-line"></span>
-      </div>
+      <div id="editor-host" class="editor-host" aria-label="Code editor"></div>
     </div>
   </main>
-  <script src="./editor.js"></script>
+  <script type="module" src="./editor.js"></script>
 </body>
 </html>
