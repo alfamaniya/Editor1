@@ -6,7 +6,8 @@ function createPreview(language, source) {
     return `<!doctype html><html><head><meta charset="utf-8"><style>${source}</style></head><body><h1>CSS Preview</h1><p>This sample content is styled by your CSS.</p><button>Preview button</button></body></html>`;
   }
   if (language === "javascript") {
-    return `<!doctype html><html><head><meta charset="utf-8"></head><body><h1>JavaScript Preview</h1><pre id="output">Running…</pre><script>try { const result = (() => { ${source}\n })(); if (result !== undefined) document.getElementById("output").textContent = String(result); else document.getElementById("output").textContent = "JavaScript executed successfully."; } catch (error) { document.getElementById("output").textContent = error.name + ": " + error.message; }</script></body></html>`;
+    const safeSource = JSON.stringify(source).replace(/</g, "\\u003c");
+    return `<!doctype html><html><head><meta charset="utf-8"></head><body><h1>JavaScript Preview</h1><pre id="output">Running…</pre><script>try { const source = ${safeSource}; const result = new Function(source)(); if (result !== undefined) document.getElementById("output").textContent = String(result); else document.getElementById("output").textContent = "JavaScript executed successfully."; } catch (error) { document.getElementById("output").textContent = error.name + ": " + error.message; }</script></body></html>`;
   }
   return source;
 }
