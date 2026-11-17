@@ -10,6 +10,7 @@ import SyntaxHighlighter from "../../alfacode/src/features/syntax-highlighting/h
 import LineNumbers from "../../alfacode/src/features/line-numbers/line-numbers.js";
 import BracketMatcher from "../../alfacode/src/features/bracket-matching/bracket-matcher.js";
 import ThemeManager from "../../alfacode/src/themes/theme-manager.js";
+import BrowserStorage from "../browser-storage/browser-storage.js";
 
 const initialSources = {
   html: `<!DOCTYPE html>
@@ -113,8 +114,18 @@ button.addEventListener("click", () => {
 
 const host = document.getElementById("editor-host");
 const tabs = [...document.querySelectorAll(".editor-tab")];
-const sources = { ...initialSources };
 const status = document.getElementById("editor-status");
+const storageStatus = document.getElementById("storage-status");
+const browserStorage = new BrowserStorage({
+  onStatus(message, state) {
+    storageStatus.textContent = message;
+    storageStatus.dataset.state = state;
+  }
+});
+const restored = browserStorage.load(initialSources);
+const sources = restored.sources;
+storageStatus.textContent = restored.restored ? "Restored from browser" : "Browser storage ready";
+storageStatus.dataset.state = restored.restored ? "saved" : "ready";
 
 const editor = new Editor({ text: sources.html });
 const languages = new LanguageManager();
@@ -257,6 +268,7 @@ function renderEditor() {
   } finally {
     rendering = false;
   }
+  browserStorage.schedule(sources);
   publishSource();
   status.textContent = activeLanguage.id.toUpperCase() + " · " + editor.document.getLineCount() + " lines";
 }
@@ -407,4 +419,5 @@ tabs.forEach(tab => {
 });
 
 renderEditor();
+window.addEventListener("pagehide", () => browserStorage.flush(sources));
 view.focus();
