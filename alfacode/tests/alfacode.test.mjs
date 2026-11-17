@@ -169,20 +169,21 @@ test("KeyboardHandler inserts text, navigates and deletes full Unicode code poin
 });
 
 test("KeyboardHandler deletes the complete selected range with Backspace and Delete", () => {
+  for (const key of ["Backspace", "Delete"]) {
+    const editor = new Editor({ text: "hello world" });
+    const keyboard = new KeyboardHandler(editor);
+    editor.setSelection({ anchor: 1, head: 4 });
+    assert.equal(keyboard.handleKeyDown(keyboardEvent(key)), true);
+    assert.equal(editor.text, "ho world");
+    assert.equal(editor.selection.head, 1);
+  }
+
   const editor = new Editor({ text: "hello world" });
   const keyboard = new KeyboardHandler(editor);
   editor.setSelection({ anchor: 1, head: 4 });
-  assert.equal(keyboard.handleKeyDown(keyboardEvent("Backspace")), true);
-  assert.equal(editor.text, "ho world");
-  assert.equal(editor.selection.head, 1);
-  editor.setSelection({ anchor: 3, head: 8 });
-  assert.equal(keyboard.handleKeyDown(keyboardEvent("Delete")), true);
-  assert.equal(editor.text, "horld");
-  assert.equal(editor.selection.head, 3);
-  editor.setSelection({ anchor: 1, head: 4 });
   const beforeInput = { inputType: "deleteContentBackward", isComposing: false, preventDefault() { this.defaultPrevented = true; } };
   assert.equal(keyboard.handleBeforeInput(beforeInput), true);
-  assert.equal(editor.text, "old");
+  assert.equal(editor.text, "ho world");
   assert.equal(beforeInput.defaultPrevented, true);
 });
 
