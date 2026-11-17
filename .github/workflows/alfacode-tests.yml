@@ -13,6 +13,9 @@ on:
   pull_request:
     paths:
       - "alfacode/src/**"
+      - "core/editor/**"
+      - "core/preview/**"
+      - "script.js"
       - "alfacode/tests/**"
       - ".github/workflows/alfacode-tests.yml"
   workflow_dispatch:
