@@ -190,22 +190,33 @@ function getDocumentOffsetFromDOMPoint(node, offset) {
   return editor.document.getLineStart(lineNumber) + range.toString().length;
 }
 
-function syncSelectionFromDOM() {
-  if (rendering || compositionStart !== null) return;
+function syncSelectionFromDOM(shouldRender = true) {
+  if (rendering || compositionStart !== null) return false;
   const selection = window.getSelection();
   if (!selection || !selection.anchorNode || !selection.focusNode ||
-      !viewElement.contains(selection.anchorNode) || !viewElement.contains(selection.focusNode)) return;
+      !viewElement.contains(selection.anchorNode) || !viewElement.contains(selection.focusNode)) return false;
   try {
     const anchor = getDocumentOffsetFromDOMPoint(selection.anchorNode, selection.anchorOffset);
     const head = getDocumentOffsetFromDOMPoint(selection.focusNode, selection.focusOffset);
-    if (anchor === null || head === null) return;
+    if (anchor === null || head === null) return false;
     editor.setSelection({ anchor, head });
-    renderEditor();
+    if (shouldRender) renderEditor();
+    return true;
   } catch {
     // Ignore transient browser selections while the rendered DOM is changing.
+    return false;
   }
 }
 
+// Read the browser caret before InputController handles the same event.
+// Capture phase is essential: keyboard edits must use the clicked DOM position,
+// not a stale model selection (which otherwise defaults to offset zero).
+viewElement.addEventListener("keydown", () => {
+  if (compositionStart === null) syncSelectionFromDOM(false);
+}, true);
+viewElement.addEventListener("beforeinput", event => {
+  if (!event.isComposing && compositionStart === null) syncSelectionFromDOM(false);
+}, true);
 viewElement.addEventListener("keydown", event => {
   if (!event.isComposing) queueMicrotask(renderEditor);
 });
