@@ -554,7 +554,7 @@ window.addEventListener("message", event => {
 
   if (command.action === "clear-project-cookies") {
     browserStorage.clearProjectData();
-    window.parent.postMessage({ type: "alfacode:project-data-cleared" }, window.location.origin);
+    window.parent.postMessage({ type: "alfacode:project-data-cleared" }, "*");
   }
 });
 
