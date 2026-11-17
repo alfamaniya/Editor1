@@ -41,4 +41,9 @@ html, body { width: 100%; height: 100%; min-height: 0; margin: 0; overflow: hidd
 .editor-host .alfacode-cursor { border-left: 1px solid #e8edf5; }
 .editor-host .alfacode-selection { background: #264f78; color: #fff; }
 .editor-host .alfacode-bracket-match { background: #3a3d41; outline: 1px solid #888; border-radius: 2px; }
-.editor-status { flex: 0 0 20px; padding: 3px 12px; border-top: 1px solid #202b3a; color: #7d91aa; background: #141b27; font-size: 10px; }
+.editor-footer { display: flex; flex: 0 0 22px; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; padding: 0 12px; border-top: 1px solid #202b3a; background: #141b27; }
+.editor-status { min-width: 0; overflow: hidden; color: #7d91aa; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.browser-storage-status { flex: 0 0 auto; color: #7d91aa; font-size: 10px; white-space: nowrap; }
+.browser-storage-status[data-state="saved"] { color: #75c99a; }
+.browser-storage-status[data-state="saving"] { color: #e6bd72; }
+.browser-storage-status[data-state="error"] { color: #ef8989; }
