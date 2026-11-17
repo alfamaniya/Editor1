@@ -11,28 +11,112 @@ import LineNumbers from "../../alfacode/src/features/line-numbers/line-numbers.j
 import BracketMatcher from "../../alfacode/src/features/bracket-matching/bracket-matcher.js";
 import ThemeManager from "../../alfacode/src/themes/theme-manager.js";
 
-const initialSource = `<!DOCTYPE html>
+const initialSources = {
+  html: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AlfaCode Preview</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 24px; }
-    h1 { color: #315ea8; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlfaCode Starter</title>
 </head>
 <body>
-  <h1>Hello from AlfaCode</h1>
-  <p>Edit this code to update the live preview.</p>
+  <main class="demo-card">
+    <p class="eyebrow">ALFACODE STARTER</p>
+    <h1>Welcome to AlfaCode</h1>
+    <p class="description">Your HTML, CSS, and JavaScript work together in this live preview.</p>
+    <button id="demo-button" type="button">Click me</button>
+    <p id="demo-message" class="message" aria-live="polite">Your interaction will appear here.</p>
+  </main>
 </body>
-</html>`;
+</html>`,
+  css: `:root {
+  font-family: Arial, sans-serif;
+  color: #1f2937;
+  background: #eef2f7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.demo-card {
+  width: min(100%, 520px);
+  padding: 36px;
+  border: 1px solid #dbe3ee;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(31, 41, 55, 0.10);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(26px, 6vw, 36px);
+}
+
+.description {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+button {
+  margin-top: 12px;
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 9px;
+  background: #2563eb;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+button:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+.message {
+  min-height: 24px;
+  margin: 20px 0 0;
+  color: #475569;
+}`,
+  javascript: `const button = document.querySelector("#demo-button");
+const message = document.querySelector("#demo-message");
+
+let clickCount = 0;
+
+button.addEventListener("click", () => {
+  clickCount += 1;
+  message.textContent = `Great! You clicked the button ${clickCount} time${clickCount === 1 ? "" : "s"}.`;
+});`
+};
 
 const host = document.getElementById("editor-host");
 const tabs = [...document.querySelectorAll(".editor-tab")];
-const sources = { html: initialSource, css: "", javascript: "" };
+const sources = { ...initialSources };
 const status = document.getElementById("editor-status");
 
-const editor = new Editor({ text: initialSource });
+const editor = new Editor({ text: sources.html });
 const languages = new LanguageManager();
 languages.register(htmlLanguage);
 languages.register(cssLanguage);
