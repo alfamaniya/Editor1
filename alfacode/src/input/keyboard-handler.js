@@ -93,6 +93,35 @@ export class KeyboardHandler {
     return true;
   }
 
+  handleBeforeInput(event) {
+    if (!event || typeof event.inputType !== "string" || event.isComposing) {
+      return false;
+    }
+
+    switch (event.inputType) {
+      case "insertText":
+      case "insertReplacementText":
+        if (typeof event.data !== "string" || event.data.length === 0) return false;
+        this._replaceSelection(event.data);
+        break;
+      case "insertLineBreak":
+      case "insertParagraph":
+        this._replaceSelection("\\n");
+        break;
+      case "deleteContentBackward":
+        this._delete(-1);
+        break;
+      case "deleteContentForward":
+        this._delete(1);
+        break;
+      default:
+        return false;
+    }
+
+    event.preventDefault();
+    return true;
+  }
+
   _replaceSelection(text) {
     const { from, to } = this.editor.selection;
     this.editor.transact((transaction) => transaction.replace(from, to, text));
