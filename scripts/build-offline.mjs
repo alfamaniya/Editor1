@@ -183,6 +183,7 @@ async function main() {
     projectResetMarkup, projectResetCss, projectResetModule,
     clearBrowserDataMarkup, clearBrowserDataCss, clearBrowserDataModule,
     mobileMarkup, mobileCss, mobileModule,
+    extraKeysMarkup, extraKeysCss, extraKeysModule,
     dividerMarkup, dividerCss, dividerModule,
     editorTemplate, editorCss, previewTemplate, previewCss, previewScript
   ] = await Promise.all([
@@ -192,6 +193,7 @@ async function main() {
     read("core/project-reset/project-reset.html"), read("core/project-reset/project-reset.css"), read("core/project-reset/project-reset.js"),
     read("core/clear-project-cookies/clear-project-cookies.html"), read("core/clear-project-cookies/clear-project-cookies.css"), read("core/clear-project-cookies/clear-project-cookies.js"),
     read("core/mobile-workspace/mobile-workspace.html"), read("core/mobile-workspace/mobile-workspace.css"), read("core/mobile-workspace/mobile-workspace.js"),
+    read("core/mobile-extra-keys/mobile-extra-keys.html"), read("core/mobile-extra-keys/mobile-extra-keys.css"), read("core/mobile-extra-keys/mobile-extra-keys.js"),
     read("core/workspace-divider/workspace-divider.html"),
     read("core/workspace-divider/workspace-divider.css"),
     read("core/workspace-divider/workspace-divider.js"),
@@ -204,6 +206,7 @@ async function main() {
       !clearTabsModule.includes("customElements.define") ||
       !projectResetModule.includes("customElements.define") ||
       !clearBrowserDataModule.includes("customElements.define") ||
+      !extraKeysModule.includes("customElements.define") ||
       !dividerModule.includes("customElements.define") ||
       !mobileModule.includes("customElements.define")) {
     throw new Error("A required UI component module is missing its custom-element registration.");
@@ -220,6 +223,18 @@ async function main() {
     legalComments: "none"
   });
   const editorBundle = bundleResult.outputFiles[0].text;
+
+  const extraKeysBundleResult = await build({
+    absWorkingDir: ROOT,
+    entryPoints: [path.join(ROOT, "core/mobile-extra-keys/mobile-extra-keys.js")],
+    bundle: true,
+    write: false,
+    format: "iife",
+    platform: "browser",
+    target: ["es2020"],
+    legalComments: "none"
+  });
+  const extraKeysBundle = extraKeysBundleResult.outputFiles[0].text;
 
   const tagSuggestionsTemplate = await read("core/tag-suggestions/tag-suggestions.html");
   const tagSuggestionsCss = await read("core/tag-suggestions/tag-suggestions.css");
@@ -240,6 +255,7 @@ async function main() {
   shell = shell.replace(/\s*<script\b[^>]*header\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*workspace-divider\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*mobile-workspace\.js["'][^>]*>\s*<\/script>/i, "");
+  shell = shell.replace(/\s*<script\b[^>]*mobile-extra-keys\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*clear-tabs\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*project-reset\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*clear-project-cookies\.js["'][^>]*>\s*<\/script>/i, "");
@@ -249,6 +265,8 @@ async function main() {
   const bootstrap = `
 (() => {
   ${makeHeaderComponent(headerMarkup, headerCss)}
+  window.__ALFACODE_EXTRA_KEYS_ASSETS__ = { html: ${JSON.stringify(extraKeysMarkup)}, css: ${JSON.stringify(extraKeysCss)} };
+  ${extraKeysBundle}
   window.__ALFACODE_ACTION_ASSETS__ = {
     "clear-tabs": { html: ${JSON.stringify(clearTabsMarkup)}, css: ${JSON.stringify(clearTabsCss)} },
     "project-reset": { html: ${JSON.stringify(projectResetMarkup)}, css: ${JSON.stringify(projectResetCss)} },
