@@ -259,8 +259,8 @@ export function getHTMLTagSuggestions(source, cursor, options = {}) {
     };
   }
 
-  const closingMatch = prefix.match(/<\s*\/\s*([A-Za-z][A-Za-z0-9:-]*)?$/);
-  const openingMatch = closingMatch ? null : prefix.match(/<\s*([A-Za-z][A-Za-z0-9:-]*)?$/);
+  const closingMatch = prefix.match(/<\/([A-Za-z][A-Za-z0-9:-]*)?$/);
+  const openingMatch = closingMatch ? null : prefix.match(/<([A-Za-z][A-Za-z0-9:-]*)?$/);
   const match = closingMatch ?? openingMatch;
   if (!match) return null;
 
