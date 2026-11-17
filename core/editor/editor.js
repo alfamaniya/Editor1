@@ -178,7 +178,8 @@ function renderEditor() {
 function syncSelectionFromDOM() {
   if (rendering || compositionStart !== null) return;
   const selection = window.getSelection();
-  if (!selection || !selection.anchorNode || !selection.focusNode ||\n      !viewElement.contains(selection.anchorNode) || !viewElement.contains(selection.focusNode)) return;
+  if (!selection || !selection.anchorNode || !selection.focusNode ||
+      !viewElement.contains(selection.anchorNode) || !viewElement.contains(selection.focusNode)) return;
   try {
     const range = document.createRange();
     range.selectNodeContents(viewElement);
