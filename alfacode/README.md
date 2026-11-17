@@ -2,7 +2,7 @@
 
 ## نقشه راه توسعه
 
-ترتیب اجرای مراحل AlfaCode در README اصلی مخزن ثبت شده است. جدول زیر خلاصه مسیر و نوع عملیات هر مرحله را نشان می‌دهد؛ شش مرحله نخست تکمیل شده‌اند.
+ترتیب اجرای مراحل AlfaCode در README اصلی مخزن ثبت شده است. جدول زیر خلاصه مسیر و نوع عملیات هر مرحله را نشان می‌دهد؛ هفت مرحله نخست تکمیل شده‌اند.
 
 | ترتیب | مرحله | نوع عملیات |
 |---:|---|---|
@@ -34,7 +34,7 @@ AlfaCode یک موتور ویرایشگر کد مستقل و ماژولار اس
 
 ## وضعیت فعلی
 
-اسکلت ساختار ایجاد شده و شش مرحله نخست نقشه راه پیاده‌سازی شده‌اند: مدل سند در `src/core/document.js`، وضعیت ویرایشگر در `src/core/editor-state.js`، انتخاب متن در `src/core/selection.js`، تراکنش‌ها در `src/core/transaction.js`، تاریخچه تغییرات در `src/core/history.js` و رابط مرکزی موتور در `src/core/editor.js`. سایر ماژول‌ها هنوز پیاده‌سازی نشده‌اند.
+اسکلت ساختار ایجاد شده و هفت مرحله نخست نقشه راه پیاده‌سازی شده‌اند: مدل سند در `src/core/document.js`، وضعیت ویرایشگر در `src/core/editor-state.js`، انتخاب متن در `src/core/selection.js`، تراکنش‌ها در `src/core/transaction.js`، تاریخچه تغییرات در `src/core/history.js` و رابط مرکزی موتور در `src/core/editor.js`، و لایه دریافت ورودی در `src/input/`. سایر ماژول‌ها هنوز پیاده‌سازی نشده‌اند.
 
 ## مدل سند (Document)
 
@@ -235,8 +235,54 @@ alfacode/
 
 - `new Editor({ document, text, selection, historyMaxDepth })`
 - ویژگی‌ها: `document`، `state`، `text`، `selection`، `history`، `canUndo` و `canRedo`
-- انتخاب: `setSelection(selection))، `moveTo(offset)`، `extendTo(offset)) و `selectAll()`
-- تغییر متن: `applyTransaction(transaction)) و `transact(builder))
+- انتخاب: `setSelection(selection)`، `moveTo(offset)`، `extendTo(offset)` و `selectAll()`
+- تغییر متن: `applyTransaction(transaction)` و `transact(builder)`
 - تاریخچه: `undo()`، `redo()` و `clearHistory()`
 - سند و وضعیت: `setDocument(documentOrText)` و `getSnapshot()`
-- این ماژول هماهنگ‌کننده است؛ دریافت رویدادهای صفحه‌کلید، رندر متن و تعامل مستقیم با DOM در ماژول‌های جداگانه انجام خواهد شد.
+- این ماژول هماهنگ‌کننده است؛ دریافت رویدادهای صفحه‌کلید، رندر متن و تعامل مستقیم با DOM در ماژول‌های جداگانه انجام می‌شود.
+
+## دریافت ورودی (Input)
+
+لایه `src/input/` فرمان‌های کاربر را به رابط مرکزی `Editor` منتقل می‌کند و از خود موتور سند مستقل از DOM محافظت می‌کند. این لایه هیچ رندر یا ظاهر بصری ایجاد نمی‌کند.
+
+### کنترل‌کننده ورودی (InputController)
+
+فایل `src/input/input-controller.js` اتصال و جداسازی شنونده‌های رویداد را بر عهده دارد.
+
+- اتصال به یک عنصر میزبان دارای `addEventListener` و `removeEventListener`.
+- مدیریت رویدادهای `keydown`، `beforeinput`، `copy`، `cut` و `paste`.
+- جلوگیری از ثبت چندباره شنونده‌ها هنگام اتصال مجدد.
+- جداسازی شنونده‌ها با `detach()` و آزادسازی اتصال با `destroy()`.
+- اتصال اختیاری هنگام ساخت با `new InputController(editor, { target })`.
+
+### مدیریت صفحه‌کلید (KeyboardHandler)
+
+فایل `src/input/keyboard-handler.js` فرمان‌های پایه ویرایش متن را مدیریت می‌کند.
+
+- درج نویسه، خط جدید و تورفتگی Tab.
+- حرکت چپ و راست، بالا و پایین، ابتدا و انتهای خط.
+- گسترش انتخاب با Shift و جمع‌کردن انتخاب با Escape.
+- حذف رو به عقب و جلو؛ حرکت و حذف در مرز نویسه‌های Unicode به‌صورت code point انجام می‌شود.
+- میان‌برهای Select All، Undo و Redo با Ctrl یا Command.
+- پشتیبانی از `beforeinput` برای ورودی‌های صفحه‌کلید مجازی و حذف متن.
+- اندازه تورفتگی پیش‌فرض دو فاصله است و با گزینه‌های `tabSize` و `useSpaces` قابل تنظیم است.
+
+### مدیریت کلیپ‌بورد (ClipboardHandler)
+
+فایل `src/input/clipboard-handler.js` رویدادهای استاندارد کلیپ‌بورد را مدیریت می‌کند.
+
+- کپی متن انتخاب‌شده با قالب `text/plain`.
+- برش متن انتخاب‌شده و ثبت حذف در تاریخچه.
+- جای‌گذاری متن و جایگزینی انتخاب جاری.
+- استفاده از `clipboardData` رویدادها؛ بدون دسترسی مستقیم به API سیستم یا نیاز به اینترنت.
+
+### قرارداد عمومی ورودی
+
+- `new KeyboardHandler(editor, { tabSize, useSpaces })`
+- `handleKeyDown(event)` و `handleBeforeInput(event)`
+- `new ClipboardHandler(editor)`
+- `handleCopy(event)`، `handleCut(event)` و `handlePaste(event)`
+- `new InputController(editor, { target, keyboard })`
+- `attach(target))، `detach())، `destroy()) و ویژگی `isAttached`
+
+**محدوده این مرحله:** این پیاده‌سازی لایه منطق ورودی است؛ هنوز عنصر ورودی واقعی به رابط کاربری متصل نشده و آزمون‌های یکپارچه در مرحله ۱۶ انجام خواهند شد. رفتار IME و ترکیب متن چندمرحله‌ای نیز نیازمند بررسی اختصاصی در آزمون‌های ورودی است.
