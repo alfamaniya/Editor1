@@ -48,7 +48,7 @@ function validateRootElement(rootElement) {
 export class ThemeManager {
   constructor(options = {}) {
     this.themes = new Map();
-    this.activeThemeId = null;
+    this._activeThemeId = null;
     this.rootElement = null;
 
     for (const theme of DEFAULT_THEMES) {
@@ -92,7 +92,7 @@ export class ThemeManager {
   unregister(identifier) {
     const theme = this.get(identifier);
     if (!theme) return false;
-    if (theme.id === this.activeThemeId) {
+    if (theme.id === this._activeThemeId) {
       throw new Error("The active theme cannot be unregistered.");
     }
     this.themes.delete(theme.id);
@@ -113,11 +113,11 @@ export class ThemeManager {
   }
 
   get activeTheme() {
-    return this.get(this.activeThemeId);
+    return this.get(this._activeThemeId);
   }
 
-  get activeThemeIdValue() {
-    return this.activeThemeId;
+  get activeThemeId() {
+    return this._activeThemeId;
   }
 
   setTheme(identifier, rootElement = this.rootElement) {
@@ -137,7 +137,7 @@ export class ThemeManager {
       this._applyTheme(theme, rootElement);
     }
 
-    this.activeThemeId = theme.id;
+    this._activeThemeId = theme.id;
     this.rootElement = rootElement;
     return theme;
   }
@@ -163,7 +163,7 @@ export class ThemeManager {
       validateRootElement(rootElement);
       this._removeThemeClasses(rootElement);
     }
-    this.activeThemeId = null;
+    this._activeThemeId = null;
     this.rootElement = null;
     return this;
   }
