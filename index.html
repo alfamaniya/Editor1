@@ -8,12 +8,19 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+  <header class="app-header">
+    <div class="app-brand" aria-label="AlfaCode">ALFA<span>CODE</span></div>
+    <div class="header-content" aria-label="Main toolbar"></div>
+  </header>
   <main class="workspace" aria-label="Editor workspace">
-    <section class="workspace-panel editor-panel" aria-label="Editor">
-      <iframe class="section-frame" src="./core/editor/editor.html" title="Editor"></iframe>
+    <section class="workspace-panel editor-panel" aria-label="Code editor">
+      <iframe class="section-frame" src="./core/editor/editor.html" title="Code editor"></iframe>
     </section>
+    <div class="workspace-divider" role="separator" aria-label="Resize editor and preview panels"
+         aria-orientation="vertical" aria-valuemin="20" aria-valuemax="80" aria-valuenow="50"
+         tabindex="0"></div>
     <section class="workspace-panel preview-panel" aria-label="Live preview">
-      <iframe class="section-frame" src="./core/preview/preview.html" title="Live Preview"></iframe>
+      <iframe class="section-frame" src="./core/preview/preview.html" title="Live preview"></iframe>
     </section>
   </main>
   <script src="./script.js"></script>
