@@ -183,29 +183,9 @@ async function main() {
   ${makeDividerComponent(dividerMarkup, dividerCss)}
   const editorFrame = document.querySelector(".editor-panel .section-frame");
   const previewFrame = document.querySelector(".preview-panel .section-frame");
-  const editorDocument = ${JSON.stringify(editorDocument)};
-  const previewDocument = ${JSON.stringify(previewDocument)};
-  editorFrame.srcdoc = editorDocument;
-  previewFrame.srcdoc = previewDocument;
-  let previewReady = false;
-  let latestPreview = null;
-  function sendPreview() {
-    if (!previewReady || !latestPreview || !previewFrame.contentWindow) return;
-    previewFrame.contentWindow.postMessage(latestPreview, "*");
-  }
-  previewFrame.addEventListener("load", () => {
-    previewReady = true;
-    sendPreview();
-  });
-  window.addEventListener("message", event => {
-    if (event.source !== editorFrame.contentWindow) return;
-    const data = event.data;
-    if (!data || data.type !== "alfacode:source-change" || !data.sources) return;
-    const { html, css, javascript } = data.sources;
-    if (![html, css, javascript].every(value => typeof value === "string")) return;
-    latestPreview = { type: "alfacode:render", sources: { html, css, javascript } };
-    sendPreview();
-  });
+  editorFrame.srcdoc = ${JSON.stringify(editorDocument)};
+  previewFrame.srcdoc = ${JSON.stringify(previewDocument)};
+  ${coordinator}
 })();
 `;
   shell = injectBeforeBodyEnd(shell, "<script>\n" + escapeScript(bootstrap) + "\n</script>");
