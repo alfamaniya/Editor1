@@ -1,31 +1,10 @@
 # قوانین و ساختار پروژه Editor1
 
-## نقشه راه توسعه AlfaCode
+## تاریخچه توسعه AlfaCode
 
-این جدول مسیر رسمی اجرای پروژه است. کارها به‌ترتیب انجام می‌شوند و پس از تکمیل و بررسی هر مرحله، به مرحله بعد می‌رویم. ستون «نوع عملیات» مشخص می‌کند ماهیت کار در هر مرحله چیست.
+موتور AlfaCode به‌صورت ماژولار ساخته و به محیط Editor1 متصل شد. در این مسیر، مدل سند و وضعیت ویرایشگر، انتخاب و مکان‌نما، تراکنش‌های اتمی و تاریخچه Undo/Redo توسعه یافتند؛ سپس ورودی صفحه‌کلید و کلیپ‌بورد، رندر خطوط، مدیریت زبان و تحلیل پایه HTML/CSS/JavaScript، رنگ‌بندی نحوی، شماره خطوط، تطبیق پرانتزها و تم‌های روشن و تاریک اضافه شدند. مجموعه آزمون خودکار پایه و گردش‌کار CI نیز ایجاد شد.
 
-| ترتیب | مسیر یا کار | نوع عملیات | وضعیت |
-|---:|---|---|---|
-| ۱ | تعریف مدل سند و مدیریت متن در `src/core/document.js` | طراحی و پیاده‌سازی | تکمیل شد |
-| ۲ | مدیریت وضعیت ویرایشگر در `src/core/editor-state.js` | پیاده‌سازی | تکمیل شد |
-| ۳ | مدیریت انتخاب متن و مکان‌نما در `src/core/selection.js` | پیاده‌سازی | تکمیل شد |
-| ۴ | تعریف تغییرات اتمی متن و تراکنش‌ها در `src/core/transaction.js` | پیاده‌سازی | تکمیل شد |
-| ۵ | تاریخچه تغییرات و Undo/Redo در `src/core/history.js` | پیاده‌سازی | تکمیل شد |
-| ۶ | ساخت رابط مرکزی موتور در `src/core/editor.js` | یکپارچه‌سازی | تکمیل شد |
-| ۷ | دریافت ورودی، صفحه‌کلید و کلیپ‌بورد در `src/input/` | پیاده‌سازی | تکمیل شد |
-| ۸ | نمایش خطوط، متن و مکان‌نما در `src/rendering/` | پیاده‌سازی | تکمیل شد |
-| ۹ | طراحی قرارداد مشترک زبان‌ها و توکن‌سازی در `src/language/` | طراحی و پیاده‌سازی | تکمیل شد |
-| ۱۰ | شناخت و تحلیل ساختار HTML در `src/language/html/` | پیاده‌سازی و بازبینی ایستا | تکمیل شد |
-| ۱۱ | شناخت و تحلیل ساختار CSS در `src/language/css/` | پیاده‌سازی و بازبینی ایستا | تکمیل شد |
-| ۱۲ | شناخت و تحلیل ساختار JavaScript در `src/language/javascript/` | پیاده‌سازی و بازبینی ایستا | تکمیل شد |
-| ۱۳ | رنگ‌بندی نحوی کدها در `src/features/syntax-highlighting/` | پیاده‌سازی و بازبینی ایستا | تکمیل شد |
-| ۱۴ | شماره خطوط و تطبیق پرانتزها در `src/features/` | پیاده‌سازی و بازبینی ایستا | تکمیل شد |
-| ۱۵ | مدیریت تم‌های روشن و تاریک در `src/themes/` | پیاده‌سازی | تکمیل شد |
-| ۱۶ | آزمون اجزا و تعامل بین ماژول‌ها در `tests/` | آزمایش و اصلاح | تکمیل شد (آزمون‌های پایه) |
-| ۱۷ | آماده‌سازی نمونه استفاده و اتصال کنترل‌شده به Editor1 | یکپارچه‌سازی و آزمون تعامل | تکمیل شد |
-| ۱۸ | بررسی اجرای کامل و آفلاین و رفع وابستگی‌های شبکه | ممیزی منابع، آزمون و مستندسازی اجرا | تکمیل شد |
-
-**قاعده اجرا:** در هر نوبت روی مرحله جاری تمرکز می‌کنیم؛ ابتدا مسئولیت و رفتار آن مشخص می‌شود، سپس کد پیاده‌سازی و آزمایش می‌شود. وضعیت جدول و READMEها با پیشرفت واقعی پروژه به‌روزرسانی خواهند شد. افزودن قابلیت یا تغییر ترتیب مراحل بدون هماهنگی با مدیر پروژه انجام نمی‌شود.
+در مرحله یکپارچه‌سازی، موتور به رابط Editor1 و Live Preview متصل شد؛ همگام‌سازی مکان‌نما و انتخاب متن و اسکرول مشترک gutter و ویرایشگر اصلاح شد. در بررسی آفلاین، مسیرهای محلی منابع و شیوه اجرای پروژه با سرور محلی مستند شدند. تاریخچه تفصیلی APIها و اجزای AlfaCode در README اختصاصی آن نگهداری می‌شود.
 
 ## قوانین اصلی پروژه
 
@@ -51,71 +30,75 @@ Editor1 یک پروژه ماژولار برای توسعه محیط ویرایش
 
 ```text
 Editor1/
-├── index.html
-├── style.css
-├── script.js
-├── README.md
+├── .github/
+│   └── workflows/
+│       └── alfacode-tests.yml
 ├── alfacode/
-│   ├── README.md
+│   ├── examples/
+│   │   └── .gitkeep
 │   ├── src/
 │   │   ├── core/
-│   │   │   ├── editor.js
-│   │   │   ├── editor-state.js
 │   │   │   ├── document.js
+│   │   │   ├── editor-state.js
+│   │   │   ├── editor.js
+│   │   │   ├── history.js
 │   │   │   ├── selection.js
-│   │   │   ├── transaction.js
-│   │   │   └── history.js
-│   │   ├── rendering/
-│   │   │   ├── editor-view.js
-│   │   │   ├── line-renderer.js
-│   │   │   └── cursor-renderer.js
+│   │   │   └── transaction.js
+│   │   ├── features/
+│   │   │   ├── bracket-matching/
+│   │   │   │   └── bracket-matcher.js
+│   │   │   ├── line-numbers/
+│   │   │   │   └── line-numbers.js
+│   │   │   └── syntax-highlighting/
+│   │   │       └── highlighter.js
 │   │   ├── input/
+│   │   │   ├── clipboard-handler.js
 │   │   │   ├── input-controller.js
-│   │   │   ├── keyboard-handler.js
-│   │   │   └── clipboard-handler.js
+│   │   │   └── keyboard-handler.js
 │   │   ├── language/
-│   │   │   ├── language-manager.js
-│   │   │   ├── tokenizer.js
-│   │   │   ├── parser-manager.js
-│   │   │   ├── html/
-│   │   │   │   ├── html-language.js
-│   │   │   │   ├── html-parser.js
-│   │   │   │   └── html-rules.js
 │   │   │   ├── css/
 │   │   │   │   ├── css-language.js
 │   │   │   │   ├── css-parser.js
 │   │   │   │   └── css-rules.js
-│   │   │   └── javascript/
-│   │   │       ├── javascript-language.js
-│   │   │       ├── javascript-parser.js
-│   │   │       └── javascript-rules.js
-│   │   ├── features/
-│   │   │   ├── line-numbers/
-│   │   │   │   └── line-numbers.js
-│   │   │   ├── syntax-highlighting/
-│   │   │   │   └── highlighter.js
-│   │   │   └── bracket-matching/
-│   │   │       └── bracket-matcher.js
+│   │   │   ├── html/
+│   │   │   │   ├── html-language.js
+│   │   │   │   ├── html-parser.js
+│   │   │   │   └── html-rules.js
+│   │   │   ├── javascript/
+│   │   │   │   ├── javascript-language.js
+│   │   │   │   ├── javascript-parser.js
+│   │   │   │   └── javascript-rules.js
+│   │   │   ├── language-manager.js
+│   │   │   ├── parser-manager.js
+│   │   │   └── tokenizer.js
+│   │   ├── rendering/
+│   │   │   ├── cursor-renderer.js
+│   │   │   ├── editor-view.js
+│   │   │   └── line-renderer.js
 │   │   ├── themes/
-│   │   │   ├── theme-manager.js
 │   │   │   ├── dark.css
-│   │   │   └── light.css
+│   │   │   ├── light.css
+│   │   │   └── theme-manager.js
 │   │   └── utils/
 │   │       ├── dom.js
 │   │       └── helpers.js
 │   ├── tests/
-│   │   └── .gitkeep
-│   └── examples/
-│       └── .gitkeep
-└── core/
-    ├── editor/
-    │   ├── editor.html
-    │   ├── editor.css
-    │   └── editor.js
-    └── preview/
-        ├── preview.html
-        ├── preview.css
-        └── preview.js
+│   │   ├── .gitkeep
+│   │   └── alfacode.test.mjs
+│   └── README.md
+├── core/
+│   ├── editor/
+│   │   ├── editor.css
+│   │   ├── editor.html
+│   │   └── editor.js
+│   └── preview/
+│       ├── preview.css
+│       ├── preview.html
+│       └── preview.js
+├── index.html
+├── README.md
+├── script.js
+└── style.css
 ```
 
 ## مسئولیت بخش‌های اصلی AlfaCode
@@ -135,7 +118,7 @@ Editor1/
 
 ## وضعیت پیاده‌سازی
 
-هر ۱۸ مرحله نقشه راه توسعه و اتصال اولیه تکمیل شده‌اند. موتور AlfaCode به بخش Editor متصل است؛ رنگ‌بندی نحوی، شماره خطوط، تطبیق پرانتزها، دریافت ورودی و انتقال تغییرات به Live Preview فعال‌اند. ممیزی منابع نیز نشان داده است که بارگذاری کدها و stylesheetها به فایل‌های محلی متکی است و وابستگی ضروری به CDN یا سرویس بیرونی وجود ندارد. جزئیات دامنه آزمون و محدودیت‌های باقی‌مانده در بخش‌های پایانی ثبت شده‌اند.
+AlfaCode به محیط Editor1 متصل است و قابلیت‌های پایه ویرایش، رنگ‌بندی نحوی، شماره خطوط، تطبیق پرانتزها و انتقال تغییرات به Live Preview را فراهم می‌کند. فایل‌های موردنیاز پروژه به‌صورت محلی نگهداری می‌شوند و اجرای آفلاین از طریق سرور محلی امکان‌پذیر است.
 
 ## اجرای پروژه
 
