@@ -9,27 +9,12 @@
 <body>
   <main class="section">
     <header class="section-header">
-      <div>
-        <p class="eyebrow">OUTPUT</p>
-        <h1>Live Preview</h1>
-      </div>
+      <div><p class="eyebrow">OUTPUT</p><h1>Live Preview</h1></div>
       <span class="section-mark">02</span>
     </header>
-    <div class="preview-surface" aria-label="Preview visual area">
-      <div class="preview-top">
-        <span class="preview-indicator"></span>
-        <span>PREVIEW WINDOW</span>
-      </div>
-      <div class="preview-canvas">
-        <div class="empty-state">
-          <div class="preview-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <p>Preview Area</p>
-        </div>
-      </div>
+    <div class="preview-surface">
+      <div class="preview-top"><span class="preview-indicator"></span><span>PREVIEW WINDOW</span><span id="preview-status">Waiting for code</span></div>
+      <iframe id="preview-frame" title="Code output" sandbox="allow-scripts"></iframe>
     </div>
   </main>
   <script src="./preview.js"></script>
