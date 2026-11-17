@@ -37,7 +37,7 @@ AlfaCode یک موتور ویرایشگر کد مستقل و ماژولار اس
 
 ## وضعیت فعلی
 
-اسکلت ساختار ایجاد شده و سیزده مرحله نخست نقشه راه پیاده‌سازی شده‌اند: مدل سند در `src/core/document.js`، وضعیت ویرایشگر در `src/core/editor-state.js`، انتخاب متن در `src/core/selection.js`، تراکنش‌ها در `src/core/transaction.js`، تاریخچه تغییرات در `src/core/history.js` و رابط مرکزی موتور در `src/core/editor.js`، و لایه دریافت ورودی در `src/input/`، سیستم نمایش متن و مکان‌نما در `src/rendering/` و تحلیلگرهای HTML، CSS و JavaScript در `src/language/`.
+اسکلت ساختار ایجاد شده و سیزده مرحله نخست نقشه راه پیاده‌سازی شده‌اند: مدل سند در `src/core/document.js`، وضعیت ویرایشگر در `src/core/editor-state.js`، انتخاب متن در `src/core/selection.js`، تراکنش‌ها در `src/core/transaction.js`، تاریخچه تغییرات در `src/core/history.js` و رابط مرکزی موتور در `src/core/editor.js`، و لایه دریافت ورودی در `src/input/`، سیستم نمایش متن و مکان‌نما در `src/rendering/`، تحلیلگرهای HTML، CSS و JavaScript در `src/language/` و ماژول رنگ‌بندی نحوی در `src/features/syntax-highlighting/`.
 
 ## مدل سند (Document)
 
@@ -331,7 +331,7 @@ alfacode/
 - `new LineRenderer(options)` و `renderLine(documentModel, lineNumber, selection, ownerDocument)`
 - `new CursorRenderer(options)` و `render(contentElement, offset)`
 - در `EditorView`، پس از هر تغییر متن یا انتخاب باید `render()` فراخوانی شود تا DOM با وضعیت موتور هماهنگ بماند. اتصال خودکار این فراخوانی به ورودی در مرحله یکپارچه‌سازی انجام می‌شود.
-- این مرحله سیستم رندر پایه را فراهم می‌کند؛ شماره خطوط، رنگ‌بندی نحوی، تطبیق پرانتزها و تم‌های کامل در مراحل مستقل بعدی اضافه خواهند شد.
+- این مرحله سیستم رندر پایه را فراهم می‌کند؛ ماژول رنگ‌بندی نحوی در مرحله ۱۳ پیاده‌سازی شده است. شماره خطوط، تطبیق پرانتزها و تم‌های کامل در مراحل بعدی اضافه می‌شوند و اتصال highlighter به چرخه ویرایش در مرحله ۱۷ انجام خواهد شد.
 
 **محدوده این مرحله:** این ماژول‌ها پیاده‌سازی و در GitHub ثبت شده‌اند، اما هنوز آزمون DOM در مرورگر و اتصال نهایی به ورودی واقعی انجام نشده است. این موارد در مراحل آزمایش و یکپارچه‌سازی بررسی خواهند شد.
 
