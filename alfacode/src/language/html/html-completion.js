@@ -171,7 +171,7 @@ export function getHTMLTagSuggestions(source, cursor, options = {}) {
       .map(item => Object.freeze({ ...item, kind: "child", from: cursor, to: cursor }));
     const openName = stack.at(-1)?.name;
     if (openName) {
-      const closeExpression = new RegExp("</\\\\s*" + openName + "\\\\s*>", "i");
+      const closeExpression = new RegExp("</\\s*" + openName + "\\s*>", "i");
       const closeMatch = closeExpression.exec(source.slice(cursor));
       if (closeMatch) {
         optionsList.push(Object.freeze({
@@ -188,8 +188,8 @@ export function getHTMLTagSuggestions(source, cursor, options = {}) {
     };
   }
 
-  const closingMatch = prefix.match(/<\\\\s*\\\\/\\\\s*([A-Za-z][A-Za-z0-9:-]*)?$/);
-  const openingMatch = closingMatch ? null : prefix.match(/<\\\\s*([A-Za-z][A-Za-z0-9:-]*)?$/);
+  const closingMatch = prefix.match(/<\s*\/\s*([A-Za-z][A-Za-z0-9:-]*)?$/);
+  const openingMatch = closingMatch ? null : prefix.match(/<\s*([A-Za-z][A-Za-z0-9:-]*)?$/);
   const match = closingMatch ?? openingMatch;
   if (!match) return null;
 
@@ -220,7 +220,7 @@ export function getHTMLTagSuggestions(source, cursor, options = {}) {
   }
 
   const contextTags = getContextTags(stack);
-  const present = new Set(contextSource.match(/<([A-Za-z][\\\\w:-]*)/g)?.map(value =>
+  const present = new Set(contextSource.match(/<([A-Za-z][\w:-]*)/g)?.map(value =>
     value.slice(1).toLowerCase()) ?? []);
   const candidates = contextTags.filter(item => {
     if (item.contexts?.includes("root") && present.has(item.name)) return false;
