@@ -7,7 +7,7 @@
 
   function sendPreview() {
     if (!previewReady || !latestPreview || !previewFrame?.contentWindow) return;
-    previewFrame.contentWindow.postMessage(latestPreview, window.location.origin);
+    previewFrame.contentWindow.postMessage(latestPreview, "*");
   }
 
   previewFrame?.addEventListener("load", () => {
@@ -18,7 +18,7 @@
   document.addEventListener("alfacode:header-action", event => {
     const action = event.detail?.action;
     if (!["clear-tabs", "project-reset", "clear-project-cookies"].includes(action)) return;
-    editorFrame?.contentWindow?.postMessage({ type: "alfacode:toolbar-command", action }, window.location.origin);
+    editorFrame?.contentWindow?.postMessage({ type: "alfacode:toolbar-command", action }, "*");
   });
 
   window.addEventListener("message", event => {
@@ -26,7 +26,7 @@
     if (editorFrame && event.source === editorFrame.contentWindow) {
       const data = event.data;
       if (data?.type === "alfacode:project-data-cleared") {
-        editorFrame.src = editorFrame.src;
+        window.location.reload();
         return;
       }
       if (!data || data.type !== "alfacode:source-change" || !data.sources) return;
