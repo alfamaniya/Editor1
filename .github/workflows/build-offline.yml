@@ -9,6 +9,7 @@ on:
       - "script.js"
       - "core/editor/**"
       - "core/mobile-workspace/**"
+      - "core/mobile-extra-keys/**"
       - "core/browser-storage/**"
       - "core/clear-tabs/**"
       - "core/project-reset/**"
