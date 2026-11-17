@@ -2,7 +2,7 @@
 
 ## نقشه راه توسعه
 
-ترتیب اجرای مراحل AlfaCode در README اصلی مخزن ثبت شده است. جدول زیر خلاصه مسیر و نوع عملیات هر مرحله را نشان می‌دهد؛ یازده مرحله نخست تکمیل شده‌اند.
+ترتیب اجرای مراحل AlfaCode در README اصلی مخزن ثبت شده است. جدول زیر خلاصه مسیر و نوع عملیات هر مرحله را نشان می‌دهد؛ دوازده مرحله نخست تکمیل شده‌اند.
 
 | ترتیب | مرحله | نوع عملیات |
 |---:|---|---|
@@ -17,7 +17,7 @@
 | ۹ | قرارداد زبان‌ها و توکن‌سازی | طراحی و پیاده‌سازی |
 | ۱۰ | تحلیل HTML | پیاده‌سازی و بازبینی ایستا |
 | ۱۱ | تحلیل CSS | پیاده‌سازی و بازبینی ایستا |
-| ۱۲ | تحلیل JavaScript | پیاده‌سازی و آزمایش |
+| ۱۲ | تحلیل JavaScript | پیاده‌سازی و بازبینی ایستا |
 | ۱۳ | رنگ‌بندی نحوی | پیاده‌سازی و آزمایش |
 | ۱۴ | شماره خطوط و تطبیق پرانتزها | پیاده‌سازی و آزمایش |
 | ۱۵ | آزمون و اصلاح یکپارچگی | آزمایش |
@@ -35,7 +35,7 @@ AlfaCode یک موتور ویرایشگر کد مستقل و ماژولار اس
 
 ## وضعیت فعلی
 
-اسکلت ساختار ایجاد شده و یازده مرحله نخست نقشه راه پیاده‌سازی شده‌اند: مدل سند در `src/core/document.js`، وضعیت ویرایشگر در `src/core/editor-state.js`، انتخاب متن در `src/core/selection.js`، تراکنش‌ها در `src/core/transaction.js`، تاریخچه تغییرات در `src/core/history.js` و رابط مرکزی موتور در `src/core/editor.js`، و لایه دریافت ورودی در `src/input/`، و سیستم نمایش متن و مکان‌نما در `src/rendering/`. سایر ماژول‌ها هنوز پیاده‌سازی نشده‌اند.
+اسکلت ساختار ایجاد شده و دوازده مرحله نخست نقشه راه پیاده‌سازی شده‌اند: مدل سند در `src/core/document.js`، وضعیت ویرایشگر در `src/core/editor-state.js`، انتخاب متن در `src/core/selection.js`، تراکنش‌ها در `src/core/transaction.js`، تاریخچه تغییرات در `src/core/history.js` و رابط مرکزی موتور در `src/core/editor.js`، و لایه دریافت ورودی در `src/input/`، سیستم نمایش متن و مکان‌نما در `src/rendering/` و تحلیلگرهای HTML، CSS و JavaScript در `src/language/`.
 
 ## مدل سند (Document)
 
@@ -485,3 +485,40 @@ const exampleLanguage = {
 - خطاهایی مانند دونقطه مفقود، قاعده ناقص، آکولاد بسته‌نشده و آکولاد پایانی غیرمنتظره گزارش می‌شوند.
 - این تحلیلگر یک parser پایه برای ساختار رایج CSS است و اعتبارسنجی کامل مشخصات CSS، محاسبه cascade، تطبیق انتخابگرها، ارزیابی مقادیر و همه حالت‌های پیچیده custom property را انجام نمی‌دهد.
 - بازبینی کد انجام شده، اما آزمون اجرایی جامع یا مجموعه تست خودکار هنوز اجرا نشده است؛ آزمون‌های زبان‌ها در مرحله ۱۶ انجام خواهند شد.
+
+
+## زبان JavaScript و تحلیل ساختار برنامه
+
+مرحله دوازدهم، ماژول زبان JavaScript را در مسیر `src/language/javascript/` تکمیل می‌کند. این ماژول مستقل از DOM و لایه نمایش است و از قرارداد عمومی زبان‌ها در مرحله نهم پیروی می‌کند.
+
+### فایل‌ها و مسئولیت‌ها
+
+- `javascript-rules.js`: واژگان کلیدی، کلمات رزروشده، literalها، عملگرها و قواعد کمکی تشخیص توکن‌ها.
+- `javascript-parser.js`: تابع `tokenizeJavaScript(source)` برای توکن‌سازی و کلاس `JavaScriptParser` برای تحلیل ساختار کلی برنامه. تابع `parseJavaScript(source, context)` نقطه ورود ساده تحلیل است.
+- `javascript-language.js`: تعریف زبان با شناسه `javascript`، نام‌های جایگزین `js` و `ecmascript`، پسوندهای `.js`، `.mjs` و `.cjs`، توکن‌ساز و parser.
+
+### انواع توکن
+
+توکن‌ها از قرارداد `{ type, start, end, value }` پیروی می‌کنند. انواع اصلی شامل `keyword`، `contextual-keyword`، `reserved-word`، `identifier`، `private-identifier`، `literal`، `number`، `bigint`، `string`، `template`، `regex`، `operator`، `punctuator`، `line-comment`، `block-comment`، `whitespace` و انواع خطای توکن هستند.
+
+موقعیت‌ها صفرمبنا و بر اساس UTF-16 هستند؛ `start` شامل و `end` غیرشامل است. ورودی CRLF و CR پیش از پردازش به LF نرمال می‌شود.
+
+### ساختار خروجی parser
+
+خروجی `JavaScriptParser.parse(source)` یک گره ریشه `Program` شامل `sourceType`، `body`، `tokens`، `errors` و `sourceLength` است. ساختارهای اصلی که در این مرحله شناسایی می‌شوند:
+
+- `VariableDeclaration` و `VariableDeclarator` برای `var`، `let` و `const`.
+- `FunctionDeclaration` و `FunctionExpression` با پارامترها و بدنه بلوکی.
+- `ClassDeclaration` و `ClassExpression` با اعضای متد، فیلد و بلوک ایستا.
+- `IfStatement`، `ForStatement`، `WhileStatement`، `DoWhileStatement`، `WithStatement` و `SwitchStatement`.
+- `TryStatement` و ساختارهای `CatchClause`.
+- دستورات بازگشت، پرتاب خطا، توقف/ادامه حلقه، واردسازی و خروجی‌گیری.
+- `BlockStatement`، `ExpressionStatement` و گره‌های `Expression` برای نگهداری متن عبارت.
+
+### رفتار و محدوده فعلی
+
+- توکن‌ساز رشته‌ها، template literalها، commentها، regex literalها، شناسه‌ها، اعداد، BigInt، کلمات کلیدی و عملگرهای چندکاراکتری را تشخیص می‌دهد.
+- parser تطبیق پرانتزها، براکت‌ها و آکولادها را بررسی و خطاهای ساختاری رایج را گزارش می‌کند.
+- پایان دستور با نقطه‌ویرگول و برخی حالت‌های رایج Automatic Semicolon Insertion مدیریت می‌شود.
+- این پیاده‌سازی parser کامل استاندارد ECMAScript نیست. تحلیل دقیق precedence و ساخت AST کامل برای همه عبارت‌ها، جزئیات کامل template interpolation، JSX، TypeScript، decoratorها و تمام قواعد پیچیده grammar در دامنه این مرحله نیستند.
+- بازبینی کد انجام شده، اما آزمون اجرایی در Node.js یا مرورگر و مجموعه تست خودکار هنوز انجام نشده است؛ آزمون جامع زبان‌ها در مرحله ۱۶ نقشه راه اصلی انجام خواهد شد.
