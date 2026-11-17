@@ -112,10 +112,7 @@ function getContextTags(stack) {
     return HTML_TAG_CATALOG.filter(item => PHRASING_TAGS.has(item.name));
   }
   if (parent === "root") {
-    const hasHtml = stack.some(node => node.name.toLowerCase() === "html");
-    return hasHtml
-      ? HTML_TAG_CATALOG.filter(item => item.contexts?.includes("root"))
-      : HTML_TAG_CATALOG;
+    return HTML_TAG_CATALOG.filter(item => item.contexts?.includes("root"));
   }
   return HTML_TAG_CATALOG.filter(item => !item.contexts || item.contexts.includes("body"));
 }
