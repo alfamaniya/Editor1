@@ -173,7 +173,7 @@ export function getHTMLTagSuggestions(source, cursor, options = {}) {
       .map(item => Object.freeze({ ...item, kind: "child", from: cursor, to: cursor }));
     const openName = stack.at(-1)?.name;
     if (openName) {
-      const closeExpression = new RegExp("</\\s*" + openName.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&") + "\\s*>", "i");
+      const closeExpression = new RegExp("</\\s*" + openName + "\\s*>", "i");
       const closeMatch = closeExpression.exec(source.slice(cursor));
       if (closeMatch) {
         optionsList.push(Object.freeze({
