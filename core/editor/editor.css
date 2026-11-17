@@ -15,7 +15,15 @@ h1 { margin: 0; font-size: 22px; font-weight: 650; }
 .surface-label { margin-left: 8px; color: #74849b; font-size: 9px; letter-spacing: 1.4px; }
 .editor-status { margin-left: auto; color: #75b98b; font-size: 10px; }
 .editor-host { flex: 1; min-height: 310px; overflow: auto; }
+.alfacode-editor-layout { display: flex; align-items: stretch; min-width: max-content; min-height: 100%; }
+.alfacode-gutter-host { flex: 0 0 auto; min-width: 42px; }
+.alfacode-line-numbers { display: block; min-height: 100%; padding: 18px 10px 18px 0; text-align: right; user-select: none; }
+.alfacode-line-number { display: block; height: 1.55em; font: 14px/1.55 Consolas, "Courier New", monospace; }
+.alfacode-editor-canvas { flex: 1 0 auto; min-width: max-content; }
 .editor-host .alfacode-editor-view { min-height: 100%; padding: 18px; color: #d4d4d4; background: #111722; font: 14px/1.55 Consolas, "Courier New", monospace; white-space: pre; }
-.editor-host .alfacode-line { min-height: 1.55em; }
+.editor-host .alfacode-line { height: 1.55em; min-height: 1.55em; }
+.editor-host .alfacode-line-content { display: inline-block; min-height: 1.55em; }
 .editor-host .alfacode-cursor { border-left: 1px solid #e8edf5; }
+.editor-host .alfacode-selection { background: #264f78; color: #fff; }
+.editor-host .alfacode-bracket-match { background: #3a3d41; outline: 1px solid #888; border-radius: 2px; }
 @media (max-width: 600px) { body { padding: 12px; } .section { min-height: calc(100vh - 24px); gap: 16px; } .section-header { align-items: flex-start; flex-direction: column; } }
