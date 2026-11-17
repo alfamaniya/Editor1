@@ -183,11 +183,11 @@ function syncSelectionFromDOM() {
     const range = document.createRange();
     range.selectNodeContents(viewElement);
     range.setEnd(selection.anchorNode, selection.anchorOffset);
-    const head = range.toString().length;
-    const anchorRange = document.createRange();
-    anchorRange.selectNodeContents(viewElement);
-    anchorRange.setEnd(selection.focusNode, selection.focusOffset);
-    const anchor = anchorRange.toString().length;
+    const anchor = range.toString().length;
+    const focusRange = document.createRange();
+    focusRange.selectNodeContents(viewElement);
+    focusRange.setEnd(selection.focusNode, selection.focusOffset);
+    const head = focusRange.toString().length;
     editor.setSelection({ anchor, head });
     renderEditor();
   } catch {
