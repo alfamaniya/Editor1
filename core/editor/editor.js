@@ -62,10 +62,13 @@ function renderEditor() {
   publishSource();
 }
 
-viewElement.addEventListener("keydown", () => {
-  queueMicrotask(renderEditor);
+viewElement.addEventListener("keydown", (event) => {
+  if (!event.isComposing) queueMicrotask(renderEditor);
 });
-viewElement.addEventListener("beforeinput", () => {
+viewElement.addEventListener("beforeinput", (event) => {
+  if (!event.isComposing) queueMicrotask(renderEditor);
+});
+viewElement.addEventListener("compositionend", () => {
   queueMicrotask(renderEditor);
 });
 languageSelect.addEventListener("change", () => {
