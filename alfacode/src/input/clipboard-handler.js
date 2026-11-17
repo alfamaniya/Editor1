@@ -44,14 +44,14 @@ export class ClipboardHandler {
     if (!event?.clipboardData) return false;
 
     const text = event.clipboardData.getData("text/plain");
-    if (typeof text !== "string" || text.length === 0) return false;
+    event.preventDefault();
+    if (typeof text !== "string" || text.length === 0) return true;
 
     const selection = this.editor.selection;
     this.editor.transact((transaction) =>
       transaction.replace(selection.from, selection.to, text)
     );
     this.editor.moveTo(selection.from + text.replace(/\r\n?/g, "\n").length);
-    event.preventDefault();
     return true;
   }
 }
