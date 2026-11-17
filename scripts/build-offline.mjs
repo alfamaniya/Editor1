@@ -249,7 +249,7 @@ async function main() {
     "## AlfaCode offline build",
     "",
     "- Output: `offline/AlfaCode-Offline.html`",
-    "- Runtime source files audited: " + inputPaths.length,
+    "- Runtime source files audited: " + sourceFileCount,
     "- Source bytes (including source tree): " + sourceBytes.toLocaleString("en-US"),
     "- Generated HTML bytes: " + outputBytes.toLocaleString("en-US"),
     "- Generated HTML KiB: " + (outputBytes / 1024).toFixed(2),
