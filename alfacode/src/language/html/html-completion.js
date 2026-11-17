@@ -161,8 +161,9 @@ export function getHTMLTagSuggestions(source, cursor, options = {}) {
   const chain = options.chain === true;
   const limit = Math.max(1, Math.min(10, Number.isInteger(options.limit) ? options.limit : 10));
   const prefix = source.slice(0, cursor);
-  const parsed = parseHTML(prefix);
-  const stack = getOpenStack(parsed, prefix.length);
+  if (chain) {
+    const parsed = parseHTML(prefix);
+    const stack = getOpenStack(parsed, prefix.length);
 
   if (chain) {
     const parentName = stack.at(-1)?.name?.toLowerCase() ?? "root";
@@ -198,7 +199,12 @@ export function getHTMLTagSuggestions(source, cursor, options = {}) {
   const query = match[1] ?? "";
   const from = cursor - query.length;
   const closing = Boolean(closingMatch);
-  if (isSuppressed(parsed, stack, cursor, closing)) return null;
+  const tagStart = cursor - match[0].length;
+  const contextSource = source.slice(0, tagStart);
+  const parsedContext = parseHTML(contextSource);
+  const stack = getOpenStack(parsedContext, contextSource.length);
+  const parsedPrefix = parseHTML(prefix);
+  if (isSuppressed(parsedPrefix, stack, cursor, closing)) return null;
 
   if (closing) {
     const names = [...stack].reverse().map(node => node.name);
