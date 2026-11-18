@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <title>نقشه‌های راه | Editor1</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b1120;--panel:#151f30;--line:#2b3a50;--text:#edf3fc;--muted:#9eacc0;--accent:#77aaff}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0,#1b3150 0,transparent 35%),var(--bg);color:var(--text);font-family:Tahoma,"Segoe UI",sans-serif;line-height:1.8}
+    .wrap{width:min(960px,92%);margin:auto}.top{padding:34px 0 22px;border-bottom:1px solid var(--line)}.topline{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    h1{font-size:clamp(25px,5vw,38px);margin:0}.sub{color:var(--muted);margin:8px 0 0}.home{color:var(--accent);text-decoration:none;border:1px solid var(--line);padding:7px 13px;border-radius:10px;white-space:nowrap}
+    main{padding:28px 0 60px}.tools{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap}.count{color:var(--muted);font-size:14px}
+    input{width:min(360px,100%);background:#0f1929;border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--text);font:inherit;outline:none}input:focus{border-color:var(--accent)}
+    .list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:14px}.item{display:block;text-decoration:none;color:inherit;background:linear-gradient(145deg,#18263a,#121b2a);border:1px solid var(--line);border-radius:15px;padding:18px;transition:.18s ease}
+    .item:hover{transform:translateY(-2px);border-color:#628fca;background:#1b2b42}.item h2{font-size:17px;margin:0 0 7px}.item p{color:var(--muted);font-size:13px;margin:0}.meta{display:flex;justify-content:space-between;align-items:center;margin-top:16px;color:var(--accent);font-size:12px}
+    .empty{display:none;color:var(--muted);padding:30px;text-align:center;border:1px dashed var(--line);border-radius:12px}.foot{border-top:1px solid var(--line);padding:18px 0;color:var(--muted);font-size:12px}
+    @media(max-width:520px){.topline{align-items:flex-start;flex-direction:column}.home{align-self:flex-start}.tools{align-items:stretch}input{width:100%}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="wrap topline"><div><h1>نقشه‌های راه Editor1</h1><p class="sub">مرکز مشاهده و دسترسی به برنامه‌ها و مسیرهای اجرایی پروژه</p></div><a class="home" href="../index.html">بازگشت به ویرایشگر</a></div></header>
+  <main class="wrap">
+    <div class="tools"><strong>همه نقشه‌ها</strong><input id="search" type="search" placeholder="جست‌وجو در نام و توضیحات نقشه‌ها…" aria-label="جست‌وجوی نقشه‌ها"><span class="count" id="count">۶ نقشه ثبت‌شده</span></div>
+    <section class="list" id="maps">
+      <a class="item" href="https://github.com/alfamaniya/Editor1/blob/main/maps/catalog-completion.md"><h2>تکمیل کاتالوگ HTML، CSS و JavaScript</h2><p>نقشه تکمیل سه کاتالوگ، گردآوری از منابع معتبر و صحت‌سنجی رکوردها.</p><span class="meta"><span>HTML · CSS · JavaScript</span><span>بازکردن نقشه ←</span></span></a>
+      <a class="item" href="https://github.com/alfamaniya/Editor1/blob/main/maps/catalog-data-validation.md"><h2>آزمون و اعتبارسنجی داده‌های کاتالوگ</h2><p>گزارش مرحله آزمون ساختاری و تطبیق داده‌های کاتالوگ با منابع فعلی موتور.</p><span class="meta"><span>AlfaCode · Data</span><span>بازکردن نقشه ←</span></span></a>
+      <a class="item" href="https://github.com/alfamaniya/Editor1/blob/main/maps/offline-build-redesign.md"><h2>بازطراحی ساخت خودکار نسخه آفلاین</h2><p>مسیر طراحی، ساخت، کشف وابستگی‌ها و آزمون خروجی مستقل آفلاین.</p><span class="meta"><span>Offline · Build</span><span>بازکردن نقشه ←</span></span></a>
+      <a class="item" href="https://github.com/alfamaniya/Editor1/blob/main/maps/catalog-management-and-release.md"><h2>مدیریت و انتشار کاتالوگ</h2><p>برنامه ورود داده، اعتبارسنجی، مدیریت پیش‌نویس و انتشار امن در GitHub.</p><span class="meta"><span>Catalog · Release</span><span>بازکردن نقشه ←</span></span></a>
+      <a class="item" href="https://github.com/alfamaniya/Editor1/blob/main/maps/html-tag-suggestions.md"><h2>تکمیل پیشنهاد تگ‌های HTML</h2><p>برنامه ممیزی، آزمون تعاملی و ارزیابی پوشش contextهای پیشنهاد تگ.</p><span class="meta"><span>HTML · Autocomplete</span><span>بازکردن نقشه ←</span></span></a>
+      <a class="item" href="https://github.com/alfamaniya/Editor1/blob/main/maps/readme-documentation-organization.md"><h2>ساماندهی مستندات README</h2><p>برنامه ساختاردهی مستندات، تفکیک مسیرهای ناتمام و کنترل لینک‌ها.</p><span class="meta"><span>Documentation</span><span>بازکردن نقشه ←</span></span></a>
+    </section>
+    <div class="empty" id="empty">نقشه‌ای با این عبارت پیدا نشد.</div>
+  </main>
+  <footer class="foot"><div class="wrap">Editor1 · فهرست نقشه‌ها در این صفحه مدیریت می‌شود. برای افزودن نقشه جدید، فایل آن را در پوشه maps قرار دهید و یک مورد به فهرست این صفحه اضافه کنید.</div></footer>
+  <script>
+    const search=document.getElementById("search"),items=[...document.querySelectorAll(".item")],count=document.getElementById("count"),empty=document.getElementById("empty");
+    const digits=n=>String(n).replace(/\\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
+    function filter(){const q=search.value.trim().toLocaleLowerCase();let visible=0;for(const item of items){const show=item.textContent.toLocaleLowerCase().includes(q);item.hidden=!show;if(show)visible++}count.textContent=digits(visible)+" نقشه";empty.style.display=visible?"none":"block"}
+    search.addEventListener("input",filter);
+  </script>
+</body>
+</html>
