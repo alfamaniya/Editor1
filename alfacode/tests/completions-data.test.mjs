@@ -36,7 +36,7 @@ function validateCatalog(catalog) {
   const add = (path, message) => errors.push({path,message});
   const nonEmpty = v => typeof v === "string" && v.trim().length > 0;
   const stringArray = v => Array.isArray(v) && v.every(nonEmpty);
-  const types = {html:["tag"],css:["property","selector","value"],javascript:["identifier","member","snippet"]};
+  const types = {html:["tag"],css:["property","selector","value","at-rule","function","unit"],javascript:["identifier","member","snippet"]};
   if (!catalog || typeof catalog !== "object" || Array.isArray(catalog)) return [{path:"$",message:"catalog must be an object"}];
   if (catalog.schemaVersion !== 1) add("$.schemaVersion","must equal 1");
   if (!Number.isInteger(catalog.catalogVersion) || catalog.catalogVersion < 1) add("$.catalogVersion","must be a positive integer");
@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 474, javascript: 114 };
+  const expected = { html: 146, css: 489, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 734);
+  assert.equal(records.length, 749);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -321,3 +321,6 @@ test("CSS-7 combinators, attribute selectors, pseudo-classes and pseudo-elements
 
 
 test("CSS-8 visual effects, transitions, animations and scroll snapping are present",async()=>{const {css}=await readCatalogFiles();for(const label of ["border-image","border-image-source","border-image-slice","border-image-width","border-image-outset","border-image-repeat","filter","backdrop-filter","transform-origin","transform-style","perspective","perspective-origin","backface-visibility","transition-property","transition-duration","transition-timing-function","transition-delay","animation-name","animation-duration","animation-timing-function","animation-delay","animation-iteration-count","animation-direction","animation-fill-mode","animation-play-state","scroll-behavior","scroll-snap-type","scroll-snap-align","transform-style:flat","transform-style:preserve-3d","backface-visibility:visible","backface-visibility:hidden","transition-timing-function:ease","transition-timing-function:ease-in","transition-timing-function:ease-out","transition-timing-function:ease-in-out","transition-timing-function:linear","animation-direction:normal","animation-direction:reverse","animation-direction:alternate","animation-direction:alternate-reverse","animation-fill-mode:none","animation-fill-mode:forwards","animation-fill-mode:backwards","animation-fill-mode:both","animation-play-state:running","animation-play-state:paused","scroll-behavior:auto","scroll-behavior:smooth","scroll-snap-align:start","scroll-snap-align:end","scroll-snap-align:center"])assert.ok(css.records.some(r=>r.label===label||r.propertyName+":"+r.label===label),"missing CSS-8: "+label);});
+
+
+test("CSS-9 standard conditional, grouping and registration at-rules are present",async()=>{const {css}=await readCatalogFiles();for(const label of ["@media","@supports","@container","@layer","@import","@namespace","@page","@font-face","@keyframes","@counter-style","@property","@scope","@starting-style","@charset","@font-feature-values"])assert.ok(css.records.some(r=>r.type==="at-rule"&&r.label===label),"missing CSS-9 at-rule: "+label);});
