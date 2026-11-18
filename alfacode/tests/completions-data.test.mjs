@@ -111,7 +111,7 @@ test("each language file contains only its language and expected record count", 
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 1189);
+  assert.equal(records.length, 1203);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
