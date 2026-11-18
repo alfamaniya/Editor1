@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "output": "offline/AlfaCode-Offline.html",
+  "entries": [
+    {
+      "id": "app-shell",
+      "kind": "shell",
+      "active": true,
+      "html": "index.html",
+      "styles": [
+        "style.css"
+      ],
+      "scripts": [
+        "script.js"
+      ],
+      "includes": [
+        "header",
+        "clear-tabs",
+        "project-reset",
+        "clear-project-cookies",
+        "new-page-action",
+        "mobile-workspace",
+        "mobile-extra-keys",
+        "workspace-divider",
+        "editor",
+        "preview"
+      ]
+    },
+    {
+      "id": "header",
+      "kind": "component",
+      "active": true,
+      "html": "core/header/header.html",
+      "styles": [
+        "core/header/header.css"
+      ],
+      "scripts": [
+        "core/header/header.js"
+      ]
+    },
+    {
+      "id": "clear-tabs",
+      "kind": "component",
+      "active": true,
+      "html": "core/clear-tabs/clear-tabs.html",
+      "styles": [
+        "core/clear-tabs/clear-tabs.css"
+      ],
+      "scripts": [
+        "core/clear-tabs/clear-tabs.js"
+      ]
+    },
+    {
+      "id": "project-reset",
+      "kind": "component",
+      "active": true,
+      "html": "core/project-reset/project-reset.html",
+      "styles": [
+        "core/project-reset/project-reset.css"
+      ],
+      "scripts": [
+        "core/project-reset/project-reset.js"
+      ]
+    },
+    {
+      "id": "clear-project-cookies",
+      "kind": "component",
+      "active": true,
+      "html": "core/clear-project-cookies/clear-project-cookies.html",
+      "styles": [
+        "core/clear-project-cookies/clear-project-cookies.css"
+      ],
+      "scripts": [
+        "core/clear-project-cookies/clear-project-cookies.js"
+      ]
+    },
+    {
+      "id": "new-page-action",
+      "kind": "component",
+      "active": true,
+      "html": "core/new-page-action/new-page-action.html",
+      "styles": [
+        "core/new-page-action/new-page-action.css"
+      ],
+      "scripts": [
+        "core/new-page-action/new-page-action.js"
+      ]
+    },
+    {
+      "id": "mobile-workspace",
+      "kind": "component",
+      "active": true,
+      "html": "core/mobile-workspace/mobile-workspace.html",
+      "styles": [
+        "core/mobile-workspace/mobile-workspace.css"
+      ],
+      "scripts": [
+        "core/mobile-workspace/mobile-workspace.js"
+      ]
+    },
+    {
+      "id": "mobile-extra-keys",
+      "kind": "component",
+      "active": true,
+      "html": "core/mobile-extra-keys/mobile-extra-keys.html",
+      "styles": [
+        "core/mobile-extra-keys/mobile-extra-keys.css"
+      ],
+      "scripts": [
+        "core/mobile-extra-keys/mobile-extra-keys.js"
+      ]
+    },
+    {
+      "id": "workspace-divider",
+      "kind": "component",
+      "active": true,
+      "html": "core/workspace-divider/workspace-divider.html",
+      "styles": [
+        "core/workspace-divider/workspace-divider.css"
+      ],
+      "scripts": [
+        "core/workspace-divider/workspace-divider.js"
+      ]
+    },
+    {
+      "id": "editor",
+      "kind": "embedded-document",
+      "active": true,
+      "html": "core/editor/editor.html",
+      "styles": [
+        "core/editor/editor.css"
+      ],
+      "scripts": [
+        "core/editor/editor.js"
+      ],
+      "includes": [
+        "tag-suggestions"
+      ],
+      "runtimeFiles": [
+        "core/tag-suggestions/tag-suggestions.html",
+        "core/tag-suggestions/tag-suggestions.css",
+        "core/css-suggestions/css-suggestions.html",
+        "core/css-suggestions/css-suggestions.css",
+        "core/javascript-suggestions/javascript-suggestions.html",
+        "core/javascript-suggestions/javascript-suggestions.css",
+        "alfacode/src/themes/dark.css",
+        "alfacode/src/themes/light.css"
+      ]
+    },
+    {
+      "id": "tag-suggestions",
+      "kind": "support",
+      "active": true,
+      "html": "core/tag-suggestions/tag-suggestions.html",
+      "styles": [
+        "core/tag-suggestions/tag-suggestions.css"
+      ],
+      "scripts": [
+        "core/tag-suggestions/tag-suggestions.js"
+      ]
+    },
+    {
+      "id": "preview",
+      "kind": "embedded-document",
+      "active": true,
+      "html": "core/preview/preview.html",
+      "styles": [
+        "core/preview/preview.css"
+      ],
+      "scripts": [
+        "core/preview/preview.js"
+      ]
+    }
+  ]
+}
