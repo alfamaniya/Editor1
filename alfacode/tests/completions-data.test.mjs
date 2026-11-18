@@ -36,7 +36,7 @@ function validateCatalog(catalog) {
   const add = (path, message) => errors.push({path,message});
   const nonEmpty = v => typeof v === "string" && v.trim().length > 0;
   const stringArray = v => Array.isArray(v) && v.every(nonEmpty);
-  const types = {html:["tag"],css:["property","selector","value","at-rule","function","unit"],javascript:["identifier","member","snippet"]};
+  const types = {html:["tag"],css:["property","selector","value","at-rule","function","unit"],javascript:["identifier","member","snippet","literal"]};
   if (!catalog || typeof catalog !== "object" || Array.isArray(catalog)) return [{path:"$",message:"catalog must be an object"}];
   if (catalog.schemaVersion !== 1) add("$.schemaVersion","must equal 1");
   if (!Number.isInteger(catalog.catalogVersion) || catalog.catalogVersion < 1) add("$.catalogVersion","must be a positive integer");
@@ -72,6 +72,8 @@ function validateCatalog(catalog) {
       if(r.mode !== r.type) add(p+".mode","must match type");
       if(r.type === "member" && !nonEmpty(r.owner)) add(p+".owner","required for JavaScript members");
       if(r.type === "snippet" && r.enabled !== false) add(p+".enabled","JavaScript snippets must remain disabled");
+      if(r.type === "literal" && !["boolean","null"].includes(r.literalKind)) add(p+".literalKind","must be boolean or null for JavaScript literals");
+      if(r.type === "identifier" && r.category === "کلمات کلیدی" && !["reserved","strict-reserved","contextual-reserved","contextual","future-reserved"].includes(r.keywordKind)) add(p+".keywordKind","required valid classification for JavaScript keywords");
     }
     if(nonEmpty(r.language) && nonEmpty(r.type) && nonEmpty(r.label)) {
       const key = semanticKey(r);
@@ -102,14 +104,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 929, javascript: 114 };
+  const expected = { html: 146, css: 929, javascript: 128 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 1189);
+  assert.equal(records.length, 1203);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -336,3 +338,46 @@ test("CSS-12 final audit: IDs, semantic keys, value owners and typed syntax are 
 
 
 test("CSS-11 follow-up: every catalog property has at least one property-scoped value",async()=>{const {css}=await readCatalogFiles();const properties=css.records.filter(r=>r.type==="property").map(r=>r.label);const owners=new Set(css.records.filter(r=>r.type==="value"&&r.propertyName!=="*").map(r=>r.propertyName));for(const property of properties)assert.ok(owners.has(property),"property has no scoped values: "+property);});
+
+test("JS-1 covers ECMAScript reserved words and classifies contextual names", async () => {
+  const { javascript } = await readCatalogFiles();
+  const keywords = javascript.records.filter(record => record.category === "کلمات کلیدی");
+  const byLabel = new Map(keywords.map(record => [record.label, record]));
+  const alwaysReserved = [
+    "break","case","catch","class","const","continue","debugger","default","delete","do",
+    "else","export","extends","finally","for","function","if","import","in","instanceof",
+    "new","return","super","switch","this","throw","try","typeof","var","void","while","with"
+  ];
+  for (const word of alwaysReserved) {
+    assert.equal(byLabel.get(word)?.keywordKind, "reserved", "incorrect classification: " + word);
+  }
+  for (const word of ["let","static"]) assert.equal(byLabel.get(word)?.keywordKind, "strict-reserved");
+  for (const word of ["await","yield"]) assert.equal(byLabel.get(word)?.keywordKind, "contextual-reserved");
+  for (const word of ["async","from","of","as","get","set","meta","target"]) {
+    assert.equal(byLabel.get(word)?.keywordKind, "contextual", "missing contextual keyword: " + word);
+  }
+  assert.equal(byLabel.get("with")?.enabled, false, "with must remain disabled for ordinary suggestions");
+});
+
+test("JS-1 separates fixed language literals from keywords and global identifiers", async () => {
+  const { javascript } = await readCatalogFiles();
+  const literals = javascript.records.filter(record => record.type === "literal");
+  assert.deepEqual(literals.map(record => record.label).sort(), ["false","null","true"]);
+  assert.ok(literals.every(record => record.mode === "literal"));
+  const byLabel = new Map(javascript.records.map(record => [record.label, record]));
+  assert.equal(byLabel.get("this")?.category, "کلمات کلیدی");
+  assert.equal(byLabel.get("undefined")?.category, undefined);
+  assert.equal(byLabel.get("NaN")?.category, undefined);
+});
+
+test("JS-1 keeps future-reserved and next-edition syntax out of ordinary suggestions", async () => {
+  const { javascript } = await readCatalogFiles();
+  const byLabel = new Map(javascript.records.map(record => [record.label, record]));
+  for (const word of ["enum","implements","interface","package","private","protected","public"]) {
+    assert.equal(byLabel.get(word)?.keywordKind, "future-reserved");
+    assert.equal(byLabel.get(word)?.enabled, false);
+  }
+  assert.equal(byLabel.get("using")?.keywordKind, "contextual");
+  assert.equal(byLabel.get("using")?.standardStatus, "stage-3-proposal");
+  assert.equal(byLabel.get("using")?.enabled, false);
+});
