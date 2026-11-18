@@ -73,7 +73,7 @@
 
 ### مراحل تکمیل CSS
 - [x] CSS-1 — تکمیل ویژگی‌های پایه و جعبه: margin، padding و گونه‌ها، border و گونه‌ها، outline، width/height و min/max، box-sizing و اندازه‌گیری.
-- [ ] CSS-2 — تکمیل رنگ و پس‌زمینه: backgroundهای چندگانه، background-position/size/repeat، gradient، opacity و روش‌های رنگ‌نویسی.
+- [x] CSS-2 — تکمیل رنگ و پس‌زمینه: backgroundهای چندگانه، background-position/size/repeat، gradient، opacity و روش‌های رنگ‌نویسی.
 - [ ] CSS-3 — تکمیل تایپوگرافی و متن: font و گونه‌ها، line-height، letter-spacing، word-spacing، text-indent، text-overflow و word-break.
 - [ ] CSS-4 — تکمیل چیدمان Flexbox: ویژگی‌های container و item و مقادیر معتبر هر ویژگی.
 - [ ] CSS-5 — تکمیل چیدمان Grid: grid-template، areas، auto-flow، gap، جای‌گذاری و ویژگی‌های item.
@@ -89,6 +89,11 @@
 
 - ویژگی‌های جعبه و اندازه: ویژگی‌های logical برای margin/padding، border و outline، aspect-ratio و اندازه‌های logical افزوده شدند.
 - هر مورد به‌عنوان CSS property با شناسه یکتا و توضیح تخصصی ثبت شد؛ ویژگی‌های موجود تکرار نشدند.
+
+### گزارش اجرای CSS-2
+
+- Color and backgrounds: 39 مورد جدید شامل ویژگی‌ها و مقادیر مرتبط ثبت شد؛ رکوردهای تکراری کنار گذاشته شدند.
+- منابع بررسی: W3C CSS Snapshot 2026 و MDN CSS Reference؛ مقادیر به property مرتبط محدود شدند.
 
 ## ۳. نقشه راه JavaScript
 

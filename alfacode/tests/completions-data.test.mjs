@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 205, javascript: 114 };
+  const expected = { html: 146, css: 244, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 465);
+  assert.equal(records.length, 504);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -295,4 +295,11 @@ test("HTML-10 search is a current standardized element and remains distinct from
 test("CSS-1 box model and logical sizing properties are present", async () => {
  const {css}=await readCatalogFiles(); const names=new Set(css.records.filter(r=>r.type==="property").map(r=>r.label));
  for(const name of ["margin-block","margin-block-start","margin-block-end","margin-inline","margin-inline-start","margin-inline-end","padding-block","padding-block-start","padding-block-end","padding-inline","padding-inline-start","padding-inline-end","border-width","border-style","border-color","border-top","border-right","border-bottom","border-left","outline","outline-width","outline-style","outline-color","outline-offset","aspect-ratio","block-size","inline-size","min-block-size","max-block-size","min-inline-size","max-inline-size"]) assert.ok(names.has(name),"missing CSS-1 property: "+name);
+});
+
+
+test("CSS-2 Color and backgrounds records are present", async () => {
+ const {css}=await readCatalogFiles();
+ const keys=new Set(css.records.map(r=>r.type+":"+r.label));
+ for(const label of ["background-position","background-size","background-repeat","background-attachment","background-origin","background-clip","background-blend-mode","mix-blend-mode","object-fit","object-position","image-rendering","isolation","background-repeat:repeat","background-repeat:repeat-x","background-repeat:repeat-y","background-repeat:no-repeat","background-repeat:space","background-repeat:round","background-size:cover","background-size:contain","background-size:auto","background-attachment:scroll","background-attachment:fixed","background-attachment:local","background-origin:border-box","background-origin:padding-box","background-origin:content-box","background-clip:border-box","background-clip:padding-box","background-clip:content-box","background-clip:text","object-fit:fill","object-fit:contain","object-fit:cover","object-fit:none","object-fit:scale-down","image-rendering:auto","image-rendering:smooth","image-rendering:pixelated"]) { const found=css.records.some(r=>r.label===label||r.propertyName+":"+r.label===label); assert.ok(found,"missing CSS-2 record: "+label); }
 });
