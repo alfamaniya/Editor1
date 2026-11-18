@@ -51,6 +51,7 @@ async function loadOfflineManifest() {
     manifest.assembly.shell, manifest.assembly.header, manifest.assembly.newPageAction,
     manifest.assembly.mobileWorkspace, manifest.assembly.mobileExtraKeys,
     manifest.assembly.workspaceDivider, manifest.assembly.editor, manifest.assembly.preview,
+    manifest.assembly.completionCatalog,
     ...(manifest.assembly.actionComponents || []), ...(manifest.assembly.editorSupport || [])
   ];
   if (assemblyIds.some(id => typeof id !== "string" || !id.trim()) ||
@@ -279,6 +280,14 @@ function inlinePreviewDocument(template, stylesheet, script) {
   return html;
 }
 
+function inlineCatalogDocument(template, stylesheet, bundle) {
+  let html = template;
+  html = html.replace(/\\s*<link\\b[^>]*href=["'][^"']*completion-catalog\\.css["'][^>]*>/i, "");
+  html = html.replace(/\\s*<script\\b[^>]*src=["'][^"']*completion-catalog\\.js["'][^>]*>\\s*<\\/script>/i, "");
+  html = html.replace("</head>", "<style>\\n" + stylesheet + "\\n</style>\\n</head>");
+  return injectBeforeBodyEnd(html, "<script>\\n" + escapeScript(bundle) + "\\n</script>");
+}
+
 function makeHeaderComponent(markup, stylesheet) {
   return `
 class OfflineAppHeader extends HTMLElement {
@@ -482,6 +491,22 @@ async function main() {
   });
   const extraKeysBundle = extraKeysBundleResult.outputFiles[0].text;
 
+  const catalogBundleResult = await build({
+    absWorkingDir: ROOT,
+    entryPoints: [path.join(ROOT, file(assembly.completionCatalog, "scripts"))],
+    bundle: true,
+    write: false,
+    format: "iife",
+    platform: "browser",
+    target: ["es2020"],
+    legalComments: "none"
+  });
+  const completionCatalogDocument = inlineCatalogDocument(
+    await readEntry(assembly.completionCatalog, "html"),
+    await readEntry(assembly.completionCatalog, "styles"),
+    catalogBundleResult.outputFiles[0].text
+  );
+
   const tagSuggestionEntry = assembly.editorSupport[0];
   const tagSuggestionsTemplate = await readEntry(tagSuggestionEntry, "html");
   const tagSuggestionsCss = await readEntry(tagSuggestionEntry, "styles");
@@ -518,7 +543,13 @@ async function main() {
       if (this.shadowRoot) return;
       const root = this.attachShadow({ mode: "open" });
       root.innerHTML = "<style>" + ${JSON.stringify(newPageCss)} + "</style>" + ${JSON.stringify(newPageMarkup)};
-      root.querySelector("button").addEventListener("click", () => window.open("about:blank", "_blank", "noopener"));
+      const completionCatalogDocument = ${JSON.stringify(completionCatalogDocument)};
+      root.querySelector("button").addEventListener("click", () => {
+        const catalogBlob = new Blob([completionCatalogDocument], { type: "text/html;charset=utf-8" });
+        const catalogUrl = URL.createObjectURL(catalogBlob);
+        window.open(catalogUrl, "_blank", "noopener");
+        window.setTimeout(() => URL.revokeObjectURL(catalogUrl), 60000);
+      });
     }
   }
   customElements.define("new-page-action", OfflineNewPageAction);
@@ -546,6 +577,8 @@ async function main() {
 
   if (!/<!doctype html>/i.test(shell) || !editorDocument.trim() || !previewDocument.trim() ||
       !shell.includes("editorFrame.srcdoc") || !shell.includes("previewFrame.srcdoc") ||
+      !shell.includes("completionCatalogDocument") || !shell.includes("URL.createObjectURL") ||
+      shell.includes('window.open("about:blank"') ||
       !/<style\b[^>]*>[\s\S]*?<\/style>/i.test(shell) ||
       !/<script\b[^>]*>[\s\S]*?<\/script>/i.test(shell) ||
       /<script\b[^>]*\bsrc\s*=|<link\b[^>]*\bhref\s*=|<iframe\b[^>]*\bsrc\s*=/i.test(shell)) {
