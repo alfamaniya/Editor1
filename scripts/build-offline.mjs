@@ -128,7 +128,11 @@ async function discoverRuntimeFiles(manifest) {
     visitedHtml.add(current);
     await assertRuntimeFile(current);
     const source = await fs.readFile(path.join(ROOT, current), "utf8");
-    const refs = [...source.matchAll(/\b(?:src|href)\s*=\s*["']([^"']+)["']/gi)].map(match => match[1]);
+    const refs = [...source.matchAll(/<([a-z][\w:-]*)\b[^>]*>/gi)].flatMap(tagMatch => {
+      const tagName = tagMatch[1].toLowerCase();
+      if (tagName === "a" || tagName === "area") return [];
+      return [...tagMatch[0].matchAll(/\b(?:src|href)\s*=\s*["']([^"']+)["']/gi)].map(match => match[1]);
+    });
     for (const reference of refs) {
       const resolved = resolveRuntimeReference(current, reference);
       if (!resolved) continue;
