@@ -81,7 +81,7 @@
 - [x] CSS-7 — تکمیل انتخابگرها: ترکیب‌گرها، attribute selectorها، pseudo-classها و pseudo-elementهای پرکاربرد؛ تفکیک انتخابگر از مقدار ویژگی.
 - [x] CSS-8 — تکمیل جلوه‌های بصری: shadow، radius، filter، transform، transition و animation با مقادیر و توابع مرتبط.
 - [x] CSS-9 — تکمیل طراحی واکنش‌گرا و قواعد: media، supports، container query، ویژگی‌های سفارشی و توابع var/calc/clamp.
-- [ ] CSS-10 — تکمیل واحدها و توابع: طول، درصد، زاویه، زمان، رنگ، توابع ریاضی و توابع پرکاربرد CSS.
+- [x] CSS-10 — تکمیل واحدها و توابع: طول، درصد، زاویه، زمان، رنگ، توابع ریاضی و توابع پرکاربرد CSS.
 - [ ] CSS-11 — تکمیل مقادیر ویژگی‌ها: برای هر property مجموعه مقادیر متناسب و معتبر تعریف شود؛ از پیشنهاد مقادیر نامرتبط در context اشتباه جلوگیری شود.
 - [ ] CSS-12 — ممیزی نهایی پوشش، دسته‌بندی، ترتیب، توضیح، یکتایی شناسه‌ها و ارتباط property با value.
 
@@ -129,6 +129,11 @@
 
 - at-ruleهای جاری و کاربردی شامل media/supports/container، layer، import/namespace، page/font-face/keyframes، property و scope ثبت شدند. قواعد منسوخ/غیر استاندارد وارد کاتالوگ نشدند.
 - تعداد رکوردهای جدید: 15. منابع: W3C CSS Conditional Rules, Cascade, At-rules و MDN.
+
+### گزارش اجرای CSS-10
+
+- توابع ریاضی، رنگ، gradient، transform، timing و grid track و واحدهای طول، زاویه، زمان، درصد و fr ثبت شدند.
+- تعداد رکوردهای جدید: 84. توابع/واحدهای آزمایشی یا فاقد پشتیبانی کافی وارد پیشنهادهای عادی نشدند. منابع: W3C CSS Values & Units، Color، Images، Transforms و MDN.
 
 ## ۳. نقشه راه JavaScript
 
