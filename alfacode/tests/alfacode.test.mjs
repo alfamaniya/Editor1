@@ -1,6 +1,7 @@
 import test from "node:test";
 import { getHTMLTagSuggestions } from "../src/language/html/html-completion.js";
-import { applySuggestionForLanguage } from "../src/input/suggestion-dispatcher.js";
+import { getCSSCompletionSuggestions } from "../src/language/css/css-completion.js";
+import { applySuggestionForMenu } from "../src/input/suggestion-dispatcher.js";
 import assert from "node:assert/strict";
 
 import Document from "../src/core/document.js";
@@ -71,24 +72,37 @@ function keyboardEvent(key, options = {}) {
   };
 }
 
-test("Completion dispatch uses HTML tag insertion only for HTML", () => {
+test("Completion dispatch follows the owning menu, not the active language", () => {
   const calls = [];
+  const menus = { html: {}, css: {}, javascript: {} };
   const handlers = {
     html(option) { calls.push(["html", option]); },
     language(option) { calls.push(["language", option]); }
   };
   const option = { label: "display", insertText: "display" };
 
-  assert.equal(applySuggestionForLanguage("html", option, handlers), true);
-  assert.equal(applySuggestionForLanguage("css", option, handlers), true);
-  assert.equal(applySuggestionForLanguage("javascript", option, handlers), true);
+  assert.equal(applySuggestionForMenu(menus.html, option, menus, handlers), true);
+  assert.equal(applySuggestionForMenu(menus.css, option, menus, handlers), true);
+  assert.equal(applySuggestionForMenu(menus.javascript, option, menus, handlers), true);
   assert.deepEqual(calls, [
     ["html", option],
     ["language", option],
     ["language", option]
   ]);
-  assert.equal(applySuggestionForLanguage("css", null, handlers), false);
-  assert.equal(applySuggestionForLanguage("html", option, {}), false);
+  assert.equal(applySuggestionForMenu(menus.css, null, menus, handlers), false);
+  assert.equal(applySuggestionForMenu({}, option, menus, handlers), false);
+  assert.equal(applySuggestionForMenu(menus.css, option, menus, {}), false);
+});
+
+test("CSS property completion returns plain-text insertion for display", () => {
+  const source = "a { disp";
+  const result = getCSSCompletionSuggestions(source, source.length);
+  assert.equal(result.mode, "property");
+  const display = result.options.find(option => option.label === "display");
+  assert.ok(display);
+  assert.equal(display.insertText, "display");
+  assert.equal(source.slice(0, display.from) + display.insertText + source.slice(display.to),
+    "a { display");
 });
 
 test("Document normalizes line endings and maps offsets", () => {
