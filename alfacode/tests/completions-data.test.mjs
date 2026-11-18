@@ -2,9 +2,27 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
-const catalogUrl = new URL("../data/completions.json", import.meta.url);
+const catalogFiles = {
+  html: new URL("../data/completions.html.json", import.meta.url),
+  css: new URL("../data/completions.css.json", import.meta.url),
+  javascript: new URL("../data/completions.javascript.json", import.meta.url)
+};
+async function readCatalogFiles() {
+  return Object.fromEntries(await Promise.all(
+    Object.entries(catalogFiles).map(async ([language, url]) => [
+      language,
+      JSON.parse(await readFile(url, "utf8"))
+    ])
+  ));
+}
 async function readCatalog() {
-  return JSON.parse(await readFile(catalogUrl, "utf8"));
+  const catalogs = await readCatalogFiles();
+  const versions = Object.values(catalogs);
+  return {
+    schemaVersion: versions[0].schemaVersion,
+    catalogVersion: versions[0].catalogVersion,
+    records: Object.values(catalogs).flatMap(catalog => catalog.records)
+  };
 }
 function semanticKey(r) {
   if (r.language === "html") return [r.language,r.type,r.namespace,r.tagName].join(":");
@@ -63,26 +81,42 @@ function validateCatalog(catalog) {
   return errors;
 }
 
-test("catalog JSON is readable and parses successfully", async () => {
-  const catalog = await readCatalog();
-  assert.ok(catalog && typeof catalog === "object");
+test("all three language catalog JSON files are readable and parse successfully", async () => {
+  const catalogs = await readCatalogFiles();
+  assert.deepEqual(Object.keys(catalogs).sort(), ["css", "html", "javascript"]);
+  for (const catalog of Object.values(catalogs)) {
+    assert.ok(catalog && typeof catalog === "object");
+    assert.ok(Array.isArray(catalog.records));
+  }
 });
-test("catalog envelope has supported schema and version", async () => {
-  const c = await readCatalog();
-  assert.equal(c.schemaVersion,1);
-  assert.ok(Number.isInteger(c.catalogVersion) && c.catalogVersion >= 1);
-  assert.ok(Array.isArray(c.records));
+test("each language catalog has a supported and consistent envelope", async () => {
+  const catalogs = await readCatalogFiles();
+  const versions = new Set();
+  for (const [language, catalog] of Object.entries(catalogs)) {
+    assert.equal(catalog.schemaVersion, 1, language);
+    assert.ok(Number.isInteger(catalog.catalogVersion) && catalog.catalogVersion >= 1, language);
+    assert.ok(Array.isArray(catalog.records), language);
+    versions.add(catalog.catalogVersion);
+  }
+  assert.equal(versions.size, 1, "all language catalogs must use the same catalogVersion");
 });
-test("catalog contains the expected language and record counts", async () => {
+test("each language file contains only its language and expected record count", async () => {
+  const catalogs = await readCatalogFiles();
+  const expected = { html: 60, css: 174, javascript: 114 };
+  for (const [language, catalog] of Object.entries(catalogs)) {
+    assert.equal(catalog.records.length, expected[language], language);
+    assert.ok(catalog.records.every(record => record.language === language),
+      language + " file must not contain records from another language");
+  }
   const records = (await readCatalog()).records;
-  const counts = Object.groupBy(records,r=>r.language);
-  assert.equal(records.length,348);
-  assert.equal(counts.html?.length,60);
-  assert.equal(counts.css?.length,174);
-  assert.equal(counts.javascript?.length,114);
+  assert.equal(records.length, 348);
 });
-test("all records satisfy the catalog schema", async () => {
-  assert.deepEqual(validateCatalog(await readCatalog()),[]);
+test("each language file and the merged catalog satisfy the catalog schema", async () => {
+  const catalogs = await readCatalogFiles();
+  for (const [language, catalog] of Object.entries(catalogs)) {
+    assert.deepEqual(validateCatalog(catalog), [], language);
+  }
+  assert.deepEqual(validateCatalog(await readCatalog()), []);
 });
 test("record IDs are unique", async () => {
   const records=(await readCatalog()).records;
