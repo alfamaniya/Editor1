@@ -1658,6 +1658,76 @@
       "contexts": [],
       "parentTags": [],
       "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:aside",
+      "language": "html",
+      "type": "tag",
+      "category": "بخش‌بندی و ناوبری",
+      "label": "aside",
+      "description": "Section with content tangentially related to the surrounding content",
+      "rank": 77,
+      "order": 77,
+      "enabled": true,
+      "tagName": "aside",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:address",
+      "language": "html",
+      "type": "tag",
+      "category": "بخش‌بندی و ناوبری",
+      "label": "address",
+      "description": "Contact information for the nearest article or the document",
+      "rank": 78,
+      "order": 78,
+      "enabled": true,
+      "tagName": "address",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:figure",
+      "language": "html",
+      "type": "tag",
+      "category": "گروه‌بندی محتوا",
+      "label": "figure",
+      "description": "Self-contained flow content, such as an illustration, diagram, photo, or code listing",
+      "rank": 79,
+      "order": 79,
+      "enabled": true,
+      "tagName": "figure",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:figcaption",
+      "language": "html",
+      "type": "tag",
+      "category": "گروه‌بندی محتوا",
+      "label": "figcaption",
+      "description": "Caption or legend for the contents of a figure",
+      "rank": 80,
+      "order": 80,
+      "enabled": true,
+      "tagName": "figcaption",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [
+        "figure"
+      ],
+      "namespace": "html"
     }
   ]
 }
