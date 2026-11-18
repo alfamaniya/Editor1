@@ -76,7 +76,7 @@
 - [x] CSS-2 — تکمیل رنگ و پس‌زمینه: backgroundهای چندگانه، background-position/size/repeat، gradient، opacity و روش‌های رنگ‌نویسی.
 - [x] CSS-3 — تکمیل تایپوگرافی و متن: font و گونه‌ها، line-height، letter-spacing، word-spacing، text-indent، text-overflow و word-break.
 - [x] CSS-4 — تکمیل چیدمان Flexbox: ویژگی‌های container و item و مقادیر معتبر هر ویژگی.
-- [ ] CSS-5 — تکمیل چیدمان Grid: grid-template، areas، auto-flow، gap، جای‌گذاری و ویژگی‌های item.
+- [x] CSS-5 — تکمیل چیدمان Grid: grid-template، areas، auto-flow، gap، جای‌گذاری و ویژگی‌های item.
 - [ ] CSS-6 — تکمیل موقعیت‌دهی و نمایش: display، position، inset، float، clear، overflow و stacking context.
 - [ ] CSS-7 — تکمیل انتخابگرها: ترکیب‌گرها، attribute selectorها، pseudo-classها و pseudo-elementهای پرکاربرد؛ تفکیک انتخابگر از مقدار ویژگی.
 - [ ] CSS-8 — تکمیل جلوه‌های بصری: shadow، radius، filter، transform، transition و animation با مقادیر و توابع مرتبط.
@@ -104,6 +104,11 @@
 
 - ویژگی‌های flex container و item، shorthandهای flex و place-* و مقادیر معتبر flex-direction، flex-wrap، align-items، justify-content و align-content ثبت شدند.
 - تعداد رکوردهای جدید: 14. منابع: W3C Flexbox/Box Alignment و MDN CSS Reference.
+
+### گزارش اجرای CSS-5
+
+- ویژگی‌های Grid template/auto placement، grid area/row/column و justify-self به همراه مقادیر مرتبط ثبت شدند.
+- تعداد رکوردهای جدید: 28. منابع: W3C Grid Layout و Box Alignment؛ MDN CSS Reference.
 
 ## ۳. نقشه راه JavaScript
 
