@@ -85,8 +85,8 @@ async function discoverRuntimeFiles(manifest) {
   function add(relativePath) {
     if (!relativePath) return;
     files.add(relativePath);
-    if (/\\.html?$/i.test(relativePath)) htmlQueue.push(relativePath);
-    if (/\\.css$/i.test(relativePath)) cssQueue.push(relativePath);
+    if (/\.html?$/i.test(relativePath)) htmlQueue.push(relativePath);
+    if (/\.css$/i.test(relativePath)) cssQueue.push(relativePath);
   }
 
   for (const entry of manifest.entries.filter(item => item.active)) {
@@ -94,7 +94,7 @@ async function discoverRuntimeFiles(manifest) {
     for (const item of entry.styles || []) add(item);
     for (const item of entry.scripts || []) {
       add(item);
-      if (/\\.m?js$/i.test(item)) scriptEntries.add(item);
+      if (/\.m?js$/i.test(item)) scriptEntries.add(item);
     }
     for (const item of entry.runtimeFiles || []) add(item);
   }
@@ -106,13 +106,13 @@ async function discoverRuntimeFiles(manifest) {
     visitedHtml.add(current);
     await assertRuntimeFile(current);
     const source = await fs.readFile(path.join(ROOT, current), "utf8");
-    const refs = [...source.matchAll(/\\b(?:src|href)\\s*=\\s*["']([^"']+)["']/gi)].map(match => match[1]);
+    const refs = [...source.matchAll(/\b(?:src|href)\s*=\s*["']([^"']+)["']/gi)].map(match => match[1]);
     for (const reference of refs) {
       const resolved = resolveRuntimeReference(current, reference);
       if (!resolved) continue;
       await assertRuntimeFile(resolved);
       add(resolved);
-      if (/\\.m?js(?:$|[?#])/i.test(reference)) scriptEntries.add(resolved);
+      if (/\.m?js(?:$|[?#])/i.test(reference)) scriptEntries.add(resolved);
     }
   }
 
@@ -124,7 +124,7 @@ async function discoverRuntimeFiles(manifest) {
     await assertRuntimeFile(current);
     const source = await fs.readFile(path.join(ROOT, current), "utf8");
     const refs = [];
-    for (const match of source.matchAll(/@import\\s+(?:url\\(\\s*)?["']?([^"'\\s)]+)|url\\(\\s*["']?([^"'")]+)["']?\\s*\\)/gi)) {
+    for (const match of source.matchAll(/@import\s+(?:url\(\s*)?["']?([^"'\s)]+)|url\(\s*["']?([^"'")]+)["']?\s*\)/gi)) {
       refs.push(match[1] || match[2]);
     }
     for (const reference of refs) {
