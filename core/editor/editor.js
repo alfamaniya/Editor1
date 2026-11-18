@@ -17,7 +17,7 @@ import { getJavaScriptCompletionSuggestions } from "../../alfacode/src/language/
 import { createTagSuggestions } from "../tag-suggestions/tag-suggestions.js";
 import { createCSSSuggestions } from "../css-suggestions/css-suggestions.js";
 import { createJavaScriptSuggestions } from "../javascript-suggestions/javascript-suggestions.js";
-import { applySuggestionForLanguage } from "../../alfacode/src/input/suggestion-dispatcher.js";
+import { applySuggestionForMenu } from "../../alfacode/src/input/suggestion-dispatcher.js";
 
 const initialSources = {
   html: `<!DOCTYPE html>
@@ -472,7 +472,11 @@ viewElement.addEventListener("keydown", event => {
       if (selected) {
         event.preventDefault();
         event.stopImmediatePropagation();
-        applySuggestionForLanguage(activeLanguage.id, selected, {
+        applySuggestionForMenu(suggestionMenu, selected, {
+          html: tagSuggestionMenu,
+          css: cssSuggestionMenu,
+          javascript: javascriptSuggestionMenu
+        }, {
           html: applyTagSuggestion,
           language: applyLanguageSuggestion
         });
