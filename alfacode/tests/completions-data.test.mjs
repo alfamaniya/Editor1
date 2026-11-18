@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 305, javascript: 114 };
+  const expected = { html: 146, css: 333, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 565);
+  assert.equal(records.length, 593);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -309,3 +309,6 @@ test("CSS-3 typography and text properties and values are present", async()=>{co
 
 
 test("CSS-4 Flexbox properties and scoped alignment values are present",async()=>{const {css}=await readCatalogFiles();for(const label of ["flex-grow","flex-shrink","flex-flow","justify-items","place-content","place-items","place-self","row-gap","align-content:normal","align-content:space-between","align-content:space-around","align-content:space-evenly","align-content:stretch","align-content:center"])assert.ok(css.records.some(r=>r.label===label||r.propertyName+":"+r.label===label),"missing CSS-4: "+label);});
+
+
+test("CSS-5 Grid properties and placement values are present",async()=>{const {css}=await readCatalogFiles();for(const label of ["grid-template-areas","grid-auto-columns","grid-auto-rows","grid-auto-flow","grid-area","grid-column","grid-column-start","grid-column-end","grid-row","grid-row-start","grid-row-end","justify-self","grid-auto-flow:row","grid-auto-flow:column","grid-auto-flow:dense","grid-auto-flow:row dense","grid-auto-flow:column dense","grid-template-areas:none","grid-column:auto","grid-row:auto","justify-items:start","justify-items:end","justify-items:center","justify-items:stretch","justify-self:start","justify-self:end","justify-self:center","justify-self:stretch"])assert.ok(css.records.some(r=>r.label===label||r.propertyName+":"+r.label===label),"missing CSS-5: "+label);});
