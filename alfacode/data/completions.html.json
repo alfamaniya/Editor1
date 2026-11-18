@@ -2697,6 +2697,23 @@
         "g"
       ],
       "namespace": "svg"
+    },
+    {
+      "id": "html:tag:html:search",
+      "language": "html",
+      "type": "tag",
+      "category": "بخش‌بندی و ناوبری",
+      "label": "search",
+      "description": "Container for search or filtering controls and related content",
+      "rank": 105,
+      "order": 130,
+      "enabled": true,
+      "tagName": "search",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
     }
   ]
 }
