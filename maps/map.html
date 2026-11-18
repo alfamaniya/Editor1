@@ -35,7 +35,7 @@
   <footer class="foot"><div class="wrap">Editor1 · فهرست نقشه‌ها در این صفحه مدیریت می‌شود. برای افزودن نقشه جدید، فایل آن را در پوشه maps قرار دهید و یک مورد به فهرست این صفحه اضافه کنید.</div></footer>
   <script>
     const search=document.getElementById("search"),items=[...document.querySelectorAll(".item")],count=document.getElementById("count"),empty=document.getElementById("empty");
-    const digits=n=>String(n).replace(/\\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
+    const digits=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
     function filter(){const q=search.value.trim().toLocaleLowerCase();let visible=0;for(const item of items){const show=item.textContent.toLocaleLowerCase().includes(q);item.hidden=!show;if(show)visible++}count.textContent=digits(visible)+" نقشه";empty.style.display=visible?"none":"block"}
     search.addEventListener("input",filter);
   </script>
