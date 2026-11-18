@@ -48,7 +48,7 @@ python -m http.server 8000
 
 ## بسته مستقل آفلاین
 
-فایل `offline/AlfaCode-Offline.html` از سورس پروژه تولید می‌شود. اسکریپت ساخت در `scripts/build-offline.mjs` قرار دارد و workflow مربوط در `.github/workflows/build-offline.yml` است. خروجی باید مستقل باشد و برای اجرای قابلیت‌های بسته به فایل JavaScript یا CSS خارجی نیاز نداشته باشد.
+فایل `offline/AlfaCode-Offline.html` از سورس پروژه تولید می‌شود. اسکریپت ساخت در `scripts/build-offline.mjs` و فهرست مرکزی ورودی‌های runtime در `scripts/offline-manifest.json` قرار دارند؛ workflow مربوط در `.github/workflows/build-offline.yml` است. Manifest قابلیت‌ها و صفحه‌های فعال را معرفی می‌کند؛ اسکریپت ساخت ارجاع‌های HTML/CSS و گراف importهای JavaScript را بررسی می‌کند و منابع پویا و غیرقابل‌کشف را از `runtimeFiles` می‌گیرد. مسیر بازطراحی هنوز در حال اجراست؛ بسته‌بندی نهایی همه منابع و اعتبارسنجی جامع در زیرمرحله‌های بعدی انجام می‌شود. خروجی نهایی باید مستقل باشد و برای اجرای قابلیت‌های بسته به فایل JavaScript یا CSS خارجی نیاز نداشته باشد.
 
 پس از تغییر سورس، خروجی آفلاین باید از مسیر ساخت مجدداً تولید شود؛ ویرایش دستی خروجی جایگزین اصلاح سورس نیست.
 
