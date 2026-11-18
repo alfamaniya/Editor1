@@ -169,6 +169,13 @@ async function discoverRuntimeFiles(manifest) {
       target: ["es2020"],
       legalComments: "none"
     });
+    const externalImports = Object.values(result.metafile.outputs || {})
+      .flatMap(output => output.imports || [])
+      .filter(item => item.external);
+    if (externalImports.length) {
+      throw new Error("Offline JavaScript entry has external imports: " +
+        externalImports.map(item => item.path).join(", "));
+    }
     for (const input of Object.keys(result.metafile.inputs)) {
       const absolute = path.resolve(ROOT, input);
       if (absolute === ROOT || absolute.startsWith(ROOT + path.sep)) {
@@ -180,6 +187,30 @@ async function discoverRuntimeFiles(manifest) {
 
   for (const relativePath of files) await assertRuntimeFile(relativePath);
   return [...files].sort();
+}
+
+const NETWORK_URL_PATTERN = /(?:https?:)?\\/\\/[a-z0-9.-]+\\.[a-z]{2,}(?::\\d+)?(?:[/?#][^\\s"'<>)]*)?/i;
+
+async function validateNoNetworkDependencies(runtimeFiles) {
+  const violations = [];
+  for (const relativePath of runtimeFiles) {
+    const absolute = path.join(ROOT, relativePath);
+    const source = await fs.readFile(absolute, "utf8");
+    if (NETWORK_URL_PATTERN.test(source)) {
+      violations.push(relativePath + " contains an absolute or protocol-relative network URL");
+    }
+    if (/\\.html?$/i.test(relativePath) &&
+        /<(?:script|link|img|iframe|source|video|audio)\\b[^>]*(?:src|href)\\s*=\\s*["']\\s*(?:https?:)?\\/\\//i.test(source)) {
+      violations.push(relativePath + " contains an external HTML resource reference");
+    }
+    if (/\\.css$/i.test(relativePath) &&
+        /(?:@import\\s+(?:url\\()?\\s*["']?\\s*(?:https?:)?\\/\\/|url\\(\\s*["']?\\s*(?:https?:)?\\/\\/)/i.test(source)) {
+      violations.push(relativePath + " contains an external CSS import or asset");
+    }
+  }
+  if (violations.length) {
+    throw new Error("Offline source audit failed: " + violations.join("; "));
+  }
 }
 
 function escapeScript(source) {
@@ -332,6 +363,7 @@ customElements.define("mobile-workspace-switcher", OfflineMobileWorkspace);
 async function main() {
   const manifest = await loadOfflineManifest();
   const inputPaths = await discoverRuntimeFiles(manifest);
+  await validateNoNetworkDependencies(inputPaths);
 
   const assembly = manifest.assembly;
   const entries = new Map(manifest.entries.map(item => [item.id, item]));
