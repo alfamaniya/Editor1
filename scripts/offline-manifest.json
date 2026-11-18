@@ -171,5 +171,27 @@
         "core/preview/preview.js"
       ]
     }
-  ]
+  ],
+  "assembly": {
+    "shell": "app-shell",
+    "header": "header",
+    "newPageAction": "new-page-action",
+    "actionComponents": [
+      "clear-tabs",
+      "project-reset",
+      "clear-project-cookies"
+    ],
+    "mobileWorkspace": "mobile-workspace",
+    "mobileExtraKeys": "mobile-extra-keys",
+    "workspaceDivider": "workspace-divider",
+    "editor": "editor",
+    "preview": "preview",
+    "editorSupport": [
+      "tag-suggestions"
+    ],
+    "editorThemeFiles": [
+      "alfacode/src/themes/dark.css",
+      "alfacode/src/themes/light.css"
+    ]
+  }
 }
