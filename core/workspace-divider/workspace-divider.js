@@ -4,8 +4,6 @@ class WorkspaceDivider extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.dragging = false;
     this.ratio = 0.5;
-    this.resizeObserver = null;
-    this.lastWorkspaceWidth = 0;
   }
 
   async connectedCallback() {
@@ -26,18 +24,7 @@ class WorkspaceDivider extends HTMLElement {
     this.tabIndex = 0;
 
     const workspace = this.getWorkspace();
-    if (workspace) {
-      this.applyRatio(workspace);
-      if (typeof ResizeObserver !== "undefined") {
-        this.resizeObserver = new ResizeObserver(entries => {
-          const entry = entries[entries.length - 1];
-          const width = entry?.contentRect?.width ?? workspace.clientWidth;
-          if (Math.abs(width - this.lastWorkspaceWidth) < 1) return;
-          this.applyRatio(workspace);
-        });
-        this.resizeObserver.observe(workspace);
-      }
-    }
+    if (workspace) this.applyRatio(workspace);
 
     this.addEventListener("pointerdown", event => {
       if (event.button !== undefined && event.button !== 0) return;
@@ -51,12 +38,22 @@ class WorkspaceDivider extends HTMLElement {
     });
     this.addEventListener("pointerup", () => { this.dragging = false; });
     this.addEventListener("pointercancel", () => { this.dragging = false; });
+    this.addEventListener("lostpointercapture", () => { this.dragging = false; });
     this.addEventListener("keydown", event => this.handleKeydown(event));
+
+    // Fractional grid tracks resize with the workspace automatically.
+    this.handleWindowResize = () => {
+      const currentWorkspace = this.getWorkspace();
+      if (currentWorkspace) this.applyRatio(currentWorkspace);
+    };
+    window.addEventListener("resize", this.handleWindowResize, { passive: true });
   }
 
   disconnectedCallback() {
-    this.resizeObserver?.disconnect();
-    this.resizeObserver = null;
+    if (this.handleWindowResize) {
+      window.removeEventListener("resize", this.handleWindowResize);
+      this.handleWindowResize = null;
+    }
     this.dragging = false;
   }
 
@@ -65,25 +62,32 @@ class WorkspaceDivider extends HTMLElement {
   }
 
   getUsableWidth(workspace) {
-    return Math.max(0, workspace.clientWidth - 6);
+    return Math.max(0, workspace.getBoundingClientRect().width - 6);
   }
 
-  getMinimumWidth(usableWidth) {
-    return Math.min(180, usableWidth / 2);
+  getMinimumRatio(usableWidth) {
+    if (usableWidth <= 0) return 0.5;
+    return Math.min(180, usableWidth / 2) / usableWidth;
   }
 
   clampRatio(ratio, usableWidth) {
-    if (usableWidth <= 0) return 0.5;
-    const minimumRatio = this.getMinimumWidth(usableWidth) / usableWidth;
+    const minimumRatio = this.getMinimumRatio(usableWidth);
     return Math.max(minimumRatio, Math.min(1 - minimumRatio, ratio));
   }
 
   applyRatio(workspace) {
     const usableWidth = this.getUsableWidth(workspace);
     this.ratio = this.clampRatio(this.ratio, usableWidth);
-    const leftWidth = usableWidth * this.ratio;
-    this.lastWorkspaceWidth = workspace.clientWidth;
-    this.applyWidths(workspace, leftWidth, usableWidth - leftWidth);
+    workspace.style.gridTemplateColumns =
+      `minmax(0, ${this.ratio}fr) 6px minmax(0, ${1 - this.ratio}fr)`;
+    this.updateAria(usableWidth);
+  }
+
+  updateAria(usableWidth) {
+    const minimumRatio = this.getMinimumRatio(usableWidth);
+    this.setAttribute("aria-valuemin", String(Math.round(minimumRatio * 100)));
+    this.setAttribute("aria-valuemax", String(Math.round((1 - minimumRatio) * 100)));
+    this.setAttribute("aria-valuenow", String(Math.round(this.ratio * 100)));
   }
 
   updateFromPointer(clientX) {
@@ -92,22 +96,9 @@ class WorkspaceDivider extends HTMLElement {
     const bounds = workspace.getBoundingClientRect();
     const usableWidth = this.getUsableWidth(workspace);
     if (usableWidth <= 0) return;
-    const localX = clientX - bounds.left;
-    const minimum = this.getMinimumWidth(usableWidth);
-    const leftWidth = Math.max(minimum, Math.min(usableWidth - minimum, localX - 3));
-    this.ratio = leftWidth / usableWidth;
-    this.applyWidths(workspace, leftWidth, usableWidth - leftWidth);
-    this.lastWorkspaceWidth = workspace.clientWidth;
-  }
-
-  applyWidths(workspace, leftWidth, rightWidth) {
-    workspace.style.gridTemplateColumns = `${leftWidth}px 6px ${rightWidth}px`;
-    const usableWidth = leftWidth + rightWidth;
-    const minimumPercent = usableWidth > 0 ? Math.ceil(Math.min(leftWidth, rightWidth) / usableWidth * 100) : 50;
-    const percent = usableWidth > 0 ? Math.round(leftWidth / usableWidth * 100) : 50;
-    this.setAttribute("aria-valuemin", String(minimumPercent));
-    this.setAttribute("aria-valuemax", String(100 - minimumPercent));
-    this.setAttribute("aria-valuenow", String(percent));
+    const leftWidth = clientX - bounds.left - 3;
+    this.ratio = this.clampRatio(leftWidth / usableWidth, usableWidth);
+    this.applyRatio(workspace);
   }
 
   handleKeydown(event) {
@@ -117,13 +108,9 @@ class WorkspaceDivider extends HTMLElement {
     event.preventDefault();
     const usableWidth = this.getUsableWidth(workspace);
     if (usableWidth <= 0) return;
-    const minimum = this.getMinimumWidth(usableWidth);
-    const currentLeft = usableWidth * this.ratio;
-    const delta = event.key === "ArrowRight" ? 20 : -20;
-    const nextLeft = Math.max(minimum, Math.min(usableWidth - minimum, currentLeft + delta));
-    this.ratio = nextLeft / usableWidth;
-    this.applyWidths(workspace, nextLeft, usableWidth - nextLeft);
-    this.lastWorkspaceWidth = workspace.clientWidth;
+    const delta = (event.key === "ArrowRight" ? 20 : -20) / usableWidth;
+    this.ratio = this.clampRatio(this.ratio + delta, usableWidth);
+    this.applyRatio(workspace);
   }
 }
 
