@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 174, javascript: 114 };
+  const expected = { html: 146, css: 205, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 434);
+  assert.equal(records.length, 465);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -289,4 +289,10 @@ test("HTML-10 search is a current standardized element and remains distinct from
   assert.equal(search.isVoid, false);
   assert.equal(search.enabled, true);
   assert.equal(search.operation, "open");
+});
+
+
+test("CSS-1 box model and logical sizing properties are present", async () => {
+ const {css}=await readCatalogFiles(); const names=new Set(css.records.filter(r=>r.type==="property").map(r=>r.label));
+ for(const name of ["margin-block","margin-block-start","margin-block-end","margin-inline","margin-inline-start","margin-inline-end","padding-block","padding-block-start","padding-block-end","padding-inline","padding-inline-start","padding-inline-end","border-width","border-style","border-color","border-top","border-right","border-bottom","border-left","outline","outline-width","outline-style","outline-color","outline-offset","aspect-ratio","block-size","inline-size","min-block-size","max-block-size","min-inline-size","max-inline-size"]) assert.ok(names.has(name),"missing CSS-1 property: "+name);
 });

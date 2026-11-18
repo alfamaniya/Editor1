@@ -18,7 +18,7 @@ AlfaCode موتور مستقل و ماژولار ویرایش کد در پروژ
 alfacode/
 ├── data/
 │   ├── completions.html.json  (۱۴۶ رکورد HTML)
-│   ├── completions.css.json  (۱۷۴ رکورد CSS)
+│   ├── completions.css.json  (205 رکورد CSS)
 │   └── completions.javascript.json  (۱۱۴ رکورد JavaScript)
 ├── examples/
 ├── src/
