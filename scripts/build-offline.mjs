@@ -55,7 +55,8 @@ async function loadOfflineManifest() {
   ];
   if (assemblyIds.some(id => typeof id !== "string" || !id.trim()) ||
       !Array.isArray(manifest.assembly.actionComponents) ||
-      !Array.isArray(manifest.assembly.editorSupport) ||
+      !Array.isArray(manifest.assembly.editorSupport) || manifest.assembly.editorSupport.length === 0 ||
+      !Array.isArray(manifest.assembly.actionComponents) || manifest.assembly.actionComponents.length !== 3 ||
       !Array.isArray(manifest.assembly.editorThemeFiles) ||
       manifest.assembly.editorThemeFiles.some(file => typeof file !== "string")) {
     throw new Error("Invalid offline manifest: malformed assembly roles.");
