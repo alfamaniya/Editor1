@@ -282,10 +282,10 @@ function inlinePreviewDocument(template, stylesheet, script) {
 
 function inlineCatalogDocument(template, stylesheet, bundle) {
   let html = template;
-  html = html.replace(/\\s*<link\\b[^>]*href=["'][^"']*completion-catalog\\.css["'][^>]*>/i, "");
-  html = html.replace(/\\s*<script\\b[^>]*src=["'][^"']*completion-catalog\\.js["'][^>]*>\\s*<\\/script>/i, "");
-  html = html.replace("</head>", "<style>\\n" + stylesheet + "\\n</style>\\n</head>");
-  return injectBeforeBodyEnd(html, "<script>\\n" + escapeScript(bundle) + "\\n</script>");
+  html = html.replace(/\s*<link\b[^>]*href=["'][^"']*completion-catalog\.css["'][^>]*>/i, "");
+  html = html.replace(/\s*<script\b[^>]*src=["'][^"']*completion-catalog\.js["'][^>]*>\s*<\/script>/i, "");
+  html = html.replace("</head>", "<style>\n" + stylesheet + "\n</style>\n</head>");
+  return injectBeforeBodyEnd(html, "<script>\n" + escapeScript(bundle) + "\n</script>");
 }
 
 function makeHeaderComponent(markup, stylesheet) {
