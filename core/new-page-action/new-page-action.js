@@ -16,7 +16,7 @@ class NewPageAction extends HTMLElement {
     template.innerHTML = markup;
     this.shadowRoot.append(stylesheet, template.content.cloneNode(true));
     this.shadowRoot.querySelector("button").addEventListener("click", () => {
-      window.open("about:blank", "_blank", "noopener");
+      window.open(new URL("../completion-catalog/completion-catalog.html", base).href, "_blank", "noopener");
     });
   }
 }
