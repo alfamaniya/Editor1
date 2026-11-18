@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 422, javascript: 114 };
+  const expected = { html: 146, css: 474, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 682);
+  assert.equal(records.length, 734);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -318,3 +318,6 @@ test("CSS-6 positioning, overflow and containment records are present",async()=>
 
 
 test("CSS-7 combinators, attribute selectors, pseudo-classes and pseudo-elements are present",async()=>{const {css}=await readCatalogFiles();const labels=new Set(css.records.filter(r=>r.type==="selector").map(r=>r.label));for(const label of ["*",">","+","~","[attr]","[attr=\"value\"]","[attr^=\"value\"]","[attr$=\"value\"]","[attr*=\"value\"]","[attr~=\"value\"]","[attr|=\"value\"]",":first-child",":last-child",":only-child",":nth-child()",":nth-last-child()",":first-of-type",":last-of-type",":only-of-type",":nth-of-type()",":nth-last-of-type()",":empty",":root",":not()",":is()",":where()",":has()",":focus-visible",":focus-within",":checked",":disabled",":enabled",":required",":optional",":valid",":invalid",":in-range",":out-of-range",":read-only",":read-write",":placeholder-shown",":target",":lang()",":dir()",":defined","::marker","::selection","::placeholder","::first-letter","::first-line","::backdrop","::file-selector-button","::part()"])assert.ok(labels.has(label),"missing CSS-7 selector: "+label);});
+
+
+test("CSS-8 visual effects, transitions, animations and scroll snapping are present",async()=>{const {css}=await readCatalogFiles();for(const label of ["border-image","border-image-source","border-image-slice","border-image-width","border-image-outset","border-image-repeat","filter","backdrop-filter","transform-origin","transform-style","perspective","perspective-origin","backface-visibility","transition-property","transition-duration","transition-timing-function","transition-delay","animation-name","animation-duration","animation-timing-function","animation-delay","animation-iteration-count","animation-direction","animation-fill-mode","animation-play-state","scroll-behavior","scroll-snap-type","scroll-snap-align","transform-style:flat","transform-style:preserve-3d","backface-visibility:visible","backface-visibility:hidden","transition-timing-function:ease","transition-timing-function:ease-in","transition-timing-function:ease-out","transition-timing-function:ease-in-out","transition-timing-function:linear","animation-direction:normal","animation-direction:reverse","animation-direction:alternate","animation-direction:alternate-reverse","animation-fill-mode:none","animation-fill-mode:forwards","animation-fill-mode:backwards","animation-fill-mode:both","animation-play-state:running","animation-play-state:paused","scroll-behavior:auto","scroll-behavior:smooth","scroll-snap-align:start","scroll-snap-align:end","scroll-snap-align:center"])assert.ok(css.records.some(r=>r.label===label||r.propertyName+":"+r.label===label),"missing CSS-8: "+label);});

@@ -79,7 +79,7 @@
 - [x] CSS-5 — تکمیل چیدمان Grid: grid-template، areas، auto-flow، gap، جای‌گذاری و ویژگی‌های item.
 - [x] CSS-6 — تکمیل موقعیت‌دهی و نمایش: display، position، inset، float، clear، overflow و stacking context.
 - [x] CSS-7 — تکمیل انتخابگرها: ترکیب‌گرها، attribute selectorها، pseudo-classها و pseudo-elementهای پرکاربرد؛ تفکیک انتخابگر از مقدار ویژگی.
-- [ ] CSS-8 — تکمیل جلوه‌های بصری: shadow، radius، filter، transform، transition و animation با مقادیر و توابع مرتبط.
+- [x] CSS-8 — تکمیل جلوه‌های بصری: shadow، radius، filter، transform، transition و animation با مقادیر و توابع مرتبط.
 - [ ] CSS-9 — تکمیل طراحی واکنش‌گرا و قواعد: media، supports، container query، ویژگی‌های سفارشی و توابع var/calc/clamp.
 - [ ] CSS-10 — تکمیل واحدها و توابع: طول، درصد، زاویه، زمان، رنگ، توابع ریاضی و توابع پرکاربرد CSS.
 - [ ] CSS-11 — تکمیل مقادیر ویژگی‌ها: برای هر property مجموعه مقادیر متناسب و معتبر تعریف شود؛ از پیشنهاد مقادیر نامرتبط در context اشتباه جلوگیری شود.
@@ -119,6 +119,11 @@
 
 - ترکیب‌گرها، attribute selectorها، pseudo-classها و pseudo-elementهای استاندارد و پرکاربرد ثبت شدند؛ موارد آزمایشی/کم‌پشتیبانی وارد پیشنهاد عادی نشدند.
 - تعداد رکوردهای جدید: 53. منابع: W3C Selectors Level 4 و MDN Selectors Reference.
+
+### گزارش اجرای CSS-8
+
+- ویژگی‌های border-image، filter/backdrop-filter، transform سه‌بعدی، transition، animation و scroll snapping با مقادیر مرتبط افزوده شدند.
+- تعداد رکوردهای جدید: 52. منابع: W3C Transforms, Filter Effects, Transitions, Animations, Scroll Snap و MDN.
 
 ## ۳. نقشه راه JavaScript
 
