@@ -8,11 +8,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "async",
-      "description": "JavaScript keyword",
+      "description": "در ساختارهای async کلیدواژه است و می‌تواند شناسه نیز باشد",
       "mode": "identifier",
       "insertText": "async",
       "order": 1,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "contextual"
     },
     {
       "id": "javascript:identifier:keyword:await",
@@ -20,11 +21,16 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "await",
-      "description": "JavaScript keyword",
+      "description": "در ماژول‌ها و توابع async رزروشده است",
       "mode": "identifier",
       "insertText": "await",
       "order": 2,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "contextual-reserved",
+      "reservedIn": [
+        "module",
+        "async-function"
+      ]
     },
     {
       "id": "javascript:identifier:keyword:break",
@@ -32,11 +38,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "break",
-      "description": "JavaScript keyword",
+      "description": "دستور خروج از حلقه",
       "mode": "identifier",
       "insertText": "break",
       "order": 3,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:case",
@@ -44,11 +51,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "case",
-      "description": "JavaScript keyword",
+      "description": "شاخه انتخاب در switch",
       "mode": "identifier",
       "insertText": "case",
       "order": 4,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:catch",
@@ -56,11 +64,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "catch",
-      "description": "JavaScript keyword",
+      "description": "بخش دریافت و مدیریت خطا",
       "mode": "identifier",
       "insertText": "catch",
       "order": 5,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:class",
@@ -68,11 +77,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "class",
-      "description": "JavaScript keyword",
+      "description": "اعلان کلاس",
       "mode": "identifier",
       "insertText": "class",
       "order": 6,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:const",
@@ -80,11 +90,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "const",
-      "description": "JavaScript keyword",
+      "description": "اعلان متغیر ثابت‌المرجع",
       "mode": "identifier",
       "insertText": "const",
       "order": 7,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:continue",
@@ -92,11 +103,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "continue",
-      "description": "JavaScript keyword",
+      "description": "رفتن به تکرار بعدی حلقه",
       "mode": "identifier",
       "insertText": "continue",
       "order": 8,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:debugger",
@@ -104,11 +116,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "debugger",
-      "description": "JavaScript keyword",
+      "description": "نقطه توقف برای ابزار اشکال‌زدایی",
       "mode": "identifier",
       "insertText": "debugger",
       "order": 9,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:default",
@@ -116,11 +129,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "default",
-      "description": "JavaScript keyword",
+      "description": "شاخه پیش‌فرض در switch یا export",
       "mode": "identifier",
       "insertText": "default",
       "order": 10,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:delete",
@@ -128,11 +142,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "delete",
-      "description": "JavaScript keyword",
+      "description": "عملگر حذف ویژگی شیء",
       "mode": "identifier",
       "insertText": "delete",
       "order": 11,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:do",
@@ -140,11 +155,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "do",
-      "description": "JavaScript keyword",
+      "description": "آغاز حلقه do...while",
       "mode": "identifier",
       "insertText": "do",
       "order": 12,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:else",
@@ -152,11 +168,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "else",
-      "description": "JavaScript keyword",
+      "description": "شاخه جایگزین شرط",
       "mode": "identifier",
       "insertText": "else",
       "order": 13,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:export",
@@ -164,11 +181,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "export",
-      "description": "JavaScript keyword",
+      "description": "صادرکردن binding یا مقدار از ماژول",
       "mode": "identifier",
       "insertText": "export",
       "order": 14,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:extends",
@@ -176,23 +194,25 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "extends",
-      "description": "JavaScript keyword",
+      "description": "ارث‌بری کلاس",
       "mode": "identifier",
       "insertText": "extends",
       "order": 15,
-      "enabled": true
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
-      "id": "javascript:identifier:keyword:false",
+      "id": "javascript:literal:boolean:false",
       "language": "javascript",
-      "type": "identifier",
-      "category": "کلمات کلیدی",
+      "type": "literal",
+      "category": "مقادیر زبانی",
       "label": "false",
-      "description": "JavaScript keyword",
-      "mode": "identifier",
+      "description": "مقدار literal بولی false",
+      "mode": "literal",
       "insertText": "false",
-      "order": 16,
-      "enabled": true
+      "order": 1,
+      "enabled": true,
+      "literalKind": "boolean"
     },
     {
       "id": "javascript:identifier:keyword:finally",
@@ -200,11 +220,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "finally",
-      "description": "JavaScript keyword",
+      "description": "بخش پایانی try/catch",
       "mode": "identifier",
       "insertText": "finally",
-      "order": 17,
-      "enabled": true
+      "order": 16,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:for",
@@ -212,11 +233,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "for",
-      "description": "JavaScript keyword",
+      "description": "ساختار حلقه for",
       "mode": "identifier",
       "insertText": "for",
-      "order": 18,
-      "enabled": true
+      "order": 17,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:from",
@@ -224,11 +246,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "from",
-      "description": "JavaScript keyword",
+      "description": "در ساختارهای import/export کاربرد دارد",
       "mode": "identifier",
       "insertText": "from",
-      "order": 19,
-      "enabled": true
+      "order": 18,
+      "enabled": true,
+      "keywordKind": "contextual"
     },
     {
       "id": "javascript:identifier:keyword:function",
@@ -236,11 +259,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "function",
-      "description": "JavaScript keyword",
+      "description": "اعلان یا عبارت تابع",
       "mode": "identifier",
       "insertText": "function",
-      "order": 20,
-      "enabled": true
+      "order": 19,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:if",
@@ -248,11 +272,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "if",
-      "description": "JavaScript keyword",
+      "description": "دستور شرطی",
       "mode": "identifier",
       "insertText": "if",
-      "order": 21,
-      "enabled": true
+      "order": 20,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:import",
@@ -260,11 +285,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "import",
-      "description": "JavaScript keyword",
+      "description": "واردکردن binding یا ماژول",
       "mode": "identifier",
       "insertText": "import",
-      "order": 22,
-      "enabled": true
+      "order": 21,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:in",
@@ -272,11 +298,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "in",
-      "description": "JavaScript keyword",
+      "description": "عملگر بررسی وجود ویژگی یا بخش for...in",
       "mode": "identifier",
       "insertText": "in",
-      "order": 23,
-      "enabled": true
+      "order": 22,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:instanceof",
@@ -284,11 +311,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "instanceof",
-      "description": "JavaScript keyword",
+      "description": "عملگر بررسی زنجیره prototype",
       "mode": "identifier",
       "insertText": "instanceof",
-      "order": 24,
-      "enabled": true
+      "order": 23,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:let",
@@ -296,11 +324,16 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "let",
-      "description": "JavaScript keyword",
+      "description": "در strict mode و ساختارهای اعلان let/const رزروشده است",
       "mode": "identifier",
       "insertText": "let",
-      "order": 25,
-      "enabled": true
+      "order": 24,
+      "enabled": true,
+      "keywordKind": "strict-reserved",
+      "reservedIn": [
+        "strict-mode",
+        "let-or-const-declaration"
+      ]
     },
     {
       "id": "javascript:identifier:keyword:new",
@@ -308,23 +341,25 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "new",
-      "description": "JavaScript keyword",
+      "description": "ساخت نمونه با فراخوانی سازنده",
       "mode": "identifier",
       "insertText": "new",
-      "order": 26,
-      "enabled": true
+      "order": 25,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
-      "id": "javascript:identifier:keyword:null",
+      "id": "javascript:literal:null:null",
       "language": "javascript",
-      "type": "identifier",
-      "category": "کلمات کلیدی",
+      "type": "literal",
+      "category": "مقادیر زبانی",
       "label": "null",
-      "description": "JavaScript keyword",
-      "mode": "identifier",
+      "description": "مقدار literal تهی null",
+      "mode": "literal",
       "insertText": "null",
-      "order": 27,
-      "enabled": true
+      "order": 2,
+      "enabled": true,
+      "literalKind": "null"
     },
     {
       "id": "javascript:identifier:keyword:of",
@@ -332,11 +367,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "of",
-      "description": "JavaScript keyword",
+      "description": "در حلقه for...of کاربرد دارد",
       "mode": "identifier",
       "insertText": "of",
-      "order": 28,
-      "enabled": true
+      "order": 26,
+      "enabled": true,
+      "keywordKind": "contextual"
     },
     {
       "id": "javascript:identifier:keyword:return",
@@ -344,11 +380,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "return",
-      "description": "JavaScript keyword",
+      "description": "بازگرداندن مقدار از تابع",
       "mode": "identifier",
       "insertText": "return",
-      "order": 29,
-      "enabled": true
+      "order": 27,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:static",
@@ -356,11 +393,15 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "static",
-      "description": "JavaScript keyword",
+      "description": "در strict mode رزروشده است",
       "mode": "identifier",
       "insertText": "static",
-      "order": 30,
-      "enabled": true
+      "order": 28,
+      "enabled": true,
+      "keywordKind": "strict-reserved",
+      "reservedIn": [
+        "strict-mode"
+      ]
     },
     {
       "id": "javascript:identifier:keyword:super",
@@ -368,11 +409,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "super",
-      "description": "JavaScript keyword",
+      "description": "دسترسی به سازنده یا اعضای کلاس والد",
       "mode": "identifier",
       "insertText": "super",
-      "order": 31,
-      "enabled": true
+      "order": 29,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:switch",
@@ -380,11 +422,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "switch",
-      "description": "JavaScript keyword",
+      "description": "دستور چندشاخه‌ای",
       "mode": "identifier",
       "insertText": "switch",
-      "order": 32,
-      "enabled": true
+      "order": 30,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:this",
@@ -392,11 +435,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "this",
-      "description": "JavaScript keyword",
+      "description": "ارجاع به this binding جاری",
       "mode": "identifier",
       "insertText": "this",
-      "order": 33,
-      "enabled": true
+      "order": 31,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:throw",
@@ -404,23 +448,25 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "throw",
-      "description": "JavaScript keyword",
+      "description": "پرتاب استثنا",
       "mode": "identifier",
       "insertText": "throw",
-      "order": 34,
-      "enabled": true
+      "order": 32,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
-      "id": "javascript:identifier:keyword:true",
+      "id": "javascript:literal:boolean:true",
       "language": "javascript",
-      "type": "identifier",
-      "category": "کلمات کلیدی",
+      "type": "literal",
+      "category": "مقادیر زبانی",
       "label": "true",
-      "description": "JavaScript keyword",
-      "mode": "identifier",
+      "description": "مقدار literal بولی true",
+      "mode": "literal",
       "insertText": "true",
-      "order": 35,
-      "enabled": true
+      "order": 3,
+      "enabled": true,
+      "literalKind": "boolean"
     },
     {
       "id": "javascript:identifier:keyword:try",
@@ -428,11 +474,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "try",
-      "description": "JavaScript keyword",
+      "description": "آغاز بلوک مدیریت استثنا",
       "mode": "identifier",
       "insertText": "try",
-      "order": 36,
-      "enabled": true
+      "order": 33,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:typeof",
@@ -440,11 +487,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "typeof",
-      "description": "JavaScript keyword",
+      "description": "عملگر دریافت نوع مقدار",
       "mode": "identifier",
       "insertText": "typeof",
-      "order": 37,
-      "enabled": true
+      "order": 34,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:var",
@@ -452,11 +500,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "var",
-      "description": "JavaScript keyword",
+      "description": "اعلان متغیر با دامنه تابع یا سراسری",
       "mode": "identifier",
       "insertText": "var",
-      "order": 38,
-      "enabled": true
+      "order": 35,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:void",
@@ -464,11 +513,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "void",
-      "description": "JavaScript keyword",
+      "description": "عملگر ارزیابی عبارت و بازگرداندن undefined",
       "mode": "identifier",
       "insertText": "void",
-      "order": 39,
-      "enabled": true
+      "order": 36,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:while",
@@ -476,11 +526,12 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "while",
-      "description": "JavaScript keyword",
+      "description": "آغاز حلقه while",
       "mode": "identifier",
       "insertText": "while",
-      "order": 40,
-      "enabled": true
+      "order": 37,
+      "enabled": true,
+      "keywordKind": "reserved"
     },
     {
       "id": "javascript:identifier:keyword:yield",
@@ -488,11 +539,16 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "yield",
-      "description": "JavaScript keyword",
+      "description": "در generatorها و strict mode محدودیت دارد",
       "mode": "identifier",
       "insertText": "yield",
-      "order": 41,
-      "enabled": true
+      "order": 38,
+      "enabled": true,
+      "keywordKind": "contextual-reserved",
+      "reservedIn": [
+        "generator-function",
+        "strict-mode"
+      ]
     },
     {
       "id": "javascript:identifier:global:Array",
@@ -1409,6 +1465,218 @@
       "insertText": "setTimeout",
       "order": 8,
       "enabled": false
+    },
+    {
+      "id": "javascript:identifier:keyword:with",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "with",
+      "description": "در کد غیر strict معتبر است؛ در strict mode خطای نحوی ایجاد می‌کند",
+      "mode": "identifier",
+      "insertText": "with",
+      "order": 39,
+      "enabled": false,
+      "keywordKind": "reserved",
+      "availability": "non-strict-only"
+    },
+    {
+      "id": "javascript:identifier:keyword:enum",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "enum",
+      "description": "واژه رزروشده آینده بدون کاربرد زبانی فعال",
+      "mode": "identifier",
+      "insertText": "enum",
+      "order": 40,
+      "enabled": false,
+      "keywordKind": "future-reserved",
+      "reservedIn": [
+        "all-code"
+      ],
+      "availability": "future-reserved"
+    },
+    {
+      "id": "javascript:identifier:keyword:implements",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "implements",
+      "description": "واژه رزروشده آینده در strict mode",
+      "mode": "identifier",
+      "insertText": "implements",
+      "order": 41,
+      "enabled": false,
+      "keywordKind": "future-reserved",
+      "reservedIn": [
+        "strict-mode"
+      ],
+      "availability": "future-reserved"
+    },
+    {
+      "id": "javascript:identifier:keyword:interface",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "interface",
+      "description": "واژه رزروشده آینده در strict mode",
+      "mode": "identifier",
+      "insertText": "interface",
+      "order": 42,
+      "enabled": false,
+      "keywordKind": "future-reserved",
+      "reservedIn": [
+        "strict-mode"
+      ],
+      "availability": "future-reserved"
+    },
+    {
+      "id": "javascript:identifier:keyword:package",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "package",
+      "description": "واژه رزروشده آینده در strict mode",
+      "mode": "identifier",
+      "insertText": "package",
+      "order": 43,
+      "enabled": false,
+      "keywordKind": "future-reserved",
+      "reservedIn": [
+        "strict-mode"
+      ],
+      "availability": "future-reserved"
+    },
+    {
+      "id": "javascript:identifier:keyword:private",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "private",
+      "description": "واژه رزروشده آینده در strict mode",
+      "mode": "identifier",
+      "insertText": "private",
+      "order": 44,
+      "enabled": false,
+      "keywordKind": "future-reserved",
+      "reservedIn": [
+        "strict-mode"
+      ],
+      "availability": "future-reserved"
+    },
+    {
+      "id": "javascript:identifier:keyword:protected",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "protected",
+      "description": "واژه رزروشده آینده در strict mode",
+      "mode": "identifier",
+      "insertText": "protected",
+      "order": 45,
+      "enabled": false,
+      "keywordKind": "future-reserved",
+      "reservedIn": [
+        "strict-mode"
+      ],
+      "availability": "future-reserved"
+    },
+    {
+      "id": "javascript:identifier:keyword:public",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "public",
+      "description": "واژه رزروشده آینده در strict mode",
+      "mode": "identifier",
+      "insertText": "public",
+      "order": 46,
+      "enabled": false,
+      "keywordKind": "future-reserved",
+      "reservedIn": [
+        "strict-mode"
+      ],
+      "availability": "future-reserved"
+    },
+    {
+      "id": "javascript:identifier:keyword:as",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "as",
+      "description": "در ساختارهای import/export کاربرد دارد",
+      "mode": "identifier",
+      "insertText": "as",
+      "order": 47,
+      "enabled": true,
+      "keywordKind": "contextual"
+    },
+    {
+      "id": "javascript:identifier:keyword:get",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "get",
+      "description": "در تعریف getter کاربرد دارد",
+      "mode": "identifier",
+      "insertText": "get",
+      "order": 48,
+      "enabled": true,
+      "keywordKind": "contextual"
+    },
+    {
+      "id": "javascript:identifier:keyword:set",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "set",
+      "description": "در تعریف setter کاربرد دارد",
+      "mode": "identifier",
+      "insertText": "set",
+      "order": 49,
+      "enabled": true,
+      "keywordKind": "contextual"
+    },
+    {
+      "id": "javascript:identifier:keyword:meta",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "meta",
+      "description": "در ساختار import.meta کاربرد دارد",
+      "mode": "identifier",
+      "insertText": "meta",
+      "order": 50,
+      "enabled": true,
+      "keywordKind": "contextual"
+    },
+    {
+      "id": "javascript:identifier:keyword:target",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "target",
+      "description": "در ساختار new.target کاربرد دارد",
+      "mode": "identifier",
+      "insertText": "target",
+      "order": 51,
+      "enabled": true,
+      "keywordKind": "contextual"
+    },
+    {
+      "id": "javascript:identifier:keyword:using",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "کلمات کلیدی",
+      "label": "using",
+      "description": "اعلان منبع با آزادسازی خودکار؛ استاندارد آینده ECMAScript 2027",
+      "mode": "identifier",
+      "insertText": "using",
+      "order": 52,
+      "enabled": false,
+      "keywordKind": "contextual",
+      "standardStatus": "stage-4-es2027"
     }
   ]
 }
