@@ -289,14 +289,18 @@ export function getHTMLCompletionCatalog() {
     ["ساختار سند", new Set(["html","head","body","title","base","meta","link","style","script","noscript"])],
     ["متن و محتوا", new Set(["div","span","p","h1","h2","strong","em","i","br","hr"])],
     ["بخش‌بندی و ناوبری", new Set(["header","footer","main","section","article","nav"])],
-    ["فهرست‌ها", new Set(["ul","ol","li"])],
-    ["فرم‌ها", new Set(["form","input","label","textarea","select","option"])],
-    ["جدول‌ها", new Set(["table","thead","tbody","tr","th","td"])],
+    ["فهرست‌ها", new Set(["ul","ol","li","menu","dl","dt","dd"])],
+    ["فرم‌ها", new Set(["form","input","label","textarea","select","option","optgroup"])],
+    ["جدول‌ها", new Set(["table","caption","colgroup","thead","tbody","tfoot","tr","th","td"])],
     ["پیوند و رسانه", new Set(["a","img"])],
+    ["گرافیک SVG", new Set(SVG_TAGS.map(item => item.name))]
   ];
-  return HTML_TAG_CATALOG.map(item => ({
-    category: groups.find(([, names]) => names.has(item.name))?.[0] ?? "سایر عناصر",
-    label: item.name,
-    description: item.description
-  }));
+  const items = [...HTML_TAG_CATALOG, ...SVG_TAGS,
+    ...Object.values(CONTEXT_TAGS).flat().map(name => ({name,description:"Context-specific HTML element"}))];
+  const unique = new Map();
+  for (const item of items) {
+    const category = groups.find(([, names]) => names.has(item.name))?.[0] ?? "سایر عناصر";
+    unique.set(item.name, {category,label:item.name,description:item.description ?? "HTML element"});
+  }
+  return [...unique.values()];
 }
