@@ -74,7 +74,7 @@
 ### مراحل تکمیل CSS
 - [x] CSS-1 — تکمیل ویژگی‌های پایه و جعبه: margin، padding و گونه‌ها، border و گونه‌ها، outline، width/height و min/max، box-sizing و اندازه‌گیری.
 - [x] CSS-2 — تکمیل رنگ و پس‌زمینه: backgroundهای چندگانه، background-position/size/repeat، gradient، opacity و روش‌های رنگ‌نویسی.
-- [ ] CSS-3 — تکمیل تایپوگرافی و متن: font و گونه‌ها، line-height، letter-spacing، word-spacing، text-indent، text-overflow و word-break.
+- [x] CSS-3 — تکمیل تایپوگرافی و متن: font و گونه‌ها، line-height، letter-spacing، word-spacing، text-indent، text-overflow و word-break.
 - [ ] CSS-4 — تکمیل چیدمان Flexbox: ویژگی‌های container و item و مقادیر معتبر هر ویژگی.
 - [ ] CSS-5 — تکمیل چیدمان Grid: grid-template، areas، auto-flow، gap، جای‌گذاری و ویژگی‌های item.
 - [ ] CSS-6 — تکمیل موقعیت‌دهی و نمایش: display، position، inset، float، clear، overflow و stacking context.
@@ -94,6 +94,11 @@
 
 - Color and backgrounds: 39 مورد جدید شامل ویژگی‌ها و مقادیر مرتبط ثبت شد؛ رکوردهای تکراری کنار گذاشته شدند.
 - منابع بررسی: W3C CSS Snapshot 2026 و MDN CSS Reference؛ مقادیر به property مرتبط محدود شدند.
+
+### گزارش اجرای CSS-3
+
+- ویژگی‌های تایپوگرافی و متن به همراه مقادیر معتبر font-style، text-overflow، word-break، overflow-wrap، hyphens، writing-mode و text-decoration-line افزوده شدند.
+- تعداد رکوردهای جدید: 47. منابع: W3C CSS Snapshot 2026 و MDN CSS Reference.
 
 ## ۳. نقشه راه JavaScript
 
