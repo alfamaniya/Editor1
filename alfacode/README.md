@@ -17,7 +17,7 @@ AlfaCode موتور مستقل و ماژولار ویرایش کد در پروژ
 ```text
 alfacode/
 ├── data/
-│   ├── completions.html.json  (۹۶ رکورد HTML)
+│   ├── completions.html.json  (۱۴۶ رکورد HTML)
 │   ├── completions.css.json  (۱۷۴ رکورد CSS)
 │   └── completions.javascript.json  (۱۱۴ رکورد JavaScript)
 ├── examples/
@@ -148,7 +148,7 @@ alfacode/
 node --experimental-default-type=module --test alfacode/tests/alfacode.test.mjs alfacode/tests/completions-data.test.mjs
 ```
 
-Workflow متناظر `.github/workflows/alfacode-tests.yml` است. مجموعه هسته ۲۶ آزمون و فایل `tests/completions-data.test.mjs` شامل ۱۸ آزمون داده کاتالوگ است؛ مجموع ۴۵ آزمون. اجرای پس از افزودن HTML-1 در [Run #154](https://github.com/alfamaniya/Editor1/actions/runs/44386975357) با ۴۴ موفق و صفر ناموفق پایان یافت. آزمون‌های داده سه فایل زبان را با `node:fs/promises` می‌خوانند و JSON، envelope، تفکیک زبان، تعداد رکوردها، schema و یکتایی سراسری شناسه‌ها و کلیدهای معنایی را بررسی می‌کنند؛ وابستگی جدیدی اضافه نشده است. triggerهای push و pull_request مسیر `alfacode/data/**` را پوشش می‌دهند و فرمان workflow هر دو فایل آزمون را اجرا می‌کند. اجرای اولیه job برای commit `ce21d8b8f50f0c6acb290310d3345f413518922a` در GitHub Actions شماره ۱۵۱ با نتیجه ۴۳ موفق تأیید شد. پس از حذف فایل یکپارچه قدیمی نیز اجرای مجدد در [Run #152](https://github.com/alfamaniya/Editor1/actions/runs/44380792087) با ۴۳ موفق، صفر ناموفق، صفر لغوشده و صفر ردشده پایان یافت. ساخت بسته مستقل آفلاین برای همان commit در [Run #153](https://github.com/alfamaniya/Editor1/actions/runs/44380792319) نیز موفق شد. در ممیزی زیرمرحله ۲-۲-۳ هر ۶۰ رکورد HTML، هر ۱۷۴ رکورد CSS و هر ۱۱۴ رکورد JavaScript با منابع فعلی مقایسه شدند و اختلاف مفقود/اضافه/معنایی مشاهده نشد. آزمون مرورگر یا دستگاه در این مرحله انجام نشده است. آزمون خودکار به‌تنهایی رفتار مرورگر، لمس، IME فارسی یا بسته آفلاین را تأیید نمی‌کند.
+Workflow متناظر `.github/workflows/alfacode-tests.yml` است. مجموعه هسته ۲۶ آزمون و فایل `tests/completions-data.test.mjs` شامل ۱۸ آزمون داده کاتالوگ است؛ مجموع ۵۳ آزمون در آخرین اجرای معتبر. اجرای پس از تکمیل HTML-1 در [Run #154](https://github.com/alfamaniya/Editor1/actions/runs/44386975357) با ۴۴ موفق و صفر ناموفق پایان یافت؛ اجرای کامل HTML-1 تا HTML-10 در [AlfaCode Tests #164](https://github.com/alfamaniya/Editor1/actions/runs/44389086922) با ۵۳ موفق و صفر ناموفق پایان یافت. آزمون‌های داده سه فایل زبان را با `node:fs/promises` می‌خوانند و JSON، envelope، تفکیک زبان، تعداد رکوردها، schema و یکتایی سراسری شناسه‌ها و کلیدهای معنایی را بررسی می‌کنند؛ وابستگی جدیدی اضافه نشده است. triggerهای push و pull_request مسیر `alfacode/data/**` را پوشش می‌دهند و فرمان workflow هر دو فایل آزمون را اجرا می‌کند. اجرای اولیه job برای commit `ce21d8b8f50f0c6acb290310d3345f413518922a` در GitHub Actions شماره ۱۵۱ با نتیجه ۴۳ موفق تأیید شد. پس از حذف فایل یکپارچه قدیمی نیز اجرای مجدد در [Run #152](https://github.com/alfamaniya/Editor1/actions/runs/44380792087) با ۴۳ موفق، صفر ناموفق، صفر لغوشده و صفر ردشده پایان یافت. ساخت بسته مستقل آفلاین برای همان commit در [Run #153](https://github.com/alfamaniya/Editor1/actions/runs/44380792319) نیز موفق شد. در ممیزی زیرمرحله ۲-۲-۳ هر ۶۰ رکورد HTML، هر ۱۷۴ رکورد CSS و هر ۱۱۴ رکورد JavaScript با منابع فعلی مقایسه شدند و اختلاف مفقود/اضافه/معنایی مشاهده نشد. آزمون مرورگر یا دستگاه در این مرحله انجام نشده است. آزمون خودکار به‌تنهایی رفتار مرورگر، لمس، IME فارسی یا بسته آفلاین را تأیید نمی‌کند.
 
 ## اصول توسعه
 
