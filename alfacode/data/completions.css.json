@@ -8,7 +8,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "align-content",
-      "description": "CSS property",
+      "description": "Alignment of flex or grid content along the cross axis",
       "mode": "property",
       "insertText": "align-content",
       "rank": 1,
@@ -34,7 +34,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "align-self",
-      "description": "CSS property",
+      "description": "Alignment of an individual flex or grid item",
       "mode": "property",
       "insertText": "align-self",
       "rank": 3,
@@ -47,7 +47,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "animation",
-      "description": "CSS property",
+      "description": "Shorthand for animation name, duration, timing and playback settings",
       "mode": "property",
       "insertText": "animation",
       "rank": 4,
@@ -60,7 +60,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "background",
-      "description": "CSS property",
+      "description": "Background color, image, position, size, repeat and related settings",
       "mode": "property",
       "insertText": "background",
       "rank": 5,
@@ -86,7 +86,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "background-image",
-      "description": "CSS property",
+      "description": "Background images and gradient layers",
       "mode": "property",
       "insertText": "background-image",
       "rank": 7,
@@ -99,7 +99,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "border",
-      "description": "CSS property",
+      "description": "Border width, style and color shorthand",
       "mode": "property",
       "insertText": "border",
       "rank": 8,
@@ -125,7 +125,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "bottom",
-      "description": "CSS property",
+      "description": "Bottom inset of a positioned box",
       "mode": "property",
       "insertText": "bottom",
       "rank": 10,
@@ -151,7 +151,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "box-sizing",
-      "description": "CSS property",
+      "description": "Select content-box or border-box sizing model",
       "mode": "property",
       "insertText": "box-sizing",
       "rank": 12,
@@ -177,7 +177,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "column-gap",
-      "description": "CSS property",
+      "description": "Gap between columns in multi-column, grid or flex layout",
       "mode": "property",
       "insertText": "column-gap",
       "rank": 14,
@@ -190,7 +190,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "cursor",
-      "description": "CSS property",
+      "description": "Mouse pointer appearance over an element",
       "mode": "property",
       "insertText": "cursor",
       "rank": 15,
@@ -216,7 +216,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "flex",
-      "description": "CSS property",
+      "description": "Flex grow, shrink and basis shorthand",
       "mode": "property",
       "insertText": "flex",
       "rank": 17,
@@ -229,7 +229,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "flex-basis",
-      "description": "CSS property",
+      "description": "Initial main size of a flex item",
       "mode": "property",
       "insertText": "flex-basis",
       "rank": 18,
@@ -242,7 +242,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "flex-direction",
-      "description": "CSS property",
+      "description": "Main-axis direction of a flex container",
       "mode": "property",
       "insertText": "flex-direction",
       "rank": 19,
@@ -255,7 +255,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "flex-wrap",
-      "description": "CSS property",
+      "description": "Whether flex items wrap onto multiple lines",
       "mode": "property",
       "insertText": "flex-wrap",
       "rank": 20,
@@ -268,7 +268,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "font-family",
-      "description": "CSS property",
+      "description": "Font family list used to render text",
       "mode": "property",
       "insertText": "font-family",
       "rank": 21,
@@ -294,7 +294,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "font-weight",
-      "description": "CSS property",
+      "description": "Font weight, from numeric weights to named values",
       "mode": "property",
       "insertText": "font-weight",
       "rank": 23,
@@ -307,7 +307,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "gap",
-      "description": "CSS property",
+      "description": "Row and column gutters in grid, flex and multi-column layout",
       "mode": "property",
       "insertText": "gap",
       "rank": 24,
@@ -320,7 +320,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "grid-template-columns",
-      "description": "CSS property",
+      "description": "Explicit grid column track sizing",
       "mode": "property",
       "insertText": "grid-template-columns",
       "rank": 25,
@@ -333,7 +333,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "grid-template-rows",
-      "description": "CSS property",
+      "description": "Explicit grid row track sizing",
       "mode": "property",
       "insertText": "grid-template-rows",
       "rank": 26,
@@ -372,7 +372,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "left",
-      "description": "CSS property",
+      "description": "Left inset of a positioned box",
       "mode": "property",
       "insertText": "left",
       "rank": 29,
@@ -385,7 +385,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "line-height",
-      "description": "CSS property",
+      "description": "Line box height and baseline spacing",
       "mode": "property",
       "insertText": "line-height",
       "rank": 30,
@@ -411,7 +411,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "max-height",
-      "description": "CSS property",
+      "description": "Maximum used height constraint",
       "mode": "property",
       "insertText": "max-height",
       "rank": 32,
@@ -424,7 +424,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "max-width",
-      "description": "CSS property",
+      "description": "Maximum used width constraint",
       "mode": "property",
       "insertText": "max-width",
       "rank": 33,
@@ -437,7 +437,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "min-height",
-      "description": "CSS property",
+      "description": "Minimum used height constraint",
       "mode": "property",
       "insertText": "min-height",
       "rank": 34,
@@ -450,7 +450,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "min-width",
-      "description": "CSS property",
+      "description": "Minimum used width constraint",
       "mode": "property",
       "insertText": "min-width",
       "rank": 35,
@@ -463,7 +463,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "opacity",
-      "description": "CSS property",
+      "description": "Element compositing opacity",
       "mode": "property",
       "insertText": "opacity",
       "rank": 36,
@@ -476,7 +476,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "overflow",
-      "description": "CSS property",
+      "description": "Behavior when content exceeds the padding box",
       "mode": "property",
       "insertText": "overflow",
       "rank": 37,
@@ -515,7 +515,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "right",
-      "description": "CSS property",
+      "description": "Right inset of a positioned box",
       "mode": "property",
       "insertText": "right",
       "rank": 40,
@@ -528,7 +528,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "text-align",
-      "description": "CSS property",
+      "description": "Inline content alignment within a line box",
       "mode": "property",
       "insertText": "text-align",
       "rank": 41,
@@ -541,7 +541,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "text-decoration",
-      "description": "CSS property",
+      "description": "Text decoration line, color, style and thickness shorthand",
       "mode": "property",
       "insertText": "text-decoration",
       "rank": 42,
@@ -554,7 +554,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "text-transform",
-      "description": "CSS property",
+      "description": "Text capitalization and case transformation",
       "mode": "property",
       "insertText": "text-transform",
       "rank": 43,
@@ -567,7 +567,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "top",
-      "description": "CSS property",
+      "description": "Top inset of a positioned box",
       "mode": "property",
       "insertText": "top",
       "rank": 44,
@@ -580,7 +580,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "transform",
-      "description": "CSS property",
+      "description": "2D and 3D transformation functions",
       "mode": "property",
       "insertText": "transform",
       "rank": 45,
@@ -593,7 +593,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "transition",
-      "description": "CSS property",
+      "description": "Animated interpolation between property values",
       "mode": "property",
       "insertText": "transition",
       "rank": 46,
@@ -606,7 +606,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "vertical-align",
-      "description": "CSS property",
+      "description": "Vertical alignment of inline-level and table-cell boxes",
       "mode": "property",
       "insertText": "vertical-align",
       "rank": 47,
@@ -619,7 +619,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "visibility",
-      "description": "CSS property",
+      "description": "Whether an element is painted while retaining layout space",
       "mode": "property",
       "insertText": "visibility",
       "rank": 48,
@@ -632,7 +632,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "white-space",
-      "description": "CSS property",
+      "description": "Handling of spaces, tabs and line wrapping",
       "mode": "property",
       "insertText": "white-space",
       "rank": 49,
@@ -658,7 +658,7 @@
       "type": "property",
       "category": "ویژگی‌های CSS",
       "label": "z-index",
-      "description": "CSS property",
+      "description": "Stacking order of positioned and flex/grid items",
       "mode": "property",
       "insertText": "z-index",
       "rank": 51,
@@ -671,7 +671,7 @@
       "type": "selector",
       "category": "انتخابگرهای نمونه",
       "label": ".container",
-      "description": "CSS selector",
+      "description": "Class selector matching elements with class container",
       "mode": "selector",
       "insertText": ".container",
       "order": 1,
@@ -683,7 +683,7 @@
       "type": "selector",
       "category": "انتخابگرهای نمونه",
       "label": "#app",
-      "description": "CSS selector",
+      "description": "ID selector matching the element with id app",
       "mode": "selector",
       "insertText": "#app",
       "order": 2,
@@ -695,7 +695,7 @@
       "type": "selector",
       "category": "انتخابگرهای نمونه",
       "label": ":hover",
-      "description": "CSS selector",
+      "description": "Matches while a pointing device hovers over an element",
       "mode": "selector",
       "insertText": ":hover",
       "order": 3,
@@ -707,7 +707,7 @@
       "type": "selector",
       "category": "انتخابگرهای نمونه",
       "label": ":focus",
-      "description": "CSS selector",
+      "description": "Matches an element that currently has input focus",
       "mode": "selector",
       "insertText": ":focus",
       "order": 4,
@@ -719,7 +719,7 @@
       "type": "selector",
       "category": "انتخابگرهای نمونه",
       "label": ":active",
-      "description": "CSS selector",
+      "description": "Matches while an element is being activated",
       "mode": "selector",
       "insertText": ":active",
       "order": 5,
@@ -731,7 +731,7 @@
       "type": "selector",
       "category": "انتخابگرهای نمونه",
       "label": "::before",
-      "description": "CSS selector",
+      "description": "Generates a pseudo-element before an element's contents",
       "mode": "selector",
       "insertText": "::before",
       "order": 6,
@@ -743,7 +743,7 @@
       "type": "selector",
       "category": "انتخابگرهای نمونه",
       "label": "::after",
-      "description": "CSS selector",
+      "description": "Generates a pseudo-element after an element's contents",
       "mode": "selector",
       "insertText": "::after",
       "order": 7,
@@ -755,7 +755,7 @@
       "type": "selector",
       "category": "انتخابگرهای نمونه",
       "label": "button",
-      "description": "CSS selector",
+      "description": "Type selector matching button elements",
       "mode": "selector",
       "insertText": "button",
       "order": 8,
@@ -767,7 +767,7 @@
       "type": "selector",
       "category": "انتخابگرهای نمونه",
       "label": "div",
-      "description": "CSS selector",
+      "description": "Type selector matching div elements",
       "mode": "selector",
       "insertText": "div",
       "order": 9,
@@ -779,7 +779,7 @@
       "type": "selector",
       "category": "انتخابگرهای نمونه",
       "label": "body",
-      "description": "CSS selector",
+      "description": "Type selector matching the document body",
       "mode": "selector",
       "insertText": "body",
       "order": 10,
@@ -791,7 +791,7 @@
       "type": "selector",
       "category": "انتخابگرهای نمونه",
       "label": "html",
-      "description": "CSS selector",
+      "description": "Type selector matching the root HTML element",
       "mode": "selector",
       "insertText": "html",
       "order": 11,
@@ -803,7 +803,7 @@
       "type": "value",
       "category": "مقادیر عمومی",
       "label": "auto",
-      "description": "Common CSS value",
+      "description": "Property-dependent automatic value; valid only where defined by the property's grammar",
       "mode": "value",
       "propertyName": "*",
       "insertText": "auto",
@@ -816,7 +816,7 @@
       "type": "value",
       "category": "مقادیر عمومی",
       "label": "inherit",
-      "description": "Common CSS value",
+      "description": "Uses the computed value inherited from the parent element",
       "mode": "value",
       "propertyName": "*",
       "insertText": "inherit",
@@ -829,7 +829,7 @@
       "type": "value",
       "category": "مقادیر عمومی",
       "label": "initial",
-      "description": "Common CSS value",
+      "description": "Uses the property's initial value defined by its specification",
       "mode": "value",
       "propertyName": "*",
       "insertText": "initial",
@@ -842,7 +842,7 @@
       "type": "value",
       "category": "مقادیر عمومی",
       "label": "unset",
-      "description": "Common CSS value",
+      "description": "Acts as inherit for inherited properties and initial otherwise",
       "mode": "value",
       "propertyName": "*",
       "insertText": "unset",
@@ -855,7 +855,7 @@
       "type": "value",
       "category": "مقادیر عمومی",
       "label": "revert",
-      "description": "Common CSS value",
+      "description": "Rolls the cascade back to the value from an earlier origin or layer",
       "mode": "value",
       "propertyName": "*",
       "insertText": "revert",
@@ -868,7 +868,7 @@
       "type": "value",
       "category": "مقادیر عمومی",
       "label": "none",
-      "description": "Common CSS value",
+      "description": "Disables the feature represented by the property where none is permitted",
       "mode": "value",
       "propertyName": "*",
       "insertText": "none",
@@ -881,7 +881,7 @@
       "type": "value",
       "category": "مقادیر عمومی",
       "label": "normal",
-      "description": "Common CSS value",
+      "description": "Uses the property's specification-defined normal behavior",
       "mode": "value",
       "propertyName": "*",
       "insertText": "normal",
@@ -894,7 +894,7 @@
       "type": "value",
       "category": "مقادیر عمومی",
       "label": "0",
-      "description": "Common CSS value",
+      "description": "Unitless zero, valid for CSS numeric dimensions where permitted",
       "mode": "value",
       "propertyName": "*",
       "insertText": "0",
@@ -907,7 +907,7 @@
       "type": "value",
       "category": "مقادیر عمومی",
       "label": "1rem",
-      "description": "Common CSS value",
+      "description": "Length relative to the root element's font size",
       "mode": "value",
       "propertyName": "*",
       "insertText": "1rem",
@@ -920,7 +920,7 @@
       "type": "value",
       "category": "مقادیر عمومی",
       "label": "100%",
-      "description": "Common CSS value",
+      "description": "Percentage resolved against the property's percentage basis",
       "mode": "value",
       "propertyName": "*",
       "insertText": "100%",
@@ -6110,7 +6110,10 @@
       "mode": "at-rule",
       "insertText": "@media",
       "order": 352,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet"
+      ]
     },
     {
       "id": "css:at-rule:supports",
@@ -6122,7 +6125,10 @@
       "mode": "at-rule",
       "insertText": "@supports",
       "order": 353,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet"
+      ]
     },
     {
       "id": "css:at-rule:container",
@@ -6134,7 +6140,10 @@
       "mode": "at-rule",
       "insertText": "@container",
       "order": 354,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet"
+      ]
     },
     {
       "id": "css:at-rule:layer",
@@ -6146,7 +6155,10 @@
       "mode": "at-rule",
       "insertText": "@layer",
       "order": 355,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet"
+      ]
     },
     {
       "id": "css:at-rule:import",
@@ -6158,7 +6170,10 @@
       "mode": "at-rule",
       "insertText": "@import",
       "order": 356,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet-top-level"
+      ]
     },
     {
       "id": "css:at-rule:namespace",
@@ -6170,7 +6185,10 @@
       "mode": "at-rule",
       "insertText": "@namespace",
       "order": 357,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet-top-level"
+      ]
     },
     {
       "id": "css:at-rule:page",
@@ -6182,7 +6200,10 @@
       "mode": "at-rule",
       "insertText": "@page",
       "order": 358,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet"
+      ]
     },
     {
       "id": "css:at-rule:font-face",
@@ -6194,7 +6215,10 @@
       "mode": "at-rule",
       "insertText": "@font-face",
       "order": 359,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet-rule-list"
+      ]
     },
     {
       "id": "css:at-rule:keyframes",
@@ -6206,7 +6230,10 @@
       "mode": "at-rule",
       "insertText": "@keyframes",
       "order": 360,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet-rule-list"
+      ]
     },
     {
       "id": "css:at-rule:counter-style",
@@ -6218,7 +6245,10 @@
       "mode": "at-rule",
       "insertText": "@counter-style",
       "order": 361,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet-rule-list"
+      ]
     },
     {
       "id": "css:at-rule:property",
@@ -6230,7 +6260,10 @@
       "mode": "at-rule",
       "insertText": "@property",
       "order": 362,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet-rule-list"
+      ]
     },
     {
       "id": "css:at-rule:scope",
@@ -6242,7 +6275,10 @@
       "mode": "at-rule",
       "insertText": "@scope",
       "order": 363,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet"
+      ]
     },
     {
       "id": "css:at-rule:starting-style",
@@ -6254,7 +6290,10 @@
       "mode": "at-rule",
       "insertText": "@starting-style",
       "order": 364,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet"
+      ]
     },
     {
       "id": "css:at-rule:charset",
@@ -6266,7 +6305,10 @@
       "mode": "at-rule",
       "insertText": "@charset",
       "order": 365,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet-start"
+      ]
     },
     {
       "id": "css:at-rule:font-feature-values",
@@ -6278,7 +6320,10 @@
       "mode": "at-rule",
       "insertText": "@font-feature-values",
       "order": 366,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "stylesheet"
+      ]
     },
     {
       "id": "css:function:var",
@@ -6290,7 +6335,10 @@
       "mode": "function",
       "insertText": "var()",
       "order": 367,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:calc",
@@ -6302,7 +6350,10 @@
       "mode": "function",
       "insertText": "calc()",
       "order": 368,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:min",
@@ -6314,7 +6365,10 @@
       "mode": "function",
       "insertText": "min()",
       "order": 369,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:max",
@@ -6326,7 +6380,10 @@
       "mode": "function",
       "insertText": "max()",
       "order": 370,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:clamp",
@@ -6338,7 +6395,10 @@
       "mode": "function",
       "insertText": "clamp()",
       "order": 371,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:env",
@@ -6350,7 +6410,10 @@
       "mode": "function",
       "insertText": "env()",
       "order": 372,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:rgb",
@@ -6362,7 +6425,10 @@
       "mode": "function",
       "insertText": "rgb()",
       "order": 373,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:rgba",
@@ -6374,7 +6440,10 @@
       "mode": "function",
       "insertText": "rgba()",
       "order": 374,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:hsl",
@@ -6386,7 +6455,10 @@
       "mode": "function",
       "insertText": "hsl()",
       "order": 375,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:hsla",
@@ -6398,7 +6470,10 @@
       "mode": "function",
       "insertText": "hsla()",
       "order": 376,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:hwb",
@@ -6410,7 +6485,10 @@
       "mode": "function",
       "insertText": "hwb()",
       "order": 377,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:lab",
@@ -6422,7 +6500,10 @@
       "mode": "function",
       "insertText": "lab()",
       "order": 378,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:lch",
@@ -6434,7 +6515,10 @@
       "mode": "function",
       "insertText": "lch()",
       "order": 379,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:oklab",
@@ -6446,7 +6530,10 @@
       "mode": "function",
       "insertText": "oklab()",
       "order": 380,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:oklch",
@@ -6458,7 +6545,10 @@
       "mode": "function",
       "insertText": "oklch()",
       "order": 381,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:color",
@@ -6470,7 +6560,10 @@
       "mode": "function",
       "insertText": "color()",
       "order": 382,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:color-mix",
@@ -6482,7 +6575,10 @@
       "mode": "function",
       "insertText": "color-mix()",
       "order": 383,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:linear-gradient",
@@ -6494,7 +6590,10 @@
       "mode": "function",
       "insertText": "linear-gradient()",
       "order": 384,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:repeating-linear-gradient",
@@ -6506,7 +6605,10 @@
       "mode": "function",
       "insertText": "repeating-linear-gradient()",
       "order": 385,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:radial-gradient",
@@ -6518,7 +6620,10 @@
       "mode": "function",
       "insertText": "radial-gradient()",
       "order": 386,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:repeating-radial-gradient",
@@ -6530,7 +6635,10 @@
       "mode": "function",
       "insertText": "repeating-radial-gradient()",
       "order": 387,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:conic-gradient",
@@ -6542,7 +6650,10 @@
       "mode": "function",
       "insertText": "conic-gradient()",
       "order": 388,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:repeating-conic-gradient",
@@ -6554,7 +6665,10 @@
       "mode": "function",
       "insertText": "repeating-conic-gradient()",
       "order": 389,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:translate",
@@ -6566,7 +6680,10 @@
       "mode": "function",
       "insertText": "translate()",
       "order": 390,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:translateX",
@@ -6578,7 +6695,10 @@
       "mode": "function",
       "insertText": "translateX()",
       "order": 391,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:translateY",
@@ -6590,7 +6710,10 @@
       "mode": "function",
       "insertText": "translateY()",
       "order": 392,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:translateZ",
@@ -6602,7 +6725,10 @@
       "mode": "function",
       "insertText": "translateZ()",
       "order": 393,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:translate3d",
@@ -6614,7 +6740,10 @@
       "mode": "function",
       "insertText": "translate3d()",
       "order": 394,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:scale",
@@ -6626,7 +6755,10 @@
       "mode": "function",
       "insertText": "scale()",
       "order": 395,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:scaleX",
@@ -6638,7 +6770,10 @@
       "mode": "function",
       "insertText": "scaleX()",
       "order": 396,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:scaleY",
@@ -6650,7 +6785,10 @@
       "mode": "function",
       "insertText": "scaleY()",
       "order": 397,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:scale3d",
@@ -6662,7 +6800,10 @@
       "mode": "function",
       "insertText": "scale3d()",
       "order": 398,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:rotate",
@@ -6674,7 +6815,10 @@
       "mode": "function",
       "insertText": "rotate()",
       "order": 399,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:rotateX",
@@ -6686,7 +6830,10 @@
       "mode": "function",
       "insertText": "rotateX()",
       "order": 400,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:rotateY",
@@ -6698,7 +6845,10 @@
       "mode": "function",
       "insertText": "rotateY()",
       "order": 401,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:rotateZ",
@@ -6710,7 +6860,10 @@
       "mode": "function",
       "insertText": "rotateZ()",
       "order": 402,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:rotate3d",
@@ -6722,7 +6875,10 @@
       "mode": "function",
       "insertText": "rotate3d()",
       "order": 403,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:skew",
@@ -6734,7 +6890,10 @@
       "mode": "function",
       "insertText": "skew()",
       "order": 404,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:skewX",
@@ -6746,7 +6905,10 @@
       "mode": "function",
       "insertText": "skewX()",
       "order": 405,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:skewY",
@@ -6758,7 +6920,10 @@
       "mode": "function",
       "insertText": "skewY()",
       "order": 406,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:matrix",
@@ -6770,7 +6935,10 @@
       "mode": "function",
       "insertText": "matrix()",
       "order": 407,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:matrix3d",
@@ -6782,7 +6950,10 @@
       "mode": "function",
       "insertText": "matrix3d()",
       "order": 408,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:perspective",
@@ -6794,7 +6965,10 @@
       "mode": "function",
       "insertText": "perspective()",
       "order": 409,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:cubic-bezier",
@@ -6806,7 +6980,10 @@
       "mode": "function",
       "insertText": "cubic-bezier()",
       "order": 410,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:steps",
@@ -6818,7 +6995,10 @@
       "mode": "function",
       "insertText": "steps()",
       "order": 411,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:minmax",
@@ -6830,7 +7010,10 @@
       "mode": "function",
       "insertText": "minmax()",
       "order": 412,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:repeat",
@@ -6842,7 +7025,10 @@
       "mode": "function",
       "insertText": "repeat()",
       "order": 413,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:fit-content",
@@ -6854,7 +7040,10 @@
       "mode": "function",
       "insertText": "fit-content()",
       "order": 414,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:round",
@@ -6866,7 +7055,10 @@
       "mode": "function",
       "insertText": "round()",
       "order": 415,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:mod",
@@ -6878,7 +7070,10 @@
       "mode": "function",
       "insertText": "mod()",
       "order": 416,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:function:rem",
@@ -6890,7 +7085,10 @@
       "mode": "function",
       "insertText": "rem()",
       "order": 417,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "css-value"
+      ]
     },
     {
       "id": "css:unit:px",
@@ -7286,7 +7484,10 @@
       "mode": "unit",
       "insertText": "fr",
       "order": 450,
-      "enabled": true
+      "enabled": true,
+      "contexts": [
+        "grid-track-sizing"
+      ]
     },
     {
       "id": "css:value:display:list-item",

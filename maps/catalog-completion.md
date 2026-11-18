@@ -83,7 +83,7 @@
 - [x] CSS-9 — تکمیل طراحی واکنش‌گرا و قواعد: media، supports، container query، ویژگی‌های سفارشی و توابع var/calc/clamp.
 - [x] CSS-10 — تکمیل واحدها و توابع: طول، درصد، زاویه، زمان، رنگ، توابع ریاضی و توابع پرکاربرد CSS.
 - [x] CSS-11 — تکمیل مقادیر ویژگی‌ها: برای هر property مجموعه مقادیر متناسب و معتبر تعریف شود؛ از پیشنهاد مقادیر نامرتبط در context اشتباه جلوگیری شود.
-- [ ] CSS-12 — ممیزی نهایی پوشش، دسته‌بندی، ترتیب، توضیح، یکتایی شناسه‌ها و ارتباط property با value.
+- [x] CSS-12 — ممیزی نهایی پوشش، دسته‌بندی، ترتیب، توضیح، یکتایی شناسه‌ها و ارتباط property با value.
 
 ### گزارش اجرای CSS-1
 
@@ -140,6 +140,13 @@
 - مقادیر تکمیلی ویژگی‌های layout، position، overflow، cursor، box-sizing، visibility، border-style، text، font، flex، vertical-align و animation ثبت شدند.
 - تعداد رکوردهای جدید: 37. تمام valueها با propertyName دقیق و آزمون مالکیت ویژگی ذخیره شدند؛ پیشنهاد عمومی نامرتبط ایجاد نشد.
 - منابع: ماژول‌های W3C مربوط و MDN CSS Reference.
+
+### گزارش اجرای CSS-12 و ممیزی نهایی
+
+- تعداد نهایی CSS: 610 رکورد؛ property: 179، selector: 64، value: 268، at-rule: 15، function: 51، unit: 33.
+- 59 توضیح عمومی و مبهم به شرح تخصصی ارتقا یافت. شناسه‌ها و کلیدهای معنایی تکراری صفر؛ value بدون property معتبر صفر.
+- برای at-ruleها، functionها و واحد fr context درج شد. آزمون نهایی ساختار، یکتایی، مالکیت value و انواع جدید افزوده شد.
+- منابع: [W3C CSS Snapshot 2026](https://www.w3.org/TR/css/)، [W3C CSS Specifications](https://www.w3.org/Style/CSS/specs.en.html)، [MDN CSS Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference).
 
 ## ۳. نقشه راه JavaScript
 
@@ -243,7 +250,7 @@
 - [x] موجودی اولیه سه فایل و دسته‌های فعلی استخراج شد.
 - [x] HTML-1 اجرا شد: ۳۲ تگ جدید افزوده شد؛ موجودی HTML از ۶۰ به ۹۲ رسید.
 - [x] HTML-2 اجرا شد: ۴ تگ تأییدشده افزوده شد؛ موجودی HTML از ۹۲ به ۹۶ رسید.
-- [ ] اجرای تکمیل CSS آغاز نشده است.
+- [x] CSS-1 تا CSS-12 تکمیل شدند؛ ۱۲ مرحله و ۱۲ درخواست Pull Request زنجیره‌ای ثبت شد. ادغام نهایی منوط به موفقیت CI و ممیزی PRهاست.
 - [ ] اجرای تکمیل JavaScript آغاز نشده است.
 - [ ] اعتبارسنجی نهایی انجام نشده است.
 
