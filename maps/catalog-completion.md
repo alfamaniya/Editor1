@@ -208,6 +208,8 @@
 - آزمون‌های اختصاصی برای پوشش دسته‌بندی کلیدواژه‌ها، تفکیک literalها و غیرفعال‌بودن موارد آینده اضافه شدند. این مرحله فقط داده و اعتبارسنجی کاتالوگ را تغییر می‌دهد؛ اتصال به موتور زمان اجرا و آزمون دستی مرورگر در دامنه آن نیست.
 - منابع بررسی: [ECMAScript 2026 — Lexical Grammar](https://262.ecma-international.org/index.html#sec-ecmascript-language-lexical-grammar)، [MDN — Lexical grammar](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar)، [MDN — Grammar and types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types)، و [TC39 — Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management).
 
+- PR مرحله JS-1: [#14](https://github.com/alfamaniya/Editor1/pull/14)؛ اجرای [AlfaCode Tests #44394248419](https://github.com/alfamaniya/Editor1/actions/runs/44394248419) با ۶۹ موفق و صفر ناموفق پایان یافت. PR هنوز در شاخه `main` ادغام نشده است.
+
 ## ۴. روش گردآوری منابع و صحت‌سنجی (الزامی)
 
 هیچ رکورد تازه یا اصلاح‌شده‌ای بدون بررسی منبع معتبر وارد کاتالوگ نمی‌شود. افزایش تعداد رکوردها هدف مستقل نیست؛ دقت و قابلیت استناد اولویت دارد.
