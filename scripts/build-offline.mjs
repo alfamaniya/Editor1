@@ -7,8 +7,158 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUTPUT_DIR = path.join(ROOT, "offline");
 const OUTPUT_FILE = path.join(OUTPUT_DIR, "AlfaCode-Offline.html");
 
+const READ_PATHS = new Set();
+
 async function read(relativePath) {
+  READ_PATHS.add(relativePath);
   return fs.readFile(path.join(ROOT, relativePath), "utf8");
+}
+
+function isLocalReference(value) {
+  return Boolean(value) && !/^(?:[a-z]+:|\/\/|#)/i.test(value.trim());
+}
+
+function resolveRuntimeReference(fromFile, reference) {
+  const clean = reference.trim().split(/[?#]/, 1)[0];
+  if (!isLocalReference(clean) || !clean) return null;
+  const relative = path.posix.normalize(path.posix.join(path.posix.dirname(fromFile), clean));
+  const absolute = path.resolve(ROOT, relative);
+  if (absolute !== ROOT && !absolute.startsWith(ROOT + path.sep)) {
+    throw new Error(`Offline manifest path escapes repository root: ${fromFile} -> ${reference}`);
+  }
+  return relative.replaceAll(path.sep, "/");
+}
+
+async function assertRuntimeFile(relativePath) {
+  const absolute = path.resolve(ROOT, relativePath);
+  if (absolute !== ROOT && !absolute.startsWith(ROOT + path.sep)) {
+    throw new Error(`Offline manifest path escapes repository root: ${relativePath}`);
+  }
+  const stat = await fs.stat(absolute).catch(() => null);
+  if (!stat?.isFile()) throw new Error(`Offline manifest references a missing file: ${relativePath}`);
+}
+
+async function loadOfflineManifest() {
+  const manifestPath = path.join(ROOT, "scripts/offline-manifest.json");
+  const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
+  if (manifest.schemaVersion !== 1 || !Array.isArray(manifest.entries) || !manifest.entries.length) {
+    throw new Error("Invalid offline manifest: expected schemaVersion 1 and a non-empty entries array.");
+  }
+  const byId = new Map();
+  for (const entry of manifest.entries) {
+    if (!entry || typeof entry.id !== "string" || !entry.id.trim() || byId.has(entry.id)) {
+      throw new Error("Invalid offline manifest: every entry must have a unique non-empty id.");
+    }
+    if (typeof entry.active !== "boolean") throw new Error(`Invalid active flag in manifest entry: ${entry.id}`);
+    for (const field of ["styles", "scripts", "runtimeFiles", "includes"]) {
+      if (entry[field] !== undefined && (!Array.isArray(entry[field]) || entry[field].some(item => typeof item !== "string"))) {
+        throw new Error(`Invalid ${field} list in manifest entry: ${entry.id}`);
+      }
+    }
+    byId.set(entry.id, entry);
+  }
+
+  const visiting = new Set();
+  const visited = new Set();
+  function visit(id) {
+    if (!byId.has(id)) throw new Error(`Unknown manifest dependency: ${id}`);
+    if (visiting.has(id)) throw new Error(`Circular manifest dependency detected at: ${id}`);
+    if (visited.has(id)) return;
+    visiting.add(id);
+    for (const dependency of byId.get(id).includes || []) {
+      if (!byId.get(dependency)?.active) throw new Error(`Manifest dependency is missing or inactive: ${id} -> ${dependency}`);
+      visit(dependency);
+    }
+    visiting.delete(id);
+    visited.add(id);
+  }
+  for (const entry of manifest.entries.filter(item => item.active)) visit(entry.id);
+  return manifest;
+}
+
+async function discoverRuntimeFiles(manifest) {
+  const files = new Set();
+  const htmlQueue = [];
+  const cssQueue = [];
+  const scriptEntries = new Set();
+
+  function add(relativePath) {
+    if (!relativePath) return;
+    files.add(relativePath);
+    if (/\\.html?$/i.test(relativePath)) htmlQueue.push(relativePath);
+    if (/\\.css$/i.test(relativePath)) cssQueue.push(relativePath);
+  }
+
+  for (const entry of manifest.entries.filter(item => item.active)) {
+    if (entry.html) add(entry.html);
+    for (const item of entry.styles || []) add(item);
+    for (const item of entry.scripts || []) {
+      add(item);
+      if (/\\.m?js$/i.test(item)) scriptEntries.add(item);
+    }
+    for (const item of entry.runtimeFiles || []) add(item);
+  }
+
+  const visitedHtml = new Set();
+  while (htmlQueue.length) {
+    const current = htmlQueue.shift();
+    if (visitedHtml.has(current)) continue;
+    visitedHtml.add(current);
+    await assertRuntimeFile(current);
+    const source = await fs.readFile(path.join(ROOT, current), "utf8");
+    const refs = [...source.matchAll(/\\b(?:src|href)\\s*=\\s*["']([^"']+)["']/gi)].map(match => match[1]);
+    for (const reference of refs) {
+      const resolved = resolveRuntimeReference(current, reference);
+      if (!resolved) continue;
+      await assertRuntimeFile(resolved);
+      add(resolved);
+      if (/\\.m?js(?:$|[?#])/i.test(reference)) scriptEntries.add(resolved);
+    }
+  }
+
+  const visitedCss = new Set();
+  while (cssQueue.length) {
+    const current = cssQueue.shift();
+    if (visitedCss.has(current)) continue;
+    visitedCss.add(current);
+    await assertRuntimeFile(current);
+    const source = await fs.readFile(path.join(ROOT, current), "utf8");
+    const refs = [];
+    for (const match of source.matchAll(/@import\\s+(?:url\\(\\s*)?["']?([^"'\\s)]+)|url\\(\\s*["']?([^"'")]+)["']?\\s*\\)/gi)) {
+      refs.push(match[1] || match[2]);
+    }
+    for (const reference of refs) {
+      const resolved = resolveRuntimeReference(current, reference);
+      if (!resolved) continue;
+      await assertRuntimeFile(resolved);
+      add(resolved);
+    }
+  }
+
+  // Ask esbuild for the complete local import graph of every active JS entry.
+  for (const entryPoint of scriptEntries) {
+    const result = await build({
+      absWorkingDir: ROOT,
+      entryPoints: [path.join(ROOT, entryPoint)],
+      bundle: true,
+      write: false,
+      metafile: true,
+      format: "iife",
+      platform: "browser",
+      target: ["es2020"],
+      legalComments: "none"
+    });
+    for (const input of Object.keys(result.metafile.inputs)) {
+      const absolute = path.resolve(ROOT, input);
+      if (absolute === ROOT || absolute.startsWith(ROOT + path.sep)) {
+        const relative = path.relative(ROOT, absolute).split(path.sep).join("/");
+        if (!relative.startsWith("node_modules/")) add(relative);
+      }
+    }
+  }
+
+  for (const relativePath of files) await assertRuntimeFile(relativePath);
+  return [...files].sort();
 }
 
 function escapeScript(source) {
@@ -159,23 +309,8 @@ customElements.define("mobile-workspace-switcher", OfflineMobileWorkspace);
 }
 
 async function main() {
-  const inputPaths = [
-    "index.html", "style.css", "script.js",
-    "core/header/header.html", "core/header/header.css", "core/header/header.js",
-    "core/new-page-action/new-page-action.html", "core/new-page-action/new-page-action.css", "core/new-page-action/new-page-action.js",
-    "core/clear-tabs/clear-tabs.html", "core/clear-tabs/clear-tabs.css", "core/clear-tabs/clear-tabs.js",
-    "core/project-reset/project-reset.html", "core/project-reset/project-reset.css", "core/project-reset/project-reset.js",
-    "core/clear-project-cookies/clear-project-cookies.html", "core/clear-project-cookies/clear-project-cookies.css", "core/clear-project-cookies/clear-project-cookies.js",
-    "core/mobile-workspace/mobile-workspace.html", "core/mobile-workspace/mobile-workspace.css", "core/mobile-workspace/mobile-workspace.js",
-    "core/mobile-extra-keys/mobile-extra-keys.html", "core/mobile-extra-keys/mobile-extra-keys.css", "core/mobile-extra-keys/mobile-extra-keys.js",
-    "core/workspace-divider/workspace-divider.html",
-    "core/workspace-divider/workspace-divider.css",
-    "core/workspace-divider/workspace-divider.js",
-    "core/editor/editor.html", "core/editor/editor.css", "core/editor/editor.js",
-    "core/tag-suggestions/tag-suggestions.html", "core/tag-suggestions/tag-suggestions.css", "core/tag-suggestions/tag-suggestions.js",
-    "core/preview/preview.html", "core/preview/preview.css", "core/preview/preview.js",
-    "alfacode/src"
-  ];
+  const manifest = await loadOfflineManifest();
+  const inputPaths = await discoverRuntimeFiles(manifest);
 
   const [
     indexTemplate, rootCss, coordinator,
@@ -203,6 +338,11 @@ async function main() {
     read("core/editor/editor.html"), read("core/editor/editor.css"),
     read("core/preview/preview.html"), read("core/preview/preview.css"), read("core/preview/preview.js")
   ]);
+
+  const undiscoveredReads = [...READ_PATHS].filter(item => !inputPaths.includes(item));
+  if (undiscoveredReads.length) {
+    throw new Error("Build script reads files not declared or discovered by offline manifest: " + undiscoveredReads.join(", "));
+  }
 
   // Ensure source component modules remain part of the audited build inputs.
   if (!headerModule.includes("customElements.define") ||
