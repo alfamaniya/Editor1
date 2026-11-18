@@ -9,10 +9,10 @@
 
 | زبان | فایل داده | تعداد فعلی رکورد |
 |---|---|---:|
-| HTML | `alfacode/data/completions.html.json` | ۹۲ |
+| HTML | `alfacode/data/completions.html.json` | ۹۶ |
 | CSS | `alfacode/data/completions.css.json` | ۱۷۴ |
 | JavaScript | `alfacode/data/completions.javascript.json` | ۱۱۴ |
-| **مجموع** | سه فایل مستقل | **۳۸۰** |
+| **مجموع** | سه فایل مستقل | **۳۸۴** |
 
 ## ۱. نقشه راه HTML
 
@@ -23,14 +23,15 @@
 | فهرست‌ها | ۵ | li، ul، ol، dt، dd |
 | ساختار سند | ۱۰ | script، link، meta، title، style، base، noscript، html، head، body |
 | سایر عناصر | ۱ | button |
-| بخش‌بندی و ناوبری | ۶ | section، header، footer، main، article، nav |
+| بخش‌بندی و ناوبری | ۸ | section، header، footer، main، article، nav، aside، address |
 | فرم‌ها | ۷ | form، input، label، textarea، select، option، optgroup |
 | جدول‌ها | ۹ | table، thead، tbody، tr، th، td، caption، colgroup، tfoot |
+| گروه‌بندی محتوا | ۲ | figure، figcaption |
 | گرافیک SVG | ۱۰ | svg، g، path، circle، rect، line، polyline، polygon، ellipse، text |
 
 ### مراحل تکمیل HTML
 - [x] HTML-1 — تکمیل عناصر متنی و معنایی: `h3` تا `h6`، `hgroup`، عناصر نقل‌قول، تأکید و نشانه‌گذاری متن، کد و داده، زمان، زیرنویس/بالانویس، نوشتار دوجهته، ruby و عناصر درج/حذف متن. در این مرحله ۳۲ تگ جدید افزوده شد.
-- [ ] HTML-2 — تکمیل ساختار معنایی صفحه: aside، address، figure، figcaption، search و سایر عناصر بخش‌بندی معتبر.
+- [x] HTML-2 — تکمیل عناصر ساختار معنایی و گروه‌بندی محتوا: `aside`، `address`، `figure` و `figcaption` افزوده شدند. عنصر `search` در این مرحله وارد پیشنهادهای عادی نشد و برای ارزیابی وضعیت/سازگاری در مراحل بعد باقی ماند.
 - [ ] HTML-3 — تکمیل پیوند، تصویر و رسانه: picture، source، audio، video، track، map و area.
 - [ ] HTML-4 — تکمیل فهرست‌ها و عناصر گروه‌بندی مرتبط: menu و عناصر معتبر جاافتاده.
 - [ ] HTML-5 — تکمیل فرم‌ها: fieldset، legend، button و انواع/الگوهای رایج input؛ بررسی عناصر انتخاب و خروجی فرم.
@@ -184,6 +185,19 @@
 ## گزارش اجرای HTML-1\n\n- تاریخ اجرا: ۲۰۲۶-۱۱-۱۸\n- موارد افزوده‌شده: `h3`, `h4`, `h5`, `h6`, `hgroup`, `blockquote`, `pre`, `b`, `u`, `mark`, `small`, `s`, `cite`, `q`, `dfn`, `abbr`, `code`, `var`, `samp`, `kbd`, `data`, `time`, `sub`, `sup`, `ruby`, `rt`, `rp`, `bdi`, `bdo`, `wbr`, `ins`, `del`.\n- دسته‌بندی داده‌ها: همه رکوردها در namespace برابر `html`، نوع `tag` و عملیات `open` ثبت شدند؛ `wbr` به‌عنوان void و `rt`/`rp` با والد مجاز `ruby` مشخص شدند.\n- منابع مرجع: [WHATWG HTML Living Standard — The text-level semantics](https://html.spec.whatwg.org/multipage/text-level-semantics.html)، [WHATWG HTML Living Standard — Edits](https://html.spec.whatwg.org/multipage/edits.html)، [WHATWG HTML Living Standard — Grouping content](https://html.spec.whatwg.org/multipage/grouping-content.html)، [MDN HTML elements reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).\n- تعداد HTML: ۹۲؛ CSS: ۱۷۴؛ JavaScript: ۱۱۴؛ مجموع: ۳۸۰. آزمون اختصاصی حضور ۳۲ تگ HTML-1 نیز به مجموعه آزمون داده اضافه شد. اجرای آزمون پس از اصلاح شمارنده‌ها در [Run #154](https://github.com/alfamaniya/Editor1/actions/runs/44386975357) با ۴۴ آزمون موفق و صفر ناموفق پایان یافت؛ ساخت مستقل آفلاین در [Run #153](https://github.com/alfamaniya/Editor1/actions/runs/44386965362) نیز موفق بود.\n\n## وضعیت اجرا
 - [x] موجودی اولیه سه فایل و دسته‌های فعلی استخراج شد.
 - [x] HTML-1 اجرا شد: ۳۲ تگ جدید افزوده شد؛ موجودی HTML از ۶۰ به ۹۲ رسید.
+- [x] HTML-2 اجرا شد: ۴ تگ تأییدشده افزوده شد؛ موجودی HTML از ۹۲ به ۹۶ رسید.
 - [ ] اجرای تکمیل CSS آغاز نشده است.
 - [ ] اجرای تکمیل JavaScript آغاز نشده است.
 - [ ] اعتبارسنجی نهایی انجام نشده است.
+
+
+## گزارش اجرای HTML-2
+
+- تاریخ اجرا: ۲۰۲۶-۱۱-۱۸
+- موارد افزوده‌شده: `aside`، `address`، `figure` و `figcaption`.
+- دسته‌بندی: `aside` و `address` در «بخش‌بندی و ناوبری»؛ `figure` و `figcaption` در «گروه‌بندی محتوا».
+- فراداده و محدودیت زمینه: هر چهار رکورد در namespace برابر `html`، نوع `tag`، عملیات `open` و غیر void ثبت شدند. برای `figcaption` والد مجاز `figure` مشخص شد؛ این عنصر باید اولین یا آخرین فرزند `figure` باشد. این محدودیت ترتیبی در توضیح/مستند مرحله ثبت شده و parentTags رابطه والد را محدود می‌کند.
+- نکات معنایی: `address` فقط برای اطلاعات تماس نزدیک‌ترین `article` یا کل سند است و نباید شامل heading، عناصر sectioning، `header`، `footer` یا `address` تو در تو باشد. `aside` برای محتوای مرتبطِ غیرمستقیم است و نباید فرزند `address` باشد. `figure` محتوای مستقل و قابل ارجاع را گروه‌بندی می‌کند و caption اختیاری است.
+- عنصر `search` با وجود تعریف در استاندارد و MDN، در این مرحله افزوده نشد؛ وضعیت پشتیبانی/سازگاری آن باید جداگانه و پیش از پیشنهاد عادی بررسی شود.
+- منابع رسمی: [WHATWG — aside](https://html.spec.whatwg.org/multipage/sections.html#the-aside-element)، [WHATWG — address](https://html.spec.whatwg.org/multipage/sections.html#the-address-element)، [WHATWG — figure and figcaption](https://html.spec.whatwg.org/multipage/grouping-content.html#the-figure-element)، [MDN — aside](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/aside)، [MDN — figure](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/figure)، [MDN — figcaption](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/figcaption)، [MDN — HTML elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements).
+- تعداد پس از مرحله: HTML برابر ۹۶، CSS برابر ۱۷۴، JavaScript برابر ۱۱۴ و مجموع ۳۸۴ رکورد. یک آزمون اختصاصی HTML-2 به آزمون‌های داده اضافه شد؛ نتیجه CI پس از اجرای workflow ثبت خواهد شد.
