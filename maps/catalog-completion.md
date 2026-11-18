@@ -82,7 +82,7 @@
 - [x] CSS-8 — تکمیل جلوه‌های بصری: shadow، radius، filter، transform، transition و animation با مقادیر و توابع مرتبط.
 - [x] CSS-9 — تکمیل طراحی واکنش‌گرا و قواعد: media، supports، container query، ویژگی‌های سفارشی و توابع var/calc/clamp.
 - [x] CSS-10 — تکمیل واحدها و توابع: طول، درصد، زاویه، زمان، رنگ، توابع ریاضی و توابع پرکاربرد CSS.
-- [ ] CSS-11 — تکمیل مقادیر ویژگی‌ها: برای هر property مجموعه مقادیر متناسب و معتبر تعریف شود؛ از پیشنهاد مقادیر نامرتبط در context اشتباه جلوگیری شود.
+- [x] CSS-11 — تکمیل مقادیر ویژگی‌ها: برای هر property مجموعه مقادیر متناسب و معتبر تعریف شود؛ از پیشنهاد مقادیر نامرتبط در context اشتباه جلوگیری شود.
 - [ ] CSS-12 — ممیزی نهایی پوشش، دسته‌بندی، ترتیب، توضیح، یکتایی شناسه‌ها و ارتباط property با value.
 
 ### گزارش اجرای CSS-1
@@ -134,6 +134,12 @@
 
 - توابع ریاضی، رنگ، gradient، transform، timing و grid track و واحدهای طول، زاویه، زمان، درصد و fr ثبت شدند.
 - تعداد رکوردهای جدید: 84. توابع/واحدهای آزمایشی یا فاقد پشتیبانی کافی وارد پیشنهادهای عادی نشدند. منابع: W3C CSS Values & Units، Color، Images، Transforms و MDN.
+
+### گزارش اجرای CSS-11
+
+- مقادیر تکمیلی ویژگی‌های layout، position، overflow، cursor، box-sizing، visibility، border-style، text، font، flex، vertical-align و animation ثبت شدند.
+- تعداد رکوردهای جدید: 37. تمام valueها با propertyName دقیق و آزمون مالکیت ویژگی ذخیره شدند؛ پیشنهاد عمومی نامرتبط ایجاد نشد.
+- منابع: ماژول‌های W3C مربوط و MDN CSS Reference.
 
 ## ۳. نقشه راه JavaScript
 
