@@ -44,32 +44,17 @@
 
 ## ۲. نقشه راه CSS
 
-### موجودی فعلی دسته‌ها
+### موجودی نهایی دسته‌های CSS
 
-| دسته فعلی | تعداد |
+| نوع رکورد | تعداد |
 |---|---:|
-| ویژگی‌های CSS | ۵۱ |
-| انتخابگرهای نمونه | ۱۱ |
-| مقادیر عمومی | ۱۰ |
-| مقادیر display | ۹ |
-| مقادیر position | ۵ |
-| مقادیر flex-direction | ۴ |
-| مقادیر flex-wrap | ۳ |
-| مقادیر justify-content | ۶ |
-| مقادیر align-items | ۵ |
-| مقادیر text-align | ۶ |
-| مقادیر font-weight | ۱۳ |
-| مقادیر overflow | ۵ |
-| مقادیر visibility | ۳ |
-| مقادیر cursor | ۸ |
-| مقادیر box-sizing | ۲ |
-| مقادیر background-color | ۶ |
-| مقادیر color | ۶ |
-| مقادیر border-style | ۵ |
-| مقادیر text-decoration | ۴ |
-| مقادیر white-space | ۶ |
-| مقادیر animation | ۶ |
-| **مجموع** | **۱۷۴** |
+| ویژگی‌ها (property) | ۱۷۹ |
+| انتخابگرها (selector) | ۶۴ |
+| مقادیر وابسته به ویژگی (value) | ۲۶۸ |
+| قواعد at-rule | ۱۵ |
+| توابع CSS | ۵۱ |
+| واحدهای CSS | ۳۳ |
+| **مجموع** | **۶۱۰** |
 
 ### مراحل تکمیل CSS
 - [x] CSS-1 — تکمیل ویژگی‌های پایه و جعبه: margin، padding و گونه‌ها، border و گونه‌ها، outline، width/height و min/max، box-sizing و اندازه‌گیری.
@@ -143,10 +128,29 @@
 
 ### گزارش اجرای CSS-12 و ممیزی نهایی
 
+- وضعیت انتشار کد: هر ۱۲ PR با merge commit مستقل به `main` منتقل شدند؛ شاخه اصلی اکنون شامل تمام مراحل CSS-1 تا CSS-12 است.
+
 - تعداد نهایی CSS: 610 رکورد؛ property: 179، selector: 64، value: 268، at-rule: 15، function: 51، unit: 33.
 - 59 توضیح عمومی و مبهم به شرح تخصصی ارتقا یافت. شناسه‌ها و کلیدهای معنایی تکراری صفر؛ value بدون property معتبر صفر.
 - برای at-ruleها، functionها و واحد fr context درج شد. آزمون نهایی ساختار، یکتایی، مالکیت value و انواع جدید افزوده شد.
 - منابع: [W3C CSS Snapshot 2026](https://www.w3.org/TR/css/)، [W3C CSS Specifications](https://www.w3.org/Style/CSS/specs.en.html)، [MDN CSS Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference).
+
+### درخواست‌های Pull Request مراحل CSS
+
+همه ۱۲ PR پس از موفقیت آزمون‌ها در شاخه `main` ادغام شدند:
+
+- [CSS-1 — PR #1](https://github.com/alfamaniya/Editor1/pull/1)
+- [CSS-2 — PR #2](https://github.com/alfamaniya/Editor1/pull/2)
+- [CSS-3 — PR #3](https://github.com/alfamaniya/Editor1/pull/3)
+- [CSS-4 — PR #4](https://github.com/alfamaniya/Editor1/pull/4)
+- [CSS-5 — PR #5](https://github.com/alfamaniya/Editor1/pull/5)
+- [CSS-6 — PR #6](https://github.com/alfamaniya/Editor1/pull/6)
+- [CSS-7 — PR #7](https://github.com/alfamaniya/Editor1/pull/7)
+- [CSS-8 — PR #8](https://github.com/alfamaniya/Editor1/pull/8)
+- [CSS-9 — PR #9](https://github.com/alfamaniya/Editor1/pull/9)
+- [CSS-10 — PR #10](https://github.com/alfamaniya/Editor1/pull/10)
+- [CSS-11 — PR #11](https://github.com/alfamaniya/Editor1/pull/11)
+- [CSS-12 — PR #12](https://github.com/alfamaniya/Editor1/pull/12)
 
 ## ۳. نقشه راه JavaScript
 
@@ -250,7 +254,7 @@
 - [x] موجودی اولیه سه فایل و دسته‌های فعلی استخراج شد.
 - [x] HTML-1 اجرا شد: ۳۲ تگ جدید افزوده شد؛ موجودی HTML از ۶۰ به ۹۲ رسید.
 - [x] HTML-2 اجرا شد: ۴ تگ تأییدشده افزوده شد؛ موجودی HTML از ۹۲ به ۹۶ رسید.
-- [x] CSS-1 تا CSS-12 تکمیل شدند؛ ۱۲ مرحله و ۱۲ درخواست Pull Request زنجیره‌ای ثبت شد. ادغام نهایی منوط به موفقیت CI و ممیزی PRهاست.
+- [x] CSS-1 تا CSS-12 تکمیل و هر ۱۲ درخواست Pull Request پس از موفقیت CI به‌ترتیب در `main` ادغام شدند.
 - [ ] اجرای تکمیل JavaScript آغاز نشده است.
 - [ ] اعتبارسنجی نهایی انجام نشده است.
 
