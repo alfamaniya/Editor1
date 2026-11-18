@@ -189,27 +189,63 @@ async function discoverRuntimeFiles(manifest) {
   return [...files].sort();
 }
 
-const NETWORK_URL_PATTERN = /(?:https?:)?\/\/[a-z0-9.-]+\.[a-z]{2,}(?::\d+)?(?:[/?#][^\s"'<>)]*)?/i;
+// Detect network endpoints even when they use localhost, an IP address,
+// a non-standard scheme, or a protocol-relative URL.
+const NETWORK_URL_PATTERN = /(?:\b(?:https?|wss?|ftp):\/\/|(?<![\w:])\/\/)(?:localhost|(?:\d{1,3}\.){3}\d{1,3}|[a-z0-9-]+(?:\.[a-z0-9-]+)+)(?::\d+)?(?:[/?#][^\s"'<>)]*)?/i;
+const TEXT_RUNTIME_EXTENSION = /\.(?:html?|css|m?js|cjs|json|svg|xml|webmanifest)$/i;
+const HTML_RESOURCE_TAG_PATTERN = /<(?:script|link|img|iframe|source|video|audio|object|embed)\b[^>]*>/gi;
+const HTML_RESOURCE_ATTRIBUTE_PATTERN = /\b(?:src|href|poster|data)\s*=\s*(["'])(.*?)\1/gi;
+
+function findExternalHtmlResources(source) {
+  const violations = [];
+  for (const tag of source.matchAll(HTML_RESOURCE_TAG_PATTERN)) {
+    for (const attribute of tag[0].matchAll(HTML_RESOURCE_ATTRIBUTE_PATTERN)) {
+      if (NETWORK_URL_PATTERN.test(attribute[2].trim())) violations.push(attribute[2].trim());
+    }
+    const srcset = tag[0].match(/\bsrcset\s*=\s*(["'])(.*?)\1/i)?.[2];
+    if (srcset && srcset.split(",").some(candidate =>
+      NETWORK_URL_PATTERN.test(candidate.trim().split(/\s+/, 1)[0]))) {
+      violations.push("external srcset");
+    }
+  }
+  return violations;
+}
+
+function findExternalCssResources(source) {
+  const violations = [];
+  const patterns = [
+    /@import\s+(?:url\(\s*)?["']?([^"'\s)]+)["']?\s*\)?/gi,
+    /url\(\s*["']?([^"'\s)]+)["']?\s*\)/gi
+  ];
+  for (const pattern of patterns) {
+    for (const match of source.matchAll(pattern)) {
+      if (NETWORK_URL_PATTERN.test(match[1].trim())) violations.push(match[1].trim());
+    }
+  }
+  return violations;
+}
 
 async function validateNoNetworkDependencies(runtimeFiles) {
   const violations = [];
   for (const relativePath of runtimeFiles) {
-    const absolute = path.join(ROOT, relativePath);
-    const source = await fs.readFile(absolute, "utf8");
+    if (!TEXT_RUNTIME_EXTENSION.test(relativePath)) continue;
+    const source = await fs.readFile(path.join(ROOT, relativePath), "utf8");
     if (NETWORK_URL_PATTERN.test(source)) {
-      violations.push(relativePath + " contains an absolute or protocol-relative network URL");
+      violations.push(relativePath + " contains a network URL or endpoint");
     }
-    if (/\.html?$/i.test(relativePath) &&
-        /<(?:script|link|img|iframe|source|video|audio)\b[^>]*(?:src|href)\s*=\s*["']\s*(?:https?:)?\/\//i.test(source)) {
-      violations.push(relativePath + " contains an external HTML resource reference");
+    if (/\.html?$/i.test(relativePath)) {
+      for (const reference of findExternalHtmlResources(source)) {
+        violations.push(relativePath + " contains an external HTML resource: " + reference);
+      }
     }
-    if (/\.css$/i.test(relativePath) &&
-        /(?:@import\s+(?:url\()?\s*["']?\s*(?:https?:)?\/\/|url\(\s*["']?\s*(?:https?:)?\/\/)/i.test(source)) {
-      violations.push(relativePath + " contains an external CSS import or asset");
+    if (/\.css$/i.test(relativePath)) {
+      for (const reference of findExternalCssResources(source)) {
+        violations.push(relativePath + " contains an external CSS resource: " + reference);
+      }
     }
   }
   if (violations.length) {
-    throw new Error("Offline source audit failed: " + violations.join("; "));
+    throw new Error("Offline source audit failed: " + [...new Set(violations)].join("; "));
   }
 }
 
@@ -508,17 +544,23 @@ async function main() {
 `;
   shell = injectBeforeBodyEnd(shell, "<script>\n" + escapeScript(bootstrap) + "\n</script>");
 
-  if (!/<!doctype html>/i.test(shell) || !shell.includes("editorFrame.srcdoc") ||
-      !shell.includes("previewFrame.srcdoc") ||
+  if (!/<!doctype html>/i.test(shell) || !editorDocument.trim() || !previewDocument.trim() ||
+      !shell.includes("editorFrame.srcdoc") || !shell.includes("previewFrame.srcdoc") ||
+      !/<style\b[^>]*>[\s\S]*?<\/style>/i.test(shell) ||
+      !/<script\b[^>]*>[\s\S]*?<\/script>/i.test(shell) ||
       /<script\b[^>]*\bsrc\s*=|<link\b[^>]*\bhref\s*=|<iframe\b[^>]*\bsrc\s*=/i.test(shell)) {
-    throw new Error("Offline output validation failed: missing embedded documents or external asset references.");
+    throw new Error("Offline output validation failed: an embedded document, inline runtime asset, or required resource is missing.");
   }
-  if (NETWORK_URL_PATTERN.test(shell)) {
-    throw new Error("Offline output validation failed: a network URL remains in the generated HTML.");
+  if (NETWORK_URL_PATTERN.test(shell) ||
+      findExternalHtmlResources(shell).length ||
+      findExternalCssResources(shell).length) {
+    throw new Error("Offline output validation failed: an external network resource remains in the generated HTML.");
   }
 
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
-  await fs.writeFile(OUTPUT_FILE, shell, "utf8");
+  const temporaryOutput = OUTPUT_FILE + ".tmp";
+  await fs.writeFile(temporaryOutput, shell, "utf8");
+  await fs.rename(temporaryOutput, OUTPUT_FILE);
 
   const inputBytes = await Promise.all(inputPaths.map(async item => {
     const full = path.join(ROOT, item);
