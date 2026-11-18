@@ -1353,7 +1353,9 @@
       "owner": "Array",
       "insertText": "from",
       "order": 1,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Array:isArray",
@@ -1366,7 +1368,9 @@
       "owner": "Array",
       "insertText": "isArray",
       "order": 2,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Array:of",
@@ -1379,7 +1383,9 @@
       "owner": "Array",
       "insertText": "of",
       "order": 3,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:BigInt:asIntN",
@@ -1497,7 +1503,9 @@
       "owner": "console",
       "insertText": "assert",
       "order": 1,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:console:clear",
@@ -1510,7 +1518,9 @@
       "owner": "console",
       "insertText": "clear",
       "order": 2,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:console:count",
@@ -1523,7 +1533,9 @@
       "owner": "console",
       "insertText": "count",
       "order": 3,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:console:debug",
@@ -1536,7 +1548,9 @@
       "owner": "console",
       "insertText": "debug",
       "order": 4,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:console:error",
@@ -1549,7 +1563,9 @@
       "owner": "console",
       "insertText": "error",
       "order": 5,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:console:info",
@@ -1562,7 +1578,9 @@
       "owner": "console",
       "insertText": "info",
       "order": 6,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:console:log",
@@ -1575,7 +1593,9 @@
       "owner": "console",
       "insertText": "log",
       "order": 7,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:console:table",
@@ -1588,7 +1608,9 @@
       "owner": "console",
       "insertText": "table",
       "order": 8,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:console:time",
@@ -1601,7 +1623,9 @@
       "owner": "console",
       "insertText": "time",
       "order": 9,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:console:timeEnd",
@@ -1614,7 +1638,9 @@
       "owner": "console",
       "insertText": "timeEnd",
       "order": 10,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:console:warn",
@@ -1627,7 +1653,9 @@
       "owner": "console",
       "insertText": "warn",
       "order": 11,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:Date:now",
@@ -2330,7 +2358,9 @@
       "owner": "document",
       "insertText": "addEventListener",
       "order": 1,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:document:createElement",
@@ -2343,7 +2373,9 @@
       "owner": "document",
       "insertText": "createElement",
       "order": 2,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:document:getElementById",
@@ -2356,7 +2388,9 @@
       "owner": "document",
       "insertText": "getElementById",
       "order": 3,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:document:querySelector",
@@ -2369,7 +2403,9 @@
       "owner": "document",
       "insertText": "querySelector",
       "order": 4,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:document:querySelectorAll",
@@ -2382,7 +2418,9 @@
       "owner": "document",
       "insertText": "querySelectorAll",
       "order": 5,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:Error:isError",
@@ -2486,7 +2524,9 @@
       "owner": "JSON",
       "insertText": "parse",
       "order": 1,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:JSON:stringify",
@@ -2499,7 +2539,9 @@
       "owner": "JSON",
       "insertText": "stringify",
       "order": 2,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Map.prototype:clear",
@@ -2663,7 +2705,9 @@
       "owner": "Math",
       "insertText": "abs",
       "order": 1,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Math:ceil",
@@ -2676,7 +2720,9 @@
       "owner": "Math",
       "insertText": "ceil",
       "order": 2,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Math:floor",
@@ -2689,7 +2735,9 @@
       "owner": "Math",
       "insertText": "floor",
       "order": 3,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Math:max",
@@ -2702,7 +2750,9 @@
       "owner": "Math",
       "insertText": "max",
       "order": 4,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Math:min",
@@ -2715,7 +2765,9 @@
       "owner": "Math",
       "insertText": "min",
       "order": 5,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Math:random",
@@ -2728,7 +2780,9 @@
       "owner": "Math",
       "insertText": "random",
       "order": 6,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Math:round",
@@ -2741,7 +2795,9 @@
       "owner": "Math",
       "insertText": "round",
       "order": 7,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Math:sqrt",
@@ -2754,7 +2810,9 @@
       "owner": "Math",
       "insertText": "sqrt",
       "order": 8,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Number:isFinite",
@@ -3383,7 +3441,9 @@
       "owner": "Promise",
       "insertText": "all",
       "order": 1,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Promise:allSettled",
@@ -3396,7 +3456,9 @@
       "owner": "Promise",
       "insertText": "allSettled",
       "order": 2,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Promise:race",
@@ -3409,7 +3471,9 @@
       "owner": "Promise",
       "insertText": "race",
       "order": 3,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Promise:reject",
@@ -3422,7 +3486,9 @@
       "owner": "Promise",
       "insertText": "reject",
       "order": 4,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:Promise:resolve",
@@ -3435,7 +3501,9 @@
       "owner": "Promise",
       "insertText": "resolve",
       "order": 5,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "static-method",
+      "standardSource": "ECMA-262"
     },
     {
       "id": "javascript:member:RegExp.prototype:exec",
@@ -4443,7 +4511,9 @@
       "owner": "window",
       "insertText": "addEventListener",
       "order": 1,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:window:alert",
@@ -4456,7 +4526,9 @@
       "owner": "window",
       "insertText": "alert",
       "order": 2,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:window:confirm",
@@ -4469,7 +4541,9 @@
       "owner": "window",
       "insertText": "confirm",
       "order": 3,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:window:fetch",
@@ -4482,7 +4556,9 @@
       "owner": "window",
       "insertText": "fetch",
       "order": 4,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:window:requestAnimationFrame",
@@ -4495,7 +4571,9 @@
       "owner": "window",
       "insertText": "requestAnimationFrame",
       "order": 5,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:member:window:setTimeout",
@@ -4508,7 +4586,9 @@
       "owner": "window",
       "insertText": "setTimeout",
       "order": 6,
-      "enabled": true
+      "enabled": true,
+      "memberKind": "host-method",
+      "standardSource": "Web Platform API"
     },
     {
       "id": "javascript:literal:boolean:false",
