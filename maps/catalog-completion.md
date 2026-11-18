@@ -10,9 +10,9 @@
 | زبان | فایل داده | تعداد فعلی رکورد |
 |---|---|---:|
 | HTML | `alfacode/data/completions.html.json` | ۱۴۶ |
-| CSS | `alfacode/data/completions.css.json` | ۱۷۴ |
+| CSS | `alfacode/data/completions.css.json` | 205 |
 | JavaScript | `alfacode/data/completions.javascript.json` | ۱۱۴ |
-| **مجموع** | سه فایل مستقل | **۴۳۴** |
+| **مجموع** | سه فایل مستقل | **465** |
 
 ## ۱. نقشه راه HTML
 
@@ -72,7 +72,7 @@
 | **مجموع** | **۱۷۴** |
 
 ### مراحل تکمیل CSS
-- [ ] CSS-1 — تکمیل ویژگی‌های پایه و جعبه: margin، padding و گونه‌ها، border و گونه‌ها، outline، width/height و min/max، box-sizing و اندازه‌گیری.
+- [x] CSS-1 — تکمیل ویژگی‌های پایه و جعبه: margin، padding و گونه‌ها، border و گونه‌ها، outline، width/height و min/max، box-sizing و اندازه‌گیری.
 - [ ] CSS-2 — تکمیل رنگ و پس‌زمینه: backgroundهای چندگانه، background-position/size/repeat، gradient، opacity و روش‌های رنگ‌نویسی.
 - [ ] CSS-3 — تکمیل تایپوگرافی و متن: font و گونه‌ها، line-height، letter-spacing، word-spacing، text-indent، text-overflow و word-break.
 - [ ] CSS-4 — تکمیل چیدمان Flexbox: ویژگی‌های container و item و مقادیر معتبر هر ویژگی.
@@ -84,6 +84,11 @@
 - [ ] CSS-10 — تکمیل واحدها و توابع: طول، درصد، زاویه، زمان، رنگ، توابع ریاضی و توابع پرکاربرد CSS.
 - [ ] CSS-11 — تکمیل مقادیر ویژگی‌ها: برای هر property مجموعه مقادیر متناسب و معتبر تعریف شود؛ از پیشنهاد مقادیر نامرتبط در context اشتباه جلوگیری شود.
 - [ ] CSS-12 — ممیزی نهایی پوشش، دسته‌بندی، ترتیب، توضیح، یکتایی شناسه‌ها و ارتباط property با value.
+
+### گزارش اجرای CSS-1
+
+- ویژگی‌های جعبه و اندازه: ویژگی‌های logical برای margin/padding، border و outline، aspect-ratio و اندازه‌های logical افزوده شدند.
+- هر مورد به‌عنوان CSS property با شناسه یکتا و توضیح تخصصی ثبت شد؛ ویژگی‌های موجود تکرار نشدند.
 
 ## ۳. نقشه راه JavaScript
 
