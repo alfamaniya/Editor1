@@ -34,7 +34,7 @@
   });
 
   window.addEventListener("message", event => {
-    if (event.origin !== window.location.origin) return;
+    // Trust the exact editor iframe window; file:// origins may serialize as "null".
     if (editorFrame && event.source === editorFrame.contentWindow) {
       const data = event.data;
       if (data?.type === "alfacode:editor-state") {
