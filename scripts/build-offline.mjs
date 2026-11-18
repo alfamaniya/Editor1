@@ -513,7 +513,7 @@ async function main() {
       /<script\b[^>]*\bsrc\s*=|<link\b[^>]*\bhref\s*=|<iframe\b[^>]*\bsrc\s*=/i.test(shell)) {
     throw new Error("Offline output validation failed: missing embedded documents or external asset references.");
   }
-  if (/https?:\/\//i.test(shell)) {
+  if (NETWORK_URL_PATTERN.test(shell)) {
     throw new Error("Offline output validation failed: a network URL remains in the generated HTML.");
   }
 
