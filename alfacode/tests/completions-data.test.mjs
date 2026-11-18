@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 573, javascript: 114 };
+  const expected = { html: 146, css: 610, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 833);
+  assert.equal(records.length, 870);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -327,3 +327,6 @@ test("CSS-9 standard conditional, grouping and registration at-rules are present
 
 
 test("CSS-10 standard math, color, gradient and transform functions and common units are present",async()=>{const {css}=await readCatalogFiles();for(const label of ["var()","calc()","min()","max()","clamp()","env()","rgb()","rgba()","hsl()","hsla()","hwb()","lab()","lch()","oklab()","oklch()","color()","color-mix()","linear-gradient()","repeating-linear-gradient()","radial-gradient()","repeating-radial-gradient()","conic-gradient()","repeating-conic-gradient()","translate()","translateX()","translateY()","translateZ()","translate3d()","scale()","scaleX()","scaleY()","scale3d()","rotate()","rotateX()","rotateY()","rotateZ()","rotate3d()","skew()","skewX()","skewY()","matrix()","matrix3d()","perspective()","cubic-bezier()","steps()","minmax()","repeat()","fit-content()","round()","mod()","rem()"])assert.ok(css.records.some(r=>r.type==="function"&&r.label===label),"missing CSS function: "+label);for(const label of ["px","em","rem","ex","ch","cap","ic","lh","rlh","vw","vh","vmin","vmax","svw","svh","lvw","lvh","dvw","dvh","cm","mm","in","pt","pc","Q","%","deg","rad","grad","turn","s","ms","fr"])assert.ok(css.records.some(r=>r.type==="unit"&&r.label===label),"missing CSS unit: "+label);});
+
+
+test("CSS-11 property values are associated only with their owning properties",async()=>{const {css}=await readCatalogFiles();for(const key of ["display:list-item","display:table","display:table-row","display:table-cell","cursor:wait","cursor:help","cursor:crosshair","cursor:zoom-in","cursor:zoom-out","border-style:hidden","border-style:groove","border-style:ridge","border-style:inset","border-style:outset","text-align:match-parent","flex:none","flex:auto","flex:initial","align-self:auto","align-self:stretch","align-self:flex-start","align-self:flex-end","align-self:center","align-self:baseline","vertical-align:baseline","vertical-align:sub","vertical-align:super","vertical-align:top","vertical-align:text-top","vertical-align:middle","vertical-align:bottom","vertical-align:text-bottom","animation:infinite","animation:alternate","animation:forwards","animation:backwards","animation:both"]){const [property,...parts]=key.split(":");const value=parts.join(":");assert.ok(css.records.some(r=>r.type==="value"&&r.propertyName===property&&r.label===value),"missing scoped CSS value: "+key);}});
