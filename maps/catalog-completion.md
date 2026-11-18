@@ -3,43 +3,44 @@
 ## هدف
 تکمیل تدریجی داده‌های مرجع پیشنهاد خودکار AlfaCode برای سه زبان HTML، CSS و JavaScript؛ به‌گونه‌ای که پیشنهادها از نظر پوشش زبانی، دسته‌بندی، زمینه معتبر، توضیح و رفتار درج قابل اتکا باشند.
 
-این سند فقط نقشه راه و موجودی فعلی را ثبت می‌کند. در این مرحله هیچ رکوردی به فایل‌های JSON اضافه یا اصلاح نمی‌شود و اتصال موتور زمان اجرا به کاتالوگ نیز موضوع این برنامه نیست.
+این سند فقط نقشه راه و موجودی فعلی را ثبت می‌کند. این سند موجودی، مراحل، منابع و گزارش اجرای واقعی کاتالوگ را ثبت می‌کند. اتصال موتور زمان اجرا به کاتالوگ موضوع این برنامه نیست.
 
 ## وضعیت فعلی کاتالوگ
 
 | زبان | فایل داده | تعداد فعلی رکورد |
 |---|---|---:|
-| HTML | `alfacode/data/completions.html.json` | ۹۶ |
+| HTML | `alfacode/data/completions.html.json` | ۱۴۶ |
 | CSS | `alfacode/data/completions.css.json` | ۱۷۴ |
 | JavaScript | `alfacode/data/completions.javascript.json` | ۱۱۴ |
-| **مجموع** | سه فایل مستقل | **۳۸۴** |
+| **مجموع** | سه فایل مستقل | **۴۳۴** |
 
 ## ۱. نقشه راه HTML
 
 | دسته فعلی | تعداد | موارد موجود |
 |---|---:|---|
 | متن و محتوا | ۴۲ | div، span، p، i، h1، h2، strong، em، br، hr، h3، h4، h5، h6، hgroup، blockquote، pre، b، u، mark، small، s، cite، q، dfn، abbr، code، var، samp، kbd، data، time، sub، sup، ruby، rt، rp، bdi، bdo، wbr، ins، del |
-| پیوند و رسانه | ۲ | a، img |
-| فهرست‌ها | ۵ | li، ul، ol، dt، dd |
+| پیوند و رسانه | ۹ | a، img، picture، source، audio، video، track، map، area |
+| فهرست‌ها | ۶ | li، ul، ol، dt، dd، menu |
 | ساختار سند | ۱۰ | script، link، meta، title، style، base، noscript، html، head، body |
 | سایر عناصر | ۱ | button |
-| بخش‌بندی و ناوبری | ۸ | section، header، footer، main، article، nav، aside، address |
-| فرم‌ها | ۷ | form، input، label، textarea، select، option، optgroup |
-| جدول‌ها | ۹ | table، thead، tbody، tr، th، td، caption، colgroup، tfoot |
+| بخش‌بندی و ناوبری | ۹ | section، header، footer، main، article، nav، aside، address، search |
+| فرم‌ها | ۱۳ | form، input، label، textarea، select، option، optgroup، fieldset، legend، output، datalist، meter، progress |
+| جدول‌ها | ۱۰ | table، thead، tbody، tr، th، td، caption، colgroup، tfoot، col |
 | گروه‌بندی محتوا | ۲ | figure، figcaption |
-| گرافیک SVG | ۱۰ | svg، g، path، circle، rect، line، polyline، polygon، ellipse، text |
+| عناصر تعاملی و توکار | ۹ | details، summary، dialog، iframe، embed، object، template، slot، canvas |
+| گرافیک SVG | ۳۵ | svg، g، path، circle، rect، line، polyline، polygon، ellipse، text، defs، use، symbol، title، desc، image، textPath، tspan، linearGradient، radialGradient، stop، pattern، clipPath، mask، filter، feGaussianBlur، feOffset، feBlend، feColorMatrix، feComposite، feFlood، feMerge، feMergeNode، marker، foreignObject |
 
 ### مراحل تکمیل HTML
 - [x] HTML-1 — تکمیل عناصر متنی و معنایی: `h3` تا `h6`، `hgroup`، عناصر نقل‌قول، تأکید و نشانه‌گذاری متن، کد و داده، زمان، زیرنویس/بالانویس، نوشتار دوجهته، ruby و عناصر درج/حذف متن. در این مرحله ۳۲ تگ جدید افزوده شد.
-- [x] HTML-2 — تکمیل عناصر ساختار معنایی و گروه‌بندی محتوا: `aside`، `address`، `figure` و `figcaption` افزوده شدند. عنصر `search` در این مرحله وارد پیشنهادهای عادی نشد و برای ارزیابی وضعیت/سازگاری در مراحل بعد باقی ماند.
-- [ ] HTML-3 — تکمیل پیوند، تصویر و رسانه: picture، source، audio، video، track، map و area.
-- [ ] HTML-4 — تکمیل فهرست‌ها و عناصر گروه‌بندی مرتبط: menu و عناصر معتبر جاافتاده.
-- [ ] HTML-5 — تکمیل فرم‌ها: fieldset، legend، button و انواع/الگوهای رایج input؛ بررسی عناصر انتخاب و خروجی فرم.
-- [ ] HTML-6 — تکمیل جدول‌ها: عناصر و ویژگی‌های ساختاری جاافتاده و کنترل والد مجاز برای هر عنصر.
-- [ ] HTML-7 — تکمیل عناصر تعاملی و توکار: details، summary، dialog، iframe، embed، object و عناصر مرتبط.
-- [ ] HTML-8 — تکمیل عناصر SVG: عناصر پایه شکل، مسیر، متن، تعریف و استفاده مجدد، گرادیان و الگوها.
-- [ ] HTML-9 — بررسی عناصر منسوخ یا نامعتبر: از پیشنهاد پیش‌فرض حذف شوند؛ در صورت نیاز آموزشی، فقط با وضعیت و برچسب مشخص نگهداری شوند.
-- [ ] HTML-10 — ممیزی نهایی دسته‌ها، توضیحات، ترتیب، شناسه‌ها، namespace، contexts، parentTags و void بودن عناصر.
+- [x] HTML-2 — تکمیل عناصر ساختار معنایی و گروه‌بندی محتوا: `aside`، `address`، `figure` و `figcaption` افزوده شدند. عنصر `search` در HTML-2 برای بررسی سازگاری به تعویق افتاد؛ در ممیزی HTML-10 با تأیید WHATWG و MDN و وضعیت Baseline Widely available به کاتالوگ اضافه شد.
+- [x] HTML-3 — تکمیل پیوند، تصویر و رسانه: `picture`، `source`، `audio`، `video`، `track`، `map` و `area`؛ void بودن و والدهای معتبر `source`، `track` و `area` ثبت شد.
+- [x] HTML-4 — تکمیل فهرست‌ها: `menu` اضافه شد و ارتباط آن با `li` در فراداده و آزمون کنترل شد.
+- [x] HTML-5 — تکمیل فرم‌ها: `fieldset`، `legend`، `output`، `datalist`، `meter` و `progress` اضافه شدند؛ `button` از قبل موجود بود.
+- [x] HTML-6 — تکمیل جدول‌ها: `col` اضافه شد و به‌عنوان عنصر void با والد مجاز `colgroup` ثبت شد.
+- [x] HTML-7 — تکمیل عناصر تعاملی و توکار: `details`، `summary`، `dialog`، `iframe`، `embed`، `object`، `template`، `slot` و `canvas` اضافه شدند.
+- [x] HTML-8 — تکمیل SVG: عناصر تعریف و استفاده مجدد، عنوان/توضیح، تصویر، متن روی مسیر، گرادیان، الگو، clipping، mask، filter و primitives پرکاربرد افزوده شدند؛ namespace و context برابر SVG ثبت شد.
+- [x] HTML-9 — ممیزی عناصر منسوخ: هیچ‌یک از عناصر deprecated شناخته‌شده در کاتالوگ عادی درج نشده‌اند؛ عناصر قدیمی مانند `acronym`، `applet`، `center`، `font`، `marquee`، `frameset`، `param`، `rb` و `rtc` حذف/غیرموجود نگه داشته شدند. عناصر آزمایشی مانند `fencedframe` و `selectedcontent` نیز به پیشنهادهای عادی افزوده نشدند.
+- [x] HTML-10 — ممیزی نهایی انجام شد: دسته‌ها، توضیحات، ترتیب، شناسه‌ها، namespace، contexts، parentTags و void بودن عناصر کنترل شدند؛ عنصر استاندارد `search` نیز با توجه به پشتیبانی گسترده از ۲۰۲۳ اضافه شد.
 
 ## ۲. نقشه راه CSS
 
@@ -201,3 +202,26 @@
 - عنصر `search` با وجود تعریف در استاندارد و MDN، در این مرحله افزوده نشد؛ وضعیت پشتیبانی/سازگاری آن باید جداگانه و پیش از پیشنهاد عادی بررسی شود.
 - منابع رسمی: [WHATWG — aside](https://html.spec.whatwg.org/multipage/sections.html#the-aside-element)، [WHATWG — address](https://html.spec.whatwg.org/multipage/sections.html#the-address-element)، [WHATWG — figure and figcaption](https://html.spec.whatwg.org/multipage/grouping-content.html#the-figure-element)، [MDN — aside](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/aside)، [MDN — figure](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/figure)، [MDN — figcaption](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/figcaption)، [MDN — HTML elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements).
 - تعداد پس از مرحله: HTML برابر ۹۶، CSS برابر ۱۷۴، JavaScript برابر ۱۱۴ و مجموع ۳۸۴ رکورد. یک آزمون اختصاصی HTML-2 به آزمون‌های داده اضافه شد؛ اجرای [AlfaCode Tests #44388559166](https://github.com/alfamaniya/Editor1/actions/runs/44388559166) با ۴۵ آزمون موفق و صفر ناموفق پایان یافت. ساخت بسته مستقل آفلاین در [Build AlfaCode Offline #44388538002](https://github.com/alfamaniya/Editor1/actions/runs/44388538002) نیز موفق شد.
+
+
+## گزارش اجرای HTML-3 تا HTML-10
+
+- تاریخ اجرا: ۲۰۲۶-۱۱-۱۸
+- دامنه مجوز اجرا: کاربر اجرای پیوسته HTML-3 تا HTML-10 را بدون توقف و تأییدهای بین‌مرحله‌ای مجاز کرد.
+- HTML-3: هفت عنصر `picture`، `source`، `audio`، `video`، `track`، `map` و `area` افزوده شدند. عناصر void و والدهای محدودشده `source`، `track` و `area` مشخص شدند.
+- HTML-4: عنصر `menu` افزوده شد؛ ارتباط `li` با والد `menu` از قبل در داده وجود داشت و در آزمون پوشش بررسی شد.
+- HTML-5: شش عنصر `fieldset`، `legend`، `output`، `datalist`، `meter` و `progress` افزوده شدند. `button` از قبل در کاتالوگ موجود بود.
+- HTML-6: عنصر void `col` با والد مجاز `colgroup` افزوده شد.
+- HTML-7: عناصر `details`، `summary`، `dialog`، `iframe`، `embed`، `object`، `template`، `slot` و `canvas` افزوده شدند. `embed` به‌درستی void ثبت شد.
+- HTML-8: ۲۵ عنصر SVG پرکاربرد برای تعریف/استفاده مجدد، متن، گرادیان، الگو، clipping، mask، filter و فیلترهای پایه افزوده شدند. نام‌های case-sensitive و namespace برابر `svg` حفظ شد.
+- HTML-9: ممیزی عناصر deprecated انجام شد. هیچ عنصر deprecated در فهرست عادی موجود نیست. عناصر منسوخ شناخته‌شده از جمله `acronym`، `applet`، `basefont`، `big`، `center`، `dir`، `font`، `frame`، `frameset`، `marquee`، `menuitem`، `nobr`، `noembed`، `noframes`، `param`، `plaintext`، `rb`، `rtc`، `strike`، `tt` و `xmp` در کاتالوگ عادی وجود ندارند. عناصر در حال توسعه/آزمایشی مانند `fencedframe` و `selectedcontent` نیز وارد نشده‌اند.
+- HTML-10: ممیزی نهایی شمارش و فراداده انجام شد. عنصر `search` که در HTML-2 به دلیل تردید درباره پشتیبانی کنار گذاشته شده بود، با بررسی تازه به‌عنوان عنصر استاندارد جاری و Baseline Widely available به کاتالوگ افزوده شد. پشتیبانی گسترده آن از Chrome/Edge/Firefox 118 و Safari 17 به بعد در داده MDN گزارش شده است؛ این عنصر با مقدار `input type="search"` متفاوت است.
+- تعداد افزوده‌شده در این مجموعه: ۵۰ رکورد؛ HTML از ۹۶ به ۱۴۶ رسید. CSS برابر ۱۷۴ و JavaScript برابر ۱۱۴ باقی ماند؛ مجموع سه کاتالوگ ۴۳۴ رکورد است.
+- منابع اولیه و تکمیلی: [WHATWG HTML — Embedded content](https://html.spec.whatwg.org/multipage/embedded-content.html)، [WHATWG — Lists](https://html.spec.whatwg.org/multipage/grouping-content.html#the-menu-element)، [WHATWG — Forms](https://html.spec.whatwg.org/multipage/forms.html)، [WHATWG — Tables](https://html.spec.whatwg.org/multipage/tables.html)، [WHATWG — Interactive elements](https://html.spec.whatwg.org/multipage/interactive-elements.html)، [WHATWG — SVG/foreign content](https://html.spec.whatwg.org/multipage/syntax.html#foreign-elements)، [MDN HTML elements reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements)، [MDN deprecated and obsolete elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements#obsolete_and_deprecated_elements)، [MDN search element and compatibility](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/search)، [MDN SVG element reference](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element).
+- آزمون‌های ساختاری و اختصاصی برای HTML-3 تا HTML-10 به فایل `alfacode/tests/completions-data.test.mjs` افزوده شدند. اجرای نهایی CI باید پس از به‌روزرسانی مستندات بررسی شود؛ این گزارش پیش از دریافت نتیجه CI، ادعای موفقیت آزمون یا ساخت آفلاین نمی‌کند.
+
+## وضعیت اجرای HTML
+- [x] HTML-1 تا HTML-10 تکمیل شدند.
+- [x] موجودی HTML: ۱۴۶ رکورد.
+- [ ] CSS و JavaScript هنوز طبق مراحل مستقل نقشه راه تکمیل نشده‌اند.
+- [ ] اتصال کاتالوگ به موتور زمان اجرا خارج از این مجموعه تغییرات است.
