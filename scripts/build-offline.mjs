@@ -189,7 +189,7 @@ async function discoverRuntimeFiles(manifest) {
   return [...files].sort();
 }
 
-const NETWORK_URL_PATTERN = /(?:https?:)?\\/\\/[a-z0-9.-]+\\.[a-z]{2,}(?::\\d+)?(?:[/?#][^\\s"'<>)]*)?/i;
+const NETWORK_URL_PATTERN = /(?:https?:)?\/\/[a-z0-9.-]+\.[a-z]{2,}(?::\d+)?(?:[/?#][^\s"'<>)]*)?/i;
 
 async function validateNoNetworkDependencies(runtimeFiles) {
   const violations = [];
@@ -199,12 +199,12 @@ async function validateNoNetworkDependencies(runtimeFiles) {
     if (NETWORK_URL_PATTERN.test(source)) {
       violations.push(relativePath + " contains an absolute or protocol-relative network URL");
     }
-    if (/\\.html?$/i.test(relativePath) &&
-        /<(?:script|link|img|iframe|source|video|audio)\\b[^>]*(?:src|href)\\s*=\\s*["']\\s*(?:https?:)?\\/\\//i.test(source)) {
+    if (/\.html?$/i.test(relativePath) &&
+        /<(?:script|link|img|iframe|source|video|audio)\b[^>]*(?:src|href)\s*=\s*["']\s*(?:https?:)?\/\//i.test(source)) {
       violations.push(relativePath + " contains an external HTML resource reference");
     }
-    if (/\\.css$/i.test(relativePath) &&
-        /(?:@import\\s+(?:url\\()?\\s*["']?\\s*(?:https?:)?\\/\\/|url\\(\\s*["']?\\s*(?:https?:)?\\/\\/)/i.test(source)) {
+    if (/\.css$/i.test(relativePath) &&
+        /(?:@import\s+(?:url\()?\s*["']?\s*(?:https?:)?\/\/|url\(\s*["']?\s*(?:https?:)?\/\/)/i.test(source)) {
       violations.push(relativePath + " contains an external CSS import or asset");
     }
   }
