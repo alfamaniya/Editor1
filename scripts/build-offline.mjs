@@ -284,8 +284,11 @@ function inlineCatalogDocument(template, stylesheet, bundle) {
   let html = template;
   html = html.replace(/\s*<link\b[^>]*href=["'][^"']*completion-catalog\.css["'][^>]*>/i, "");
   html = html.replace(/\s*<script\b[^>]*src=["'][^"']*completion-catalog\.js["'][^>]*>\s*<\/script>/i, "");
+  html = html.replace(/(<a\b[^>]*class=["'][^"']*\bback-link\b[^"']*["'][^>]*href=)["'][^"']*["']/i, '$1"#"');
   html = html.replace("</head>", "<style>\n" + stylesheet + "\n</style>\n</head>");
-  return injectBeforeBodyEnd(html, "<script>\n" + escapeScript(bundle) + "\n</script>");
+  const runtime = "<script>\n" + escapeScript(bundle) + "\n</script>";
+  const backAction = "<script>document.querySelector('.back-link')?.addEventListener('click', event => { event.preventDefault(); window.close(); });</script>";
+  return injectBeforeBodyEnd(html, runtime + backAction);
 }
 
 function makeHeaderComponent(markup, stylesheet) {
