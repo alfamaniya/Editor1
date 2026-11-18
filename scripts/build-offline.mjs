@@ -162,6 +162,7 @@ async function main() {
   const inputPaths = [
     "index.html", "style.css", "script.js",
     "core/header/header.html", "core/header/header.css", "core/header/header.js",
+    "core/new-page-action/new-page-action.html", "core/new-page-action/new-page-action.css", "core/new-page-action/new-page-action.js",
     "core/clear-tabs/clear-tabs.html", "core/clear-tabs/clear-tabs.css", "core/clear-tabs/clear-tabs.js",
     "core/project-reset/project-reset.html", "core/project-reset/project-reset.css", "core/project-reset/project-reset.js",
     "core/clear-project-cookies/clear-project-cookies.html", "core/clear-project-cookies/clear-project-cookies.css", "core/clear-project-cookies/clear-project-cookies.js",
@@ -179,6 +180,7 @@ async function main() {
   const [
     indexTemplate, rootCss, coordinator,
     headerMarkup, headerCss, headerModule,
+    newPageMarkup, newPageCss, newPageModule,
     clearTabsMarkup, clearTabsCss, clearTabsModule,
     projectResetMarkup, projectResetCss, projectResetModule,
     clearBrowserDataMarkup, clearBrowserDataCss, clearBrowserDataModule,
@@ -189,6 +191,7 @@ async function main() {
   ] = await Promise.all([
     read("index.html"), read("style.css"), read("script.js"),
     read("core/header/header.html"), read("core/header/header.css"), read("core/header/header.js"),
+    read("core/new-page-action/new-page-action.html"), read("core/new-page-action/new-page-action.css"), read("core/new-page-action/new-page-action.js"),
     read("core/clear-tabs/clear-tabs.html"), read("core/clear-tabs/clear-tabs.css"), read("core/clear-tabs/clear-tabs.js"),
     read("core/project-reset/project-reset.html"), read("core/project-reset/project-reset.css"), read("core/project-reset/project-reset.js"),
     read("core/clear-project-cookies/clear-project-cookies.html"), read("core/clear-project-cookies/clear-project-cookies.css"), read("core/clear-project-cookies/clear-project-cookies.js"),
@@ -203,6 +206,7 @@ async function main() {
 
   // Ensure source component modules remain part of the audited build inputs.
   if (!headerModule.includes("customElements.define") ||
+      !newPageModule.includes("customElements.define") ||
       !clearTabsModule.includes("customElements.define") ||
       !projectResetModule.includes("customElements.define") ||
       !clearBrowserDataModule.includes("customElements.define") ||
@@ -249,6 +253,7 @@ async function main() {
   let shell = indexTemplate;
   shell = shell.replace(/\s*<link\b[^>]*href="[^"]*style\.css"[^>]*>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*header\.js["'][^>]*>\s*<\/script>/i, "");
+  shell = shell.replace(/\s*<script\b[^>]*new-page-action[^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*workspace-divider\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*mobile-workspace\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*mobile-extra-keys\.js["'][^>]*>\s*<\/script>/i, "");
@@ -264,6 +269,15 @@ async function main() {
   const bootstrap = `
 (() => {
   ${makeHeaderComponent(headerMarkup, headerCss)}
+  class OfflineNewPageAction extends HTMLElement {
+    connectedCallback() {
+      if (this.shadowRoot) return;
+      const root = this.attachShadow({ mode: "open" });
+      root.innerHTML = "<style>" + ${JSON.stringify(newPageCss)} + "</style>" + ${JSON.stringify(newPageMarkup)};
+      root.querySelector("button").addEventListener("click", () => window.open("about:blank", "_blank", "noopener"));
+    }
+  }
+  customElements.define("new-page-action", OfflineNewPageAction);
   window.__ALFACODE_EXTRA_KEYS_ASSETS__ = { html: ${JSON.stringify(extraKeysMarkup)}, css: ${JSON.stringify(extraKeysCss)} };
   ${extraKeysBundle}
   window.__ALFACODE_ACTION_ASSETS__ = {
