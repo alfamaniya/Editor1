@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 489, javascript: 114 };
+  const expected = { html: 146, css: 573, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 749);
+  assert.equal(records.length, 833);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -324,3 +324,6 @@ test("CSS-8 visual effects, transitions, animations and scroll snapping are pres
 
 
 test("CSS-9 standard conditional, grouping and registration at-rules are present",async()=>{const {css}=await readCatalogFiles();for(const label of ["@media","@supports","@container","@layer","@import","@namespace","@page","@font-face","@keyframes","@counter-style","@property","@scope","@starting-style","@charset","@font-feature-values"])assert.ok(css.records.some(r=>r.type==="at-rule"&&r.label===label),"missing CSS-9 at-rule: "+label);});
+
+
+test("CSS-10 standard math, color, gradient and transform functions and common units are present",async()=>{const {css}=await readCatalogFiles();for(const label of ["var()","calc()","min()","max()","clamp()","env()","rgb()","rgba()","hsl()","hsla()","hwb()","lab()","lch()","oklab()","oklch()","color()","color-mix()","linear-gradient()","repeating-linear-gradient()","radial-gradient()","repeating-radial-gradient()","conic-gradient()","repeating-conic-gradient()","translate()","translateX()","translateY()","translateZ()","translate3d()","scale()","scaleX()","scaleY()","scale3d()","rotate()","rotateX()","rotateY()","rotateZ()","rotate3d()","skew()","skewX()","skewY()","matrix()","matrix3d()","perspective()","cubic-bezier()","steps()","minmax()","repeat()","fit-content()","round()","mod()","rem()"])assert.ok(css.records.some(r=>r.type==="function"&&r.label===label),"missing CSS function: "+label);for(const label of ["px","em","rem","ex","ch","cap","ic","lh","rlh","vw","vh","vmin","vmax","svw","svh","lvw","lvh","dvw","dvh","cm","mm","in","pt","pc","Q","%","deg","rad","grad","turn","s","ms","fr"])assert.ok(css.records.some(r=>r.type==="unit"&&r.label===label),"missing CSS unit: "+label);});
