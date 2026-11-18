@@ -44,6 +44,22 @@ async function loadOfflineManifest() {
   if (manifest.schemaVersion !== 1 || !Array.isArray(manifest.entries) || !manifest.entries.length) {
     throw new Error("Invalid offline manifest: expected schemaVersion 1 and a non-empty entries array.");
   }
+  if (!manifest.assembly || typeof manifest.assembly !== "object" || Array.isArray(manifest.assembly)) {
+    throw new Error("Invalid offline manifest: assembly configuration is required.");
+  }
+  const assemblyIds = [
+    manifest.assembly.shell, manifest.assembly.header, manifest.assembly.newPageAction,
+    manifest.assembly.mobileWorkspace, manifest.assembly.mobileExtraKeys,
+    manifest.assembly.workspaceDivider, manifest.assembly.editor, manifest.assembly.preview,
+    ...(manifest.assembly.actionComponents || []), ...(manifest.assembly.editorSupport || [])
+  ];
+  if (assemblyIds.some(id => typeof id !== "string" || !id.trim()) ||
+      !Array.isArray(manifest.assembly.actionComponents) ||
+      !Array.isArray(manifest.assembly.editorSupport) ||
+      !Array.isArray(manifest.assembly.editorThemeFiles) ||
+      manifest.assembly.editorThemeFiles.some(file => typeof file !== "string")) {
+    throw new Error("Invalid offline manifest: malformed assembly roles.");
+  }
   const byId = new Map();
   for (const entry of manifest.entries) {
     if (!entry || typeof entry.id !== "string" || !entry.id.trim() || byId.has(entry.id)) {
@@ -73,6 +89,10 @@ async function loadOfflineManifest() {
     visited.add(id);
   }
   for (const entry of manifest.entries.filter(item => item.active)) visit(entry.id);
+  for (const id of assemblyIds) {
+    if (!byId.get(id)?.active) throw new Error("Offline assembly references a missing or inactive entry: " + id);
+  }
+  for (const file of manifest.assembly.editorThemeFiles) await assertRuntimeFile(file);
   return manifest;
 }
 
@@ -312,32 +332,45 @@ async function main() {
   const manifest = await loadOfflineManifest();
   const inputPaths = await discoverRuntimeFiles(manifest);
 
+  const assembly = manifest.assembly;
+  const entries = new Map(manifest.entries.map(item => [item.id, item]));
+  const entry = id => {
+    const found = entries.get(id);
+    if (!found?.active) throw new Error("Missing active offline assembly entry: " + id);
+    return found;
+  };
+  const file = (id, field, index = 0) => {
+    const value = field === "html" ? entry(id).html : entry(id)[field]?.[index];
+    if (typeof value !== "string" || !value) throw new Error("Manifest entry " + id + " has no " + field + " file at index " + index);
+    return value;
+  };
+  const readEntry = (id, field, index = 0) => read(file(id, field, index));
   const [
     indexTemplate, rootCss, coordinator,
     headerMarkup, headerCss, headerModule,
     newPageMarkup, newPageCss, newPageModule,
-    clearTabsMarkup, clearTabsCss, clearTabsModule,
-    projectResetMarkup, projectResetCss, projectResetModule,
-    clearBrowserDataMarkup, clearBrowserDataCss, clearBrowserDataModule,
     mobileMarkup, mobileCss, mobileModule,
     extraKeysMarkup, extraKeysCss, extraKeysModule,
     dividerMarkup, dividerCss, dividerModule,
     editorTemplate, editorCss, previewTemplate, previewCss, previewScript
   ] = await Promise.all([
-    read("index.html"), read("style.css"), read("script.js"),
-    read("core/header/header.html"), read("core/header/header.css"), read("core/header/header.js"),
-    read("core/new-page-action/new-page-action.html"), read("core/new-page-action/new-page-action.css"), read("core/new-page-action/new-page-action.js"),
-    read("core/clear-tabs/clear-tabs.html"), read("core/clear-tabs/clear-tabs.css"), read("core/clear-tabs/clear-tabs.js"),
-    read("core/project-reset/project-reset.html"), read("core/project-reset/project-reset.css"), read("core/project-reset/project-reset.js"),
-    read("core/clear-project-cookies/clear-project-cookies.html"), read("core/clear-project-cookies/clear-project-cookies.css"), read("core/clear-project-cookies/clear-project-cookies.js"),
-    read("core/mobile-workspace/mobile-workspace.html"), read("core/mobile-workspace/mobile-workspace.css"), read("core/mobile-workspace/mobile-workspace.js"),
-    read("core/mobile-extra-keys/mobile-extra-keys.html"), read("core/mobile-extra-keys/mobile-extra-keys.css"), read("core/mobile-extra-keys/mobile-extra-keys.js"),
-    read("core/workspace-divider/workspace-divider.html"),
-    read("core/workspace-divider/workspace-divider.css"),
-    read("core/workspace-divider/workspace-divider.js"),
-    read("core/editor/editor.html"), read("core/editor/editor.css"),
-    read("core/preview/preview.html"), read("core/preview/preview.css"), read("core/preview/preview.js")
+    readEntry(assembly.shell, "html"), readEntry(assembly.shell, "styles"), readEntry(assembly.shell, "scripts"),
+    readEntry(assembly.header, "html"), readEntry(assembly.header, "styles"), readEntry(assembly.header, "scripts"),
+    readEntry(assembly.newPageAction, "html"), readEntry(assembly.newPageAction, "styles"), readEntry(assembly.newPageAction, "scripts"),
+    readEntry(assembly.mobileWorkspace, "html"), readEntry(assembly.mobileWorkspace, "styles"), readEntry(assembly.mobileWorkspace, "scripts"),
+    readEntry(assembly.mobileExtraKeys, "html"), readEntry(assembly.mobileExtraKeys, "styles"), readEntry(assembly.mobileExtraKeys, "scripts"),
+    readEntry(assembly.workspaceDivider, "html"), readEntry(assembly.workspaceDivider, "styles"), readEntry(assembly.workspaceDivider, "scripts"),
+    readEntry(assembly.editor, "html"), readEntry(assembly.editor, "styles"),
+    readEntry(assembly.preview, "html"), readEntry(assembly.preview, "styles"), readEntry(assembly.preview, "scripts")
   ]);
+  const actionAssets = await Promise.all(assembly.actionComponents.map(async id => ({
+    markup: await readEntry(id, "html"), css: await readEntry(id, "styles"),
+    module: await readEntry(id, "scripts")
+  })));
+  const [clearTabsAsset, projectResetAsset, clearBrowserDataAsset] = actionAssets;
+  const clearTabsMarkup = clearTabsAsset.markup, clearTabsCss = clearTabsAsset.css, clearTabsModule = clearTabsAsset.module;
+  const projectResetMarkup = projectResetAsset.markup, projectResetCss = projectResetAsset.css, projectResetModule = projectResetAsset.module;
+  const clearBrowserDataMarkup = clearBrowserDataAsset.markup, clearBrowserDataCss = clearBrowserDataAsset.css, clearBrowserDataModule = clearBrowserDataAsset.module;
 
   const undiscoveredReads = [...READ_PATHS].filter(item => !inputPaths.includes(item));
   if (undiscoveredReads.length) {
@@ -358,7 +391,7 @@ async function main() {
 
   const bundleResult = await build({
     absWorkingDir: ROOT,
-    entryPoints: [path.join(ROOT, "core/editor/editor.js")],
+    entryPoints: [path.join(ROOT, file(assembly.editor, "scripts"))],
     bundle: true,
     write: false,
     format: "iife",
@@ -370,7 +403,7 @@ async function main() {
 
   const extraKeysBundleResult = await build({
     absWorkingDir: ROOT,
-    entryPoints: [path.join(ROOT, "core/mobile-extra-keys/mobile-extra-keys.js")],
+    entryPoints: [path.join(ROOT, file(assembly.mobileExtraKeys, "scripts"))],
     bundle: true,
     write: false,
     format: "iife",
@@ -380,11 +413,12 @@ async function main() {
   });
   const extraKeysBundle = extraKeysBundleResult.outputFiles[0].text;
 
-  const tagSuggestionsTemplate = await read("core/tag-suggestions/tag-suggestions.html");
-  const tagSuggestionsCss = await read("core/tag-suggestions/tag-suggestions.css");
+  const tagSuggestionEntry = assembly.editorSupport[0];
+  const tagSuggestionsTemplate = await readEntry(tagSuggestionEntry, "html");
+  const tagSuggestionsCss = await readEntry(tagSuggestionEntry, "styles");
   const editorDocument = inlineEditorDocument(
     editorTemplate,
-    [editorCss, tagSuggestionsCss, await read("alfacode/src/themes/dark.css"), await read("alfacode/src/themes/light.css")].join("\n"),
+    [editorCss, tagSuggestionsCss, ...await Promise.all(assembly.editorThemeFiles.map(read))].join("\n"),
     editorBundle,
     tagSuggestionsTemplate
   );
