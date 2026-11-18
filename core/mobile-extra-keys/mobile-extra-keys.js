@@ -54,6 +54,7 @@ export class MobileExtraKeys extends HTMLElement {
     this.renderLanguageKeys();
     this.addEventListener("alfacode:editor-state", this.onEditorState);
     window.visualViewport?.addEventListener("resize", this.onViewportChange);
+    window.visualViewport?.addEventListener("scroll", this.onViewportChange);
     window.addEventListener("resize", this.onViewportChange);
     this.updateVisibility();
   }
@@ -61,7 +62,10 @@ export class MobileExtraKeys extends HTMLElement {
   disconnectedCallback() {
     this.removeEventListener("alfacode:editor-state", this.onEditorState);
     window.visualViewport?.removeEventListener("resize", this.onViewportChange);
+    window.visualViewport?.removeEventListener("scroll", this.onViewportChange);
     window.removeEventListener("resize", this.onViewportChange);
+    document.documentElement.style.removeProperty("--app-visible-height");
+    document.documentElement.style.removeProperty("--mobile-extra-keys-height");
   }
 
   setEditorState(focused, language = this.activeLanguage) {
@@ -101,8 +105,21 @@ export class MobileExtraKeys extends HTMLElement {
     const viewportBottom = viewport
       ? Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop)
       : 0;
+    const shouldShow = mobile && this.editorFocused && keyboardOpen;
     this.style.setProperty("--extra-keys-viewport-bottom", viewportBottom + "px");
-    this.dataset.visible = String(mobile && this.editorFocused && keyboardOpen);
+    this.dataset.visible = String(shouldShow);
+
+    // Android browsers may resize only the visual viewport while leaving the
+    // layout viewport unchanged. Shrink the host workspace and reserve the
+    // complete helper-bar height so the editor remains scrollable above it.
+    if (viewport && mobile) {
+      document.documentElement.style.setProperty("--app-visible-height", viewport.height + "px");
+    } else {
+      document.documentElement.style.removeProperty("--app-visible-height");
+    }
+    const keysHeight = shouldShow ? this.getBoundingClientRect().height : 0;
+    document.documentElement.style.setProperty("--mobile-extra-keys-height", keysHeight + "px");
+
     if (!this.editorFocused && !keyboardOpen) {
       this.baselineHeight = Math.max(this.baselineHeight, window.innerHeight, viewport?.height || 0);
     }
