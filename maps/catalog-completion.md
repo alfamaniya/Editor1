@@ -78,7 +78,7 @@
 - [x] CSS-4 — تکمیل چیدمان Flexbox: ویژگی‌های container و item و مقادیر معتبر هر ویژگی.
 - [x] CSS-5 — تکمیل چیدمان Grid: grid-template، areas، auto-flow، gap، جای‌گذاری و ویژگی‌های item.
 - [x] CSS-6 — تکمیل موقعیت‌دهی و نمایش: display، position، inset، float، clear، overflow و stacking context.
-- [ ] CSS-7 — تکمیل انتخابگرها: ترکیب‌گرها، attribute selectorها، pseudo-classها و pseudo-elementهای پرکاربرد؛ تفکیک انتخابگر از مقدار ویژگی.
+- [x] CSS-7 — تکمیل انتخابگرها: ترکیب‌گرها، attribute selectorها، pseudo-classها و pseudo-elementهای پرکاربرد؛ تفکیک انتخابگر از مقدار ویژگی.
 - [ ] CSS-8 — تکمیل جلوه‌های بصری: shadow، radius، filter، transform، transition و animation با مقادیر و توابع مرتبط.
 - [ ] CSS-9 — تکمیل طراحی واکنش‌گرا و قواعد: media، supports، container query، ویژگی‌های سفارشی و توابع var/calc/clamp.
 - [ ] CSS-10 — تکمیل واحدها و توابع: طول، درصد، زاویه، زمان، رنگ، توابع ریاضی و توابع پرکاربرد CSS.
@@ -114,6 +114,11 @@
 
 - inset و گونه‌های منطقی، float/clear، overflow-x/y و containment/content-visibility افزوده شدند؛ مقادیر display و overflow به ویژگی مربوط متصل شدند.
 - تعداد رکوردهای جدید: 36. منابع: CSS Positioned Layout، CSS Overflow، CSS Containment و MDN.
+
+### گزارش اجرای CSS-7
+
+- ترکیب‌گرها، attribute selectorها، pseudo-classها و pseudo-elementهای استاندارد و پرکاربرد ثبت شدند؛ موارد آزمایشی/کم‌پشتیبانی وارد پیشنهاد عادی نشدند.
+- تعداد رکوردهای جدید: 53. منابع: W3C Selectors Level 4 و MDN Selectors Reference.
 
 ## ۳. نقشه راه JavaScript
 
