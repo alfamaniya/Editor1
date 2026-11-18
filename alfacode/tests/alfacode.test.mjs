@@ -1,5 +1,6 @@
 import test from "node:test";
 import { getHTMLTagSuggestions } from "../src/language/html/html-completion.js";
+import { applySuggestionForLanguage } from "../src/input/suggestion-dispatcher.js";
 import assert from "node:assert/strict";
 
 import Document from "../src/core/document.js";
@@ -69,6 +70,26 @@ function keyboardEvent(key, options = {}) {
     get defaultPrevented() { return prevented; }
   };
 }
+
+test("Completion dispatch uses HTML tag insertion only for HTML", () => {
+  const calls = [];
+  const handlers = {
+    html(option) { calls.push(["html", option]); },
+    language(option) { calls.push(["language", option]); }
+  };
+  const option = { label: "display", insertText: "display" };
+
+  assert.equal(applySuggestionForLanguage("html", option, handlers), true);
+  assert.equal(applySuggestionForLanguage("css", option, handlers), true);
+  assert.equal(applySuggestionForLanguage("javascript", option, handlers), true);
+  assert.deepEqual(calls, [
+    ["html", option],
+    ["language", option],
+    ["language", option]
+  ]);
+  assert.equal(applySuggestionForLanguage("css", null, handlers), false);
+  assert.equal(applySuggestionForLanguage("html", option, {}), false);
+});
 
 test("Document normalizes line endings and maps offsets", () => {
   const document = new Document("one\r\ntwo\rthree");
