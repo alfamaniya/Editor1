@@ -1670,13 +1670,13 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "using",
-      "description": "اعلان منبع با آزادسازی خودکار؛ استاندارد آینده ECMAScript 2027",
+      "description": "اعلان منبع با آزادسازی خودکار؛ پیشنهاد TC39 در مرحله ۳ و هنوز خارج از استاندارد منتشرشده ECMAScript",
       "mode": "identifier",
       "insertText": "using",
       "order": 52,
       "enabled": false,
       "keywordKind": "contextual",
-      "standardStatus": "stage-4-es2027"
+      "standardStatus": "stage-3-proposal"
     }
   ]
 }
