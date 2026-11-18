@@ -287,7 +287,8 @@ async function main() {
   shell = injectBeforeBodyEnd(shell, "<script>\n" + escapeScript(bootstrap) + "\n</script>");
 
   if (!/<!doctype html>/i.test(shell) || !shell.includes("editorFrame.srcdoc") ||
-      !shell.includes("previewFrame.srcdoc") || /<script\b[^>]*\bsrc\s*=|<link\b[^>]*\bhref\s*=/i.test(shell)) {
+      !shell.includes("previewFrame.srcdoc") ||
+      /<script\b[^>]*\bsrc\s*=|<link\b[^>]*\bhref\s*=|<iframe\b[^>]*\bsrc\s*=/i.test(shell)) {
     throw new Error("Offline output validation failed: missing embedded documents or external asset references.");
   }
   if (/https?:\/\//i.test(shell)) {
