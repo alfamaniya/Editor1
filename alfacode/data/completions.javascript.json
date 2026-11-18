@@ -526,6 +526,48 @@
       "standardStatus": "deprecated"
     },
     {
+      "id": "javascript:identifier:global:SuppressedError",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "اشیاء و توابع سراسری",
+      "label": "SuppressedError",
+      "description": "خطای حاصل از سرکوب خطای پیشین هنگام آزادسازی منابع؛ قابلیت نسخه آینده ES2027",
+      "mode": "identifier",
+      "insertText": "SuppressedError",
+      "order": 44,
+      "enabled": false,
+      "availability": "future-standard",
+      "standardStatus": "stage-4-es2027"
+    },
+    {
+      "id": "javascript:identifier:global:DisposableStack",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "اشیاء و توابع سراسری",
+      "label": "DisposableStack",
+      "description": "پشته مدیریت و آزادسازی منابع؛ قابلیت نسخه آینده ES2027",
+      "mode": "identifier",
+      "insertText": "DisposableStack",
+      "order": 45,
+      "enabled": false,
+      "availability": "future-standard",
+      "standardStatus": "stage-4-es2027"
+    },
+    {
+      "id": "javascript:identifier:global:AsyncDisposableStack",
+      "language": "javascript",
+      "type": "identifier",
+      "category": "اشیاء و توابع سراسری",
+      "label": "AsyncDisposableStack",
+      "description": "پشته مدیریت و آزادسازی ناهمگام منابع؛ قابلیت نسخه آینده ES2027",
+      "mode": "identifier",
+      "insertText": "AsyncDisposableStack",
+      "order": 46,
+      "enabled": false,
+      "availability": "future-standard",
+      "standardStatus": "stage-4-es2027"
+    },
+    {
       "id": "javascript:snippet:addEventListener",
       "language": "javascript",
       "type": "snippet",
@@ -1334,13 +1376,14 @@
       "type": "identifier",
       "category": "کلمات کلیدی",
       "label": "using",
-      "description": "اعلان منبع با آزادسازی خودکار؛ پیشنهاد TC39 در مرحله ۳ و هنوز خارج از استاندارد منتشرشده ECMAScript",
+      "description": "اعلان منبع با آزادسازی خودکار؛ پیشنهاد مرحله ۴ برای نسخه ES2027، هنوز خارج از استاندارد منتشرشده ES2026",
       "mode": "identifier",
       "insertText": "using",
       "order": 52,
       "enabled": false,
       "keywordKind": "contextual",
-      "standardStatus": "stage-3-proposal"
+      "standardStatus": "stage-4-es2027",
+      "availability": "future-standard"
     },
     {
       "id": "javascript:member:Array:from",
@@ -2428,15 +2471,16 @@
       "type": "member",
       "category": "متدهای Error",
       "label": "Error.isError",
-      "description": "بررسی اینکه مقدار یک شیء Error است؛ قابلیت جدیدتر ES2026.",
+      "description": "بررسی واقعی‌بودن شیء Error؛ در استاندارد ES2026 تعریف شده اما پشتیبانی مرورگرها هنوز محدود است.",
       "mode": "member",
       "owner": "Error",
       "insertText": "isError",
       "order": 1,
-      "enabled": true,
+      "enabled": false,
       "memberKind": "static-method",
       "standardSource": "ECMA-262 2026",
-      "standardStatus": "es2026"
+      "standardStatus": "es2026",
+      "availability": "limited-compatibility"
     },
     {
       "id": "javascript:member:Error.prototype:toString",
@@ -4446,7 +4490,7 @@
       "enabled": true,
       "memberKind": "static-method",
       "runtimeScope": "web-api",
-      "availability": "browser-and-worker",
+      "availability": "window-and-dedicated-worker",
       "standardSource": "WHATWG URL"
     },
     {
@@ -4463,7 +4507,7 @@
       "enabled": true,
       "memberKind": "static-method",
       "runtimeScope": "web-api",
-      "availability": "browser-and-worker",
+      "availability": "window-and-dedicated-worker",
       "standardSource": "WHATWG URL"
     },
     {
@@ -4630,14 +4674,14 @@
       "literalKind": "boolean"
     },
     {
-      "id": "javascript:member:Error.prototype:cause",
+      "id": "javascript:member:Error.instance:cause",
       "language": "javascript",
       "type": "member",
       "category": "ویژگی‌های Error",
-      "label": "Error.prototype.cause",
-      "description": "علت قبلی خطا در صورت ارائه گزینه cause.",
+      "label": "Error.instance.cause",
+      "description": "علت قبلی خطا؛ فقط در صورت ارائه گزینه cause روی نمونه ایجاد می‌شود.",
       "mode": "member",
-      "owner": "Error.prototype",
+      "owner": "Error.instance",
       "insertText": "cause",
       "order": 1,
       "enabled": true,
@@ -4650,7 +4694,7 @@
       "type": "member",
       "category": "ویژگی‌های Error",
       "label": "Error.prototype.message",
-      "description": "پیام خطا.",
+      "description": "پیام پیش‌فرض خطا روی Error.prototype؛ سازنده معمولاً مقدار own را روی نمونه ایجاد می‌کند.",
       "mode": "member",
       "owner": "Error.prototype",
       "insertText": "message",
@@ -4665,7 +4709,7 @@
       "type": "member",
       "category": "ویژگی‌های Error",
       "label": "Error.prototype.name",
-      "description": "نام نوع خطا.",
+      "description": "نام پیش‌فرض نوع خطا روی Error.prototype.",
       "mode": "member",
       "owner": "Error.prototype",
       "insertText": "name",
@@ -4675,19 +4719,20 @@
       "standardSource": "ECMA-262 2026"
     },
     {
-      "id": "javascript:member:Error.prototype:stack",
+      "id": "javascript:member:Error.instance:stack",
       "language": "javascript",
       "type": "member",
       "category": "ویژگی‌های Error",
-      "label": "Error.prototype.stack",
-      "description": "ردپای پشته؛ قالب و دسترسی آن وابسته به پیاده‌سازی است.",
+      "label": "Error.instance.stack",
+      "description": "ردپای پشته؛ ویژگی غیراستاندارد با قالب وابسته به پیاده‌سازی.",
       "mode": "member",
-      "owner": "Error.prototype",
+      "owner": "Error.instance",
       "insertText": "stack",
       "order": 4,
-      "enabled": true,
+      "enabled": false,
       "memberKind": "instance-property",
-      "standardSource": "ECMA-262 2026"
+      "standardSource": "implementation-defined",
+      "availability": "widely-implemented-nonstandard"
     },
     {
       "id": "javascript:member:Map.prototype:size",
@@ -5210,10 +5255,11 @@
       "owner": "Symbol",
       "insertText": "dispose",
       "order": 15,
-      "enabled": true,
+      "enabled": false,
       "memberKind": "static-property",
       "standardSource": "ECMA-262 2026",
-      "standardStatus": "es2025"
+      "standardStatus": "stage-4-es2027",
+      "availability": "future-standard"
     },
     {
       "id": "javascript:member:Symbol:asyncDispose",
@@ -5226,10 +5272,11 @@
       "owner": "Symbol",
       "insertText": "asyncDispose",
       "order": 16,
-      "enabled": true,
+      "enabled": false,
       "memberKind": "static-property",
       "standardSource": "ECMA-262 2026",
-      "standardStatus": "es2025"
+      "standardStatus": "stage-4-es2027",
+      "availability": "future-standard"
     },
     {
       "id": "javascript:member:URL.prototype:hash",
@@ -5417,6 +5464,23 @@
       "runtimeScope": "web-api",
       "availability": "browser-and-worker",
       "standardSource": "WHATWG URL"
+    },
+    {
+      "id": "javascript:member:URL:searchParams",
+      "language": "javascript",
+      "type": "member",
+      "category": "ویژگی‌های URL",
+      "label": "URL.searchParams",
+      "description": "دسترسی به پارامترهای query از طریق URLSearchParams.",
+      "mode": "member",
+      "owner": "URL",
+      "insertText": "searchParams",
+      "order": 12,
+      "enabled": true,
+      "memberKind": "instance-property",
+      "standardSource": "WHATWG URL",
+      "runtimeScope": "web-api",
+      "availability": "browser-and-worker"
     }
   ]
 }
