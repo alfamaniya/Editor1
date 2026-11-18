@@ -17,6 +17,7 @@ import { getJavaScriptCompletionSuggestions } from "../../alfacode/src/language/
 import { createTagSuggestions } from "../tag-suggestions/tag-suggestions.js";
 import { createCSSSuggestions } from "../css-suggestions/css-suggestions.js";
 import { createJavaScriptSuggestions } from "../javascript-suggestions/javascript-suggestions.js";
+import { applySuggestionForLanguage } from "../../alfacode/src/input/suggestion-dispatcher.js";
 
 const initialSources = {
   html: `<!DOCTYPE html>
@@ -254,7 +255,7 @@ function currentSuggestionMenu() {
     activeLanguage.id === "javascript" ? javascriptSuggestionMenu : tagSuggestionMenu;
 }
 function hideSuggestionMenus() {
-  hideSuggestionMenus();
+  tagSuggestionMenu?.hide();
   cssSuggestionMenu?.hide();
   javascriptSuggestionMenu?.hide();
 }
@@ -471,7 +472,10 @@ viewElement.addEventListener("keydown", event => {
       if (selected) {
         event.preventDefault();
         event.stopImmediatePropagation();
-        applyTagSuggestion(selected);
+        applySuggestionForLanguage(activeLanguage.id, selected, {
+          html: applyTagSuggestion,
+          language: applyLanguageSuggestion
+        });
       }
       return;
     }
@@ -533,7 +537,7 @@ viewElement.addEventListener("compositionend", event => {
 tabs.forEach(tab => {
   tab.addEventListener("click", () => {
     chainSuggestionMode = false;
-    tagSuggestionMenu?.hide();
+    hideSuggestionMenus();
     const nextLanguage = tab.dataset.language;
     if (!nextLanguage || nextLanguage === activeLanguage.id) return;
     sources[activeLanguage.id] = editor.text;
