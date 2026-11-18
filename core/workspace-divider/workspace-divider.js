@@ -3,6 +3,9 @@ class WorkspaceDivider extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.dragging = false;
+    this.ratio = 0.5;
+    this.resizeObserver = null;
+    this.lastWorkspaceWidth = 0;
   }
 
   async connectedCallback() {
@@ -20,16 +23,20 @@ class WorkspaceDivider extends HTMLElement {
     this.setAttribute("role", "separator");
     this.setAttribute("aria-label", "Resize editor and preview panels");
     this.setAttribute("aria-orientation", "vertical");
-    this.setAttribute("aria-valuemin", "20");
-    this.setAttribute("aria-valuemax", "80");
-    this.setAttribute("aria-valuenow", "50");
     this.tabIndex = 0;
 
     const workspace = this.getWorkspace();
     if (workspace) {
-      const totalWidth = Math.max(workspace.clientWidth, workspace.scrollWidth);
-      const usableWidth = Math.max(0, totalWidth - 6);
-      this.applyWidths(workspace, usableWidth / 2, usableWidth / 2);
+      this.applyRatio(workspace);
+      if (typeof ResizeObserver !== "undefined") {
+        this.resizeObserver = new ResizeObserver(entries => {
+          const entry = entries[entries.length - 1];
+          const width = entry?.contentRect?.width ?? workspace.clientWidth;
+          if (Math.abs(width - this.lastWorkspaceWidth) < 1) return;
+          this.applyRatio(workspace);
+        });
+        this.resizeObserver.observe(workspace);
+      }
     }
 
     this.addEventListener("pointerdown", event => {
@@ -47,20 +54,50 @@ class WorkspaceDivider extends HTMLElement {
     this.addEventListener("keydown", event => this.handleKeydown(event));
   }
 
+  disconnectedCallback() {
+    this.resizeObserver?.disconnect();
+    this.resizeObserver = null;
+    this.dragging = false;
+  }
+
   getWorkspace() {
     return this.closest(".workspace");
+  }
+
+  getUsableWidth(workspace) {
+    return Math.max(0, workspace.clientWidth - 6);
+  }
+
+  getMinimumWidth(usableWidth) {
+    return Math.min(180, usableWidth / 2);
+  }
+
+  clampRatio(ratio, usableWidth) {
+    if (usableWidth <= 0) return 0.5;
+    const minimumRatio = this.getMinimumWidth(usableWidth) / usableWidth;
+    return Math.max(minimumRatio, Math.min(1 - minimumRatio, ratio));
+  }
+
+  applyRatio(workspace) {
+    const usableWidth = this.getUsableWidth(workspace);
+    this.ratio = this.clampRatio(this.ratio, usableWidth);
+    const leftWidth = usableWidth * this.ratio;
+    this.lastWorkspaceWidth = workspace.clientWidth;
+    this.applyWidths(workspace, leftWidth, usableWidth - leftWidth);
   }
 
   updateFromPointer(clientX) {
     const workspace = this.getWorkspace();
     if (!workspace) return;
     const bounds = workspace.getBoundingClientRect();
-    const totalWidth = Math.max(workspace.clientWidth, workspace.scrollWidth);
-    const usableWidth = totalWidth - 6;
-    const minimum = Math.min(220, usableWidth / 2);
-    const localX = clientX - bounds.left + workspace.scrollLeft;
-    const leftWidth = Math.max(minimum, Math.min(usableWidth - minimum, localX));
+    const usableWidth = this.getUsableWidth(workspace);
+    if (usableWidth <= 0) return;
+    const localX = clientX - bounds.left;
+    const minimum = this.getMinimumWidth(usableWidth);
+    const leftWidth = Math.max(minimum, Math.min(usableWidth - minimum, localX - 3));
+    this.ratio = leftWidth / usableWidth;
     this.applyWidths(workspace, leftWidth, usableWidth - leftWidth);
+    this.lastWorkspaceWidth = workspace.clientWidth;
   }
 
   applyWidths(workspace, leftWidth, rightWidth) {
@@ -78,14 +115,15 @@ class WorkspaceDivider extends HTMLElement {
     const workspace = this.getWorkspace();
     if (!workspace) return;
     event.preventDefault();
-    const totalWidth = Math.max(workspace.clientWidth, workspace.scrollWidth);
-    const usableWidth = totalWidth - 6;
-    const minimum = Math.min(220, usableWidth / 2);
-    const currentPercent = Number(this.getAttribute("aria-valuenow")) || 50;
-    const currentLeft = usableWidth * currentPercent / 100;
+    const usableWidth = this.getUsableWidth(workspace);
+    if (usableWidth <= 0) return;
+    const minimum = this.getMinimumWidth(usableWidth);
+    const currentLeft = usableWidth * this.ratio;
     const delta = event.key === "ArrowRight" ? 20 : -20;
     const nextLeft = Math.max(minimum, Math.min(usableWidth - minimum, currentLeft + delta));
+    this.ratio = nextLeft / usableWidth;
     this.applyWidths(workspace, nextLeft, usableWidth - nextLeft);
+    this.lastWorkspaceWidth = workspace.clientWidth;
   }
 }
 
