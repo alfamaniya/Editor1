@@ -567,7 +567,8 @@ view.focus();
 publishEditorState(true);
 
 window.addEventListener("message", event => {
-  if (event.source !== window.parent || event.origin !== window.location.origin) return;
+  // The exact parent window is the trust boundary; file:// origins may be opaque.
+  if (event.source !== window.parent) return;
   const command = event.data;
   if (!command) return;
   if (command.type === "alfacode:extra-key-command") {
