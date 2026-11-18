@@ -18,7 +18,7 @@
 
 | دسته فعلی | تعداد | موارد موجود |
 |---|---:|---|
-| متن و محتوا | ۱۰ | div، span، p، i، h1، h2، strong، em، br، hr |
+| متن و محتوا | ۴۲ | div، span، p، i، h1، h2، strong، em، br، hr، h3، h4، h5، h6، hgroup، blockquote، pre، b، u، mark، small، s، cite، q، dfn، abbr، code، var، samp، kbd، data، time، sub، sup، ruby، rt، rp، bdi، bdo، wbr، ins، del |
 | پیوند و رسانه | ۲ | a، img |
 | فهرست‌ها | ۵ | li، ul، ol، dt، dd |
 | ساختار سند | ۱۰ | script، link، meta، title، style، base، noscript، html، head، body |
