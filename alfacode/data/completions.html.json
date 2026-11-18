@@ -1728,6 +1728,975 @@
         "figure"
       ],
       "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:picture",
+      "language": "html",
+      "type": "tag",
+      "category": "پیوند و رسانه",
+      "label": "picture",
+      "description": "Responsive image container",
+      "rank": 81,
+      "order": 81,
+      "enabled": true,
+      "tagName": "picture",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:source",
+      "language": "html",
+      "type": "tag",
+      "category": "پیوند و رسانه",
+      "label": "source",
+      "description": "Media or picture source",
+      "rank": 82,
+      "order": 82,
+      "enabled": true,
+      "tagName": "source",
+      "operation": "open",
+      "isVoid": true,
+      "contexts": [],
+      "parentTags": [
+        "picture",
+        "audio",
+        "video"
+      ],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:audio",
+      "language": "html",
+      "type": "tag",
+      "category": "پیوند و رسانه",
+      "label": "audio",
+      "description": "Audio content and playback",
+      "rank": 83,
+      "order": 83,
+      "enabled": true,
+      "tagName": "audio",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:video",
+      "language": "html",
+      "type": "tag",
+      "category": "پیوند و رسانه",
+      "label": "video",
+      "description": "Video content and playback",
+      "rank": 84,
+      "order": 84,
+      "enabled": true,
+      "tagName": "video",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:track",
+      "language": "html",
+      "type": "tag",
+      "category": "پیوند و رسانه",
+      "label": "track",
+      "description": "Timed text track for media",
+      "rank": 85,
+      "order": 85,
+      "enabled": true,
+      "tagName": "track",
+      "operation": "open",
+      "isVoid": true,
+      "contexts": [],
+      "parentTags": [
+        "audio",
+        "video"
+      ],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:map",
+      "language": "html",
+      "type": "tag",
+      "category": "پیوند و رسانه",
+      "label": "map",
+      "description": "Image map container",
+      "rank": 86,
+      "order": 86,
+      "enabled": true,
+      "tagName": "map",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:area",
+      "language": "html",
+      "type": "tag",
+      "category": "پیوند و رسانه",
+      "label": "area",
+      "description": "Clickable region in an image map",
+      "rank": 87,
+      "order": 87,
+      "enabled": true,
+      "tagName": "area",
+      "operation": "open",
+      "isVoid": true,
+      "contexts": [],
+      "parentTags": [
+        "map"
+      ],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:menu",
+      "language": "html",
+      "type": "tag",
+      "category": "فهرست‌ها",
+      "label": "menu",
+      "description": "Unordered list of commands or items",
+      "rank": 88,
+      "order": 88,
+      "enabled": true,
+      "tagName": "menu",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:fieldset",
+      "language": "html",
+      "type": "tag",
+      "category": "فرم‌ها",
+      "label": "fieldset",
+      "description": "Group of related form controls",
+      "rank": 89,
+      "order": 89,
+      "enabled": true,
+      "tagName": "fieldset",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:legend",
+      "language": "html",
+      "type": "tag",
+      "category": "فرم‌ها",
+      "label": "legend",
+      "description": "Caption for a fieldset",
+      "rank": 90,
+      "order": 90,
+      "enabled": true,
+      "tagName": "legend",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [
+        "fieldset"
+      ],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:output",
+      "language": "html",
+      "type": "tag",
+      "category": "فرم‌ها",
+      "label": "output",
+      "description": "Result of a calculation or user action",
+      "rank": 91,
+      "order": 91,
+      "enabled": true,
+      "tagName": "output",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:datalist",
+      "language": "html",
+      "type": "tag",
+      "category": "فرم‌ها",
+      "label": "datalist",
+      "description": "Options for other form controls",
+      "rank": 92,
+      "order": 92,
+      "enabled": true,
+      "tagName": "datalist",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:meter",
+      "language": "html",
+      "type": "tag",
+      "category": "فرم‌ها",
+      "label": "meter",
+      "description": "Scalar measurement within a known range",
+      "rank": 93,
+      "order": 93,
+      "enabled": true,
+      "tagName": "meter",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:progress",
+      "language": "html",
+      "type": "tag",
+      "category": "فرم‌ها",
+      "label": "progress",
+      "description": "Task completion progress",
+      "rank": 94,
+      "order": 94,
+      "enabled": true,
+      "tagName": "progress",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:col",
+      "language": "html",
+      "type": "tag",
+      "category": "جدول‌ها",
+      "label": "col",
+      "description": "Column properties for a table",
+      "rank": 95,
+      "order": 95,
+      "enabled": true,
+      "tagName": "col",
+      "operation": "open",
+      "isVoid": true,
+      "contexts": [],
+      "parentTags": [
+        "colgroup"
+      ],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:details",
+      "language": "html",
+      "type": "tag",
+      "category": "عناصر تعاملی و توکار",
+      "label": "details",
+      "description": "Disclosure widget",
+      "rank": 96,
+      "order": 96,
+      "enabled": true,
+      "tagName": "details",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:summary",
+      "language": "html",
+      "type": "tag",
+      "category": "عناصر تعاملی و توکار",
+      "label": "summary",
+      "description": "Summary or legend for a details disclosure",
+      "rank": 97,
+      "order": 97,
+      "enabled": true,
+      "tagName": "summary",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [
+        "details"
+      ],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:dialog",
+      "language": "html",
+      "type": "tag",
+      "category": "عناصر تعاملی و توکار",
+      "label": "dialog",
+      "description": "Dialog box or interactive component",
+      "rank": 98,
+      "order": 98,
+      "enabled": true,
+      "tagName": "dialog",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:iframe",
+      "language": "html",
+      "type": "tag",
+      "category": "عناصر تعاملی و توکار",
+      "label": "iframe",
+      "description": "Nested browsing context",
+      "rank": 99,
+      "order": 99,
+      "enabled": true,
+      "tagName": "iframe",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:embed",
+      "language": "html",
+      "type": "tag",
+      "category": "عناصر تعاملی و توکار",
+      "label": "embed",
+      "description": "External content embedding point",
+      "rank": 100,
+      "order": 100,
+      "enabled": true,
+      "tagName": "embed",
+      "operation": "open",
+      "isVoid": true,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:object",
+      "language": "html",
+      "type": "tag",
+      "category": "عناصر تعاملی و توکار",
+      "label": "object",
+      "description": "External resource or nested content",
+      "rank": 101,
+      "order": 101,
+      "enabled": true,
+      "tagName": "object",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:template",
+      "language": "html",
+      "type": "tag",
+      "category": "عناصر تعاملی و توکار",
+      "label": "template",
+      "description": "Inert HTML template content",
+      "rank": 102,
+      "order": 102,
+      "enabled": true,
+      "tagName": "template",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:slot",
+      "language": "html",
+      "type": "tag",
+      "category": "عناصر تعاملی و توکار",
+      "label": "slot",
+      "description": "Web Components content insertion point",
+      "rank": 103,
+      "order": 103,
+      "enabled": true,
+      "tagName": "slot",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:canvas",
+      "language": "html",
+      "type": "tag",
+      "category": "عناصر تعاملی و توکار",
+      "label": "canvas",
+      "description": "Scriptable bitmap drawing surface",
+      "rank": 104,
+      "order": 104,
+      "enabled": true,
+      "tagName": "canvas",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
+    },
+    {
+      "id": "html:tag:svg:defs",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "defs",
+      "description": "Container for reusable SVG definitions",
+      "rank": 11,
+      "order": 105,
+      "enabled": true,
+      "tagName": "defs",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "svg"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:use",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "use",
+      "description": "Reuse an SVG element by reference",
+      "rank": 12,
+      "order": 106,
+      "enabled": true,
+      "tagName": "use",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "svg",
+        "g",
+        "defs",
+        "symbol"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:symbol",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "symbol",
+      "description": "Reusable graphical symbol",
+      "rank": 13,
+      "order": 107,
+      "enabled": true,
+      "tagName": "symbol",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "svg",
+        "defs"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:title",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "title",
+      "description": "Accessible title for an SVG graphic",
+      "rank": 14,
+      "order": 108,
+      "enabled": true,
+      "tagName": "title",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "svg",
+        "g",
+        "symbol"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:desc",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "desc",
+      "description": "Description of an SVG graphic",
+      "rank": 15,
+      "order": 109,
+      "enabled": true,
+      "tagName": "desc",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "svg",
+        "g",
+        "symbol"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:image",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "image",
+      "description": "Embed a raster or vector image in SVG",
+      "rank": 16,
+      "order": 110,
+      "enabled": true,
+      "tagName": "image",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "svg",
+        "g",
+        "a"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:textPath",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "textPath",
+      "description": "Render text along a path",
+      "rank": 17,
+      "order": 111,
+      "enabled": true,
+      "tagName": "textPath",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "text"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:tspan",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "tspan",
+      "description": "Subsection of SVG text",
+      "rank": 18,
+      "order": 112,
+      "enabled": true,
+      "tagName": "tspan",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "text",
+        "tspan",
+        "textPath"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:linearGradient",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "linearGradient",
+      "description": "Linear color gradient definition",
+      "rank": 19,
+      "order": 113,
+      "enabled": true,
+      "tagName": "linearGradient",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "defs",
+        "svg"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:radialGradient",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "radialGradient",
+      "description": "Radial color gradient definition",
+      "rank": 20,
+      "order": 114,
+      "enabled": true,
+      "tagName": "radialGradient",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "defs",
+        "svg"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:stop",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "stop",
+      "description": "Color stop in an SVG gradient",
+      "rank": 21,
+      "order": 115,
+      "enabled": true,
+      "tagName": "stop",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "linearGradient",
+        "radialGradient"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:pattern",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "pattern",
+      "description": "Reusable SVG graphics pattern",
+      "rank": 22,
+      "order": 116,
+      "enabled": true,
+      "tagName": "pattern",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "defs",
+        "svg"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:clipPath",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "clipPath",
+      "description": "Clipping path definition",
+      "rank": 23,
+      "order": 117,
+      "enabled": true,
+      "tagName": "clipPath",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "defs",
+        "svg"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:mask",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "mask",
+      "description": "Mask definition for SVG graphics",
+      "rank": 24,
+      "order": 118,
+      "enabled": true,
+      "tagName": "mask",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "defs",
+        "svg"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:filter",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "filter",
+      "description": "SVG filter effect definition",
+      "rank": 25,
+      "order": 119,
+      "enabled": true,
+      "tagName": "filter",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "defs",
+        "svg"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:feGaussianBlur",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "feGaussianBlur",
+      "description": "Gaussian blur filter primitive",
+      "rank": 26,
+      "order": 120,
+      "enabled": true,
+      "tagName": "feGaussianBlur",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "filter"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:feOffset",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "feOffset",
+      "description": "Offset filter primitive",
+      "rank": 27,
+      "order": 121,
+      "enabled": true,
+      "tagName": "feOffset",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "filter"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:feBlend",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "feBlend",
+      "description": "Blend filter primitive",
+      "rank": 28,
+      "order": 122,
+      "enabled": true,
+      "tagName": "feBlend",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "filter"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:feColorMatrix",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "feColorMatrix",
+      "description": "Color matrix filter primitive",
+      "rank": 29,
+      "order": 123,
+      "enabled": true,
+      "tagName": "feColorMatrix",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "filter"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:feComposite",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "feComposite",
+      "description": "Composite filter primitive",
+      "rank": 30,
+      "order": 124,
+      "enabled": true,
+      "tagName": "feComposite",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "filter"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:feFlood",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "feFlood",
+      "description": "Flood color filter primitive",
+      "rank": 31,
+      "order": 125,
+      "enabled": true,
+      "tagName": "feFlood",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "filter"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:feMerge",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "feMerge",
+      "description": "Merge filter primitives",
+      "rank": 32,
+      "order": 126,
+      "enabled": true,
+      "tagName": "feMerge",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "filter"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:feMergeNode",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "feMergeNode",
+      "description": "Input node for feMerge",
+      "rank": 33,
+      "order": 127,
+      "enabled": true,
+      "tagName": "feMergeNode",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "feMerge"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:marker",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "marker",
+      "description": "Reusable marker graphic",
+      "rank": 34,
+      "order": 128,
+      "enabled": true,
+      "tagName": "marker",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "defs",
+        "svg"
+      ],
+      "namespace": "svg"
+    },
+    {
+      "id": "html:tag:svg:foreignObject",
+      "language": "html",
+      "type": "tag",
+      "category": "گرافیک SVG",
+      "label": "foreignObject",
+      "description": "Embed content from another XML namespace",
+      "rank": 35,
+      "order": 129,
+      "enabled": true,
+      "tagName": "foreignObject",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [
+        "svg"
+      ],
+      "parentTags": [
+        "svg",
+        "g"
+      ],
+      "namespace": "svg"
     }
   ]
 }
