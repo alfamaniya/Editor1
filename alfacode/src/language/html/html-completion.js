@@ -283,3 +283,20 @@ export function getHTMLTagSuggestions(source, cursor, options = {}) {
     : null;
 }
 export default getHTMLTagSuggestions;
+
+export function getHTMLCompletionCatalog() {
+  const groups = [
+    ["ساختار سند", new Set(["html","head","body","title","base","meta","link","style","script","noscript"])],
+    ["متن و محتوا", new Set(["div","span","p","h1","h2","strong","em","i","br","hr"])],
+    ["بخش‌بندی و ناوبری", new Set(["header","footer","main","section","article","nav"])],
+    ["فهرست‌ها", new Set(["ul","ol","li"])],
+    ["فرم‌ها", new Set(["form","input","label","textarea","select","option"])],
+    ["جدول‌ها", new Set(["table","thead","tbody","tr","th","td"])],
+    ["پیوند و رسانه", new Set(["a","img"])],
+  ];
+  return HTML_TAG_CATALOG.map(item => ({
+    category: groups.find(([, names]) => names.has(item.name))?.[0] ?? "سایر عناصر",
+    label: item.name,
+    description: item.description
+  }));
+}
