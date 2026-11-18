@@ -425,16 +425,17 @@ async function main() {
   const previewDocument = inlinePreviewDocument(previewTemplate, previewCss, previewScript);
 
   let shell = indexTemplate;
-  shell = shell.replace(/\s*<link\b[^>]*href="[^"]*style\.css"[^>]*>/i, "");
-  shell = shell.replace(/\s*<script\b[^>]*header\.js["'][^>]*>\s*<\/script>/i, "");
-  shell = shell.replace(/\s*<script\b[^>]*new-page-action[^>]*>\s*<\/script>/i, "");
-  shell = shell.replace(/\s*<script\b[^>]*workspace-divider\.js["'][^>]*>\s*<\/script>/i, "");
-  shell = shell.replace(/\s*<script\b[^>]*mobile-workspace\.js["'][^>]*>\s*<\/script>/i, "");
-  shell = shell.replace(/\s*<script\b[^>]*mobile-extra-keys\.js["'][^>]*>\s*<\/script>/i, "");
-  shell = shell.replace(/\s*<script\b[^>]*clear-tabs\.js["'][^>]*>\s*<\/script>/i, "");
-  shell = shell.replace(/\s*<script\b[^>]*project-reset\.js["'][^>]*>\s*<\/script>/i, "");
-  shell = shell.replace(/\s*<script\b[^>]*clear-project-cookies\.js["'][^>]*>\s*<\/script>/i, "");
-  shell = shell.replace(/\s*<script\b[^>]*src=["'][^"']*script\.js["'][^>]*>\s*<\/script>/i, "");
+  const escapeRegExp = value => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  for (const stylePath of entry(assembly.shell).styles || []) {
+    const styleName = escapeRegExp(path.basename(stylePath));
+    shell = shell.replace(new RegExp("<link\\b[^>]*href=[\\\"'][^\\\"']*" + styleName + "[^\\\"']*[\\\"'][^>]*>", "i"), "");
+  }
+  for (const activeEntry of manifest.entries.filter(item => item.active)) {
+    for (const scriptPath of activeEntry.scripts || []) {
+      const scriptName = escapeRegExp(path.basename(scriptPath));
+      shell = shell.replace(new RegExp("<script\\b[^>]*" + scriptName + "[^>]*>\\s*<\\/script>", "gi"), "");
+    }
+  }
   // The standalone document must not initiate relative iframe navigations.
   // Both child documents are supplied below through srcdoc.
   shell = shell.replace(/(<iframe\b[^>]*?)\s+src=(["'])[^"']*\2/gi, "$1");
