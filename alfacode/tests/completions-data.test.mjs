@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 291, javascript: 114 };
+  const expected = { html: 146, css: 305, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 551);
+  assert.equal(records.length, 565);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -306,3 +306,6 @@ test("CSS-2 Color and backgrounds records are present", async () => {
 
 
 test("CSS-3 typography and text properties and values are present", async()=>{const {css}=await readCatalogFiles();for(const label of ["font-style","font-variant","font-stretch","font-feature-settings","font-kerning","font-optical-sizing","font-variation-settings","font-size-adjust","text-indent","text-overflow","text-shadow","text-decoration-line","text-decoration-color","text-decoration-style","text-underline-offset","letter-spacing","word-spacing","word-break","overflow-wrap","hyphens","writing-mode","text-orientation","direction","font-style:italic","font-style:oblique","font-style:normal","text-overflow:clip","text-overflow:ellipsis","word-break:normal","word-break:break-all","word-break:keep-all","overflow-wrap:normal","overflow-wrap:anywhere","overflow-wrap:break-word","hyphens:none","hyphens:manual","hyphens:auto","writing-mode:horizontal-tb","writing-mode:vertical-rl","writing-mode:vertical-lr","text-orientation:mixed","text-orientation:upright","text-orientation:sideways","text-decoration-line:underline","text-decoration-line:overline","text-decoration-line:line-through","text-decoration-line:none"])assert.ok(css.records.some(r=>r.label===label||r.propertyName+":"+r.label===label),"missing CSS-3: "+label);});
+
+
+test("CSS-4 Flexbox properties and scoped alignment values are present",async()=>{const {css}=await readCatalogFiles();for(const label of ["flex-grow","flex-shrink","flex-flow","justify-items","place-content","place-items","place-self","row-gap","align-content:normal","align-content:space-between","align-content:space-around","align-content:space-evenly","align-content:stretch","align-content:center"])assert.ok(css.records.some(r=>r.label===label||r.propertyName+":"+r.label===label),"missing CSS-4: "+label);});

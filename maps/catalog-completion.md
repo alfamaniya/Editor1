@@ -75,7 +75,7 @@
 - [x] CSS-1 — تکمیل ویژگی‌های پایه و جعبه: margin، padding و گونه‌ها، border و گونه‌ها، outline، width/height و min/max، box-sizing و اندازه‌گیری.
 - [x] CSS-2 — تکمیل رنگ و پس‌زمینه: backgroundهای چندگانه، background-position/size/repeat، gradient، opacity و روش‌های رنگ‌نویسی.
 - [x] CSS-3 — تکمیل تایپوگرافی و متن: font و گونه‌ها، line-height، letter-spacing، word-spacing، text-indent، text-overflow و word-break.
-- [ ] CSS-4 — تکمیل چیدمان Flexbox: ویژگی‌های container و item و مقادیر معتبر هر ویژگی.
+- [x] CSS-4 — تکمیل چیدمان Flexbox: ویژگی‌های container و item و مقادیر معتبر هر ویژگی.
 - [ ] CSS-5 — تکمیل چیدمان Grid: grid-template، areas، auto-flow، gap، جای‌گذاری و ویژگی‌های item.
 - [ ] CSS-6 — تکمیل موقعیت‌دهی و نمایش: display، position، inset، float، clear، overflow و stacking context.
 - [ ] CSS-7 — تکمیل انتخابگرها: ترکیب‌گرها، attribute selectorها، pseudo-classها و pseudo-elementهای پرکاربرد؛ تفکیک انتخابگر از مقدار ویژگی.
@@ -99,6 +99,11 @@
 
 - ویژگی‌های تایپوگرافی و متن به همراه مقادیر معتبر font-style، text-overflow، word-break، overflow-wrap، hyphens، writing-mode و text-decoration-line افزوده شدند.
 - تعداد رکوردهای جدید: 47. منابع: W3C CSS Snapshot 2026 و MDN CSS Reference.
+
+### گزارش اجرای CSS-4
+
+- ویژگی‌های flex container و item، shorthandهای flex و place-* و مقادیر معتبر flex-direction، flex-wrap، align-items، justify-content و align-content ثبت شدند.
+- تعداد رکوردهای جدید: 14. منابع: W3C Flexbox/Box Alignment و MDN CSS Reference.
 
 ## ۳. نقشه راه JavaScript
 
