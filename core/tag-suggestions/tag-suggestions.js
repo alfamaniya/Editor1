@@ -5,7 +5,7 @@
 export async function createTagSuggestions(options = {}) {
   const ownerDocument = options.ownerDocument ?? document;
   const onSelect = typeof options.onSelect === "function" ? options.onSelect : () => {};
-  let markup = globalThis.__ALFACODE_TAG_SUGGESTIONS_TEMPLATE__;
+  let markup = options.templateMarkup ?? globalThis.__ALFACODE_TAG_SUGGESTIONS_TEMPLATE__;
 
   if (typeof markup !== "string" || !markup.trim()) {
     try {
@@ -23,6 +23,8 @@ export async function createTagSuggestions(options = {}) {
   if (!root) return null;
 
   const list = root.querySelector(".tag-suggestions-options");
+  const heading = root.querySelector(".tag-suggestions-heading");
+  if (heading && options.heading) heading.textContent = options.heading;
   ownerDocument.body.appendChild(root);
   let currentOptions = [];
   let activeIndex = 0;
@@ -58,8 +60,7 @@ export async function createTagSuggestions(options = {}) {
       button.setAttribute("aria-selected", "false");
       const label = ownerDocument.createElement("span");
       label.className = "tag-suggestion-label";
-      label.textContent = option.kind === "open" ? "<" + option.label + ">" :
-        option.kind === "child" ? "<" + option.label + ">" : option.label;
+      label.textContent = option.displayLabel ?? option.insertText ?? (option.kind === "open" || option.kind === "child" ? "<" + option.label + ">" : option.label);
       const description = ownerDocument.createElement("span");
       description.className = "tag-suggestion-description";
       description.textContent = option.description ?? "";
