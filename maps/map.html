@@ -38,7 +38,7 @@
   <script>
     const search=document.getElementById("search"),items=[...document.querySelectorAll(".item")],count=document.getElementById("count"),empty=document.getElementById("empty");
     const viewer=document.getElementById("viewer"),doc=document.getElementById("document"),viewerTitle=document.getElementById("viewer-title"),list=document.getElementById("maps"),tools=document.querySelector(".tools");
-    const digits=n=>String(n).replace(/\\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
+    const digits=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
     function filter(){const q=search.value.trim().toLocaleLowerCase();let visible=0;for(const item of items){const show=item.textContent.toLocaleLowerCase().includes(q);item.hidden=!show;if(show)visible++}count.textContent=digits(visible)+" نقشه";empty.style.display=visible?"none":"block"}
     search.addEventListener("input",filter);
     function esc(value){return value.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}
