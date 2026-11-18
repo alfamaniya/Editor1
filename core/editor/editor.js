@@ -12,7 +12,11 @@ import BracketMatcher from "../../alfacode/src/features/bracket-matching/bracket
 import ThemeManager from "../../alfacode/src/themes/theme-manager.js";
 import BrowserStorage from "../browser-storage/browser-storage.js";
 import { getHTMLTagSuggestions } from "../../alfacode/src/language/html/html-completion.js";
+import { getCSSCompletionSuggestions } from "../../alfacode/src/language/css/css-completion.js";
+import { getJavaScriptCompletionSuggestions } from "../../alfacode/src/language/javascript/javascript-completion.js";
 import { createTagSuggestions } from "../tag-suggestions/tag-suggestions.js";
+import { createCSSSuggestions } from "../css-suggestions/css-suggestions.js";
+import { createJavaScriptSuggestions } from "../javascript-suggestions/javascript-suggestions.js";
 
 const initialSources = {
   html: `<!DOCTYPE html>
@@ -242,14 +246,24 @@ viewElement.addEventListener("blur", () => publishEditorState(false));
 
 const input = new InputController(editor, { target: viewElement });
 let tagSuggestionMenu = null;
+let cssSuggestionMenu = null;
+let javascriptSuggestionMenu = null;
 let chainSuggestionMode = false;
-createTagSuggestions({
-  ownerDocument: document,
-  onSelect: applyTagSuggestion
-}).then(menu => {
-  tagSuggestionMenu = menu;
-  updateTagSuggestions();
-});
+function currentSuggestionMenu() {
+  return activeLanguage.id === "css" ? cssSuggestionMenu :
+    activeLanguage.id === "javascript" ? javascriptSuggestionMenu : tagSuggestionMenu;
+}
+function hideSuggestionMenus() {
+  hideSuggestionMenus();
+  cssSuggestionMenu?.hide();
+  javascriptSuggestionMenu?.hide();
+}
+createTagSuggestions({ ownerDocument: document, onSelect: applyTagSuggestion })
+  .then(menu => { tagSuggestionMenu = menu; updateCompletionSuggestions(); });
+createCSSSuggestions({ ownerDocument: document, onSelect: applyLanguageSuggestion })
+  .then(menu => { cssSuggestionMenu = menu; updateCompletionSuggestions(); });
+createJavaScriptSuggestions({ ownerDocument: document, onSelect: applyLanguageSuggestion })
+  .then(menu => { javascriptSuggestionMenu = menu; updateCompletionSuggestions(); });
 const themes = new ThemeManager({ defaultTheme: "dark" });
 themes.apply(host);
 
@@ -268,24 +282,18 @@ function publishSource() {
   }, "*");
 }
 
-function updateTagSuggestions() {
-  if (!tagSuggestionMenu) return;
-  if (activeLanguage.id !== "html" || !editor.selection.isEmpty) {
-    tagSuggestionMenu.hide();
-    chainSuggestionMode = false;
-    return;
+function updateCompletionSuggestions() {
+  const menu = currentSuggestionMenu();
+  for (const candidate of [tagSuggestionMenu, cssSuggestionMenu, javascriptSuggestionMenu]) {
+    if (candidate && candidate !== menu) candidate.hide();
   }
-
-  const result = getHTMLTagSuggestions(editor.text, editor.selection.head, {
-    chain: chainSuggestionMode,
-    limit: 10
-  });
-  if (!result || !result.options.length) {
-    tagSuggestionMenu.hide();
-    if (chainSuggestionMode) chainSuggestionMode = false;
-    return;
-  }
-
+  if (!menu) return;
+  if (!editor.selection.isEmpty) { menu.hide(); chainSuggestionMode = false; return; }
+  let result = null;
+  if (activeLanguage.id === "html") result = getHTMLTagSuggestions(editor.text, editor.selection.head, { chain: chainSuggestionMode, limit: 10 });
+  else if (activeLanguage.id === "css") result = getCSSCompletionSuggestions(editor.text, editor.selection.head, { limit: 10 });
+  else if (activeLanguage.id === "javascript") result = getJavaScriptCompletionSuggestions(editor.text, editor.selection.head, { limit: 10 });
+  if (!result || !result.options.length) { menu.hide(); if (chainSuggestionMode) chainSuggestionMode = false; return; }
   const point = getDOMPointFromDocumentOffset(editor.selection.head);
   let anchor = null;
   if (point) {
@@ -295,11 +303,18 @@ function updateTagSuggestions() {
       range.collapse(true);
       const rect = range.getBoundingClientRect();
       anchor = { left: rect.left, top: rect.top, bottom: rect.bottom };
-    } catch {
-      anchor = null;
-    }
+    } catch { anchor = null; }
   }
-  tagSuggestionMenu.show(result, anchor);
+  menu.show(result, anchor);
+}
+
+function applyLanguageSuggestion(option) {
+  if (!option) return;
+  const insertion = option.insertText ?? option.label;
+  editor.transact(transaction => transaction.replace(option.from, option.to, insertion));
+  editor.moveTo(option.from + insertion.length);
+  renderEditor();
+  view.focus();
 }
 
 function applyTagSuggestion(option) {
@@ -350,7 +365,7 @@ function renderEditor() {
   browserStorage.schedule(sources);
   publishSource();
   status.textContent = activeLanguage.id.toUpperCase() + " · " + editor.document.getLineCount() + " lines";
-  updateTagSuggestions();
+  updateCompletionSuggestions();
 }
 
 function getDocumentOffsetFromDOMPoint(node, offset) {
@@ -443,15 +458,16 @@ viewElement.addEventListener("keydown", () => {
 }, true);
 
 viewElement.addEventListener("keydown", event => {
-  if (tagSuggestionMenu?.isOpen) {
+  const suggestionMenu = currentSuggestionMenu();
+  if (suggestionMenu?.isOpen) {
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
       event.preventDefault();
       event.stopImmediatePropagation();
-      tagSuggestionMenu.setActive(tagSuggestionMenu.activeIndex + (event.key === "ArrowDown" ? 1 : -1));
+      suggestionMenu.setActive(suggestionMenu.activeIndex + (event.key === "ArrowDown" ? 1 : -1));
       return;
     }
     if (event.key === "Enter" || event.key === "Tab") {
-      const selected = tagSuggestionMenu.selectedOption;
+      const selected = suggestionMenu.selectedOption;
       if (selected) {
         event.preventDefault();
         event.stopImmediatePropagation();
@@ -462,7 +478,7 @@ viewElement.addEventListener("keydown", event => {
     if (event.key === "Escape") {
       event.preventDefault();
       event.stopImmediatePropagation();
-      tagSuggestionMenu.hide();
+      suggestionMenu.hide();
       chainSuggestionMode = false;
       return;
     }
