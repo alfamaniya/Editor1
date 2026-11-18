@@ -33,7 +33,10 @@ workspace-divider { display: block; width: 6px; min-height: 100%; }
 /* Responsive workspace layout */
 @media (max-width: 700px), (pointer: coarse) and (max-height: 1000px) {
   html, body { height: 100%; min-height: 0; overflow: hidden; }
-  body { height: 100%; }
+  body {
+    height: var(--app-visible-height, 100%);
+    padding-bottom: var(--mobile-extra-keys-height, 0px);
+  }
   app-header { flex: 0 0 56px; }
   .workspace {
     grid-template-columns: 100% !important;
@@ -81,7 +84,7 @@ class OfflineAppHeader extends HTMLElement {
 }
 customElements.define("app-header", OfflineAppHeader);
 
-  window.__ALFACODE_EXTRA_KEYS_ASSETS__ = { html: "<section class=\"extra-keys\" aria-label=\"Mobile coding keys\">\n  <div class=\"key-row key-row--shared\" aria-label=\"Common editor keys\">\n    <button type=\"button\" data-key=\"Tab\" aria-label=\"Tab\">⇥</button>\n    <button type=\"button\" data-key=\"ArrowLeft\" aria-label=\"Move cursor left\">←</button>\n    <button type=\"button\" data-key=\"ArrowDown\" aria-label=\"Move cursor down\">↓</button>\n    <button type=\"button\" data-key=\"ArrowUp\" aria-label=\"Move cursor up\">↑</button>\n    <button type=\"button\" data-key=\"ArrowRight\" aria-label=\"Move cursor right\">→</button>\n    <button type=\"button\" data-key=\"Backspace\" aria-label=\"Backspace\">⌫</button>\n  </div>\n  <div class=\"key-row key-row--language\" aria-label=\"Language-specific keys\"></div>\n</section>", css: ":host {\n  display: none;\n  position: fixed;\n  inset-inline: 0;\n  bottom: var(--extra-keys-viewport-bottom, 0px);\n  z-index: 1000;\n  width: 100%;\n  padding: 0.35rem 0.4rem max(0.35rem, env(safe-area-inset-bottom));\n  background: #171d29;\n  border-top: 1px solid #35445a;\n  box-shadow: 0 -4px 16px rgb(0 0 0 / 22%);\n  color: #f3f6fb;\n  font-family: Inter, \"Segoe UI\", Arial, sans-serif;\n}\n:host([data-visible=\"true\"]) { display: block; }\n* { box-sizing: border-box; }\n.extra-keys { display: grid; gap: 0.35rem; width: 100%; }\n.key-row {\n  display: flex;\n  gap: 0.3rem;\n  width: 100%;\n  min-width: 0;\n  overflow-x: auto;\n  overscroll-behavior-inline: contain;\n  scrollbar-width: none;\n  -webkit-overflow-scrolling: touch;\n}\n.key-row::-webkit-scrollbar { display: none; }\n.key-row button {\n  flex: 1 0 2.35rem;\n  min-width: 2.35rem;\n  min-height: 2.45rem;\n  padding: 0.25rem 0.4rem;\n  border: 1px solid #40516a;\n  border-radius: 0.4rem;\n  background: #28374b;\n  color: #f3f6fb;\n  font: 600 0.95rem/1 Consolas, monospace;\n  touch-action: manipulation;\n  user-select: none;\n  -webkit-tap-highlight-color: transparent;\n}\n.key-row button:active { background: #36547a; border-color: #72a7f8; }\n.key-row button:focus-visible { outline: 2px solid #72a7f8; outline-offset: 1px; }\n.key-row--language button { flex-basis: 2.6rem; }\n@media (min-width: 701px) and (pointer: fine) { :host { display: none !important; } }" };
+  window.__ALFACODE_EXTRA_KEYS_ASSETS__ = { html: "<section class=\"extra-keys\" aria-label=\"Mobile coding keys\">\n  <div class=\"key-row key-row--shared\" aria-label=\"Common editor keys\">\n    <button type=\"button\" data-key=\"Tab\" aria-label=\"Tab\">⇥</button>\n    <button type=\"button\" data-key=\"ArrowLeft\" aria-label=\"Move cursor left\">←</button>\n    <button type=\"button\" data-key=\"ArrowDown\" aria-label=\"Move cursor down\">↓</button>\n    <button type=\"button\" data-key=\"ArrowUp\" aria-label=\"Move cursor up\">↑</button>\n    <button type=\"button\" data-key=\"ArrowRight\" aria-label=\"Move cursor right\">→</button>\n    <button type=\"button\" data-key=\"Backspace\" aria-label=\"Backspace\">⌫</button>\n  </div>\n  <div class=\"key-row key-row--language\" aria-label=\"Language-specific keys\"></div>\n</section>", css: ":host {\n  display: none;\n  position: fixed;\n  inset-inline: 0;\n  bottom: var(--extra-keys-viewport-bottom, 0px);\n  z-index: 1000;\n  width: 100%;\n  padding: 0.35rem 0.4rem max(0.35rem, env(safe-area-inset-bottom));\n  background: #171d29;\n  border-top: 1px solid #35445a;\n  box-shadow: 0 -4px 16px rgb(0 0 0 / 22%);\n  color: #f3f6fb;\n  font-family: Inter, \"Segoe UI\", Arial, sans-serif;\n}\n:host([data-visible=\"true\"]) { display: block; }\n* { box-sizing: border-box; }\n.extra-keys { display: grid; gap: 0.35rem; width: 100%; }\n.key-row {\n  display: grid;\n  grid-template-columns: repeat(6, minmax(0, 1fr));\n  gap: 0.3rem;\n  width: 100%;\n  min-width: 0;\n}\n.key-row button {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  min-width: 0;\n  min-height: 2.75rem;\n  padding: 0.25rem 0.15rem;\n  border: 1px solid #40516a;\n  border-radius: 0.4rem;\n  background: #28374b;\n  color: #f3f6fb;\n  font: 600 0.95rem/1 Consolas, monospace;\n  touch-action: manipulation;\n  user-select: none;\n  -webkit-tap-highlight-color: transparent;\n}\n.key-row button:active { background: #36547a; border-color: #72a7f8; }\n.key-row button:focus-visible { outline: 2px solid #72a7f8; outline-offset: 1px; }\n@media (min-width: 701px) and (pointer: fine) { :host { display: none !important; } }\n" };
   (() => {
   // core/mobile-extra-keys/mobile-extra-keys.js
   var LANGUAGE_KEYS = {
@@ -137,13 +140,17 @@ customElements.define("app-header", OfflineAppHeader);
       this.renderLanguageKeys();
       this.addEventListener("alfacode:editor-state", this.onEditorState);
       window.visualViewport?.addEventListener("resize", this.onViewportChange);
+      window.visualViewport?.addEventListener("scroll", this.onViewportChange);
       window.addEventListener("resize", this.onViewportChange);
       this.updateVisibility();
     }
     disconnectedCallback() {
       this.removeEventListener("alfacode:editor-state", this.onEditorState);
       window.visualViewport?.removeEventListener("resize", this.onViewportChange);
+      window.visualViewport?.removeEventListener("scroll", this.onViewportChange);
       window.removeEventListener("resize", this.onViewportChange);
+      document.documentElement.style.removeProperty("--app-visible-height");
+      document.documentElement.style.removeProperty("--mobile-extra-keys-height");
     }
     setEditorState(focused, language = this.activeLanguage) {
       this.editorFocused = focused === true;
@@ -177,8 +184,16 @@ customElements.define("app-header", OfflineAppHeader);
       const visibleHeight = Math.min(window.innerHeight, viewport?.height ?? window.innerHeight);
       const keyboardOpen = this.baselineHeight - visibleHeight > 100;
       const viewportBottom = viewport ? Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop) : 0;
+      const shouldShow = mobile && this.editorFocused && keyboardOpen;
       this.style.setProperty("--extra-keys-viewport-bottom", viewportBottom + "px");
-      this.dataset.visible = String(mobile && this.editorFocused && keyboardOpen);
+      this.dataset.visible = String(shouldShow);
+      if (viewport && mobile) {
+        document.documentElement.style.setProperty("--app-visible-height", viewport.height + "px");
+      } else {
+        document.documentElement.style.removeProperty("--app-visible-height");
+      }
+      const keysHeight = shouldShow ? this.getBoundingClientRect().height : 0;
+      document.documentElement.style.setProperty("--mobile-extra-keys-height", keysHeight + "px");
       if (!this.editorFocused && !keyboardOpen) {
         this.baselineHeight = Math.max(this.baselineHeight, window.innerHeight, viewport?.height || 0);
       }
