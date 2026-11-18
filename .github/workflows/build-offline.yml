@@ -4,25 +4,11 @@ on:
   push:
     branches: [main]
     paths:
-      - "index.html"
-      - "style.css"
-      - "script.js"
-      - "core/editor/**"
-      - "core/mobile-workspace/**"
-      - "core/mobile-extra-keys/**"
-      - "core/browser-storage/**"
-      - "core/clear-tabs/**"
-      - "core/project-reset/**"
-      - "core/clear-project-cookies/**"
-      - "core/header/**"
-      - "core/new-page-action/**"
-      - "core/completion-catalog/**"
-      - "core/preview/**"
-      - "core/workspace-divider/**"
-      - "core/tag-suggestions/**"
-      - "alfacode/src/**"
-      - "scripts/build-offline.mjs"
-      - ".github/workflows/build-offline.yml"
+      - "**"
+      - "!**/*.md"
+      - "!alfacode/tests/**"
+      - "!alfacode/examples/**"
+      - "!offline/AlfaCode-Offline.html"
   workflow_dispatch:
 
 permissions:
