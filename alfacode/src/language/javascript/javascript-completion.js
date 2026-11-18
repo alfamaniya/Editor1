@@ -61,3 +61,18 @@ export function getJavaScriptCompletionSuggestions(source,cursor,options={}) {
   return suggestions.length?{language:"javascript",mode:member?"member":"identifier",query,from,to:cursor,options:suggestions}:null;
 }
 export default getJavaScriptCompletionSuggestions;
+
+export function getJavaScriptCompletionCatalog() {
+  const items = [];
+  for (const label of KEYWORDS) items.push({category:"کلمات کلیدی",label,description:"JavaScript keyword"});
+  for (const label of GLOBALS) items.push({category:"اشیاء و توابع سراسری",label,description:"Global or built-in"});
+  for (const [owner, members] of Object.entries(METHODS)) {
+    for (const label of members) items.push({category:"متدهای " + owner,label:owner + "." + label,description:owner + " method"});
+  }
+  for (const [label, snippet] of Object.entries(SNIPPETS)) {
+    items.push({category:"الگوهای تکمیل",label,description:"Completion snippet"});
+  }
+  const unique = new Map();
+  for (const item of items) unique.set(item.category + "\\0" + item.label, item);
+  return [...unique.values()];
+}
