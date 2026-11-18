@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 333, javascript: 114 };
+  const expected = { html: 146, css: 369, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 593);
+  assert.equal(records.length, 629);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -312,3 +312,6 @@ test("CSS-4 Flexbox properties and scoped alignment values are present",async()=
 
 
 test("CSS-5 Grid properties and placement values are present",async()=>{const {css}=await readCatalogFiles();for(const label of ["grid-template-areas","grid-auto-columns","grid-auto-rows","grid-auto-flow","grid-area","grid-column","grid-column-start","grid-column-end","grid-row","grid-row-start","grid-row-end","justify-self","grid-auto-flow:row","grid-auto-flow:column","grid-auto-flow:dense","grid-auto-flow:row dense","grid-auto-flow:column dense","grid-template-areas:none","grid-column:auto","grid-row:auto","justify-items:start","justify-items:end","justify-items:center","justify-items:stretch","justify-self:start","justify-self:end","justify-self:center","justify-self:stretch"])assert.ok(css.records.some(r=>r.label===label||r.propertyName+":"+r.label===label),"missing CSS-5: "+label);});
+
+
+test("CSS-6 positioning, overflow and containment records are present",async()=>{const {css}=await readCatalogFiles();for(const label of ["inset","inset-block","inset-block-start","inset-block-end","inset-inline","inset-inline-start","inset-inline-end","float","clear","overflow-x","overflow-y","contain","content-visibility","contain-intrinsic-size","float:left","float:right","float:inline-start","float:inline-end","float:none","clear:left","clear:right","clear:both","clear:inline-start","clear:inline-end","clear:none","overflow-x:visible","overflow-x:hidden","overflow-x:clip","overflow-x:scroll","overflow-x:auto","overflow-y:visible","overflow-y:hidden","overflow-y:clip","overflow-y:scroll","overflow-y:auto","display:flow-root"])assert.ok(css.records.some(r=>r.label===label||r.propertyName+":"+r.label===label),"missing CSS-6: "+label);});
