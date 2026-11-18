@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 369, javascript: 114 };
+  const expected = { html: 146, css: 422, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 629);
+  assert.equal(records.length, 682);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -315,3 +315,6 @@ test("CSS-5 Grid properties and placement values are present",async()=>{const {c
 
 
 test("CSS-6 positioning, overflow and containment records are present",async()=>{const {css}=await readCatalogFiles();for(const label of ["inset","inset-block","inset-block-start","inset-block-end","inset-inline","inset-inline-start","inset-inline-end","float","clear","overflow-x","overflow-y","contain","content-visibility","contain-intrinsic-size","float:left","float:right","float:inline-start","float:inline-end","float:none","clear:left","clear:right","clear:both","clear:inline-start","clear:inline-end","clear:none","overflow-x:visible","overflow-x:hidden","overflow-x:clip","overflow-x:scroll","overflow-x:auto","overflow-y:visible","overflow-y:hidden","overflow-y:clip","overflow-y:scroll","overflow-y:auto","display:flow-root"])assert.ok(css.records.some(r=>r.label===label||r.propertyName+":"+r.label===label),"missing CSS-6: "+label);});
+
+
+test("CSS-7 combinators, attribute selectors, pseudo-classes and pseudo-elements are present",async()=>{const {css}=await readCatalogFiles();const labels=new Set(css.records.filter(r=>r.type==="selector").map(r=>r.label));for(const label of ["*",">","+","~","[attr]","[attr=\"value\"]","[attr^=\"value\"]","[attr$=\"value\"]","[attr*=\"value\"]","[attr~=\"value\"]","[attr|=\"value\"]",":first-child",":last-child",":only-child",":nth-child()",":nth-last-child()",":first-of-type",":last-of-type",":only-of-type",":nth-of-type()",":nth-last-of-type()",":empty",":root",":not()",":is()",":where()",":has()",":focus-visible",":focus-within",":checked",":disabled",":enabled",":required",":optional",":valid",":invalid",":in-range",":out-of-range",":read-only",":read-write",":placeholder-shown",":target",":lang()",":dir()",":defined","::marker","::selection","::placeholder","::first-letter","::first-line","::backdrop","::file-selector-button","::part()"])assert.ok(labels.has(label),"missing CSS-7 selector: "+label);});
