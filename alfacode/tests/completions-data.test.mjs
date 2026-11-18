@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 96, css: 174, javascript: 114 };
+  const expected = { html: 145, css: 174, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 384);
+  assert.equal(records.length, 433);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -213,4 +213,71 @@ test("HTML-2 semantic sectioning and grouping tags are present with valid metada
   assert.equal(byTag.get("figcaption").category, "گروه‌بندی محتوا");
   assert.deepEqual(byTag.get("figcaption").parentTags, ["figure"]);
   assert.equal(expected.length, 4);
+});
+
+
+test("HTML-3 responsive images, media and image-map elements have valid metadata", async () => {
+  const { html } = await readCatalogFiles();
+  const byTag = new Map(html.records.map(record => [record.tagName, record]));
+  for (const tag of ["picture","source","audio","video","track","map","area"]) {
+    assert.ok(byTag.has(tag), "missing HTML-3 tag: " + tag);
+    assert.equal(byTag.get(tag).namespace, "html");
+  }
+  for (const tag of ["source","track","area"]) assert.equal(byTag.get(tag).isVoid, true);
+  assert.deepEqual(byTag.get("area").parentTags, ["map"]);
+  assert.deepEqual(byTag.get("track").parentTags, ["audio","video"]);
+  assert.ok(byTag.get("source").parentTags.includes("picture"));
+});
+
+test("HTML-4 menu and list semantics are represented", async () => {
+  const { html } = await readCatalogFiles();
+  const menu = html.records.find(record => record.tagName === "menu" && record.namespace === "html");
+  const li = html.records.find(record => record.tagName === "li" && record.namespace === "html");
+  assert.ok(menu);
+  assert.ok(li.parentTags.includes("menu"));
+  assert.equal(menu.isVoid, false);
+});
+
+test("HTML-5 form grouping, suggestions and output elements are present", async () => {
+  const { html } = await readCatalogFiles();
+  const byTag = new Map(html.records.map(record => [record.tagName, record]));
+  for (const tag of ["fieldset","legend","output","datalist","meter","progress"]) assert.ok(byTag.has(tag), "missing HTML-5 tag: " + tag);
+  assert.deepEqual(byTag.get("legend").parentTags, ["fieldset"]);
+  for (const tag of ["fieldset","legend","output","datalist","meter","progress"]) assert.equal(byTag.get(tag).isVoid, false);
+});
+
+test("HTML-6 table column element has the correct void and parent metadata", async () => {
+  const { html } = await readCatalogFiles();
+  const col = html.records.find(record => record.tagName === "col" && record.namespace === "html");
+  assert.ok(col);
+  assert.equal(col.isVoid, true);
+  assert.deepEqual(col.parentTags, ["colgroup"]);
+});
+
+test("HTML-7 interactive, embedded and template elements are present", async () => {
+  const { html } = await readCatalogFiles();
+  const byTag = new Map(html.records.map(record => [record.tagName, record]));
+  for (const tag of ["details","summary","dialog","iframe","embed","object","template","slot","canvas"]) assert.ok(byTag.has(tag), "missing HTML-7 tag: " + tag);
+  assert.deepEqual(byTag.get("summary").parentTags, ["details"]);
+  assert.equal(byTag.get("embed").isVoid, true);
+  for (const tag of ["details","summary","dialog","iframe","object","template","slot","canvas"]) assert.equal(byTag.get(tag).isVoid, false);
+});
+
+test("HTML-8 SVG definitions, reuse, text and filter primitives use SVG namespace", async () => {
+  const { html } = await readCatalogFiles();
+  const svg = html.records.filter(record => record.namespace === "svg");
+  const byTag = new Map(svg.map(record => [record.tagName, record]));
+  for (const tag of ["defs","use","symbol","title","desc","image","textPath","tspan","linearGradient","radialGradient","stop","pattern","clipPath","mask","filter","feGaussianBlur","feOffset","feBlend","feColorMatrix","feComposite","feFlood","feMerge","feMergeNode","marker","foreignObject"]) {
+    assert.ok(byTag.has(tag), "missing SVG tag: " + tag);
+  }
+  assert.deepEqual(byTag.get("stop").parentTags, ["linearGradient","radialGradient"]);
+  assert.deepEqual(byTag.get("feMergeNode").parentTags, ["feMerge"]);
+  assert.ok(svg.every(record => record.contexts.includes("svg")));
+});
+
+test("HTML-9 ordinary catalog contains no deprecated legacy HTML tags", async () => {
+  const { html } = await readCatalogFiles();
+  const legacy = new Set(["acronym","applet","basefont","big","center","dir","font","frame","frameset","marquee","menuitem","nobr","noembed","noframes","param","plaintext","strike","tt","xmp"]);
+  const present = html.records.filter(record => record.namespace === "html" && legacy.has(record.tagName));
+  assert.deepEqual(present.map(record => record.tagName), []);
 });
