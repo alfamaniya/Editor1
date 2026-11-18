@@ -77,7 +77,7 @@
 - [x] CSS-3 — تکمیل تایپوگرافی و متن: font و گونه‌ها، line-height، letter-spacing، word-spacing، text-indent، text-overflow و word-break.
 - [x] CSS-4 — تکمیل چیدمان Flexbox: ویژگی‌های container و item و مقادیر معتبر هر ویژگی.
 - [x] CSS-5 — تکمیل چیدمان Grid: grid-template، areas، auto-flow، gap، جای‌گذاری و ویژگی‌های item.
-- [ ] CSS-6 — تکمیل موقعیت‌دهی و نمایش: display، position، inset، float، clear، overflow و stacking context.
+- [x] CSS-6 — تکمیل موقعیت‌دهی و نمایش: display، position، inset، float، clear، overflow و stacking context.
 - [ ] CSS-7 — تکمیل انتخابگرها: ترکیب‌گرها، attribute selectorها، pseudo-classها و pseudo-elementهای پرکاربرد؛ تفکیک انتخابگر از مقدار ویژگی.
 - [ ] CSS-8 — تکمیل جلوه‌های بصری: shadow، radius، filter، transform، transition و animation با مقادیر و توابع مرتبط.
 - [ ] CSS-9 — تکمیل طراحی واکنش‌گرا و قواعد: media، supports، container query، ویژگی‌های سفارشی و توابع var/calc/clamp.
@@ -109,6 +109,11 @@
 
 - ویژگی‌های Grid template/auto placement، grid area/row/column و justify-self به همراه مقادیر مرتبط ثبت شدند.
 - تعداد رکوردهای جدید: 28. منابع: W3C Grid Layout و Box Alignment؛ MDN CSS Reference.
+
+### گزارش اجرای CSS-6
+
+- inset و گونه‌های منطقی، float/clear، overflow-x/y و containment/content-visibility افزوده شدند؛ مقادیر display و overflow به ویژگی مربوط متصل شدند.
+- تعداد رکوردهای جدید: 36. منابع: CSS Positioned Layout، CSS Overflow، CSS Containment و MDN.
 
 ## ۳. نقشه راه JavaScript
 
