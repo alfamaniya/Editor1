@@ -9,10 +9,10 @@
 
 | زبان | فایل داده | تعداد فعلی رکورد |
 |---|---|---:|
-| HTML | `alfacode/data/completions.html.json` | ۶۰ |
+| HTML | `alfacode/data/completions.html.json` | ۹۲ |
 | CSS | `alfacode/data/completions.css.json` | ۱۷۴ |
 | JavaScript | `alfacode/data/completions.javascript.json` | ۱۱۴ |
-| **مجموع** | سه فایل مستقل | **۳۴۸** |
+| **مجموع** | سه فایل مستقل | **۳۸۰** |
 
 ## ۱. نقشه راه HTML
 
@@ -29,7 +29,7 @@
 | گرافیک SVG | ۱۰ | svg، g، path، circle، rect، line، polyline، polygon، ellipse، text |
 
 ### مراحل تکمیل HTML
-- [ ] HTML-1 — تکمیل عناصر متنی و معنایی: عنوان‌های h1 تا h6، عناصر تأکید و نقل‌قول، کد و متن پیش‌قالب‌بندی‌شده، عناصر زمان و جزئیات.
+- [x] HTML-1 — تکمیل عناصر متنی و معنایی: `h3` تا `h6`، `hgroup`، عناصر نقل‌قول، تأکید و نشانه‌گذاری متن، کد و داده، زمان، زیرنویس/بالانویس، نوشتار دوجهته، ruby و عناصر درج/حذف متن. در این مرحله ۳۲ تگ جدید افزوده شد.
 - [ ] HTML-2 — تکمیل ساختار معنایی صفحه: aside، address، figure، figcaption، search و سایر عناصر بخش‌بندی معتبر.
 - [ ] HTML-3 — تکمیل پیوند، تصویر و رسانه: picture، source، audio، video، track، map و area.
 - [ ] HTML-4 — تکمیل فهرست‌ها و عناصر گروه‌بندی مرتبط: menu و عناصر معتبر جاافتاده.
@@ -181,9 +181,9 @@
 - تعداد نهایی رکوردها از پیش تعیین نمی‌شود؛ معیار، پوشش مفید و معتبر است نه افزایش تعداد.
 - هیچ مرحله‌ای صرفاً با اضافه‌شدن رکوردها تکمیل‌شده محسوب نمی‌شود؛ آزمون ساختاری و بررسی context نیز لازم است.
 
-## وضعیت اجرا
+## گزارش اجرای HTML-1\n\n- تاریخ اجرا: ۲۰۲۶-۱۱-۱۸\n- موارد افزوده‌شده: `h3`, `h4`, `h5`, `h6`, `hgroup`, `blockquote`, `pre`, `b`, `u`, `mark`, `small`, `s`, `cite`, `q`, `dfn`, `abbr`, `code`, `var`, `samp`, `kbd`, `data`, `time`, `sub`, `sup`, `ruby`, `rt`, `rp`, `bdi`, `bdo`, `wbr`, `ins`, `del`.\n- دسته‌بندی داده‌ها: همه رکوردها در namespace برابر `html`، نوع `tag` و عملیات `open` ثبت شدند؛ `wbr` به‌عنوان void و `rt`/`rp` با والد مجاز `ruby` مشخص شدند.\n- منابع مرجع: [WHATWG HTML Living Standard — The text-level semantics](https://html.spec.whatwg.org/multipage/text-level-semantics.html)، [WHATWG HTML Living Standard — Edits](https://html.spec.whatwg.org/multipage/edits.html)، [WHATWG HTML Living Standard — Grouping content](https://html.spec.whatwg.org/multipage/grouping-content.html)، [MDN HTML elements reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).\n- تعداد HTML: ۹۲؛ CSS: ۱۷۴؛ JavaScript: ۱۱۴؛ مجموع: ۳۸۰. آزمون اختصاصی حضور ۳۲ تگ HTML-1 نیز به مجموعه آزمون داده اضافه شد. نتیجه اجرای CI پس از commit باید جداگانه بررسی شود.\n\n## وضعیت اجرا
 - [x] موجودی اولیه سه فایل و دسته‌های فعلی استخراج شد.
-- [ ] اجرای تکمیل HTML آغاز نشده است.
+- [x] HTML-1 اجرا شد: ۳۲ تگ جدید افزوده شد؛ موجودی HTML از ۶۰ به ۹۲ رسید.
 - [ ] اجرای تکمیل CSS آغاز نشده است.
 - [ ] اجرای تکمیل JavaScript آغاز نشده است.
 - [ ] اعتبارسنجی نهایی انجام نشده است.
