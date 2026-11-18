@@ -103,3 +103,18 @@ export function getCSSCompletionSuggestions(source, cursor, options = {}) {
   return optionsList.length ? {language:"css",mode:"value",query:valuePrefix,from:cursor-valuePrefix.length,to:cursor,options:optionsList} : null;
 }
 export default getCSSCompletionSuggestions;
+
+export function getCSSCompletionCatalog() {
+  const items = [];
+  const add = (category, values, describe) => values.forEach(label =>
+    items.push({category,label,description:describe(label)}));
+  add("ویژگی‌های CSS", CSS_PROPERTIES, label => DESCRIPTIONS[label] ?? "CSS property");
+  add("انتخابگرهای نمونه", [".container","#app",":hover",":focus",":active","::before","::after","button","div","body","html"], () => "CSS selector");
+  add("مقادیر عمومی", COMMON_VALUES, () => "Common CSS value");
+  for (const [property, values] of Object.entries(VALUE_CATALOG)) {
+    add("مقادیر " + property, values, () => "Value for " + property);
+  }
+  const unique = new Map();
+  for (const item of items) unique.set(item.category + "\\0" + item.label, item);
+  return [...unique.values()];
+}
