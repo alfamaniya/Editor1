@@ -256,6 +256,9 @@ async function main() {
   shell = shell.replace(/\s*<script\b[^>]*project-reset\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*clear-project-cookies\.js["'][^>]*>\s*<\/script>/i, "");
   shell = shell.replace(/\s*<script\b[^>]*src=["'][^"']*script\.js["'][^>]*>\s*<\/script>/i, "");
+  // The standalone document must not initiate relative iframe navigations.
+  // Both child documents are supplied below through srcdoc.
+  shell = shell.replace(/(<iframe\b[^>]*?)\s+src=(["'])[^"']*\2/gi, "$1");
   shell = shell.replace("</head>", "<style>\n" + rootCss + "\n</style>\n</head>");
 
   const bootstrap = `
