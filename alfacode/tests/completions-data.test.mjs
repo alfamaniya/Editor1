@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 145, css: 174, javascript: 114 };
+  const expected = { html: 146, css: 174, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 433);
+  assert.equal(records.length, 434);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -277,7 +277,16 @@ test("HTML-8 SVG definitions, reuse, text and filter primitives use SVG namespac
 
 test("HTML-9 ordinary catalog contains no deprecated legacy HTML tags", async () => {
   const { html } = await readCatalogFiles();
-  const legacy = new Set(["acronym","applet","basefont","big","center","dir","font","frame","frameset","marquee","menuitem","nobr","noembed","noframes","param","plaintext","strike","tt","xmp"]);
+  const legacy = new Set(["acronym","applet","basefont","big","center","dir","font","frame","frameset","marquee","menuitem","nobr","noembed","noframes","param","plaintext","rb","rtc","strike","tt","xmp"]);
   const present = html.records.filter(record => record.namespace === "html" && legacy.has(record.tagName));
   assert.deepEqual(present.map(record => record.tagName), []);
+});
+
+test("HTML-10 search is a current standardized element and remains distinct from input search", async () => {
+  const { html } = await readCatalogFiles();
+  const search = html.records.find(record => record.namespace === "html" && record.tagName === "search");
+  assert.ok(search);
+  assert.equal(search.isVoid, false);
+  assert.equal(search.enabled, true);
+  assert.equal(search.operation, "open");
 });
