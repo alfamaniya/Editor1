@@ -16,6 +16,7 @@ on:
       - "core/clear-project-cookies/**"
       - "core/header/**"
       - "core/new-page-action/**"
+      - "core/completion-catalog/**"
       - "core/preview/**"
       - "core/workspace-divider/**"
       - "core/tag-suggestions/**"
