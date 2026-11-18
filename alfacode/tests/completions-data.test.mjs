@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 60, css: 174, javascript: 114 };
+  const expected = { html: 92, css: 174, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 348);
+  assert.equal(records.length, 380);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -180,4 +180,17 @@ test("validator rejects non-object records", () => {
   const catalog = { schemaVersion: 1, catalogVersion: 1, records: [null, "not-a-record", []] };
   const errors = validateCatalog(catalog);
   assert.equal(errors.filter(error => error.message === "record must be an object").length, 3);
+});
+
+test("HTML-1 text, heading, quotation, code, bidi and edit tags are present", async () => {
+  const { html } = await readCatalogFiles();
+  const expected = [
+    "h3","h4","h5","h6","hgroup","blockquote","pre",
+    "b","u","mark","small","s","cite","q","dfn","abbr",
+    "code","var","samp","kbd","data","time",
+    "sub","sup","ruby","rt","rp","bdi","bdo","wbr","ins","del"
+  ];
+  const actual = new Set(html.records.map(record => record.tagName));
+  for (const tag of expected) assert.ok(actual.has(tag), "missing HTML tag: " + tag);
+  assert.equal(expected.length, 32);
 });
