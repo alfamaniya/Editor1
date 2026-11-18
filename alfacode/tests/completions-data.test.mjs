@@ -434,7 +434,11 @@ test("JS-2 separates URL Web API records from ECMAScript built-ins", async () =>
   const urlRecords = javascript.records.filter(r => r.label === "URL" || r.label.startsWith("URL.") || r.label.startsWith("URL.prototype."));
   assert.ok(urlRecords.length >= 15);
   assert.ok(urlRecords.every(r => r.runtimeScope === "web-api" && r.standardSource === "WHATWG URL"));
-  assert.ok(urlRecords.every(r => r.availability === "browser-and-worker"));
+  const objectUrlMethods = new Set(["URL.createObjectURL","URL.revokeObjectURL"]);
+  for (const record of urlRecords) {
+    if (objectUrlMethods.has(record.label)) assert.equal(record.availability,"window-and-dedicated-worker");
+    else assert.equal(record.availability,"browser-and-worker");
+  }
 });
 
 test("JS-2 does not expose deprecated global URI escape helpers by default", async () => {
