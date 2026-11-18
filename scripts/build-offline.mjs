@@ -275,9 +275,10 @@ async function main() {
   ${makeMobileWorkspaceComponent(mobileMarkup, mobileCss)}
   const editorFrame = document.querySelector(".editor-panel .section-frame");
   const previewFrame = document.querySelector(".preview-panel .section-frame");
+  // Register message and load listeners before assigning fast-loading srcdoc documents.
+  ${coordinator}
   editorFrame.srcdoc = ${JSON.stringify(editorDocument)};
   previewFrame.srcdoc = ${JSON.stringify(previewDocument)};
-  ${coordinator}
 })();
 `;
   shell = injectBeforeBodyEnd(shell, "<script>\n" + escapeScript(bootstrap) + "\n</script>");
