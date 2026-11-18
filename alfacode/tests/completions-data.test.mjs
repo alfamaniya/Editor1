@@ -346,7 +346,7 @@ test("JS-1 covers ECMAScript reserved words and classifies contextual names", as
   const alwaysReserved = [
     "break","case","catch","class","const","continue","debugger","default","delete","do",
     "else","export","extends","finally","for","function","if","import","in","instanceof",
-    "new","return","super","switch","this","throw","try","typeof","var","void","while"
+    "new","return","super","switch","this","throw","try","typeof","var","void","while","with"
   ];
   for (const word of alwaysReserved) {
     assert.equal(byLabel.get(word)?.keywordKind, "reserved", "incorrect classification: " + word);
