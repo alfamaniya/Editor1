@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 92, css: 174, javascript: 114 };
+  const expected = { html: 96, css: 174, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 380);
+  assert.equal(records.length, 384);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -193,4 +193,24 @@ test("HTML-1 text, heading, quotation, code, bidi and edit tags are present", as
   const actual = new Set(html.records.map(record => record.tagName));
   for (const tag of expected) assert.ok(actual.has(tag), "missing HTML tag: " + tag);
   assert.equal(expected.length, 32);
+});
+
+test("HTML-2 semantic sectioning and grouping tags are present with valid metadata", async () => {
+  const { html } = await readCatalogFiles();
+  const byTag = new Map(html.records.map(record => [record.tagName, record]));
+  const expected = ["aside", "address", "figure", "figcaption"];
+  for (const tag of expected) {
+    assert.ok(byTag.has(tag), "missing HTML-2 tag: " + tag);
+    const record = byTag.get(tag);
+    assert.equal(record.namespace, "html");
+    assert.equal(record.operation, "open");
+    assert.equal(record.isVoid, false);
+    assert.equal(record.enabled, true);
+  }
+  assert.equal(byTag.get("aside").category, "بخش‌بندی و ناوبری");
+  assert.equal(byTag.get("address").category, "بخش‌بندی و ناوبری");
+  assert.equal(byTag.get("figure").category, "گروه‌بندی محتوا");
+  assert.equal(byTag.get("figcaption").category, "گروه‌بندی محتوا");
+  assert.deepEqual(byTag.get("figcaption").parentTags, ["figure"]);
+  assert.equal(expected.length, 4);
 });
