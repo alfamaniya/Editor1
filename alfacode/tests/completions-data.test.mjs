@@ -141,3 +141,9 @@ test("validator rejects enabled JavaScript snippets", () => {
   const c={schemaVersion:1,catalogVersion:1,records:[{id:"s",language:"javascript",type:"snippet",category:"x",label:"snippet",description:"x",mode:"snippet",insertText:"x",order:1,enabled:true}]};
   assert.ok(validateCatalog(c).some(e=>e.path==="$.records[0].enabled"));
 });
+
+test("validator rejects non-object records", () => {
+  const catalog = { schemaVersion: 1, catalogVersion: 1, records: [null, "not-a-record", []] };
+  const errors = validateCatalog(catalog);
+  assert.equal(errors.filter(error => error.message === "record must be an object").length, 3);
+});
