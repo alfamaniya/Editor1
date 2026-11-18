@@ -102,14 +102,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 610, javascript: 114 };
+  const expected = { html: 146, css: 929, javascript: 114 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 870);
+  assert.equal(records.length, 1189);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -333,3 +333,6 @@ test("CSS-11 property values are associated only with their owning properties",a
 
 
 test("CSS-12 final audit: IDs, semantic keys, value owners and typed syntax are valid",async()=>{const {css}=await readCatalogFiles();const ids=css.records.map(r=>r.id);assert.equal(new Set(ids).size,ids.length);const keys=css.records.map(r=>r.type==="value"?r.type+":"+r.propertyName+":"+r.label:r.type+":"+r.label);assert.equal(new Set(keys).size,keys.length);const properties=new Set(css.records.filter(r=>r.type==="property").map(r=>r.label));assert.ok(css.records.filter(r=>r.type==="value").every(r=>r.propertyName==="*"||properties.has(r.propertyName)));for(const type of ["at-rule","function","unit"])assert.ok(css.records.filter(r=>r.type===type).every(r=>r.mode===type&&r.insertText));assert.ok(css.records.every(r=>r.description&&r.description!=="CSS property"&&r.description!=="CSS selector"&&r.description!=="Common CSS value"));});
+
+
+test("CSS-11 follow-up: every catalog property has at least one property-scoped value",async()=>{const {css}=await readCatalogFiles();const properties=css.records.filter(r=>r.type==="property").map(r=>r.label);const owners=new Set(css.records.filter(r=>r.type==="value"&&r.propertyName!=="*").map(r=>r.propertyName));for(const property of properties)assert.ok(owners.has(property),"property has no scoped values: "+property);});

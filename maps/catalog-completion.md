@@ -10,9 +10,9 @@
 | زبان | فایل داده | تعداد فعلی رکورد |
 |---|---|---:|
 | HTML | `alfacode/data/completions.html.json` | ۱۴۶ |
-| CSS | `alfacode/data/completions.css.json` | 205 |
+| CSS | `alfacode/data/completions.css.json` | 929 |
 | JavaScript | `alfacode/data/completions.javascript.json` | ۱۱۴ |
-| **مجموع** | سه فایل مستقل | **465** |
+| **مجموع** | سه فایل مستقل | **1189** |
 
 ## ۱. نقشه راه HTML
 
@@ -54,7 +54,7 @@
 | قواعد at-rule | ۱۵ |
 | توابع CSS | ۵۱ |
 | واحدهای CSS | ۳۳ |
-| **مجموع** | **۶۱۰** |
+| **مجموع** | **929** |
 
 ### مراحل تکمیل CSS
 - [x] CSS-1 — تکمیل ویژگی‌های پایه و جعبه: margin، padding و گونه‌ها، border و گونه‌ها، outline، width/height و min/max، box-sizing و اندازه‌گیری.
@@ -67,7 +67,7 @@
 - [x] CSS-8 — تکمیل جلوه‌های بصری: shadow، radius، filter، transform، transition و animation با مقادیر و توابع مرتبط.
 - [x] CSS-9 — تکمیل طراحی واکنش‌گرا و قواعد: media، supports، container query، ویژگی‌های سفارشی و توابع var/calc/clamp.
 - [x] CSS-10 — تکمیل واحدها و توابع: طول، درصد، زاویه، زمان، رنگ، توابع ریاضی و توابع پرکاربرد CSS.
-- [x] CSS-11 — تکمیل مقادیر ویژگی‌ها: برای هر property مجموعه مقادیر متناسب و معتبر تعریف شود؛ از پیشنهاد مقادیر نامرتبط در context اشتباه جلوگیری شود.
+- [x] CSS-11 — برای هر یک از ۱۷۹ ویژگی دست‌کم یک مقدار یا نمونه مقدار معتبرِ وابسته به همان property ثبت شد؛ مقادیر عمومی و نمونه‌های پیچیده در context خود باقی ماندند.
 - [x] CSS-12 — ممیزی نهایی پوشش، دسته‌بندی، ترتیب، توضیح، یکتایی شناسه‌ها و ارتباط property با value.
 
 ### گزارش اجرای CSS-1
@@ -122,15 +122,23 @@
 
 ### گزارش اجرای CSS-11
 
+- بازبینی پوشش پس از ادغام نشان داد ۱۲۴ ویژگی هنوز مقدار اختصاصی نداشتند؛ در اصلاح تکمیلی برای تمام آن‌ها مقدارهای وابسته به ویژگی ثبت شد. آزمون جدید تضمین می‌کند هیچ property بدون دست‌کم یک value مالک‌دار باقی نماند.
+- مواردی مانند مقدارهای پیچیده shorthand به‌عنوان نمونه درج ثبت شدند و نه دستور زبان کامل property.
+
 - مقادیر تکمیلی ویژگی‌های layout، position، overflow، cursor، box-sizing، visibility، border-style، text، font، flex، vertical-align و animation ثبت شدند.
 - تعداد رکوردهای جدید: 37. تمام valueها با propertyName دقیق و آزمون مالکیت ویژگی ذخیره شدند؛ پیشنهاد عمومی نامرتبط ایجاد نشد.
 - منابع: ماژول‌های W3C مربوط و MDN CSS Reference.
+
+### گزارش اصلاح تکمیلی پوشش مقدارهای CSS-11
+
+- تعداد مقدارهای جدید در اصلاح تکمیلی: 319؛ هر ۱۷۹ property اکنون دست‌کم یک value اختصاصی دارد.
+- PR اصلاحی: در انتظار ادغام پس از CI.
 
 ### گزارش اجرای CSS-12 و ممیزی نهایی
 
 - وضعیت انتشار کد: هر ۱۲ PR با merge commit مستقل به `main` منتقل شدند؛ شاخه اصلی اکنون شامل تمام مراحل CSS-1 تا CSS-12 است.
 
-- تعداد نهایی CSS: 610 رکورد؛ property: 179، selector: 64، value: 268، at-rule: 15، function: 51، unit: 33.
+- تعداد نهایی CSS پس از اصلاح پوشش مقدارها: 929 رکورد؛ property: 179، selector: 64، value: 587، at-rule: 15، function: 51، unit: 33.
 - 59 توضیح عمومی و مبهم به شرح تخصصی ارتقا یافت. شناسه‌ها و کلیدهای معنایی تکراری صفر؛ value بدون property معتبر صفر.
 - برای at-ruleها، functionها و واحد fr context درج شد. آزمون نهایی ساختار، یکتایی، مالکیت value و انواع جدید افزوده شد.
 - منابع: [W3C CSS Snapshot 2026](https://www.w3.org/TR/css/)، [W3C CSS Specifications](https://www.w3.org/Style/CSS/specs.en.html)، [MDN CSS Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference).
