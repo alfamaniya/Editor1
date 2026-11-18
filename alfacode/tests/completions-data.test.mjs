@@ -379,7 +379,7 @@ test("JS-1 keeps future-reserved and next-edition syntax out of ordinary suggest
     assert.equal(byLabel.get(word)?.enabled, false);
   }
   assert.equal(byLabel.get("using")?.keywordKind, "contextual");
-  assert.equal(byLabel.get("using")?.standardStatus, "stage-3-proposal");
+  assert.equal(byLabel.get("using")?.standardStatus, "stage-4-es2027");
   assert.equal(byLabel.get("using")?.enabled, false);
 });
 
