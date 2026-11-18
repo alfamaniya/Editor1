@@ -140,7 +140,7 @@ alfacode/
 node --experimental-default-type=module --test alfacode/tests/alfacode.test.mjs
 ```
 
-Workflow متناظر `.github/workflows/alfacode-tests.yml` است. مجموعه هسته ۲۶ آزمون دارد و ۱۴ آزمون داده کاتالوگ نیز در `tests/completions-data.test.mjs` اضافه شده است. آزمون جدید فایل JSON را با `node:fs/promises` می‌خواند و با `JSON.parse` اعتبارسنجی می‌کند؛ وابستگی جدیدی اضافه نشده است. triggerهای push و pull_request اکنون مسیر `alfacode/data/**` را نیز پوشش می‌دهند و فرمان workflow هر دو فایل آزمون را اجرا می‌کند. اجرای واقعی job آزمون در GitHub Actions تأیید شده است؛ آزمون مرورگر یا دستگاه در این مرحله انجام نشده است. آزمون خودکار به‌تنهایی رفتار مرورگر، لمس، IME فارسی یا بسته آفلاین را تأیید نمی‌کند.
+Workflow متناظر `.github/workflows/alfacode-tests.yml` است. مجموعه هسته ۲۶ آزمون دارد و ۱۵ آزمون داده کاتالوگ نیز در `tests/completions-data.test.mjs` اضافه شده است. آزمون جدید فایل JSON را با `node:fs/promises` می‌خواند و با `JSON.parse` اعتبارسنجی می‌کند؛ وابستگی جدیدی اضافه نشده است. triggerهای push و pull_request اکنون مسیر `alfacode/data/**` را نیز پوشش می‌دهند و فرمان workflow هر دو فایل آزمون را اجرا می‌کند. اجرای واقعی job آزمون در GitHub Actions تأیید شده است. در ممیزی زیرمرحله ۲-۲-۳ هر ۶۰ رکورد HTML، هر ۱۷۴ رکورد CSS و هر ۱۱۴ رکورد JavaScript با منابع فعلی مقایسه شدند و اختلاف مفقود/اضافه/معنایی مشاهده نشد. آزمون مرورگر یا دستگاه در این مرحله انجام نشده است. آزمون خودکار به‌تنهایی رفتار مرورگر، لمس، IME فارسی یا بسته آفلاین را تأیید نمی‌کند.
 
 ## اصول توسعه
 
