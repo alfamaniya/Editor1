@@ -23,7 +23,8 @@
         "mobile-extra-keys",
         "workspace-divider",
         "editor",
-        "preview"
+        "preview",
+        "completion-catalog"
       ]
     },
     {
@@ -84,6 +85,18 @@
       ],
       "scripts": [
         "core/new-page-action/new-page-action.js"
+      ]
+    },
+    {
+      "id": "completion-catalog",
+      "kind": "embedded-document",
+      "active": true,
+      "html": "core/completion-catalog/completion-catalog.html",
+      "styles": [
+        "core/completion-catalog/completion-catalog.css"
+      ],
+      "scripts": [
+        "core/completion-catalog/completion-catalog.js"
       ]
     },
     {
@@ -192,6 +205,7 @@
     "editorThemeFiles": [
       "alfacode/src/themes/dark.css",
       "alfacode/src/themes/light.css"
-    ]
+    ],
+    "completionCatalog": "completion-catalog"
   }
 }
