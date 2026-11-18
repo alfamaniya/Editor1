@@ -23,7 +23,7 @@
       "description": "سازنده توابع؛ سازنده رشته‌ای آن مانند eval نیازمند احتیاط امنیتی است",
       "mode": "identifier",
       "insertText": "Function",
-      "order": 1,
+      "order": 2,
       "enabled": true
     },
     {
@@ -35,7 +35,7 @@
       "description": "Global or built-in",
       "mode": "identifier",
       "insertText": "Boolean",
-      "order": 2,
+      "order": 3,
       "enabled": true
     },
     {
@@ -47,7 +47,7 @@
       "description": "سازنده تاریخ و زمان مبتنی بر timestamp",
       "mode": "identifier",
       "insertText": "Date",
-      "order": 3,
+      "order": 4,
       "enabled": true
     },
     {
@@ -59,7 +59,7 @@
       "description": "سازنده پایه اشیاء خطا",
       "mode": "identifier",
       "insertText": "Error",
-      "order": 4,
+      "order": 5,
       "enabled": true
     },
     {
@@ -71,7 +71,7 @@
       "description": "Global or built-in",
       "mode": "identifier",
       "insertText": "JSON",
-      "order": 5,
+      "order": 6,
       "enabled": true
     },
     {
@@ -83,7 +83,7 @@
       "description": "مجموعه کلید-مقدار با حفظ ترتیب درج",
       "mode": "identifier",
       "insertText": "Map",
-      "order": 6,
+      "order": 7,
       "enabled": true
     },
     {
@@ -95,7 +95,7 @@
       "description": "Global or built-in",
       "mode": "identifier",
       "insertText": "Math",
-      "order": 7,
+      "order": 8,
       "enabled": true
     },
     {
@@ -107,7 +107,7 @@
       "description": "سازنده و فضای نام عملیات عددی استاندارد ECMAScript",
       "mode": "identifier",
       "insertText": "Number",
-      "order": 8,
+      "order": 9,
       "enabled": true
     },
     {
@@ -119,7 +119,7 @@
       "description": "سازنده و عملیات پایه اشیاء استاندارد ECMAScript",
       "mode": "identifier",
       "insertText": "Object",
-      "order": 9,
+      "order": 10,
       "enabled": true
     },
     {
@@ -131,7 +131,7 @@
       "description": "Global or built-in",
       "mode": "identifier",
       "insertText": "Promise",
-      "order": 10,
+      "order": 11,
       "enabled": true
     },
     {
@@ -143,7 +143,7 @@
       "description": "سازنده عبارات منظم و تطبیق الگو",
       "mode": "identifier",
       "insertText": "RegExp",
-      "order": 11,
+      "order": 12,
       "enabled": true
     },
     {
@@ -155,7 +155,7 @@
       "description": "مجموعه مقادیر یکتا با حفظ ترتیب درج",
       "mode": "identifier",
       "insertText": "Set",
-      "order": 12,
+      "order": 13,
       "enabled": true
     },
     {
@@ -167,7 +167,7 @@
       "description": "سازنده و فضای نام عملیات رشته‌ای استاندارد ECMAScript",
       "mode": "identifier",
       "insertText": "String",
-      "order": 13,
+      "order": 14,
       "enabled": true
     },
     {
@@ -179,7 +179,7 @@
       "description": "سازنده مقادیر نمادین یکتا و کلیدهای ویژه",
       "mode": "identifier",
       "insertText": "Symbol",
-      "order": 14,
+      "order": 15,
       "enabled": true
     },
     {
@@ -191,7 +191,7 @@
       "description": "رابط URL از Web API؛ بخشی از استاندارد ECMAScript نیست",
       "mode": "identifier",
       "insertText": "URL",
-      "order": 15,
+      "order": 16,
       "enabled": true,
       "runtimeScope": "web-api",
       "availability": "browser-and-worker",
@@ -206,7 +206,7 @@
       "description": "Global or built-in",
       "mode": "identifier",
       "insertText": "console",
-      "order": 16,
+      "order": 17,
       "enabled": true
     },
     {
@@ -218,7 +218,7 @@
       "description": "Global or built-in",
       "mode": "identifier",
       "insertText": "document",
-      "order": 17,
+      "order": 18,
       "enabled": true
     },
     {
@@ -230,7 +230,7 @@
       "description": "Global or built-in",
       "mode": "identifier",
       "insertText": "fetch",
-      "order": 18,
+      "order": 19,
       "enabled": true
     },
     {
@@ -242,7 +242,7 @@
       "description": "Global or built-in",
       "mode": "identifier",
       "insertText": "localStorage",
-      "order": 19,
+      "order": 20,
       "enabled": true
     },
     {
@@ -254,7 +254,7 @@
       "description": "Global or built-in",
       "mode": "identifier",
       "insertText": "navigator",
-      "order": 20,
+      "order": 21,
       "enabled": true
     },
     {
@@ -266,7 +266,7 @@
       "description": "تبدیل پیشوند رشته به عدد صحیح با مبنای اختیاری",
       "mode": "identifier",
       "insertText": "parseInt",
-      "order": 21,
+      "order": 22,
       "enabled": true
     },
     {
@@ -278,7 +278,7 @@
       "description": "تبدیل پیشوند رشته به عدد اعشاری",
       "mode": "identifier",
       "insertText": "parseFloat",
-      "order": 22,
+      "order": 23,
       "enabled": true
     },
     {
@@ -290,7 +290,7 @@
       "description": "Global or built-in",
       "mode": "identifier",
       "insertText": "setInterval",
-      "order": 23,
+      "order": 24,
       "enabled": true
     },
     {
@@ -302,7 +302,7 @@
       "description": "Global or built-in",
       "mode": "identifier",
       "insertText": "setTimeout",
-      "order": 24,
+      "order": 25,
       "enabled": true
     },
     {
@@ -314,7 +314,7 @@
       "description": "Global or built-in",
       "mode": "identifier",
       "insertText": "window",
-      "order": 25,
+      "order": 26,
       "enabled": true
     },
     {
@@ -326,7 +326,7 @@
       "description": "تابع سراسری ساخت مقدار عددی صحیح با دقت دلخواه",
       "mode": "identifier",
       "insertText": "BigInt",
-      "order": 26,
+      "order": 27,
       "enabled": true
     },
     {
@@ -338,7 +338,7 @@
       "description": "مرجع استاندارد و مستقل از محیط به شیء سراسری جاری",
       "mode": "identifier",
       "insertText": "globalThis",
-      "order": 27,
+      "order": 28,
       "enabled": true
     },
     {
@@ -350,7 +350,7 @@
       "description": "بررسی متناهی‌بودن پس از تبدیل مقدار به Number",
       "mode": "identifier",
       "insertText": "isFinite",
-      "order": 28,
+      "order": 29,
       "enabled": true
     },
     {
@@ -362,7 +362,7 @@
       "description": "بررسی NaN پس از تبدیل مقدار به Number",
       "mode": "identifier",
       "insertText": "isNaN",
-      "order": 29,
+      "order": 30,
       "enabled": true
     },
     {
@@ -374,7 +374,7 @@
       "description": "کدگذاری URI با حفظ جداکننده‌های ساختاری",
       "mode": "identifier",
       "insertText": "encodeURI",
-      "order": 30,
+      "order": 31,
       "enabled": true
     },
     {
@@ -386,7 +386,7 @@
       "description": "کدگذاری یک مؤلفه مستقل URI",
       "mode": "identifier",
       "insertText": "encodeURIComponent",
-      "order": 31,
+      "order": 32,
       "enabled": true
     },
     {
@@ -398,7 +398,7 @@
       "description": "رمزگشایی URI با حفظ جداکننده‌های ساختاری",
       "mode": "identifier",
       "insertText": "decodeURI",
-      "order": 32,
+      "order": 33,
       "enabled": true
     },
     {
@@ -410,7 +410,7 @@
       "description": "رمزگشایی یک مؤلفه مستقل URI",
       "mode": "identifier",
       "insertText": "decodeURIComponent",
-      "order": 33,
+      "order": 34,
       "enabled": true
     },
     {
@@ -422,7 +422,7 @@
       "description": "سازنده خطای تجمیعی شامل چند خطا",
       "mode": "identifier",
       "insertText": "AggregateError",
-      "order": 34,
+      "order": 35,
       "enabled": true
     },
     {
@@ -434,7 +434,7 @@
       "description": "سازنده خطای مرتبط با ارزیابی؛ عمدتاً برای سازگاری تاریخی",
       "mode": "identifier",
       "insertText": "EvalError",
-      "order": 35,
+      "order": 36,
       "enabled": true
     },
     {
@@ -446,7 +446,7 @@
       "description": "سازنده خطای خارج‌بودن مقدار از دامنه مجاز",
       "mode": "identifier",
       "insertText": "RangeError",
-      "order": 36,
+      "order": 37,
       "enabled": true
     },
     {
@@ -458,7 +458,7 @@
       "description": "سازنده خطای ارجاع نامعتبر یا تعریف‌نشده",
       "mode": "identifier",
       "insertText": "ReferenceError",
-      "order": 37,
+      "order": 38,
       "enabled": true
     },
     {
@@ -470,7 +470,7 @@
       "description": "سازنده خطای نحوی",
       "mode": "identifier",
       "insertText": "SyntaxError",
-      "order": 38,
+      "order": 39,
       "enabled": true
     },
     {
@@ -482,7 +482,7 @@
       "description": "سازنده خطای نوع نامعتبر",
       "mode": "identifier",
       "insertText": "TypeError",
-      "order": 39,
+      "order": 40,
       "enabled": true
     },
     {
@@ -494,7 +494,7 @@
       "description": "سازنده خطای رمزگذاری یا رمزگشایی URI",
       "mode": "identifier",
       "insertText": "URIError",
-      "order": 40,
+      "order": 41,
       "enabled": true
     },
     {
@@ -506,7 +506,7 @@
       "description": "تابع قدیمی و منسوخ؛ استفاده از APIهای استاندارد جدیدتر توصیه می‌شود",
       "mode": "identifier",
       "insertText": "escape",
-      "order": 41,
+      "order": 42,
       "enabled": false,
       "availability": "deprecated",
       "standardStatus": "deprecated"
@@ -520,7 +520,7 @@
       "description": "تابع قدیمی و منسوخ؛ استفاده از APIهای استاندارد جدیدتر توصیه می‌شود",
       "mode": "identifier",
       "insertText": "unescape",
-      "order": 42,
+      "order": 43,
       "enabled": false,
       "availability": "deprecated",
       "standardStatus": "deprecated"
