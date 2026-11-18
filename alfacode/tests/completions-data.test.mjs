@@ -105,14 +105,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 929, javascript: 372 };
+  const expected = { html: 146, css: 929, javascript: 376 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 1447);
+  assert.equal(records.length, 1451);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -444,4 +444,25 @@ test("JS-2 does not expose deprecated global URI escape helpers by default", asy
     assert.equal(byLabel.get(name)?.enabled,false);
     assert.equal(byLabel.get(name)?.standardStatus,"deprecated");
   }
+});
+
+
+test("JS-2 keeps ES2027 resource-management APIs out of current default suggestions", async () => {
+  const { javascript } = await readCatalogFiles();
+  const byLabel = new Map(javascript.records.map(record => [record.label,record]));
+  for (const label of ["using","Symbol.dispose","Symbol.asyncDispose","SuppressedError","DisposableStack","AsyncDisposableStack"]) {
+    assert.equal(byLabel.get(label)?.standardStatus,"stage-4-es2027",label);
+    assert.equal(byLabel.get(label)?.enabled,false,label);
+    assert.equal(byLabel.get(label)?.availability,"future-standard",label);
+  }
+});
+
+test("JS-2 marks limited and non-standard Error APIs accurately", async () => {
+  const { javascript } = await readCatalogFiles();
+  const byLabel = new Map(javascript.records.map(record => [record.label,record]));
+  assert.equal(byLabel.get("Error.isError")?.standardStatus,"es2026");
+  assert.equal(byLabel.get("Error.isError")?.enabled,false);
+  assert.equal(byLabel.get("Error.isError")?.availability,"limited-compatibility");
+  assert.equal(byLabel.get("Error.instance.stack")?.standardSource,"implementation-defined");
+  assert.equal(byLabel.get("Error.instance.stack")?.enabled,false);
 });
