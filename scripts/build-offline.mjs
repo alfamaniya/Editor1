@@ -566,7 +566,8 @@ async function main() {
     inlineStyle: new RegExp("<style\\b[^>]*>[\\s\\S]*?</style>", "i").test(shell),
     inlineScript: new RegExp("<script\\b[^>]*>[\\s\\S]*?</script>", "i").test(shell),
     externalSourceAttributes: new RegExp("<script\\b[^>]*\\bsrc\\s*=|<link\\b[^>]*\\bhref\\s*=|<iframe\\b[^>]*\\bsrc\\s*=", "i").test(shell),
-    resourceTags: shell.match(/<\\s*(?:script|link|iframe)\\b[^>]*>/gi) || []
+    resourceTags: shell.match(/<\\s*(?:script|link|iframe)\\b[^>]*>/gi) || [],
+    externalAttributeMatch: shell.match(new RegExp("<script\\\\b[^>]*\\\\bsrc\\\\s*=|<link\\\\b[^>]*\\\\bhref\\\\s*=|<iframe\\\\b[^>]*\\\\bsrc\\\\s*=", "i"))?.[0] || ""
   };
   const failedChecks = Object.entries(outputChecks).filter(([key,value]) =>
     (key === "forbiddenAboutBlank" || key === "externalSourceAttributes") ? value : !value
