@@ -340,3 +340,19 @@
 - [x] Create a new `core/` directory represented by `.gitkeep` (Git cannot store truly empty folders).
 - [ ] Review all UI-visible strings in components, dialogs, tooltips, and status messages for English-only compliance.
 - [ ] Validate LTR layout in browser, including offline build.
+
+
+## پیاده‌سازی موتور یکپارچه ذخیره‌سازی مرورگر — ۱۹ نوامبر ۲۰۲۶
+
+- [x] تصمیم معماری: همه قابلیت‌های ذخیره‌سازی مرورگر در یک فایل JavaScript مرکزی نگهداری شوند.
+- [x] ایجاد `core/browser-storage.js` با API سراسری `window.Editor1Storage` برای استفاده بدون module.
+- [x] پیاده‌سازی ابزارهای LocalStorage (خواندن/نوشتن JSON، حذف، پاک‌سازی کلیدهای اختصاصی Editor1 و فهرست کلیدها).
+- [x] پیاده‌سازی IndexedDB (ایجاد DB/store، ذخیره/خواندن/حذف/فهرست/پاک‌سازی رکوردهای namespace).
+- [x] پیاده‌سازی مدیریت کوکی‌های قابل مشاهده JavaScript (خواندن/ثبت/حذف/پاک‌سازی) با توضیح محدودیت کوکی HttpOnly.
+- [x] افزودن helperهای پروژه، زمان‌بندی Auto-save، تشخیص قابلیت‌ها و تخمین فضای ذخیره‌سازی.
+- [x] افزودن پاک‌سازی یکپارچه داده‌های اختصاصی Editor1 با گزینه پاک‌سازی کوکی‌ها.
+- [ ] آزمون Syntax و بررسی خطاهای اجرایی؛ سپس آزمون مرورگر واقعی.
+- [ ] اتصال موتور به index/Editor و تعریف مسیر ذخیره کدها، تنظیمات و پروژه‌ها.
+- [ ] آزمون ذخیره/بازیابی، quota، قطع اینترنت، چند تب و اجرای فایل آفلاین.
+
+**دامنه:** موتور ساخته شده ولی فعلاً به رابط Editor وصل نشده است؛ قابلیت‌های Auto-save و ذخیره پروژه فقط API آماده دارند و رفتار یکپارچه واقعی پس از اتصال و آزمون تأیید می‌شود.
