@@ -373,3 +373,7 @@ Editor1/
 ### Color property progress
 - Initial Color inspector includes Background, Text and Border color pickers with HEX entry, quick palette, opacity slider, and a two-stop Linear/Radial gradient builder. Per-control clear, richer color formats, and verification remain incomplete.
 - Progress checklist: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](maps/VISUAL-PROPERTIES-ROADMAP.md).
+
+
+## Visual Editor workspace layout refinement
+- Visual mode is planned to become a dedicated full-screen workspace. The left Elements rail and right Inspector rail will remain fixed to viewport height and position; the Preview/Canvas will occupy the flexible space between them. Rail contents and Preview will scroll independently, while page-level scrolling is disabled during Visual mode. Responsive rail behavior and safe return to the normal editor are included in the implementation/verification checklist. This is a registered design requirement, not yet implemented.
