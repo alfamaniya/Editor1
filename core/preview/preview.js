@@ -146,7 +146,7 @@ inspector.addEventListener("click",event=>{
   const target=event.target.closest("button"); if(!target) return;
   if(target.matches("[data-visual-close]")) {inspector.hidden=true;visualMode=false;sendPickMode(false);return;}
   if(target.dataset.category) openCategory(target.dataset.category);
-  if(target.matches("[data-visual-back]")) { applyDraft(); showCategories(); }
+  if(target.matches("[data-visual-back]")) { draftRules={...(committedRules[selectedSelector]||{})}; applyDraft(); showCategories(); }
   if(target.matches("[data-visual-apply]")) {committedRules[selectedSelector]={...draftRules};renderCommittedRules();showCategories();}
 });
 window.addEventListener("message",event=>{
