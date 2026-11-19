@@ -36,6 +36,7 @@ export function parseCatalogImport(source, language) {
       const raw = cells[column] ?? "";
       if (raw === "true") record[header] = true;
       else if (raw === "false") record[header] = false;
+      else if (["order", "rank", "catalogVersion"].includes(header) && raw !== "" && Number.isFinite(Number(raw))) record[header] = Number(raw);
       else if ((raw.startsWith("[") && raw.endsWith("]")) || (raw.startsWith("{") && raw.endsWith("}"))) {
         try { record[header] = JSON.parse(raw); } catch { record[header] = raw; }
       } else record[header] = raw;
