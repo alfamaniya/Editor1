@@ -199,7 +199,11 @@ const timeoutId = setTimeout(() => console.log("Timer example: 1.5 seconds passe
 const uniqueTopics = new Set(sampleItems);
 const topicLengths = new Map([...uniqueTopics].map(topic => [topic, topic.length]));
 console.log("Topic lengths:", [...topicLengths.entries()]);
-Promise.resolve("Async example complete").then(console.log).catch(error => console.error(error));
+async function showAsyncExample() {
+  const message = await Promise.resolve("Async example complete");
+  console.log(message);
+}
+showAsyncExample().catch(error => console.error(error));
 
 // 6) Safe optional DOM interaction with a fallback
 const missingElement = document.querySelector("#element-that-does-not-exist");
