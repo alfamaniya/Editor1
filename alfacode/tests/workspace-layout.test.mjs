@@ -4,7 +4,7 @@ import { readFile } from "node:fs/promises";
 
 const ROOT = new URL("../../", import.meta.url);
 const css = await readFile(new URL("style.css", ROOT), "utf8");
-const divider = await readFile(new URL("core/workspace-divider/workspace-divider.js", ROOT), "utf8");
+const divider = await readFile(new URL("backup/core-old/workspace-divider/workspace-divider.js", ROOT), "utf8");
 
 test("workspace grid and panels are allowed to shrink without overflowing", () => {
   assert.match(css, /grid-template-columns:\s*minmax\(0,\s*1fr\)\s+6px\s+minmax\(0,\s*1fr\)/);
@@ -32,11 +32,11 @@ test("mobile-only responsive overrides and controls are removed from the main ap
   const mobileCssPaths = [
     "style.css",
     "core/editor/editor.css",
-    "core/header/header.css",
+    "backup/core-old/header/header.css",
     "core/new-page-action/new-page-action.css",
-    "core/clear-tabs/clear-tabs.css",
-    "core/project-reset/project-reset.css",
-    "core/clear-project-cookies/clear-project-cookies.css",
+    "backup/core-old/clear-tabs/clear-tabs.css",
+    "backup/core-old/project-reset/project-reset.css",
+    "backup/core-old/clear-project-cookies/clear-project-cookies.css",
     "core/completion-catalog/completion-catalog.css",
     "core/tag-suggestions/tag-suggestions.css"
   ];
