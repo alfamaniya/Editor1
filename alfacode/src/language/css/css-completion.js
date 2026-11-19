@@ -48,11 +48,70 @@ function insideCommentOrString(source, cursor) {
 
 function currentDeclaration(source, cursor) {
   const prefix = source.slice(0, cursor);
-  const brace = prefix.lastIndexOf("{");
-  const close = prefix.lastIndexOf("}");
-  if (brace < close) return { mode:"selector", segment:prefix.slice(close + 1) };
-  const segment = prefix.slice(brace + 1).split(";").at(-1);
-  return { mode:segment.includes(":") ? "value" : "property", segment };
+  const blocks = [];
+  let quote = null;
+  let escaped = false;
+  let comment = false;
+
+  for (let i = 0; i < prefix.length; i++) {
+    const char = prefix[i];
+    const next = prefix[i + 1];
+    if (comment) {
+      if (char === "*" && next === "/") { comment = false; i++; }
+      continue;
+    }
+    if (quote) {
+      if (escaped) { escaped = false; continue; }
+      if (char === "\\") { escaped = true; continue; }
+      if (char === quote) quote = null;
+      continue;
+    }
+    if (char === "/" && next === "*") { comment = true; i++; continue; }
+    if (char === "'" || char === '"') { quote = char; continue; }
+    if (char === "{") blocks.push(i);
+    else if (char === "}") blocks.pop();
+  }
+
+  const blockStart = blocks.at(-1);
+  if (blockStart === undefined) {
+    const lastClose = (() => {
+      let quote = null, escaped = false, comment = false, found = -1;
+      for (let i = 0; i < prefix.length; i++) {
+        const char = prefix[i], next = prefix[i + 1];
+        if (comment) { if (char === "*" && next === "/") { comment = false; i++; } continue; }
+        if (quote) { if (escaped) { escaped = false; continue; } if (char === "\\") { escaped = true; continue; } if (char === quote) quote = null; continue; }
+        if (char === "/" && next === "*") { comment = true; i++; continue; }
+        if (char === "'" || char === '"') { quote = char; continue; }
+        if (char === "}") found = i;
+      }
+      return found;
+    })();
+    return { mode: "selector", segment: prefix.slice(lastClose + 1) };
+  }
+
+  const segment = prefix.slice(blockStart + 1);
+  let quoteInValue = null, escapedInValue = false, commentInValue = false;
+  let parentheses = 0, brackets = 0, hasColon = false;
+  for (let i = 0; i < segment.length; i++) {
+    const char = segment[i], next = segment[i + 1];
+    if (commentInValue) { if (char === "*" && next === "/") { commentInValue = false; i++; } continue; }
+    if (quoteInValue) {
+      if (escapedInValue) { escapedInValue = false; continue; }
+      if (char === "\\") { escapedInValue = true; continue; }
+      if (char === quoteInValue) quoteInValue = null;
+      continue;
+    }
+    if (char === "/" && next === "*") { commentInValue = true; i++; continue; }
+    if (char === "'" || char === '"') { quoteInValue = char; continue; }
+    if (char === "(") parentheses++;
+    else if (char === ")") parentheses = Math.max(0, parentheses - 1);
+    else if (char === "[") brackets++;
+    else if (char === "]") brackets = Math.max(0, brackets - 1);
+    else if (char === ":" && parentheses === 0 && brackets === 0) hasColon = true;
+    else if (char === ";" && parentheses === 0 && brackets === 0) hasColon = false;
+  }
+  const declaration = segment.split(";").at(-1);
+  return { mode: hasColon ? "value" : "property", segment: declaration };
 }
 
 function makeOptions(items, query, from, to, kind) {
