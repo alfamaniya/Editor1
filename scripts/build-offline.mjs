@@ -407,15 +407,19 @@ async function main() {
     headerMarkup, headerCss, headerModule,
     newPageMarkup, newPageCss, newPageModule,
     dividerMarkup, dividerCss, dividerModule,
-    editorTemplate, editorCss, previewTemplate, previewCss, previewScript
+    editorTemplate, editorCss, previewTemplate
   ] = await Promise.all([
     readEntry(assembly.shell, "html"), readEntry(assembly.shell, "styles"), readEntry(assembly.shell, "scripts"),
     readEntry(assembly.header, "html"), readEntry(assembly.header, "styles"), readEntry(assembly.header, "scripts"),
     readEntry(assembly.newPageAction, "html"), readEntry(assembly.newPageAction, "styles"), readEntry(assembly.newPageAction, "scripts"),
     readEntry(assembly.workspaceDivider, "html"), readEntry(assembly.workspaceDivider, "styles"), readEntry(assembly.workspaceDivider, "scripts"),
     readEntry(assembly.editor, "html"), readEntry(assembly.editor, "styles"),
-    readEntry(assembly.preview, "html"), readEntry(assembly.preview, "styles"), readEntry(assembly.preview, "scripts")
+    readEntry(assembly.preview, "html")
   ]);
+  const previewStyles = await Promise.all((entry(assembly.preview).styles || []).map(read));
+  const previewScripts = await Promise.all((entry(assembly.preview).scripts || []).map(read));
+  const previewCss = previewStyles.join("\\n");
+  const previewScript = previewScripts.join("\\n");
   const extraKeyModule = await readEntry(assembly.shell, "scripts", 1);
   const actionAssets = await Promise.all(assembly.actionComponents.map(async id => ({
     markup: await readEntry(id, "html"), css: await readEntry(id, "styles"),
