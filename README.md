@@ -67,17 +67,90 @@ Editor1/
 │   │   ├── completions.html.json
 │   │   ├── completions.css.json
 │   │   └── completions.javascript.json
-│   ├── examples/ (.gitkeep)
+│   ├── examples/
+│   │   └── .gitkeep
 │   ├── src/
-│   │   ├── core/ (document, editor, state, selection, transaction, history)
-│   │   ├── features/ (bracket matching, line numbers, syntax highlighting)
-│   │   ├── input/ (input controller, keyboard, clipboard, suggestions)
-│   │   ├── language/ (language manager, parsers, rules, completion)
-│   │   ├── rendering/ (editor view, line renderer, cursor)
-│   │   ├── themes/ (theme CSS and manager)
-│   │   └── utils/ (utility placeholders)
-│   │   └── [فایل‌های کامل زیر در فهرست شرح فایل‌ها]
+│   │   ├── core/
+│   │   │   ├── document.js
+│   │   │   ├── editor-state.js
+│   │   │   ├── editor.js
+│   │   │   ├── history.js
+│   │   │   ├── selection.js
+│   │   │   └── transaction.js
+│   │   ├── features/
+│   │   │   ├── bracket-matching/bracket-matcher.js
+│   │   │   ├── line-numbers/line-numbers.js
+│   │   │   └── syntax-highlighting/highlighter.js
+│
+│   │   ├── input/
+│   │   │   ├── clipboard-handler.js
+│   │   │   ├── input-controller.js
+│
+│   │   │   ├── keyboard-handler.js
+│
+│   │   │   └── suggestion-dispatcher.js
+│
+│   │   ├── language/
+│   │   │   ├── tokenizer.js
+│
+│   │   │   ├── language-manager.js
+│
+│   │   │   ├── parser-manager.js
+│
+│   │   │   ├── css/
+│
+│   │   │   │   ├── css-completion.js
+│
+│   │   │   │   ├── css-language.js
+│
+│   │   │   │   ├── css-parser.js
+│
+│   │   │   │   └── css-rules.js
+│
+│   │   │   ├── html/
+│
+│   │   │   │   ├── html-completion.js
+│
+│   │   │   │   ├── html-language.js
+│
+│   │   │   │   ├── html-parser.js
+│
+│   │   │   │   └── html-rules.js
+│
+│   │   │   └── javascript/
+│
+│   │   │   │   ├── javascript-completion.js
+│
+│   │   │   │   ├── javascript-language.js
+│
+│   │   │   │   ├── javascript-parser.js
+│
+│   │   │   │   └── javascript-rules.js
+│
+│   │   ├── rendering/
+│
+│   │   │   ├── cursor-renderer.js
+│
+│   │   │   ├── editor-view.js
+│
+│   │   │   └── line-renderer.js
+│
+│   │   ├── themes/
+│
+│   │   │   ├── dark.css
+│
+│   │   │   ├── light.css
+│
+│   │   │   └── theme-manager.js
+│
+│   │   └── utils/
+│
+│   │           ├── dom.js
+│
+│   │           └── helpers.js
+│
 │   ├── tests/
+│   │   ├── .gitkeep
 │   │   ├── alfacode.test.mjs
 │   │   ├── catalog-manager.test.mjs
 │   │   ├── completion-runtime.test.mjs
@@ -85,7 +158,7 @@ Editor1/
 │   │   ├── html-completion-fixtures.mjs
 │   │   ├── html-completion-shadow.test.mjs
 │   │   └── workspace-layout.test.mjs
-├── maps/
+│├── maps/
 │   └── ROADMAP.md
 ├── scripts/
 │   ├── offline-manifest.json
@@ -134,6 +207,9 @@ Editor1/
 - `javascript-suggestions/javascript-suggestions.html`: قالب عنصر پیشنهادهای JavaScript.
 - `javascript-suggestions/javascript-suggestions.css`: استایل حداقلی پیشنهادهای JavaScript.
 - `javascript-suggestions/javascript-suggestions.js`: رابط/راه‌انداز پیشنهادهای JavaScript.
+- `tag-suggestions/tag-suggestions.html`: قالب UI پیشنهادهای HTML و پنل popup.
+- `tag-suggestions/tag-suggestions.css`: ظاهر popup پیشنهادهای HTML.
+- `tag-suggestions/tag-suggestions.js`: منطق نمایش، انتخاب و اتصال popup پیشنهاد HTML.
 - `new-page-action/new-page-action.html`: markup دکمه New Page.
 - `new-page-action/new-page-action.css`: ظاهر دکمه New Page.
 - `new-page-action/new-page-action.js`: رفتار ساخت/درخواست صفحه یا پروژه تازه.
