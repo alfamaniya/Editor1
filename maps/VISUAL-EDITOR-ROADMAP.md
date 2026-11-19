@@ -135,7 +135,7 @@ Turn Visual Editor into a polished, capable visual styling tool: select an eleme
 ## Property Inspector completion map
 - [x] Created a separate detailed controls checklist covering every property category and controls nested within each category.
 - [x] Registered the property map in README and the main roadmap.
-- [ ] Implement shared control behavior/readback/draft/apply/cancel/reset.
+- [x] Implement shared control behavior with reusable fields, Draft state, Apply/Cancel and category reset (readback behavior still needs category-specific refinement).
 - [ ] Implement categories in the ordered sequence defined in `maps/VISUAL-PROPERTIES-ROADMAP.md`.
 - [ ] Complete CSS integrity, regression tests, and browser/offline verification.
 
