@@ -4,7 +4,7 @@ const CATALOG_PATHS = {
   javascript: "../../alfacode/data/completions.javascript.json"
 };
 
-export async function loadCompletionCatalogs({ fetcher = fetch, baseUrl = globalThis.document?.baseURI ?? "http://localhost/" } = {}) {
+export async function loadCompletionCatalogs({ fetcher = fetch, baseUrl = globalThis.document?.baseURI } = {}) {
   const embedded = globalThis.__ALFACODE_COMPLETION_CATALOGS__;
   const entries = await Promise.all(Object.entries(CATALOG_PATHS).map(async ([language, path]) => {
     try {
