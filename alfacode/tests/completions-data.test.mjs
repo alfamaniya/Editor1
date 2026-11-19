@@ -502,7 +502,7 @@ test("JS-4 completes String and Number standard constructor and prototype proper
   const stringExpected = [
     "String.fromCharCode","String.fromCodePoint","String.raw",
     "String.prototype.constructor","String.prototype.[Symbol.iterator]",
-    "String.prototype.length","String.prototype.at","String.prototype.charAt",
+    "String.length","String.prototype.at","String.prototype.charAt",
     "String.prototype.charCodeAt","String.prototype.codePointAt","String.prototype.concat",
     "String.prototype.endsWith","String.prototype.includes","String.prototype.indexOf",
     "String.prototype.lastIndexOf","String.prototype.localeCompare","String.prototype.match",
@@ -526,8 +526,9 @@ test("JS-4 completes String and Number standard constructor and prototype proper
   }
   assert.equal(members.get("String.prototype.[Symbol.iterator]")?.memberKind,"instance-method");
   assert.equal(members.get("String.prototype.constructor")?.memberKind,"instance-property");
+  assert.equal(members.get("String.length")?.memberKind,"instance-property");
   assert.equal(members.get("Number.prototype.constructor")?.memberKind,"instance-property");
-  for (const label of ["String.length","String.name","String.prototype","Number.length","Number.name","Number.prototype"]) {
+  for (const label of ["String.name","String.prototype","Number.length","Number.name","Number.prototype"]) {
     assert.equal(members.get(label)?.memberKind,"static-property",label);
   }
 });
