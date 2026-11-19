@@ -49,7 +49,7 @@
       document.addEventListener("click",e=>{if(!picking||!(e.target instanceof Element)||e.target.closest("#visual-inspector"))return;const el=e.target;e.preventDefault();e.stopPropagation();picking=false;clear();const s=getComputedStyle(el),computed={};["backgroundColor","color","opacity","borderColor","borderWidth","borderRadius","borderStyle","width","height","boxShadow","padding","margin","fontSize","fontWeight","lineHeight","letterSpacing","gap"].forEach(k=>computed[k]=s[k]);parent.postMessage({type:"alfacode:visual-selected",selector:selector(el),tag:el.tagName.toLowerCase(),computed},"*");},true);
       window.addEventListener("message",e=>{if(e.data?.type==="alfacode:visual-preview-css"){let st=document.getElementById("editor1-visual-preview-styles");if(!st){st=document.createElement("style");st.id="editor1-visual-preview-styles";document.head.appendChild(st);}st.textContent=e.data.css||"";}if(e.data?.type==="alfacode:visual-pick"){picking=!!e.data.enabled;document.body.style.cursor=picking?"crosshair":"";if(!picking)clear();}});
     })();
-    <\\/script>\`;}
+        ` + "</" + "script>";}
   preview.addEventListener("load",refreshPreviewStyles);
   window.Editor1VisualEditor={refreshPreviewStyles,pickerScript};
 })();
