@@ -12,7 +12,7 @@
       set(property,value){values[property]=value;return values;},
       commit(){base=clone(values);return clone(values);},
       cancel(){values=clone(base);return clone(values);},
-      reset(properties){if(Array.isArray(properties))properties.forEach(p=>delete values[p]);else values={};return clone(values);},
+      reset(properties){if(Array.isArray(properties))properties.forEach(p=>values[p]="");else values={};return clone(values);},
       snapshot(){return clone(values);}
     };
   }
