@@ -1,15 +1,18 @@
 # اتصال کاتالوگ‌ها به New page
 
-هدف: اتصال JSONهای HTML/CSS/JavaScript به New page با حفظ رفتار فعلی و پشتیبانی آفلاین.
+هدف: New page داده‌ها را مستقیماً از سه JSON دریافت کند؛ بدون کاتالوگ موازی.
+
+## انجام‌شده
+- Loader مستقل `core/completion-catalog/catalog-loader.js` برای دریافت هر سه JSON.
+- بررسی HTTP و ساختار `records`، فیلتر رکوردهای غیرفعال، خطای جداگانه برای هر زبان (fail-soft).
+- صفحه کاتالوگ New page به داده‌های JSON وصل شد؛ جست‌وجو و فیلتر زبان روی داده‌های بارگذاری‌شده.
 
 ## باقی‌مانده — اولویت
-**P1 ممیزی:** بررسی New page، موتور و loaderهای موجود؛ قرارداد API، schema و fallback.
-**P2 Loader:** بارگذاری سه فایل، schema/language/version checks، cache، مسیر محلی و fail-soft.
-**P3 اتصال/context:** اتصال به تب فعال؛ جلوگیری از cross-language و listener تکراری؛ فیلتر context/metadata، CSS property/value و HTML parent/child/attributes؛ browser-only و snippetهای غیرفعال.
-**P4 درج:** تطبیق label/name/keys؛ درج درست tag/property/value/snippet؛ حفظ selection/Cursor؛ کلیدهای Escape/Enter/Tab/Arrow و جلوگیری از تکرار.
-**P5 آزمون/offline:** loader، خطای JSON مستقل، context، درج و regression؛ CI؛ تست New page online/offline؛ جاسازی JSON، حجم و latency.
-**P6 تکمیل:** README/معماری؛ حذف loader قدیمی پس از ممیزی؛ ثبت نتایج.
+1. اتصال runtime پیشنهادهای داخل Editor به JSONها؛ حذف وابستگی‌های legacy پس از تست.
+2. context filtering: HTML parent/child/attributes، CSS property/value، JavaScript member/identifier؛ کنترل snippet.
+3. درج و حفظ cursor/selection؛ کلیدهای Escape/Enter/Tab/Arrow و جلوگیری از تکرار.
+4. تست loader، خطای JSON مستقل، regression، CI و online/offline/browser/mobile.
+5. به‌روزرسانی README با نتایج واقعی آزمون و ارزیابی latency/حجم.
 
-فایل‌ها: `alfacode/data/completions.html.json`, `completions.css.json`, `completions.javascript.json`.
-
-اصول: modular، offline-first، fail-soft و بدون فعال‌سازی ناخواسته snippet.
+منابع: `alfacode/data/completions.html.json`, `completions.css.json`, `completions.javascript.json`.
+اصل: ماژولار، offline-first، fail-soft و snippetهای غیرفعال به‌صورت پیش‌فرض.
