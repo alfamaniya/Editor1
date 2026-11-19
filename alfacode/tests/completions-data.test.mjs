@@ -105,14 +105,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 929, javascript: 450 };
+  const expected = { html: 146, css: 929, javascript: 522 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 1525);
+  assert.equal(records.length, 1597);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -569,4 +569,102 @@ test("JS-5 Object, Date and RegExp constructor/prototype coverage", async () => 
     assert.equal(record.standardSource, "ECMA-262 2026", label);
   }
   assert.equal(Object.keys(expected).length, 23);
+});
+
+test("JS-6 completes Math, JSON and keyed-collection built-ins", async () => {
+  const members = (await readCatalog()).records.filter(r => r.language === "javascript" && r.type === "member");
+  const byLabel = new Map(members.map(r => [r.label, r]));
+  const expectedLabels = [
+  "Math.acos",
+  "Math.acosh",
+  "Math.asin",
+  "Math.asinh",
+  "Math.atan",
+  "Math.atanh",
+  "Math.atan2",
+  "Math.cbrt",
+  "Math.expm1",
+  "Math.clz32",
+  "Math.cos",
+  "Math.cosh",
+  "Math.exp",
+  "Math.fround",
+  "Math.hypot",
+  "Math.imul",
+  "Math.log",
+  "Math.log1p",
+  "Math.log2",
+  "Math.log10",
+  "Math.pow",
+  "Math.sign",
+  "Math.sin",
+  "Math.sinh",
+  "Math.tan",
+  "Math.tanh",
+  "Math.trunc",
+  "Math.E",
+  "Math.LN10",
+  "Math.LN2",
+  "Math.LOG10E",
+  "Math.LOG2E",
+  "Math.PI",
+  "Math.SQRT1_2",
+  "Math.SQRT2",
+  "Math.f16round",
+  "Math.sumPrecise",
+  "Math.[Symbol.toStringTag]",
+  "JSON.rawJSON",
+  "JSON.isRawJSON",
+  "JSON.[Symbol.toStringTag]",
+  "Map.[Symbol.species]",
+  "Map.name",
+  "Map.length",
+  "Map.prototype",
+  "Map.prototype.getOrInsert",
+  "Map.prototype.getOrInsertComputed",
+  "Map.prototype.[Symbol.toStringTag]",
+  "Map.prototype.[Symbol.iterator]",
+  "Set.[Symbol.species]",
+  "Set.name",
+  "Set.length",
+  "Set.prototype",
+  "Set.prototype.[Symbol.toStringTag]",
+  "Set.prototype.[Symbol.iterator]",
+  "WeakMap.name",
+  "WeakMap.length",
+  "WeakMap.prototype",
+  "WeakMap.prototype.delete",
+  "WeakMap.prototype.get",
+  "WeakMap.prototype.set",
+  "WeakMap.prototype.has",
+  "WeakMap.prototype.getOrInsert",
+  "WeakMap.prototype.getOrInsertComputed",
+  "WeakMap.prototype.[Symbol.toStringTag]",
+  "WeakSet.name",
+  "WeakSet.length",
+  "WeakSet.prototype",
+  "WeakSet.prototype.delete",
+  "WeakSet.prototype.has",
+  "WeakSet.prototype.add",
+  "WeakSet.prototype.[Symbol.toStringTag]"
+];
+  for (const label of expectedLabels) {
+    const record = byLabel.get(label);
+    assert.ok(record, "missing JS-6 member: " + label);
+    assert.equal(record.enabled, true, label);
+    assert.ok(["static-method","instance-method","static-property","instance-property"].includes(record.memberKind), label);
+    assert.equal(record.standardSource, "ECMA-262 2026", label);
+  }
+  assert.equal(expectedLabels.length, 72);
+  assert.equal(byLabel.get("Math.f16round")?.standardStatus, "es2025");
+  assert.equal(byLabel.get("Math.sumPrecise")?.standardStatus, "es2026");
+  for (const label of ["JSON.rawJSON","JSON.isRawJSON","Map.prototype.getOrInsert","Map.prototype.getOrInsertComputed","WeakMap.prototype.getOrInsert","WeakMap.prototype.getOrInsertComputed"]) {
+    assert.equal(byLabel.get(label)?.standardStatus, "es2026", label);
+  }
+  for (const label of ["Map.prototype.[Symbol.iterator]","Set.prototype.[Symbol.iterator]"]) {
+    assert.equal(byLabel.get(label)?.memberKind, "instance-method", label);
+  }
+  for (const label of ["Map.[Symbol.species]","Set.[Symbol.species]","Math.[Symbol.toStringTag]","JSON.[Symbol.toStringTag]"]) {
+    assert.equal(byLabel.get(label)?.memberKind, "static-property", label);
+  }
 });
