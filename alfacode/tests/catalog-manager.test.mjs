@@ -49,3 +49,11 @@ test("serialization emits a versioned JSON catalog", () => {
   const result = JSON.parse(serializeCatalog("css", 2, []));
   assert.deepEqual(result, { schemaVersion: 1, catalogVersion: 2, records: [] });
 });
+
+
+test("draft validation checks cross-record HTML parents and CSS property references", () => {
+  const htmlParent = { id:"html:div",language:"html",type:"tag",category:"x",label:"div",description:"x",order:1,enabled:true,tagName:"div",operation:"open",isVoid:false,contexts:[],parentTags:["missing-parent"],namespace:"html" };
+  assert.ok(validateCatalogDraft("html", [htmlParent]).some(error => error.field === "parentTags"));
+  const cssValue = { id:"css:value",language:"css",type:"value",category:"x",label:"block",description:"x",order:1,enabled:true,mode:"value",insertText:"block",propertyName:"missing-property" };
+  assert.ok(validateCatalogDraft("css", [cssValue]).some(error => error.field === "propertyName"));
+});
