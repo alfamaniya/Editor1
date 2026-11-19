@@ -19,8 +19,6 @@
         "project-reset",
         "clear-project-cookies",
         "new-page-action",
-        "mobile-workspace",
-        "mobile-extra-keys",
         "workspace-divider",
         "editor",
         "preview",
@@ -100,30 +98,6 @@
       ]
     },
     {
-      "id": "mobile-workspace",
-      "kind": "component",
-      "active": true,
-      "html": "core/mobile-workspace/mobile-workspace.html",
-      "styles": [
-        "core/mobile-workspace/mobile-workspace.css"
-      ],
-      "scripts": [
-        "core/mobile-workspace/mobile-workspace.js"
-      ]
-    },
-    {
-      "id": "mobile-extra-keys",
-      "kind": "component",
-      "active": true,
-      "html": "core/mobile-extra-keys/mobile-extra-keys.html",
-      "styles": [
-        "core/mobile-extra-keys/mobile-extra-keys.css"
-      ],
-      "scripts": [
-        "core/mobile-extra-keys/mobile-extra-keys.js"
-      ]
-    },
-    {
       "id": "workspace-divider",
       "kind": "component",
       "active": true,
@@ -194,8 +168,6 @@
       "project-reset",
       "clear-project-cookies"
     ],
-    "mobileWorkspace": "mobile-workspace",
-    "mobileExtraKeys": "mobile-extra-keys",
     "workspaceDivider": "workspace-divider",
     "editor": "editor",
     "preview": "preview",
