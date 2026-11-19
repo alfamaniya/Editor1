@@ -152,12 +152,14 @@ inspector.addEventListener("click",event=>{
 window.addEventListener("message",event=>{
   if(event.source!==window.parent || !event.data) return;
   if(event.data.type==="alfacode:visual-toggle") {
-    visualMode=!visualMode; inspector.hidden=false;
-    inspector.querySelector("#visual-panel-title").textContent=visualMode?"Select an element":"Element Settings";
+    visualMode=!visualMode;
+    if(!visualMode){ inspector.hidden=true; sendPickMode(false); return; }
+    inspector.hidden=false;
+    inspector.querySelector("#visual-panel-title").textContent="Select an element";
     inspector.querySelector("[data-visual-categories]").hidden=true;
     inspector.querySelector("[data-visual-controls]").hidden=true;
     inspector.querySelector("[data-visual-actions]").hidden=true;
-    sendPickMode(visualMode);
+    sendPickMode(true);
   }
 });
 frame.addEventListener("load",()=>{if(visualMode)sendPickMode(true);});
