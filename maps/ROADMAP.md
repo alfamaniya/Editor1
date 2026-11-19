@@ -187,3 +187,14 @@
 - [x] بررسی کد هنگام تغییر نمونه، خطای مرجع `isClosing` در `applyTagSuggestion` نیز کشف و تعریف آن اصلاح شد.
 - [ ] CI برای تست‌ها، syntax و build آفلاین پس از این commitها.
 - [ ] بررسی دستی پیش‌نمایش همه تب‌ها و کارکردهای نمونه HTML در مرورگر.
+
+
+### تکمیل نمونه‌های آغازین و اصلاحات حین ممیزی — ۱۹ نوامبر ۲۰۲۶
+- [x] نمونه HTML از نمونه بسیار ساده به مجموعه‌ای متنوع از تگ‌های ساختاری، متنی، لیستی، جدول، فرم و عناصر کاربردی گسترش یافت.
+- [x] CSS برای selectorهای پایه و ترکیبی، attribute/pseudo، flex/grid، responsive و reduced-motion مثال دارد.
+- [x] نمونه JavaScript انواع داده، destructuring، function/arrow، شرط، حلقه، map/filter، DOM، فرم، Date/Intl، timer، Promise، async/await، Map/Set و try/catch را نشان می‌دهد.
+- [x] نمونه تصویر از منبع خارجی به SVG inline منتقل شد تا offline-safe بماند.
+- [x] خطای undefined بودن `isClosing` در مسیر اعمال پیشنهاد HTML، هنگام بررسی کد کشف و تعریف آن اضافه شد.
+- [x] Template literals تو در تو در نمونه JavaScript به رشته‌سازی ساده تغییر یافتند تا در template والد، interpolation ناخواسته ایجاد نکنند.
+- [ ] CI پس از آخرین commit نمونه و README/Roadmap، تست و build آفلاین را تأیید کند.
+- [ ] بازبینی دستی Preview و اجرای نمونه JavaScript در مرورگر؛ چون هنوز کاربر تست مرورگر این تغییر را انجام نداده است.
