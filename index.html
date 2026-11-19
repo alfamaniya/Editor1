@@ -68,6 +68,13 @@
 
     /* ظاهر مشترک گزینه‌های Header و Footer */
     .scroll-area .item {
+      /* بازنشانی ظاهر پیش‌فرض Button تا مانند گزینه‌های قبلی نمایش داده شود */
+      border: 0;
+      color: inherit;
+      font-family: inherit;
+      line-height: inherit;
+      appearance: none;
+      -webkit-appearance: none;
       font-size: clamp(0.8rem, 2vw, 1rem);
       padding: clamp(0.25rem, 1.5vw, 0.5rem) clamp(0.5rem, 2vw, 1rem);
       border-radius: 6px;
@@ -198,26 +205,26 @@
   <header class="main-header">
     <nav class="scroll-area">
       <!-- گزینه پاک‌سازی کوکی‌ها؛ در نسخه فعلی فقط متن نمایشی است و اکشن ندارد. -->
-      <span class="item">clear cookies</span>
+      <button type="button" class="item">clear cookies</button>
       <!-- گزینه بازنشانی پروژه؛ فعلاً به رفتار جاوااسکریپت وصل نشده است. -->
-      <span class="item">reset project</span>
+      <button type="button" class="item">reset project</button>
       <!-- گزینه پاک کردن همه تب‌ها؛ فعلاً نمایشی و بدون اتصال است. -->
-      <span class="item">clear all tabs</span>
+      <button type="button" class="item">clear all tabs</button>
       <!-- گزینه پاک کردن تب جاری؛ فعلاً نمایشی و بدون اتصال است. -->
-      <span class="item">clear tab</span>
+      <button type="button" class="item">clear tab</button>
       <!-- گزینه JSON؛ متن نمونه برای جایگاه اکشن‌های هدر -->
-      <span class="item">json</span>
+      <button type="button" class="item">json</button>
       <!-- گزینه Map؛ متن نمونه برای جایگاه اکشن‌های هدر -->
-      <span class="item">map</span>
+      <button type="button" class="item">map</button>
       <!-- گزینه نمونه شماره ۲ -->
       <!-- گزینه فوتر شماره ۲ -->
-      <span class="item">2</span>
+      <button type="button" class="item">2</button>
       <!-- گزینه نمونه شماره ۳ -->
       <!-- گزینه فوتر شماره ۳ -->
-      <span class="item">3</span>
+      <button type="button" class="item">3</button>
       <!-- گزینه نمونه شماره ۴ -->
       <!-- گزینه فوتر شماره ۴ -->
-      <span class="item">4</span>
+      <button type="button" class="item">4</button>
     </nav>
   </header>
 
@@ -249,14 +256,14 @@
     <!-- نوار گزینه‌های پایین؛ آیتم‌های عددی صرفاً نمونه‌اند و فعلاً اکشن ندارند. -->
     <div class="scroll-area">
       <!-- گزینه فوتر شماره ۱ -->
-      <span class="item">1</span>
-      <span class="item">2</span>
-      <span class="item">3</span>
-      <span class="item">4</span>
+      <button type="button" class="item">1</button>
+      <button type="button" class="item">2</button>
+      <button type="button" class="item">3</button>
+      <button type="button" class="item">4</button>
       <!-- گزینه فوتر شماره ۵ -->
-      <span class="item">5</span>
+      <button type="button" class="item">5</button>
       <!-- گزینه فوتر شماره ۶ -->
-      <span class="item">6</span>
+      <button type="button" class="item">6</button>
     </div>
   </footer>
 
