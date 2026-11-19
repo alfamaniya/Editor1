@@ -511,3 +511,8 @@
 - [x] Exit Visual restores the standard workspace and updates the toolbar state.
 - [x] Regression tests added for panel modes and full-screen communication.
 - [ ] CI result and browser/manual desktop/tablet/mobile verification pending.
+
+### Visual workspace CI status — 20 November 2026
+- [x] 116/116 automated tests passed (Run 44623052830).
+- [x] Offline build/audit passed and artifact commit pushed (Run 44623039708).
+- [ ] Browser and responsive visual verification remain pending.
