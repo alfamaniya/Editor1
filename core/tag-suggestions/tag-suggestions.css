@@ -1,0 +1,68 @@
+.tag-suggestions {
+  position: fixed;
+  z-index: 10000;
+  width: min(280px, calc(100vw - 16px));
+  max-height: min(360px, calc(100vh - 16px));
+  overflow: hidden;
+  border: 1px solid #3b4a60;
+  border-radius: 9px;
+  background: #171f2d;
+  color: #e8edf5;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .38);
+  font: 12px/1.4 Inter, "Segoe UI", Arial, sans-serif;
+}
+.tag-suggestions[hidden] { display: none; }
+.tag-suggestions-heading {
+  padding: 8px 11px 6px;
+  color: #8ea3bf;
+  border-bottom: 1px solid #29384d;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.tag-suggestions-options {
+  max-height: 292px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 4px;
+}
+.tag-suggestion-option {
+  display: flex;
+  width: 100%;
+  min-height: 34px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 9px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.tag-suggestion-option:hover,
+.tag-suggestion-option.is-selected {
+  background: #263a55;
+}
+.tag-suggestion-label {
+  color: #a9d3ff;
+  font: 600 13px/1.3 Consolas, "Courier New", monospace;
+}
+.tag-suggestion-description {
+  overflow: hidden;
+  color: #8292a9;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tag-suggestions-hint {
+  padding: 6px 9px;
+  border-top: 1px solid #29384d;
+  color: #71839c;
+  font-size: 9px;
+  text-align: center;
+}
+

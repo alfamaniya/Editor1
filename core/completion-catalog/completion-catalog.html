@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10141d">
+  <title>Completion Catalog | AlfaCode</title>
+  <link rel="stylesheet" href="./completion-catalog.css">
+</head>
+<body>
+  <main class="catalog">
+    <header class="page-header">
+      <div><p class="eyebrow">ALFACODE REFERENCE</p><h1>فهرست تکمیل خودکار</h1><p class="subtitle">فهرست زنده پیشنهادهای HTML، CSS و JavaScript</p></div>
+      <a href="../" class="back-link">بازگشت به ویرایشگر</a>
+    </header>
+    <section class="toolbar" aria-label="Catalog filters">
+      <div class="language-tabs" role="tablist" aria-label="زبان">
+        <button type="button" role="tab" data-language="all" aria-selected="true">همه زبان‌ها</button>
+        <button type="button" role="tab" data-language="html" aria-selected="false">HTML</button>
+        <button type="button" role="tab" data-language="css" aria-selected="false">CSS</button>
+        <button type="button" role="tab" data-language="javascript" aria-selected="false">JavaScript</button>
+      </div>
+      <label class="search"><span>جست‌وجو</span><input id="search" type="search" placeholder="جست‌وجو در تمام فیلدهای JSON..." autocomplete="off"></label>
+    </section>
+
+    <details class="manager-panel">
+      <summary>مدیریت پیش‌نویس کاتالوگ</summary>
+      <p class="manager-note">ورود JSON یا TSV/CSV؛ داده‌ها ابتدا محلی و در پیش‌نویس ذخیره می‌شوند. برای Excel، محدوده سلول‌ها را کپی و اینجا جای‌گذاری کنید.</p>
+      <div class="manager-toolbar">
+        <label>زبان پیش‌نویس
+          <select id="draft-language"><option value="html">HTML</option><option value="css">CSS</option><option value="javascript">JavaScript</option></select>
+        </label>
+        <button type="button" id="import-draft">ورود JSON / TSV / CSV</button>
+        <button type="button" id="add-draft">رکورد جدید</button>
+        <button type="button" id="validate-draft">اعتبارسنجی</button>
+        <button type="button" id="export-draft">دریافت JSON</button>
+        <button type="button" id="save-draft">ذخیره پیش‌نویس</button>
+        <button type="button" id="discard-draft">بازگشت به داده اصلی</button>
+      </div>
+      <label class="manager-field">ورود گروهی از JSON یا داده کپی‌شده از Excel
+        <textarea id="bulk-import" rows="4" spellcheck="false" placeholder="JSON یا TSV با سرستون‌هایی مانند id، label، description و ..."></textarea>
+      </label>
+      <p id="manager-status" class="manager-status" role="status" aria-live="polite">هیچ تغییری در فایل اصلی ایجاد نمی‌شود.</p>
+      <div id="draft-records" class="draft-records" aria-label="رکوردهای پیش‌نویس"></div>
+      <label class="manager-field">ویرایش رکورد انتخاب‌شده (JSON)
+        <textarea id="record-json" rows="10" spellcheck="false"></textarea>
+      </label>
+      <div class="manager-toolbar">
+        <button type="button" id="save-record">اعمال ویرایش رکورد</button>
+        <button type="button" id="delete-record">حذف از پیش‌نویس</button>
+      </div>
+      <ul id="manager-errors" class="manager-errors" aria-live="polite"></ul>
+    </details>
+    <section class="summary" aria-live="polite"><strong id="count">0</strong><span>مورد در فهرست</span><span id="updated"></span></section>
+    <p id="load-errors" class="load-errors" role="alert" hidden></p>
+    <div class="table-wrap">
+      <table>
+        <thead id="columns"><tr><th>در حال آماده‌سازی ستون‌ها...</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="4">در حال بارگذاری فهرست...</td></tr></tbody>
+      </table>
+    </div>
+    <p class="footnote">جدول تمام فیلدهای موجود در JSONها را نمایش می‌دهد؛ ستون‌ها با داده‌ها ساخته می‌شوند، برای مرتب‌سازی روی عنوان ستون کلیک کنید و برای مشاهده فیلدهای بیشتر اسکرول افقی کنید.</p>
+  </main>
+  <script type="module" src="./completion-catalog.js"></script>
+</body>
+</html>

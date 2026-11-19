@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlfaCode Editor</title>
+  <link rel="stylesheet" href="./editor.css">
+  <link rel="stylesheet" href="../tag-suggestions/tag-suggestions.css">
+  <link rel="stylesheet" href="../../alfacode/src/themes/dark.css">
+  <link rel="stylesheet" href="../../alfacode/src/themes/light.css">
+</head>
+<body>
+  <main class="section">
+    <nav class="editor-tabs" role="tablist" aria-label="Code language">
+      <button class="editor-tab is-active" id="tab-html" type="button" role="tab"
+              aria-selected="true" aria-controls="editor-host" data-language="html">HTML</button>
+      <button class="editor-tab" id="tab-css" type="button" role="tab"
+              aria-selected="false" aria-controls="editor-host" data-language="css">CSS</button>
+      <button class="editor-tab" id="tab-javascript" type="button" role="tab"
+              aria-selected="false" aria-controls="editor-host" data-language="javascript">JavaScript</button>
+    </nav>
+    <div id="editor-host" class="editor-host" role="tabpanel" aria-label="Code editor"></div>
+    <footer class="editor-footer"><span id="editor-status" class="editor-status" role="status">Loading AlfaCode…</span><span id="storage-status" class="browser-storage-status" role="status" aria-live="polite">Browser storage ready</span></footer>
+  </main>
+  <script type="module" src="./editor.js"></script>
+</body>
+</html>
