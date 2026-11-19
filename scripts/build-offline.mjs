@@ -544,8 +544,8 @@ async function main() {
   ${projectResetModule}
   ${clearBrowserDataModule}
   ${makeDividerComponent(dividerMarkup, dividerCss)}
-  const editorFrame = document.querySelector(".editor-panel .section-frame");
-  const previewFrame = document.querySelector(".preview-panel .section-frame");
+  const editorFrame = document.getElementById("editorFrame");
+  const previewFrame = document.getElementById("previewFrame");
   // Register message and load listeners before assigning fast-loading srcdoc documents.
   ${clearEditorStorageModule}
   ${coordinator}
@@ -571,8 +571,8 @@ async function main() {
     resourceTags: shell.match(/<\\s*(?:script|link|iframe)\\b[^>]*>/gi) || [],
     externalAttributeMatch: shell.match(new RegExp("<script\\b[^>]*\\bsrc\\s*=|<link\\b[^>]*\\bhref\\s*=|<iframe\\b[^>]*\\bsrc\\s*=", "i"))?.[0] || ""
   };
-  const failedChecks = Object.entries(outputChecks).filter(([key,value]) =>
-    (key === "forbiddenAboutBlank" || key === "externalSourceAttributes") ? value : !value
+  const failedChecks = Object.entries(outputChecks).filter(([key,value]) => typeof value === "boolean" &&
+    (key === "forbiddenAboutBlank" || key === "externalSourceAttributes") ? value : typeof value === "boolean" && !value
   );
   if (failedChecks.length) {
     throw new Error("Offline output validation failed: " + JSON.stringify(outputChecks));
