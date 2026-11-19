@@ -7,6 +7,7 @@ Editor1 یک محیط تحت وب برای نوشتن و اجرای کدهای H
 تمام نقشه‌های پروژه در پوشه مرکزی `maps/` نگهداری می‌شوند. برای بازکردن هر نقشه، روی عنوان آن کلیک کنید:
 
 - [صفحه مرکزی مپ — مشاهده همه نقشه‌ها](./maps/map.html)
+- [اتصال کاتالوگ‌های HTML، CSS و JavaScript به New page](./maps/new-page-catalog-integration.md)
 - [تکمیل کاتالوگ HTML، CSS و JavaScript](./maps/catalog-completion.md)
 - [آزمون و اعتبارسنجی داده‌های کاتالوگ](./maps/catalog-data-validation.md)
 - [مدیریت و انتشار کاتالوگ](./maps/catalog-management-and-release.md)
