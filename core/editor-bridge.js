@@ -42,6 +42,12 @@
     if (!event.data) return;
     const data = event.data;
 
+    if (event.source === previewFrame.contentWindow && data.type === "alfacode:visual-mode-active" && typeof data.active === "boolean") {
+      document.body.classList.toggle("visual-mode", data.active);
+      document.getElementById("visualSettings")?.setAttribute("aria-pressed", String(data.active));
+      return;
+    }
+
     if (event.source === previewFrame.contentWindow &&
         data.type === "alfacode:visual-css-update" && typeof data.css === "string") {
       editorFrame.contentWindow?.postMessage({ type: "alfacode:visual-css-update", css: data.css }, "*");
