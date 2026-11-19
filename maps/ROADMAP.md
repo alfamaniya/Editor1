@@ -24,6 +24,9 @@
 - [x] فعال‌سازی انتخاب المان در Preview و نمایش دسته‌های Color، Border، Size، Shadow، Spacing و Typography.
 - [x] ساخت پنل کنترل دسته‌ای با Apply و Back.
 - [x] انتقال تغییرات تأییدشده به CSS Editor و بازتاب در Preview.
+- [x] جداسازی Visual Editor در ماژول JavaScript مستقل و CSS اختصاصی.
+- [x] اتصال فایل‌های جدید به Preview و Offline Manifest.
+- [ ] آزمون مرورگر: انتخاب المان، دسته‌ها، Apply/Back و همگام‌سازی CSS.
 - [ ] تست مرورگر: انتخاب عناصر مختلف، selector path، Apply/Back، و بررسی CSS در تب CSS.
 - [ ] بررسی اینکه ویرایش دستی بعد از بلوک CSS تولیدی با Apply بعدی حفظ شود؛ بلوک تولیدی در انتهای فایل بازسازی می‌شود.
 - [ ] تست حالت Offline و موبایل؛ هنوز تست واقعی انجام نشده است.
