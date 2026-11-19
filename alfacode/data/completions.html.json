@@ -2714,6 +2714,23 @@
       "contexts": [],
       "parentTags": [],
       "namespace": "html"
+    },
+    {
+      "id": "html:tag:html:dl",
+      "language": "html",
+      "type": "tag",
+      "category": "فهرست‌ها",
+      "label": "dl",
+      "description": "Description list container for terms and their descriptions",
+      "rank": 1,
+      "order": 1,
+      "enabled": true,
+      "tagName": "dl",
+      "operation": "open",
+      "isVoid": false,
+      "contexts": [],
+      "parentTags": [],
+      "namespace": "html"
     }
   ]
 }
