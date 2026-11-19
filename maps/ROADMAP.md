@@ -466,3 +466,8 @@
 - [x] Registered the new map in README and the Visual Editor completion map.
 - [ ] Implement the shared control state contract and then deliver categories in the map's staged sequence; all listed controls are planned, not implemented yet.
 \n\n## Visual Editor shared controls infrastructure — 20 November 2026\n- [x] Added reusable property field and draft lifecycle helpers in `core/visual-editor/property-controls.js`.\n- [x] Connected the shared helper before Visual Editor initialization in Preview.\n- [x] Integrated draft, commit, cancel, and category reset actions.\n- [x] Added source-level regression checks and included the new module in JavaScript syntax checks.\n- [ ] Confirm actual browser interaction, CSS update/rollback, category reset, and offline build.\n
+
+## Visual Editor Color category — 20 November 2026
+- [x] Implemented Color panel: Background, Text, Border, Opacity, HEX picker/entry, swatches, Linear/Radial gradients.
+- [x] Corrected Reset Category draft behavior so clearing properties can override committed properties when applied.
+- [ ] Run full automated suite, offline build, and manual browser interaction before considering Color fully verified.
