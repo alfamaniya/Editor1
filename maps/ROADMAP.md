@@ -419,3 +419,9 @@
 - [x] Keep existing desktop footer helper keys and insertion pathway unchanged.
 - [x] Use Visual Viewport height change heuristic; no direct native keyboard-open event is available.
 - [ ] Manual device testing for keyboard timing, viewport edge cases, Android/iOS, and offline artifact.
+
+
+## Live Preview regression fix — 19 November 2026
+- [x] Fixed malformed newline escape in `core/editor-bridge.js` that prevented the bridge script from parsing and receiving editor source updates.
+- [x] Fixed malformed newline escape in `core/extra-key-action/extra-key-action.js`.
+- [ ] Run automated syntax/build validation and manually confirm live Preview.
