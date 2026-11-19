@@ -38,7 +38,8 @@
   });
   mobileBar?.querySelectorAll("button").forEach(button => {
     button.addEventListener("pointerdown", event => event.preventDefault());
-  });\n  buttons.forEach(button => button.addEventListener("click", () => {
+  });
+  buttons.forEach(button => button.addEventListener("click", () => {
     const key = button.dataset.extraKey;
     if (!key) return;
     editorFrame.contentWindow?.postMessage({ type: "alfacode:extra-key-command", key }, "*");
