@@ -6,7 +6,7 @@
 - [ ] Read the selected element's current computed and authored CSS values when a category opens.
 - [ ] Show authored CSS values as priority; use computed values as fallback without losing source declarations.
 - [ ] Keep exact numeric entry and units alongside sliders/visual controls where appropriate.
-- [ ] Use a consistent draft state: preview live, Apply commits, Cancel restores, Reset resets only the active category.
+- [x] Establish a shared draft-state contract: preview live, Apply commits, Cancel restores, and Reset removes only active-category declarations. Full category-level behavior and validation remain pending.
 - [ ] Preserve unrelated declarations, shorthand/longhand relationships, and `!important`.
 - [ ] Reflect updates in CSS editor and Preview; avoid duplicate rules/declarations.
 - [ ] Display a clear indicator when a value is inherited, computed, or explicitly authored.
