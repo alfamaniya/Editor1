@@ -44,6 +44,14 @@
 
     if (data.type === "alfacode:editor-state") return;
 
+    if (data.type === "alfacode:visual-css-update" && typeof data.css === "string") {
+      editorFrame.contentWindow?.postMessage({
+        type: "alfacode:visual-css-update",
+        css: data.css
+      }, "*");
+      return;
+    }
+
     if (data.type === "alfacode:source-change" && data.sources &&
         ["html", "css", "javascript"].every(key => typeof data.sources[key] === "string")) {
       Object.assign(sources, data.sources);
@@ -53,6 +61,10 @@
 
   window.addEventListener("message", handleMessage);
   previewFrame.addEventListener("load", renderPreview);
+
+  document.getElementById("visualSettings")?.addEventListener("click", () => {
+    previewFrame.contentWindow?.postMessage({ type: "alfacode:visual-toggle" }, "*");
+  });
 
   // Confirmation prompts prevent accidental loss of code.
   document.getElementById("clearAllTabs")?.addEventListener("click", () => {
