@@ -50,3 +50,6 @@ python -m http.server 8000
 - [x] نمونه CSS با selectorهای متنوع، pseudo، attribute، flex/grid، animation، responsive media queries و متغیرها.
 - [x] نمونه JavaScript با متغیرها، آرایه/شیء، destructuring، function/arrow، شرط/حلقه، map/filter، DOM، فرم، Date/Intl، timer، Promise، Map/Set و try/catch.
 - [x] تصویر نمونه با SVG تعبیه‌شده و بدون وابستگی به منبع خارجی.
+
+### نمونه پیش‌فرض جدید (در حال تأیید CI)
+نمونه‌های آغازین هر تب گسترش یافته‌اند: HTML شامل تگ‌های معنایی، متن، لیست، جدول، فرم و عناصر تعاملی/رسانه‌ای؛ CSS شامل Selectorهای متنوع، pseudo، attribute، Flex/Grid، Media Query و reduced-motion؛ JavaScript شامل متغیرها، توابع، شرط/حلقه، مجموعه‌ها، DOM/فرم، Date/Intl، Timer، Promise و Async/Await. تصویر نمونه به SVG inline تغییر داده شده تا وابستگی اینترنتی نداشته باشد.
