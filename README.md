@@ -16,9 +16,11 @@ Editor1/
 │   └── send-offline-email.yml
 ├── index.html (نسخه جدید Layout؛ مستقل و هنوز بدون اتصال به اجزای مخزن)
 ├── index-original-disabled.html (نسخه قبلی ورودی اصلی؛ نگهداری‌شده و غیرفعال)
-├── style.css (استایل‌های عمومی/ریشه؛ در صورت نیاز)
-├── style-backup.css (نسخه پشتیبان قبلی)
-├── script.js
+├── backup/
+│   ├── style.css (CSS ریشه ساختار قبلی)
+│   ├── style-backup.css (نسخه پشتیبان قدیمی CSS)
+│   └── script.js (هماهنگ‌کننده قبلی Editor/Preview)
+├── script.js (حذف‌شده از ریشه؛ منتقل‌شده به backup/)
 ├── README.md
 ├── core/
 │   ├── browser-storage/ (html, css, js)
@@ -87,9 +89,9 @@ Editor1/
 
 ### فایل‌های ریشه
 - `index.html`: پوسته صفحه؛ قرار دادن Header، پنل Editor، پنل Preview، Divider و اتصال اسکریپت‌های اجزا.
-- `style.css`: منبع مرکزی ظاهر صفحه؛ شامل چیدمان Workspace، Header و دکمه Clear tabs. استایل این اجزا اعمال‌شده از Light DOM است تا CSS ریشه کنترل مستقیم داشته باشد.
-- `style-backup.css`: نسخه CSS ریشه پیش از آزمایش خالی‌سازی؛ به‌عنوان نسخه پشتیبان نگه داشته شده است.
-- `script.js`: هماهنگ‌کننده برنامه؛ پیام‌های Editor را دریافت و محتوای HTML/CSS/JS را به Preview منتقل می‌کند و فرمان‌های Header را به Editor می‌فرستد.
+- `backup/style.css`: CSS ریشه ساختار قبلی، اکنون نگهداری‌شده در پوشه پشتیبان.
+- `backup/style-backup.css`: نسخه قدیمی‌تر CSS ریشه.
+- `backup/script.js`: هماهنگ‌کننده قبلی Editor/Preview و فرمان‌های Header؛ فعلاً از ریشه جدا و غیرفعال نگهداری می‌شود.
 - `README.md`: راهنمای اصلی، درخت مخزن و توضیح فایل‌ها/روش اجرا/ساخت آفلاین/آزمون.
 - `maps/ROADMAP.md`: تنها سند برنامه‌ریزی؛ کارهای انجام‌شده، باقی‌مانده‌ها و معیارهای پذیرش.
 
