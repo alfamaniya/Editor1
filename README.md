@@ -308,3 +308,9 @@ Editor1/
 - Preserved the catalog page and its HTML/CSS/JavaScript reference table, filters, search, sorting, and draft tools.
 - Updated the offline build bootstrap so the root Code Catalog button opens the embedded catalog document; fixed the shell bridge manifest entry to `core/editor-bridge.js`.
 - Browser/CI and offline build verification are not yet performed in this repository-edit session.
+
+
+## Helper Keys (symbol keyboard)
+
+- `core/extra-key-action/extra-key-action.js`: connects the footer symbol buttons to the AlfaCode editor using the `alfacode:extra-key-command` message. Buttons preserve the editor's insertion and cursor behavior by reusing the existing `applyExtraKey` handler.
+- The footer provides quick access to parentheses, braces, brackets, angle signs, quotes, and common punctuation. The helper module is included in the offline build manifest.
