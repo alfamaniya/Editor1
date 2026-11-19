@@ -82,7 +82,7 @@ function buildPreviewDocument(sources) {
   const css = sources.css.replace(/<\/style/gi, "<\\/style");
   if (css) {
     const styleTag = "<style>" + css + "</style>";
-    if (/<\/head\s*>/i.test(html)) html = html.replace(/<\\/head\\s*>/i, styleTag + "</head>");
+    if (/<\/head\s*>/i.test(html)) html = html.replace(/<\/head\s*>/i, styleTag + "</head>");
     else html = styleTag + html;
   }
   html = insertBeforeClosingTag(html, "body", helperScript());
@@ -146,7 +146,7 @@ inspector.addEventListener("click",event=>{
   const target=event.target.closest("button"); if(!target) return;
   if(target.matches("[data-visual-close]")) {inspector.hidden=true;visualMode=false;sendPickMode(false);return;}
   if(target.dataset.category) openCategory(target.dataset.category);
-  if(target.matches("[data-visual-back]")) showCategories();
+  if(target.matches("[data-visual-back]")) { applyDraft(); showCategories(); }
   if(target.matches("[data-visual-apply]")) {committedRules[selectedSelector]={...draftRules};renderCommittedRules();showCategories();}
 });
 window.addEventListener("message",event=>{
