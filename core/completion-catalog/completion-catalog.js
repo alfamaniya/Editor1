@@ -1,5 +1,11 @@
 import { loadCompletionCatalogs } from "./catalog-loader.js";
 
+const backLink = document.querySelector(".back-link");
+backLink?.addEventListener("click", event => {
+  event.preventDefault();
+  window.close();
+});
+
 const rows = document.querySelector("#rows");
 const count = document.querySelector("#count");
 const updated = document.querySelector("#updated");
