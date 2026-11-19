@@ -9,11 +9,11 @@
 Turn Visual Editor into a polished, capable visual styling tool: select an element in Preview, adjust its appearance through organized controls, preview changes, and commit safely without losing existing CSS.
 
 ## Stage A — Visual UI/UX redesign
-- [ ] Redesign the Visual Editor panel to match Editor1's professional, restrained UI style.
-- [ ] Improve element-selection affordances: hover, selected outline, element label/type, and clear/deselect action.
-- [ ] Establish consistent button, icon, tooltip, input, slider, spacing, and panel behavior.
+- [x] Redesign the Visual Editor panel to match Editor1's professional, restrained UI style (builder-inspired left Elements rail, top strip, right Inspector).
+- [x] Improve element-selection affordances: selection button, preview hover, element label, and selector path display. Clear/deselect refinements remain pending.
+- [x] Establish initial consistent button, icon, input, spacing, and panel styling. Tooltip/control refinements remain pending.
 - [ ] Improve contextual settings navigation and panel hierarchy.
-- [ ] Keep the interface compact, readable, responsive, and internally scrollable.
+- [x] Keep the redesigned interface compact, readable, responsive, and internally scrollable.
 
 ## Stage B — Complete primary setting categories
 ### Color
