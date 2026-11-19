@@ -14,13 +14,13 @@ Editor1/
 │   ├── alfacode-tests.yml
 │   ├── build-offline.yml
 │   └── send-offline-email.yml
-├── index.html (نسخه جدید Layout؛ مستقل و هنوز بدون اتصال به اجزای مخزن)
+├── index.html (Layout؛ استایل کلی Buttonها از style.css دریافت می‌شود)
 ├── backup/index-original-disabled.html (نسخه پشتیبان ایندکس قدیمی) (نسخه قبلی ورودی اصلی؛ نگهداری‌شده و غیرفعال)
 ├── backup/
 │   ├── style.css (CSS ریشه ساختار قبلی)
 │   ├── style-backup.css (نسخه پشتیبان قدیمی CSS)
 │   └── script.js (هماهنگ‌کننده قبلی Editor/Preview)
-├── README.md
+├── style.css (استایل عمومی Buttonهای Header و Footer؛ فعلاً فقط ظاهر کلی)\n├── README.md
 ├── core/
 │   ├── browser-storage/ (html, css, js)
 │   ├── clear-project-cookies/ (html, css, js)
