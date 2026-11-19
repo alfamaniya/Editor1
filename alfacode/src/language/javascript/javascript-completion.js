@@ -62,7 +62,7 @@ function inferMemberOwner(source, expression) {
   if (!initializer) return null;
   const constructor = initializer.match(/^new\s+([A-Za-z_$][\w$]*)\s*\(/);
   if (constructor) return INSTANCE_OWNER_BY_TYPE[constructor[1]] ?? constructor[1] + ".prototype";
-  if (/^(?:\[\s*\]|Array\s*\()/i.test(initializer)) return "Array.prototype";
+  if (/^(?:\[\s*\]|Array\s*\()/i.test(initializer)) return "Array";
   if (/^(?:["'\x60]|String\s*\()/i.test(initializer)) return "String.prototype";
   if (/^(?:-?\d+(?:\.\d+)?|Number\s*\()/i.test(initializer)) return "Number.prototype";
   if (/^(?:true|false|Boolean\s*\()/i.test(initializer)) return "Boolean.prototype";
