@@ -2,7 +2,7 @@
 
 **UI language and direction:** English only; left-to-right (`LTR`) throughout. No Persian text is permitted in user-visible interface labels, messages, tooltips, or accessibility text. Source-code comments may be Persian.
 
-**Core folder policy:** Legacy components remain preserved in `core-old/`. The new `core/` contains active JavaScript files, including the unified browser-storage engine `core/browser-storage.js`.
+**Core folder policy:** Legacy components are archived under `backup/core-old/`. The active `core/` contains JavaScript files, including the unified browser-storage engine `core/browser-storage.js`.
 
 
 
@@ -23,11 +23,11 @@ Editor1/
 ├── index.html (Layout؛ استایل کلی Buttonها از style.css دریافت می‌شود)
 ├── backup/index-original-disabled.html (نسخه پشتیبان ایندکس قدیمی) (نسخه قبلی ورودی اصلی؛ نگهداری‌شده و غیرفعال)
 ├── backup/
+│   ├── core-old/ (legacy components archive)
 │   ├── style.css (CSS ریشه ساختار قبلی)
 │   ├── style-backup.css (نسخه پشتیبان قدیمی CSS)
 │   └── script.js (هماهنگ‌کننده قبلی Editor/Preview)
 ├── style.css (استایل عمومی Buttonهای Header و Footer؛ فعلاً فقط ظاهر کلی)\n├── README.md
-├── core-old/ (legacy components archive)
 │   ├── browser-storage/ ...
 │   ├── clear-project-cookies/ ...
 │   ├── clear-tabs/ ...
@@ -119,7 +119,7 @@ Editor1/
 - `core/browser-storage.js`: موتور یکپارچه ذخیره‌سازی مرورگر؛ API عمومی `window.Editor1Storage`، مدیریت LocalStorage، IndexedDB، کوکی‌های قابل دسترس JavaScript، ذخیره/بازیابی/فهرست پروژه‌ها، زمان‌بندی Auto-save، برآورد ظرفیت و پاک‌سازی داده‌های Editor1.
 - فایل موتور به صورت مستقل پیاده‌سازی شده است؛ هنوز به `index.html` یا Editor متصل نشده و یکپارچه‌سازی/آزمون واقعی مرورگر در مرحله بعد است.
 
-### اجزای رابط `core-old/`
+### اجزای رابط آرشیوشده `backup/core-old/`
 هر جزء HTML/CSS/JS جدا دارد؛ HTML ساختار، CSS ظاهر و JS رفتار را پیاده می‌کند.
 - `browser-storage/browser-storage.html`: نقطه تعریف Web Component ذخیره مرورگر.
 - `browser-storage/browser-storage.css`: استایل جزء ذخیره‌سازی؛ فایل بسیار کوچک فعلی.
