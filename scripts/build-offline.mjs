@@ -291,7 +291,8 @@ function inlineCatalogDocument(template, stylesheet, bundle, completionCatalogs)
   html = html.replace(/\s*<script\b[^>]*src=["'][^"']*completion-catalog\.js["'][^>]*>\s*<\/script>/i, "");
   html = html.replace(/(<a\b(?=[^>]*\bclass=["'][^"']*\bback-link\b)[^>]*\bhref=)["'][^"']*["']/i, '$1"#"');
   html = html.replace("</head>", "<style>\n" + stylesheet + "\n</style>\n</head>");
-  const runtime = "<script>window.__ALFACODE_COMPLETION_CATALOGS__ = " + JSON.stringify(completionCatalogs) + ";</script><script>\n" + escapeScript(bundle) + "\n</script>";
+  const serializedCatalogs = JSON.stringify(completionCatalogs).replace(/</g, "\\\\u003c");
+  const runtime = "<script>window.__ALFACODE_COMPLETION_CATALOGS__ = " + serializedCatalogs + ";</script><script>\n" + escapeScript(bundle) + "\n</script>";
   const backAction = "<script>document.querySelector('.back-link')?.addEventListener('click', event => { event.preventDefault(); window.close(); });</script>";
   return injectBeforeBodyEnd(html, runtime + backAction);
 }
