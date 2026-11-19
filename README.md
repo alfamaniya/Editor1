@@ -13,7 +13,8 @@ Editor1/
 │   ├── build-offline.yml
 │   └── send-offline-email.yml
 ├── index.html
-├── style.css
+├── style.css (فعلاً خالی برای تست تشخیصی)
+├── style-backup.css (نسخه پشتیبان CSS قبل از خالی‌سازی)
 ├── script.js
 ├── README.md
 ├── core/
@@ -81,7 +82,8 @@ Editor1/
 
 ### فایل‌های ریشه
 - `index.html`: پوسته صفحه؛ قرار دادن Header، پنل Editor، پنل Preview، Divider و اتصال اسکریپت‌های اجزا.
-- `style.css`: چیدمان اصلی صفحه، تقسیم فضای Editor/Preview، ابعاد iframeها، Overflow و قواعد عمومی.
+- `style.css`: فایل CSS ریشه؛ در حال حاضر عمداً خالی شده تا آزمایش تشخیصی اثر حذف CSS ریشه انجام شود.
+- `style-backup.css`: نسخه دقیق CSS قبلی ریشه، برای بازگردانی سریع پس از آزمایش.
 - `script.js`: هماهنگ‌کننده برنامه؛ پیام‌های Editor را دریافت و محتوای HTML/CSS/JS را به Preview منتقل می‌کند و فرمان‌های Header را به Editor می‌فرستد.
 - `README.md`: راهنمای اصلی، درخت مخزن و توضیح فایل‌ها/روش اجرا/ساخت آفلاین/آزمون.
 - `maps/ROADMAP.md`: تنها سند برنامه‌ریزی؛ کارهای انجام‌شده، باقی‌مانده‌ها و معیارهای پذیرش.
@@ -209,6 +211,12 @@ Editor1/
 - Audit: `node scripts/audit-offline-output.mjs`.
 - تست AlfaCode: فرمان Node test که در workflow `alfacode-tests.yml` تعریف شده است.
 - فایل Offline خروجی یک HTML مستقل است؛ بعد از تغییر منابع، Builder باید دوباره اجرا شود.
+
+## آزمایش تشخیصی CSS ریشه — ۱۹ نوامبر ۲۰۲۶
+- [x] نسخه قبلی `style.css` در `style-backup.css` ذخیره شد.
+- [x] محتوای `style.css` خالی شد؛ فایل و مسیر آن باقی است.
+- [ ] تست مرورگر در این وضعیت و ثبت اینکه ایراد عرض Gutter/فضای سفید Preview باقی می‌ماند یا نه.
+- [ ] پس از نتیجه تست، تصمیم درباره بازگردانی CSS از نسخه پشتیبان یا اصلاح هدفمند.
 
 ## نکات و محدودیت‌های فعلی
 - `utils/dom.js` و `utils/helpers.js` خالی هستند و placeholder محسوب می‌شوند.
