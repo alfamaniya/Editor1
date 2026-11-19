@@ -192,7 +192,7 @@
 - [x] JS-8 — تکمیل DOM: انتخاب عناصر، پیمایش، ساخت/حذف، ویژگی‌ها، کلاس‌ها، dataset، style، رویدادها و فرم‌ها.
 - [x] JS-9 — تکمیل Browser API: window، location، history، navigator، storage، timers، URL، clipboard و APIهای پرکاربرد؛ با تفکیک محیط مرورگر از JavaScript عمومی.
 - [x] JS-10 — تکمیل شبکه و داده: fetch، Request، Response، Headers، FormData، Blob و AbortController/AbortSignal؛ APIهای شبکه و داده ثبت شدند.
-- [ ] JS-11 — تکمیل ماژول‌ها، کلاس‌ها و الگوهای کدنویسی: import/export، constructor، getter/setter، ارث‌بری و الگوهای متداول.
+- [x] JS-11 — تکمیل ماژول‌ها و کلاس‌ها: ۱۶ snippet شامل import/export، constructor، getter/setter، ارث‌بری، private/static و dynamic import اضافه شدند؛ همه غیرفعال هستند.
 - [ ] JS-12 — بازبینی snippetها و الگوهای چندخطی: فقط مواردی که درج آن‌ها امن و قابل پیش‌بینی است فعال شوند؛ الگوهای نمایشی یا آزمایشی غیرفعال بمانند.
 - [ ] JS-13 — ممیزی نهایی پوشش، توضیحات، دسته‌بندی، محیط اجرا، ترتیب و یکتایی شناسه‌ها.
 
@@ -408,7 +408,14 @@
 - این مرحله داده و آزمون را تغییر می‌دهد؛ اتصال کاتالوگ به موتور پیشنهادها و آزمون دستی مرورگر/IME انجام نشده است.
 
 
-### گزارش اجرای JavaScript-10
+### گزارش اجرای JavaScript-11
+
+- 16 snippet مربوط به کلاس‌ها و module syntax اضافه شدند؛ کاتالوگ JavaScript 888 رکورد و مجموع 1963 رکورد.
+- همه snippetها غیرفعال هستند تا درج ناخواسته کد چندخطی رخ ندهد.
+- منابع: [ECMA-262 Classes](https://tc39.es/ecma262/#sec-class-definitions)، [ECMA-262 Modules](https://tc39.es/ecma262/#sec-modules)، [MDN Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)، [MDN Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).
+- آزمون اختصاصی JS-11 برای presence و disabled-state اضافه شد.
+
+## گزارش اجرای JavaScript-10
 
 - افزوده‌شده: 82 رکورد؛ JavaScript 872، مجموع 1947.
 - APIهای Fetch، Request/Response، Headers، FormData، Blob و AbortController/AbortSignal ثبت شدند. Bodyها stream و در حالت عادی یک‌بارمصرف هستند؛ HTTP status خطا به‌تنهایی fetch را reject نمی‌کند.
