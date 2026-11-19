@@ -98,7 +98,7 @@ const initialSources = {
       <p>Progress: <progress value="65" max="100">65%</progress></p>
       <p>Meter: <meter value="0.7">70%</meter></p>
       <p>Published <time datetime="2026-11-19">November 19, 2026</time>.</p>
-      <figure><img src="https://placehold.co/320x120?text=HTML+Image" alt="Placeholder illustration" width="320" height="120"><figcaption>Image and caption example (online placeholder).</figcaption></figure>
+      <figure><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='120' viewBox='0 0 320 120'%3E%3Crect width='320' height='120' fill='%23e9eef8'/%3E%3Ctext x='160' y='64' text-anchor='middle' font-family='Arial' font-size='22' fill='%232563eb'%3EHTML Image Sample%3C/text%3E%3C/svg%3E" alt="Placeholder illustration" width="320" height="120"><figcaption>Image and caption example (online placeholder).</figcaption></figure>
       <address>Contact: <a href="mailto:hello@example.com">hello@example.com</a></address>
     </section>
   </main>
