@@ -1,5 +1,5 @@
 import test from "node:test";
-import { getHTMLTagSuggestions } from "../src/language/html/html-completion.js";
+import { getHTMLTagSuggestions, buildHTMLTagInsertion } from "../src/language/html/html-completion.js";
 import { getCSSCompletionSuggestions } from "../src/language/css/css-completion.js";
 import { applySuggestionForMenu } from "../src/input/suggestion-dispatcher.js";
 import assert from "node:assert/strict";
@@ -417,4 +417,16 @@ test("HTML completion validates offsets and identifies void elements", () => {
   const result = getHTMLTagSuggestions(source, source.length);
   assert.equal(result.options[0].label, "img");
   assert.equal(result.options[0].isVoid, true);
+});
+
+
+test("HTML chained child suggestion inserts its own opening angle bracket", () => {
+  const initial = buildHTMLTagInsertion({ kind: "open", label: "div", isVoid: false });
+  assert.deepEqual(initial, { insertion: "div></div>", cursorOffset: 4 });
+  const child = buildHTMLTagInsertion({ kind: "child", label: "span", isVoid: false });
+  assert.deepEqual(child, { insertion: "<span></span>", cursorOffset: 6 });
+  const childVoid = buildHTMLTagInsertion({ kind: "child", label: "img", isVoid: true });
+  assert.deepEqual(childVoid, { insertion: "<img>", cursorOffset: 5 });
+  const closing = buildHTMLTagInsertion({ kind: "close", label: "</div", isVoid: false });
+  assert.deepEqual(closing, { insertion: "</div>", cursorOffset: 6 });
 });
