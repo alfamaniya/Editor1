@@ -22,6 +22,7 @@ test("Visual workspace uses one right-side panel with Elements and Settings mode
   assert.ok(visual.includes("function setMode(mode)"));
   assert.ok(visual.includes("function enterVisual()"));
   assert.ok(visual.includes("function exitVisual()"));
+  assert.ok(visual.includes("window.parent.postMessage({type:\"alfacode:visual-mode-active\",active:true}"));
   assert.ok(visual.includes("visual-editor-right-panel"));
   assert.ok(visual.includes("visual-editor-mode-tabs"));
   const visualCss = await readFile(new URL("core/visual-editor/visual-editor.css", ROOT), "utf8");
