@@ -62,6 +62,12 @@ function helperScript() {
       parent.postMessage({type:"alfacode:visual-selected", selector:cssPath(el), tag:el.tagName.toLowerCase()}, "*");
     }, true);
     window.addEventListener("message", e => {
+      if (e.data?.type === "alfacode:visual-preview-css") {
+        let style = document.getElementById("editor1-visual-preview-styles");
+        if (!style) { style = document.createElement("style"); style.id = "editor1-visual-preview-styles"; document.head.appendChild(style); }
+        style.textContent = e.data.css || "";
+        return;
+      }
       if (e.data?.type === "alfacode:visual-pick") {
         picking = !!e.data.enabled;
         document.body.classList.toggle("editor1-visual-picking", picking);
@@ -133,10 +139,8 @@ function openCategory(category) {
 function applyDraft(){
   if(!selectedSelector || !frame.contentWindow) return;
   const declarations=Object.entries(draftRules).filter(([,value])=>String(value).trim()).map(([property,value])=>property+": "+value+( ["width","height","border-width","border-radius","padding","margin","font-size"].includes(property) && /^\\d+(\\.\\d+)?$/.test(String(value)) ? "px" : "")+";");
-  let style=document.getElementById("editor1-visual-preview-styles");
-  if(!style){style=document.createElement("style");style.id="editor1-visual-preview-styles";document.head.appendChild(style);}
   const all={...committedRules,[selectedSelector]:declarations.join("\n")};
-  style.textContent=Object.entries(all).map(([selector,decl])=>selector+" {"+decl+"}").join("\n");
+  frame.contentWindow.postMessage({type:"alfacode:visual-preview-css", css:Object.entries(all).map(([selector,decl])=>selector+" {"+decl+"}").join("\n")}, "*");
 }
 inspector.addEventListener("click",event=>{
   const target=event.target.closest("button"); if(!target) return;
