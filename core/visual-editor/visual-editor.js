@@ -37,7 +37,7 @@
   panel.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.matches("[data-close]")){state.picking=false;state.draft={...(state.committed[state.selector]||{})};previewCSS(state.committed);panel.hidden=true;picker(false);return;}if(b.dataset.cat)openCategory(b.dataset.cat);if(b.matches("[data-back]")){state.draft={...(state.committed[state.selector]||{})};draftPreview();showCategories();}if(b.matches("[data-apply]")){state.committed[state.selector]={...(state.committed[state.selector]||{}),...state.draft};sendCSS();showCategories();}});
   window.addEventListener("message",e=>{if(e.source!==window.parent||!e.data)return;if(e.data.type==="alfacode:visual-toggle"){state.picking=!state.picking;panel.hidden=!state.picking;if(!state.picking){state.draft={...(state.committed[state.selector]||{})};previewCSS(state.committed);picker(false);return;}title.textContent="Select an element";grid.hidden=true;controls.hidden=true;actions.hidden=true;picker(true);}});
   window.addEventListener("message",e=>{if(e.source!==preview.contentWindow||e.data?.type!=="alfacode:visual-selected")return;state.selector=e.data.selector||"";state.tag=e.data.tag||"";state.computed=e.data.computed||{};state.picking=false;panel.hidden=false;picker(false);showCategories();});
-  function pickerScript(){return \`<script>
+  function pickerScript(){return `<script>
     (() => {
       let picking=false,hovered=null;
       const marker=document.createElement("style");
