@@ -105,3 +105,28 @@ test("JavaScript completion keeps static constructor members separate from insta
   assert.ok(instanceResult?.options.some(option => option.label === "getDate"));
   assert.ok(!instanceResult?.options.some(option => option.label === "now"));
 });
+
+
+test("completion engines stay responsive on representative catalog-backed inputs", async t => {
+  const [html, css, javascript] = await Promise.all([
+    records("html"), records("css"), records("javascript")
+  ]);
+  const cases = [
+    ["HTML", () => getHTMLTagSuggestions("<html><body><di", 15, { catalog: html, limit: 10 })],
+    ["CSS", () => getCSSCompletionSuggestions(".card { display: fl", 20, { catalog: css })],
+    ["JavaScript", () => getJavaScriptCompletionSuggestions("const date = new Date(); date.to", 33, { catalog: javascript })]
+  ];
+  for (const [name, run] of cases) {
+    for (let i = 0; i < 5; i++) run();
+    const samples = [];
+    for (let i = 0; i < 40; i++) {
+      const start = performance.now();
+      run();
+      samples.push(performance.now() - start);
+    }
+    samples.sort((a, b) => a - b);
+    const p95 = samples[Math.floor(samples.length * 0.95) - 1];
+    t.diagnostic(name + " completion p95: " + p95.toFixed(2) + " ms");
+    assert.ok(Number.isFinite(p95) && p95 < 250, name + " completion p95 should remain below 250 ms");
+  }
+});
