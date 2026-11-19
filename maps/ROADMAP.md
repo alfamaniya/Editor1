@@ -207,3 +207,13 @@
 - [x] تغییر ارسال از چند پیام به **یک ایمیل با دقیقاً سه پیوست**؛ فایل‌هایی که کمتر یا بیشتر از سه بخش تولید کنند، پیش از ارسال رد می‌شوند.
 - [x] آزمون‌های خودکار: سه attachment، نام‌گذاری/ترتیب، بازسازی دقیق بایت‌ها و SHA-256 کل فایل، و رد تعداد بخش نامناسب.
 - [ ] اجرای اکشن واقعی و تأیید دریافت یک ایمیل با سه ضمیمه.
+
+
+## اصلاح پایدار تغییر اندازه Editor و Preview — ۱۹ نوامبر ۲۰۲۶
+
+- [x] اصلاح grid sizing برای کوچک‌شدن واقعی ستون‌ها و جلوگیری از overflow ناشی از iframe.
+- [x] افزودن grid row صریح با `minmax(0, 1fr)` و min/max-width/height صفر روی پنل‌ها و iframeها.
+- [x] جایگزینی وابستگی صرف به `window.resize` با `ResizeObserver` روی workspace و هر panel.
+- [x] ارسال resize event به iframeهای داخلی هنگام تغییر اندازه panel یا drag divider.
+- [x] افزودن regression checks برای CSS shrink/overflow و Observer/iframe resize behavior.
+- [ ] آزمون بصری دستی در مرورگر دسکتاپ با resize پنجره و drag divider؛ این مرحله به تأیید دستی نیاز دارد.
