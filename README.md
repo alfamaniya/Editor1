@@ -363,3 +363,8 @@ Editor1/
 - [x] Corrected literal escaped newline characters accidentally inserted into `core/editor-bridge.js`, which caused a JavaScript syntax error and stopped source-change relaying to Preview.
 - [x] Corrected the malformed newline in the mobile Helper Keys pointerdown listener.
 - [ ] Run syntax/build checks and test live preview in browser.
+
+
+### Color property progress
+- Initial Color inspector includes Background, Text and Border color pickers with HEX entry, quick palette, opacity slider, and a two-stop Linear/Radial gradient builder. Per-control clear, richer color formats, and verification remain incomplete.
+- Progress checklist: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](maps/VISUAL-PROPERTIES-ROADMAP.md).
