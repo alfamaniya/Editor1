@@ -48,7 +48,7 @@ html, body { width: 100%; height: 100%; min-height: 0; margin: 0; overflow: hidd
 .browser-storage-status[data-state="saving"] { color: #e6bd72; }
 .browser-storage-status[data-state="error"] { color: #ef8989; }
 
-@media (max-width: 700px), (pointer: coarse) and (max-height: 1000px) {
+@media (max-width: 700px) {
   .editor-tabs {
     flex: 0 0 8%;
     border-bottom-width: 0.08em;
