@@ -11,7 +11,7 @@
         "style.css"
       ],
       "scripts": [
-        "script.js"
+        "core/editor-bridge.js"
       ],
       "includes": [
         "header",
