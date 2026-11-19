@@ -47,12 +47,18 @@ export function getJavaScriptCompletionSuggestions(source,cursor,options={}) {
   let query="",from=cursor,candidates=[];
   if(member){
     query=member[2];from=cursor-query.length;
-    candidates=(METHODS[member[1]]??[]).map(label=>({label,description:member[1]+" method"}));
+    candidates=Array.isArray(options.catalog) && options.catalog.length
+      ? options.catalog.filter(record => record.enabled !== false && record.type === "member" &&
+          record.owner === member[1]).map(record => ({...record,label:record.insertText ?? record.label}))
+      : (METHODS[member[1]]??[]).map(label=>({label,description:member[1]+" method"}));
   }else{
     const match=prefix.match(/([A-Za-z_$][\w$]*)$/);
     if(!match)return null;
     query=match[1];from=cursor-query.length;
-    candidates=[...KEYWORDS,...GLOBALS].map(label=>({label,description:KEYWORDS.includes(label)?"JavaScript keyword":"Global or built-in"}));
+    candidates=Array.isArray(options.catalog) && options.catalog.length
+      ? options.catalog.filter(record => record.enabled !== false && record.type === "identifier")
+          .map(record => ({...record,label:record.insertText ?? record.label}))
+      : [...KEYWORDS,...GLOBALS].map(label=>({label,description:KEYWORDS.includes(label)?"JavaScript keyword":"Global or built-in"}));
   }
   const normalized=query.toLowerCase();
   const limit=Math.max(1,Math.min(10,options.limit??10));
