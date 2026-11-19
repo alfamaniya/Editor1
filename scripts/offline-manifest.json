@@ -154,7 +154,7 @@
       "html": "core/preview/preview.html",
       "styles": [
         "core/preview/preview.css",
-        "core/visual-editor/visual.css"
+        "core/visual-editor/visual-editor.css"
       ],
       "scripts": [
         "core/preview/preview.js",
