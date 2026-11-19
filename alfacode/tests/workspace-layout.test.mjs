@@ -33,7 +33,12 @@ test("mobile-only responsive overrides and controls are removed from the main ap
     "style.css",
     "core/editor/editor.css",
     "core/header/header.css",
-    "core/new-page-action/new-page-action.css"
+    "core/new-page-action/new-page-action.css",
+    "core/clear-tabs/clear-tabs.css",
+    "core/project-reset/project-reset.css",
+    "core/clear-project-cookies/clear-project-cookies.css",
+    "core/completion-catalog/completion-catalog.css",
+    "core/tag-suggestions/tag-suggestions.css"
   ];
   for (const path of mobileCssPaths) {
     const source = await readFile(new URL(path, ROOT), "utf8");
