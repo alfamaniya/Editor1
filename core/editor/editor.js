@@ -722,7 +722,7 @@ window.addEventListener("message", event => {
     let mergedCSS = baseCSS;
     const unmatchedRules = [];
     for (const update of parsedUpdates) {
-      const escaped = update.selector.replace(/[.*+?^$()|[\\]\\]/g, "\\  if (command.type === "alfacode:visual-css-update" && typeof command.css === "string") {
+      const escaped = update.selector.split("").map(character => ".^$*+?()[]{}|\\\".includes(character) ? "\\" + character : character).join("");
     const startMarker = "/* Editor1 Visual Styles - Start */";
     const endMarker = "/* Editor1 Visual Styles - End */";
     const currentCSS = sources.css || "";
