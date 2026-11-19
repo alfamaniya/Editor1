@@ -11,7 +11,7 @@ import LineNumbers from "../../alfacode/src/features/line-numbers/line-numbers.j
 import BracketMatcher from "../../alfacode/src/features/bracket-matching/bracket-matcher.js";
 import ThemeManager from "../../alfacode/src/themes/theme-manager.js";
 import BrowserStorage from "../browser-storage/browser-storage.js";
-import { getHTMLTagSuggestions } from "../../alfacode/src/language/html/html-completion.js";
+import { getHTMLTagSuggestions, buildHTMLTagInsertion } from "../../alfacode/src/language/html/html-completion.js";
 import { getCSSCompletionSuggestions } from "../../alfacode/src/language/css/css-completion.js";
 import { getJavaScriptCompletionSuggestions } from "../../alfacode/src/language/javascript/javascript-completion.js";
 import { createTagSuggestions } from "../tag-suggestions/tag-suggestions.js";
@@ -338,12 +338,9 @@ function applyTagSuggestion(option) {
 
   const from = option.from;
   const to = option.to;
-  const isClosing = option.kind === "close";
-  const insertion = isClosing
-    ? option.label + ">"
-    : option.label + ">" + (option.isVoid ? "" : "</" + option.label + ">");
+  const { insertion, cursorOffset } = buildHTMLTagInsertion(option);
   editor.transact(transaction => transaction.replace(from, to, insertion));
-  editor.moveTo(from + option.label.length + 1);
+  editor.moveTo(from + cursorOffset);
   chainSuggestionMode = !isClosing && !option.isVoid;
   renderEditor();
   view.focus();
