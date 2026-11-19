@@ -734,7 +734,7 @@ window.addEventListener("message", event => {
         break;
       }
       mergedCSS = chunks.join("}");
-      if (!merged) unmatchedRules.push(update.selector + " {\\n" + update.declarations.map(item => "  " + item.replace(/;?$/, ";")).join("\\n") + "\\n}");
+      if (!merged) unmatchedRules.push(update.selector + " {\n" + update.declarations.map(item => "  " + item.replace(/;?$/, ";")).join("\n") + "\n}");
     }
     const extraBlock = unmatchedRules.join("\n\n");
     sources.css = mergedCSS + (extraBlock ? "\n\n" + startMarker + "\n" + extraBlock + "\n" + endMarker : "");
