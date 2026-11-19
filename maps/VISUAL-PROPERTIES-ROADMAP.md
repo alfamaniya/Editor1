@@ -16,12 +16,12 @@
 
 ## Property 01 — Color
 ### Controls
-- [ ] Text color (`color`): HEX, RGB, RGBA, HSL, opacity; palette/swatches; eyedropper if browser support permits.
-- [ ] Background color (`background-color`): same color input and alpha handling.
-- [ ] Background image/gradient: solid, linear, radial, angle, stops, stop colors/positions; gradient presets.
-- [ ] Border color: global and individual sides.
-- [ ] Color swatches: current, recently used, favorites (persisted safely).
-- [ ] Clear/unset action per control.
+- [x] Text color (`color`): initial HEX picker and manual HEX field; palette/swatches. RGB/HSL/eyedropper and broader alpha editing remain pending.
+- [x] Background color (`background-color`): HEX picker, manual HEX, quick palette.
+- [x] Background image/gradient: initial Linear/Radial gradient builder with angle and two color stops; additional stops and presets remain pending.
+- [x] Border color: global HEX picker and manual HEX; per-side color controls remain pending.
+- [x] Color swatches: initial fixed quick palette; recent/favorites persistence remains pending.
+- [ ] Clear/unset action per control (Reset Category exists; per-control clear remains pending).
 - [ ] Display source/inherited status; avoid replacing background shorthand unless intentionally editing it.
 
 ## Property 02 — Border
