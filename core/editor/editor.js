@@ -701,6 +701,7 @@ window.addEventListener("message", event => {
     const generatedBlock = command.css.trim();
     sources.css = beforeBlock + (generatedBlock ? "\n\n" + startMarker + "\n" + generatedBlock + "\n" + endMarker : "");
     if (activeLanguage.id === "css") editor.setDocument(sources.css);
+    publishSource();
     renderEditor();
     view.focus();
     return;
