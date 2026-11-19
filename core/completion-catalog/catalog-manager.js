@@ -84,6 +84,27 @@ export function validateCatalogDraft(language, records) {
     if (semantics.has(semantic)) add(index, "label", "رکورد از نظر معنایی تکراری است.");
     semantics.add(semantic);
   });
+  if (language === "html") {
+    const names = new Set(records.filter(record => record?.type === "tag" && typeof record.tagName === "string").map(record => record.tagName.toLowerCase()));
+    records.forEach((record, index) => (record?.parentTags ?? []).forEach(parent => {
+      if (typeof parent === "string" && !names.has(parent.toLowerCase())) add(index, "parentTags", "والد تعریف‌نشده: " + parent);
+    }));
+  }
+  if (language === "css") {
+    const properties = new Set(records.filter(record => record?.type === "property").map(record => record.label));
+    records.forEach((record, index) => {
+      if (record?.type === "value" && record.propertyName !== "*" && !properties.has(record.propertyName)) add(index, "propertyName", "ویژگی CSS مرجع پیدا نشد: " + record.propertyName);
+    });
+  }
+  if (language === "javascript") {
+    records.forEach((record, index) => {
+      if (record?.type === "literal" && !["boolean", "null"].includes(record.literalKind)) add(index, "literalKind", "literalKind باید boolean یا null باشد.");
+      if (record?.type === "identifier" && record.category === "کلمات کلیدی" &&
+          !["reserved", "strict-reserved", "contextual-reserved", "contextual", "future-reserved"].includes(record.keywordKind)) {
+        add(index, "keywordKind", "طبقه‌بندی کلمه کلیدی معتبر نیست.");
+      }
+    });
+  }
   return errors;
 }
 
