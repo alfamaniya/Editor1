@@ -41,7 +41,7 @@ jobs:
         run: npm install --no-save --package-lock=false esbuild@0.25.12
 
       - name: Build and validate the standalone HTML
-        run: node scripts/build-offline.mjs
+        run: node scripts/build-offline.mjs && node scripts/audit-offline-output.mjs
 
       - name: Commit the generated offline file
         run: |
