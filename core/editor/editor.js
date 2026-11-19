@@ -709,7 +709,7 @@ window.addEventListener("message", event => {
     for (const key of Object.keys(sources)) sources[key] = "";
     editor.setDocument(sources[activeLanguage.id]);
     chainSuggestionMode = false;
-    tagSuggestionMenu?.hide();
+    hideSuggestionMenus();
     renderEditor();
     view.focus();
     return;
@@ -726,7 +726,7 @@ window.addEventListener("message", event => {
     });
     editor.setDocument(sources.html);
     chainSuggestionMode = false;
-    tagSuggestionMenu?.hide();
+    hideSuggestionMenus();
     renderEditor();
     view.focus();
     return;
