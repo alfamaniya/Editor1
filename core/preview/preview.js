@@ -28,7 +28,9 @@ function helperScript() {
   return `<script>
   (() => {
     let picking = false, hovered = null;
-    const unique = (value, attr) => [...document.querySelectorAll(attr)].length === 1;
+    const visualStyle = document.createElement("style");
+    visualStyle.textContent = ".editor1-visual-hover{outline:2px solid #7c6cf2!important;outline-offset:2px!important;cursor:crosshair!important}.editor1-visual-picking{cursor:crosshair!important}";
+    document.head.appendChild(visualStyle);
     function cssPath(el) {
       if (el.id) return "#" + CSS.escape(el.id);
       const parts = [];
