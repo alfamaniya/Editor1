@@ -280,6 +280,14 @@ Editor1/
 
 - The root `index.html` now hosts the archived AlfaCode editor and preview as resizable iframe panels, and includes the HTML/CSS/JavaScript tabs from the existing editor implementation.
 - `core/editor-bridge.js` mediates editor source-change messages and forwards the combined HTML, CSS, and JavaScript sources to the preview iframe. It also forwards the existing clear-tabs and project-reset commands.
-- The existing AlfaCode engine source under `alfacode/src/` was not modified. The editor implementation and suggestion UI are currently reused from `backup/core-old/` as a transitional integration; their files remain archived and are not migrated yet.
+- The existing AlfaCode engine source under `alfacode/src/` was not modified. The editor, preview, and supporting UI runtime files have been copied from `backup/core-old/` into active `core/` paths. The archived originals remain preserved. The Editor imports AlfaCode from the unchanged `alfacode/src/` paths.
 - Root `style.css` now owns the shared workspace layout and common toolbar button appearance. Both iframe panels fill their parent containers so resizing the workspace changes the panel viewport without recreating the engine.
 - Browser verification, mobile testing, and offline bundle audit/build are still pending. The clear-current-tab toolbar control is currently disabled because the reused legacy editor does not expose a current-tab-only command.
+
+
+### Active Editor/Preview runtime files
+- `core/editor/editor.html`, `core/editor/editor.css`, `core/editor/editor.js`: three-language editor UI, rendering/input controller and AlfaCode integration.
+- `core/preview/preview.html`, `core/preview/preview.css`, `core/preview/preview.js`: isolated live preview frame.
+- Supporting modules copied into `core/`: browser-storage UI module, completion catalog loader/components, and HTML/CSS/JavaScript suggestion menus.
+- `core/editor-bridge.js`: receives editor source updates and sends them to Preview; also relays reset, clear-all, and clear-current-tab commands.
+- The original runtime files are retained under `backup/core-old/`.
