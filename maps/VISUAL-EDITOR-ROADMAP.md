@@ -9,7 +9,7 @@
 Turn Visual Editor into a polished, capable visual styling tool: select an element in Preview, adjust its appearance through organized controls, preview changes, and commit safely without losing existing CSS.
 
 ## Stage A — Visual UI/UX redesign
-- [x] Redesign the Visual Editor panel to match Editor1's professional, restrained UI style (builder-inspired left Elements rail, top strip, right Inspector).
+- [x] Redesign the Visual Editor panel to match Editor1's professional, restrained UI style; latest layout uses one right-side panel with Elements/Settings modes.
 - [x] Improve element-selection affordances: selection button, preview hover, element label, and selector path display. Clear/deselect refinements remain pending.
 - [x] Establish initial consistent button, icon, input, spacing, and panel styling. Tooltip/control refinements remain pending.
 - [ ] Improve contextual settings navigation and panel hierarchy.
@@ -157,6 +157,18 @@ Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PRO
 - [x] Linear/Radial gradient controls with angle and two color stops.
 - [ ] Per-control clearing, expanded formats, gradient stop management, readback polish and browser/offline validation.
 
+
+## Single-panel full-screen workspace — implementation started
+
+- [x] Visual mode now expands the root Preview pane to full viewport and hides the normal Header, Footer, Editor pane, and divider.
+- [x] Replaced the dual-rail presentation with one fixed right-side panel containing Elements and Settings mode tabs.
+- [x] Elements and Inspector content switch within the shared panel; selecting an element opens Settings.
+- [x] Exit Visual restores the normal Editor/Preview workspace and toggles the toolbar pressed state.
+- [x] Added regression assertions for the single-panel layout, mode switching, and parent workspace communication.
+- [ ] Confirm CI run and perform real browser checks for viewport sizing, scroll behavior, selection, and exit/restore.
+- [ ] Validate narrow viewport overlay behavior and keyboard accessibility.
+
+**Current implementation supersedes the earlier two-rail layout items below.** The panel is a single right-side panel, not two rails.
 
 ## Visual Editor full-screen workspace layout refinement — 20 November 2026
 - [ ] Use a single fixed right-side panel instead of left Elements rail plus right Inspector rail.
