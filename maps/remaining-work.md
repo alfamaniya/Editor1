@@ -20,6 +20,14 @@
 - JavaScript پیشنهادهای identifier و member را از رکوردهای JSON و owner مربوط می‌گیرد؛ Snippet و literal هنوز در مسیر درج زنده فعال نشده‌اند.
 - تست runtime مستقل اضافه شده است؛ نتیجه CI پس از اجرای workflow باید ثبت شود.
 
+### وضعیت پیاده‌سازی Runtime و Offline (۱۹ نوامبر ۲۰۲۶)
+- هر سه JSON به Editor متصل‌اند؛ Loader در محیط وب JSON را بارگذاری می‌کند و در نسخه آفلاین داده‌های تعبیه‌شده را بدون fetch مصرف می‌کند.
+- HTML/SVG: داده‌های JSON با حفظ گزینه‌های سازگاری Legacy و قرارداد درج به موتور وصل شده‌اند.
+- CSS: شش گروه selector، property، value، at-rule، function و unit در موتور فعال‌اند.
+- JavaScript: identifier، literal و memberهای دارای owner در موتور فعال‌اند؛ Snippetها عمداً غیرفعال مانده‌اند.
+- تست CI: ۹۲ موفق، صفر شکست. Offline Build موفق و خروجی offline/AlfaCode-Offline.html بازسازی شده است.
+- آزمون دستی مرورگر، IME، Cursor و قطع اینترنت هنوز باید انجام شود.
+
 ### نتیجه بررسی موتور HTML (۱۹ نوامبر ۲۰۲۶)
 - موتور پیشنهاد HTML در `alfacode/src/language/html/html-completion.js` از آرایه ثابت `HTML_TAG_CATALOG` و قواعد context استفاده می‌کند؛ هنوز از JSON تکمیل HTML تغذیه نمی‌شود.
 - `core/editor/editor.js` مستقیماً `getHTMLTagSuggestions(...)` را فراخوانی و نتیجه را به منوی `createTagSuggestions` می‌دهد.
@@ -118,7 +126,8 @@
 - [ ] پیاده‌سازی/اتصال فیلتر context مربوط به HTML
 - [ ] تعیین contextهای CSS: selector، property و value
 - [ ] پیاده‌سازی/اتصال فیلتر context مربوط به CSS
-- [ ] تعیین contextهای JavaScript: scope، member و identifier
+- [x] اتصال contextهای پایه JavaScript بر اساس identifier و owner/member
+- [ ] تکمیل تشخیص نوع متغیر برای پیشنهاد اعضای prototype
 - [ ] پیاده‌سازی/اتصال فیلتر context مربوط به JavaScript
 - [ ] آزمون جداگانه هر context با نمونه‌های واقعی
 
@@ -135,7 +144,7 @@
 - [ ] ثبت و اصلاح ایرادهای درج و کلیدها
 
 ### ۱.۵ Snippetها
-- [ ] شناسایی رکوردهای Snippet
+- [x] شناسایی رکوردهای Snippet
 - [ ] بررسی قالب و placeholderهای Snippet
 - [ ] اطمینان از غیرفعال بودن پیش‌فرض Snippetهای ناخواسته
 - [ ] آزمون فعال‌سازی و درج Snippetهای مجاز
