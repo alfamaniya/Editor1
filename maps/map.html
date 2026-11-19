@@ -21,7 +21,7 @@
 <body>
   <header class="top"><div class="wrap topline"><div><h1>نقشه‌های راه Editor1</h1><p class="sub">مرکز مشاهده و دسترسی به برنامه‌ها و مسیرهای اجرایی پروژه</p></div><a class="home" href="../index.html">بازگشت به ویرایشگر</a></div></header>
   <main class="wrap">
-    <div class="tools"><strong>همه نقشه‌ها</strong><input id="search" type="search" placeholder="جست‌وجو در نام و توضیحات نقشه‌ها…" aria-label="جست‌وجوی نقشه‌ها"><span class="count" id="count">۸ نقشه ثبت‌شده</span></div>
+    <div class="tools"><strong>همه نقشه‌ها</strong><input id="search" type="search" placeholder="جست‌وجو در نام و توضیحات نقشه‌ها…" aria-label="جست‌وجوی نقشه‌ها"><span class="count" id="count">۹ نقشه ثبت‌شده</span></div>
     <section class="list" id="maps">
       <a class="item" href="#viewer" data-file="new-page-catalog-integration.md"><h2>اتصال کاتالوگ به صفحه جدید</h2><p>نقشه اتصال JSONهای HTML، CSS و JavaScript به صفحه New page، بارگذاری، context، درج، تست و آفلاین.</p><span class="meta"><span>New page · AlfaCode</span><span>بازکردن نقشه ←</span></span></a>
       <a class="item" href="#viewer" data-file="catalog-completion.md"><h2>تکمیل پیشنهادهای HTML، CSS و JS</h2><p>نقشه تکمیل سه کاتالوگ، گردآوری از منابع معتبر و صحت‌سنجی رکوردها.</p><span class="meta"><span>HTML · CSS · JavaScript</span><span>بازکردن نقشه ←</span></span></a>
@@ -31,6 +31,7 @@
       <a class="item" href="#viewer" data-file="html-tag-suggestions.md"><h2>پیشنهاد تگ HTML</h2><p>برنامه ممیزی، آزمون تعاملی و ارزیابی پوشش contextهای پیشنهاد تگ.</p><span class="meta"><span>HTML · Autocomplete</span><span>بازکردن نقشه ←</span></span></a>
       <a class="item" href="#viewer" data-file="readme-documentation-organization.md"><h2>ساماندهی مستندات</h2><p>برنامه ساختاردهی مستندات، تفکیک مسیرهای ناتمام و کنترل لینک‌ها.</p><span class="meta"><span>Documentation</span><span>بازکردن نقشه ←</span></span></a>
           <a class="item" href="#viewer" data-file="catalog-split.md"><h2>تفکیک کاتالوگ</h2><p>مراحل تفکیک داده‌های HTML، CSS و JavaScript و آزمون‌های مرتبط.</p><span class="meta"><span>AlfaCode · Data</span><span>بازکردن نقشه ←</span></span></a>
+      <a class="item" href="#viewer" data-file="remaining-work.md"><h2>برنامه جامع کارهای باقی‌مانده</h2><p>فقط وظایف باز، با اولویت‌بندی و تیک پیگیری پیشرفت.</p><span class="meta"><span>اولویت‌بندی · پیگیری</span><span>بازکردن نقشه ←</span></span></a>
 </section>
     <section class="viewer" id="viewer" aria-live="polite"><div class="viewer-head"><strong id="viewer-title">نقشه راه</strong><button class="back" id="back" type="button">بازگشت به فهرست نقشه‌ها</button></div><article class="document" id="document"></article></section>
     <div class="empty" id="empty">نقشه‌ای با این عبارت پیدا نشد.</div>
@@ -51,7 +52,7 @@
       return out;
     }
     function renderMarkdown(source){
-      const lines=source.replace(/\r/g,"").split("\n");let html="",paragraph=[],listType="",inCode=false,code=[],table=[];
+      const lines=source.replace(/\r/g,"").split("\n");let html="",paragraph=[],listType="",inCode=false,code=[],table=[],taskIndex=0;
       const flushP=()=>{if(paragraph.length){html+="<p>"+inline(paragraph.join(" "))+"</p>";paragraph=[]}};
       const flushList=()=>{if(listType){html+="</"+listType+">";listType=""}};
       const flushTable=()=>{if(table.length){const rows=table.filter(row=>!/^\s*\|?\s*:?-{3,}/.test(row));if(rows.length){html+="<table>";rows.forEach((row,i)=>{const cells=row.trim().replace(/^\||\|$/g,"").split("|");html+="<tr>"+cells.map(cell=>i===0?"<th>"+inline(cell.trim())+"</th>":"<td>"+inline(cell.trim())+"</td>").join("")+"</tr>"});html+="</table>"}table=[]}};
@@ -63,20 +64,22 @@
         const heading=line.match(/^(#{1,6})\s+(.+)$/);if(heading){flushP();flushList();const level=heading[1].length;html+="<h"+level+">"+inline(heading[2])+"</h"+level+">";continue}
         if(/^\s*([-*_])\1\1+\s*$/.test(line)){flushP();flushList();html+="<hr>";continue}
         const item=line.match(/^\s*([-*+] |\d+[.)] )(.*)$/);
-        if(item){flushP();const type=/^\s*\d/.test(line)?"ol":"ul";if(listType!==type){flushList();listType=type;html+="<"+type+">"}const task=item[2].match(/^\[([ xX])\]\s*(.*)$/);html+="<li>"+(task?'<input type="checkbox" disabled '+(task[1].toLowerCase()==="x"?"checked":"")+'>':"")+inline(task?task[2]:item[2])+"</li>";continue}
+        if(item){flushP();const type=/^\s*\d/.test(line)?"ol":"ul";if(listType!==type){flushList();listType=type;html+="<"+type+">"}const task=item[2].match(/^\[([ xX])\]\s*(.*)$/);const checkbox=task?'<input type="checkbox" data-task-index="'+(taskIndex++)+'" '+(task[1].toLowerCase()==="x"?"checked":"")+'>':"";html+="<li>"+checkbox+inline(task?task[2]:item[2])+"</li>";continue}
         const quote=line.match(/^>\s?(.*)$/);if(quote){flushP();flushList();html+="<blockquote>"+inline(quote[1])+"</blockquote>";continue}
         flushList();paragraph.push(line.trim());
       }
       flushP();flushList();flushTable();if(inCode)html+="<pre><code>"+esc(code.join("\n"))+"</code></pre>";return html;
     }
+    let activeMapFile="";
     async function openMap(file,title){
-      viewer.classList.add("active");viewerTitle.textContent=title;doc.innerHTML="<p>در حال بارگذاری نقشه…</p>";list.hidden=true;tools.hidden=true;empty.style.display="none";history.replaceState(null,"","#"+encodeURIComponent(file));
-      try{const response=await fetch("./"+file);if(!response.ok)throw new Error("HTTP "+response.status);const markdown=await response.text();doc.innerHTML=renderMarkdown(markdown);window.scrollTo({top:0,behavior:"smooth"})}
+      activeMapFile=file;viewer.classList.add("active");viewerTitle.textContent=title;doc.innerHTML="<p>در حال بارگذاری نقشه…</p>";list.hidden=true;tools.hidden=true;empty.style.display="none";history.replaceState(null,"","#"+encodeURIComponent(file));
+      try{const response=await fetch("./"+file);if(!response.ok)throw new Error("HTTP "+response.status);const markdown=await response.text();doc.innerHTML=renderMarkdown(markdown);const saved=JSON.parse(localStorage.getItem("editor1-map-checks:"+file)||"{}");doc.querySelectorAll("[data-task-index]").forEach(box=>{box.checked=Boolean(saved[box.dataset.taskIndex])});window.scrollTo({top:0,behavior:"smooth"})}
       catch(error){doc.innerHTML='<p class="load-error">بارگذاری نقشه انجام نشد. لطفاً اتصال سایت را بررسی و دوباره تلاش کنید.</p>'}
     }
     function closeMap(){viewer.classList.remove("active");list.hidden=false;tools.hidden=false;history.replaceState(null,"",location.pathname);window.scrollTo({top:0,behavior:"smooth"})}
     items.forEach(item=>item.addEventListener("click",event=>{event.preventDefault();openMap(item.dataset.file,item.querySelector("h2").textContent)}));
     document.getElementById("back").addEventListener("click",closeMap);
+    doc.addEventListener("change",event=>{const box=event.target.closest("[data-task-index]");if(!box||!activeMapFile)return;const key="editor1-map-checks:"+activeMapFile;const saved=JSON.parse(localStorage.getItem(key)||"{}");saved[box.dataset.taskIndex]=box.checked;localStorage.setItem(key,JSON.stringify(saved))});
     doc.addEventListener("click",event=>{const link=event.target.closest("a");if(!link)return;const href=link.getAttribute("href")||"";if(href.endsWith(".md")&&!/^https?:/i.test(href)){event.preventDefault();const file=href.split("/").pop();const card=items.find(item=>item.dataset.file===file);openMap(file,card?card.querySelector("h2").textContent:file)}});
     const requested=decodeURIComponent(location.hash.slice(1));if(requested.endsWith(".md")){const card=items.find(item=>item.dataset.file===requested);if(card)openMap(requested,card.querySelector("h2").textContent)}
   </script></body>
