@@ -421,6 +421,7 @@ async function main() {
   const previewCss = previewStyles.join("\n");
   const previewScript = previewScripts.join("\n");
   const extraKeyModule = await readEntry(assembly.shell, "scripts", 1);
+  const clearEditorStorageModule = await readEntry(assembly.shell, "scripts", 2);
   const actionAssets = await Promise.all(assembly.actionComponents.map(async id => ({
     markup: await readEntry(id, "html"), css: await readEntry(id, "styles"),
     module: await readEntry(id, "scripts")
@@ -546,6 +547,7 @@ async function main() {
   const editorFrame = document.querySelector(".editor-panel .section-frame");
   const previewFrame = document.querySelector(".preview-panel .section-frame");
   // Register message and load listeners before assigning fast-loading srcdoc documents.
+  ${clearEditorStorageModule}
   ${coordinator}
   ${extraKeyModule}
   editorFrame.srcdoc = ${JSON.stringify(editorDocument)};
