@@ -270,7 +270,8 @@ function inlineEditorDocument(template, styles, bundle, tagSuggestionsTemplate, 
   html = html.replace(/\s*<link\b[^>]*href=["'][^"']+["'][^>]*>/gi, "");
   html = html.replace(/\s*<script\b[^>]*src=["'][^"']*editor\.js["'][^>]*>\s*<\/script>/i, "");
   html = html.replace("</head>", "<style>\n" + styles + "\n</style>\n</head>");
-  const templateBootstrap = "<script>window.__ALFACODE_TAG_SUGGESTIONS_TEMPLATE__ = " + JSON.stringify(tagSuggestionsTemplate) + "; window.__ALFACODE_COMPLETION_CATALOGS__ = " + JSON.stringify(completionCatalogs) + ";</script>";
+  const serializedCatalogs = JSON.stringify(completionCatalogs).replace(/</g, "\\u003c");
+  const templateBootstrap = "<script>window.__ALFACODE_TAG_SUGGESTIONS_TEMPLATE__ = " + JSON.stringify(tagSuggestionsTemplate) + "; window.__ALFACODE_COMPLETION_CATALOGS__ = " + serializedCatalogs + ";</script>";
   html = injectBeforeBodyEnd(html, templateBootstrap + "<script>\n" + escapeScript(bundle) + "\n</script>");
   return html;
 }
