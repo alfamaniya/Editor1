@@ -14,7 +14,8 @@ Editor1/
 │   ├── alfacode-tests.yml
 │   ├── build-offline.yml
 │   └── send-offline-email.yml
-├── index.html
+├── index.html (نسخه جدید Layout؛ مستقل و هنوز بدون اتصال به اجزای مخزن)
+├── index-original-disabled.html (نسخه قبلی ورودی اصلی؛ نگهداری‌شده و غیرفعال)
 ├── style.css (استایل‌های عمومی/ریشه؛ در صورت نیاز)
 ├── style-backup.css (نسخه پشتیبان قبلی)
 ├── script.js
