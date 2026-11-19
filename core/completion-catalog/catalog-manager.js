@@ -20,7 +20,8 @@ export function parseCatalogImport(source, language) {
     for (let i = 0; i < line.length; i++) {
       const char = line[i];
       if (char === '"' && quoted && line[i + 1] === '"') { value += '"'; i++; }
-      else if (char === '"') quoted = !quoted;
+      else if (char === '"' && !quoted && value.length === 0) quoted = true;
+      else if (char === '"' && quoted) quoted = false;
       else if (char === delimiter && !quoted) { cells.push(value); value = ""; }
       else value += char;
     }
