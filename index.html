@@ -6,6 +6,7 @@
 <style>
 /* === style.css === */
 
+    /* ریست اولیه: حذف فاصله‌های پیش‌فرض و یکسان‌سازی محاسبه ابعاد عناصر */
     /* ========== ریست ========== */
     *, *::before, *::after {
       box-sizing: border-box;
@@ -13,6 +14,7 @@
       padding: 0;
     }
 
+    /* پایه صفحه: جلوگیری از اسکرول بیرونی، انتخاب فونت، رنگ متن و زمینه */
     html, body {
       margin: 0;
       padding: 0;
@@ -22,6 +24,7 @@
       background: #f3f4f6;
     }
 
+    /* بدنه را به ستون تبدیل می‌کند و ارتفاع آن را برابر ارتفاع قابل‌مشاهده صفحه می‌گیرد */
     body {
       display: flex;
       flex-direction: column;
@@ -30,6 +33,7 @@
     }
 
     /* ========== هدر و فوتر (با اسکرول افقی) ========== */
+    /* نوارهای بالا و پایین در صورت زیاد بودن گزینه‌ها اسکرول افقی می‌گیرند. */
     .main-header,
     .main-footer {
       flex: 0 0 auto;
@@ -52,6 +56,7 @@
       border-radius: 3px;
     }
 
+    /* ظرف داخلی نوارها: گزینه‌ها را در یک ردیف نگه می‌دارد و در عرض کم قابل پیمایش است */
     .scroll-area {
       display: inline-flex;
       align-items: center;
@@ -61,6 +66,7 @@
       min-width: 100%;
     }
 
+    /* ظاهر مشترک گزینه‌های Header و Footer */
     .scroll-area .item {
       font-size: clamp(0.8rem, 2vw, 1rem);
       padding: clamp(0.25rem, 1.5vw, 0.5rem) clamp(0.5rem, 2vw, 1rem);
@@ -70,15 +76,19 @@
       transition: background 0.15s ease;
     }
 
+    /* بازخورد ظاهری هنگام قرار گرفتن نشانگر روی گزینه */
     .scroll-area .item:hover {
       background: rgba(255, 255, 255, 0.18);
     }
 
+    /* اندازه متن گزینه‌های نوار پایین کمی کوچک‌تر تنظیم شده است */
     .main-footer .scroll-area .item {
       font-size: clamp(0.75rem, 1.8vw, 0.9rem);
     }
 
     /* ========== بخش اصلی (دو پنل) ========== */
+    /* ناحیه مرکزی بین Header و Footer؛ دو پنل در این بخش قرار می‌گیرند. */
+    /* ساختار دوپنله: فضای باقی‌مانده صفحه را می‌گیرد و از سرریز محتوا جلوگیری می‌کند */
     .split {
       flex: 1 1 auto;
       display: flex;
@@ -86,6 +96,7 @@
       overflow: hidden;
     }
 
+    /* قواعد پایه هر پنل: چینش عمودی و محدود کردن اندازه/سرریز */
     .pane {
       display: flex;
       flex-direction: column;
@@ -94,9 +105,11 @@
       overflow: hidden;
     }
 
+    /* پنل سمت چپ (Editor) با عرض اولیه ۵۰ درصد */
     #leftPane  { flex: 0 0 50%;   background: #ffffff; }
     #rightPane { flex: 1 1 auto;  background: #e5e7eb; }
 
+    /* سربرگ داخلی هر پنل؛ عنوان Editor یا Preview را نشان می‌دهد */
     .pane-header {
       flex: 0 0 auto;
       padding: clamp(0.5rem, 1.5vw, 0.9rem) clamp(0.75rem, 2vw, 1.25rem);
@@ -107,6 +120,7 @@
       border-bottom: 1px solid #9ca3af;
     }
 
+    /* ناحیه محتوای پنل: مستقل از سربرگ اسکرول می‌شود و فضای قابل‌انعطاف می‌گیرد */
     .pane-content {
       flex: 1 1 auto;
       min-height: 0;
@@ -116,9 +130,12 @@
       line-height: 1.7;
     }
 
+    /* فاصله پایین پاراگراف‌ها در محتوای پنل */
     .pane-content p { margin-bottom: 0.75rem; }
 
     /* ========== خط جداکننده‌ی قابل درگ ========== */
+    /* Divider بین دو پنل است؛ کاربر با کشیدن آن می‌تواند نسبت عرض پنل‌ها را عوض کند. */
+    /* نوار جداکننده: cursor مخصوص تغییر عرض و touch-action برای کنترل کشیدن */
     .divider {
       flex: 0 0 8px;
       background: #9ca3af;
@@ -129,7 +146,7 @@
       touch-action: none;
     }
 
-    /* ناحیه‌ی حساس بزرگ‌تر (برای راحتی کلیک و لمس) */
+    /* ناحیه حساس بزرگ‌تر از خود Divider برای سهولت کلیک و لمس است */
     .divider::before {
       content: '';
       position: absolute;
@@ -139,7 +156,7 @@
       right: -6px;
     }
 
-    /* دستگیره‌ی وسط (فقط تزئینی) */
+    /* دستگیره وسط فقط تزئینی است و رویداد دریافت نمی‌کند */
     .divider::after {
       content: '';
       position: absolute;
@@ -154,11 +171,13 @@
       pointer-events: none;
     }
 
+    /* رنگ Divider هنگام hover یا در حالت کشیدن */
     .divider:hover,
     .divider.dragging {
       background: #4b5563;
     }
 
+    /* هنگام جابه‌جایی Divider، cursor سراسری و انتخاب متن غیرفعال می‌شود */
     body.dragging {
       cursor: col-resize;
       user-select: none;
@@ -166,6 +185,7 @@
     }
 
     /* ========== تنظیمات اضافی برای موبایل‌های کوچک ========== */
+    /* در عرض خیلی کم، Divider کمی ضخیم‌تر و پنل چپ کمی عریض‌تر می‌شود. */
     @media (max-width: 480px) {
       .divider { flex: 0 0 10px; }
       #leftPane { flex: 0 0 55%; }
@@ -246,21 +266,32 @@
  
 <script>
 /* === script.js === */
+/* این IIFE متغیرهای داخلی را در محدوده محلی نگه می‌دارد تا به فضای سراسری اضافه نشوند. */
 
     (function () {
+      // دریافت ظرف اصلی دو پنل با شناسه split
       const split      = document.getElementById('split');
+      // دریافت پنل چپ که عرض آن با کشیدن Divider تغییر می‌کند
       const leftPane   = document.getElementById('leftPane');
+      // دریافت عنصر جداکننده برای ثبت رویداد شروع کشیدن
       const divider    = document.getElementById('divider');
 
+      // مشخص می‌کند آیا کاربر در حال کشیدن Divider است
       let isDragging = false;
+      // مختصات افقی اولیه Mouse یا Touch
       let startX = 0;
+      // عرض اولیه پنل چپ قبل از شروع تعامل
       let startLeftWidth = 0;
+      // عرض ظرف دو پنل؛ برای محاسبه محدودیت اندازه استفاده می‌شود
       let containerWidth = 0;
 
-      const MIN_PANE = 100; // حداقل عرض هر پنل (پیکسل)
+      // حداقل عرض مجاز هر پنل بر حسب پیکسل، تا هیچ پنل کاملاً جمع نشود
+      const MIN_PANE = 100;
 
+      // تابع کمکی: مختصات X را از رویداد Touch یا Mouse می‌خواند
       const getX = (e) => (e.touches ? e.touches[0].clientX : e.clientX);
 
+      // شروع کشیدن: ذخیره نقطه شروع و اندازه فعلی پنل و ظرف
       function startDrag(e) {
         isDragging = true;
         startX = getX(e);
@@ -270,21 +301,29 @@
         document.body.classList.add('dragging');
       }
 
+      // حرکت Divider: اختلاف حرکت Mouse/Touch را به عرض پنل چپ تبدیل می‌کند
       function moveDrag(e) {
         if (!isDragging) return;
         const currentX = getX(e);
+        // میزان حرکت افقی از محل شروع تا موقعیت فعلی
         const deltaX = currentX - startX;
 
+        // عرض پیشنهادی پنل چپ با افزودن میزان حرکت به عرض اولیه
         let newWidth = startLeftWidth + deltaX;
+        // سقف عرض پنل چپ؛ با حفظ حداقل عرض پنل راست محاسبه می‌شود
         const maxLeft = containerWidth - MIN_PANE;
         newWidth = Math.max(MIN_PANE, Math.min(maxLeft, newWidth));
 
+        // تبدیل عرض محاسبه‌شده به درصد برای اعمال به flex-basis
         const percent = (newWidth / containerWidth) * 100;
+        // اعمال عرض جدید؛ پنل راست فضای باقی‌مانده را می‌گیرد
         leftPane.style.flex = `0 0 ${percent}%`;
 
+        // جلوگیری از رفتار پیش‌فرض رویداد در صورت امکان، مانند اسکرول ناخواسته
         if (e.cancelable) e.preventDefault();
       }
 
+      // پایان کشیدن: پاک کردن حالت فعال و کلاس‌های نمایشی
       function endDrag() {
         if (!isDragging) return;
         isDragging = false;
@@ -292,10 +331,12 @@
         document.body.classList.remove('dragging');
       }
 
+      // رویدادهای Mouse: آغاز کشیدن، دنبال‌کردن حرکت و پایان با رها کردن
       divider.addEventListener('mousedown', startDrag);
       window.addEventListener('mousemove', moveDrag);
       window.addEventListener('mouseup', endDrag);
 
+      // رویدادهای لمسی: آغاز کشیدن و دنبال‌کردن حرکت انگشت
       divider.addEventListener('touchstart', startDrag, { passive: true });
       window.addEventListener('touchmove', moveDrag, { passive: false });
       window.addEventListener('touchend', endDrag);
