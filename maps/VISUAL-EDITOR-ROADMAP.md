@@ -148,3 +148,11 @@ Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PRO
 - [x] Opacity slider.
 - [x] Linear/Radial gradient controls with angle and two color stops.
 - [ ] Per-control clearing, expanded formats, gradient stop management, readback polish and browser/offline validation.
+
+
+## Color property — implementation started
+- [x] Background/Text/Border color pickers with manual HEX input.
+- [x] Initial quick palette.
+- [x] Opacity slider.
+- [x] Linear/Radial gradient controls with angle and two color stops.
+- [ ] Per-control clearing, expanded formats, gradient stop management, readback polish and browser/offline validation.
