@@ -13,14 +13,14 @@ Editor1/
 │   ├── build-offline.yml
 │   └── send-offline-email.yml
 ├── index.html
-├── style.css (فعلاً خالی برای تست تشخیصی)
-├── style-backup.css (نسخه پشتیبان CSS قبل از خالی‌سازی)
+├── style.css (CSS مرکزی صفحه، Header و دکمه پاک‌کردن تب‌ها)
+├── style-backup.css (نسخه قبلی CSS ریشه پیش از آزمایش حذف)
 ├── script.js
 ├── README.md
 ├── core/
 │   ├── browser-storage/ (html, css, js)
 │   ├── clear-project-cookies/ (html, css, js)
-│   ├── clear-tabs/ (html, css, js)
+│   ├── clear-tabs/ (html, css خالی، js؛ نسخه پشتیبان CSS نیز)
 │   ├── completion-catalog/
 │   │   ├── catalog-loader.js
 │   │   ├── catalog-manager.js
@@ -82,8 +82,8 @@ Editor1/
 
 ### فایل‌های ریشه
 - `index.html`: پوسته صفحه؛ قرار دادن Header، پنل Editor، پنل Preview، Divider و اتصال اسکریپت‌های اجزا.
-- `style.css`: فایل CSS ریشه؛ در حال حاضر عمداً خالی شده تا آزمایش تشخیصی اثر حذف CSS ریشه انجام شود.
-- `style-backup.css`: نسخه دقیق CSS قبلی ریشه، برای بازگردانی سریع پس از آزمایش.
+- `style.css`: منبع مرکزی ظاهر صفحه؛ شامل چیدمان Workspace، Header و دکمه Clear tabs. استایل این اجزا اعمال‌شده از Light DOM است تا CSS ریشه کنترل مستقیم داشته باشد.
+- `style-backup.css`: نسخه CSS ریشه پیش از آزمایش خالی‌سازی؛ به‌عنوان نسخه پشتیبان نگه داشته شده است.
 - `script.js`: هماهنگ‌کننده برنامه؛ پیام‌های Editor را دریافت و محتوای HTML/CSS/JS را به Preview منتقل می‌کند و فرمان‌های Header را به Editor می‌فرستد.
 - `README.md`: راهنمای اصلی، درخت مخزن و توضیح فایل‌ها/روش اجرا/ساخت آفلاین/آزمون.
 - `maps/ROADMAP.md`: تنها سند برنامه‌ریزی؛ کارهای انجام‌شده، باقی‌مانده‌ها و معیارهای پذیرش.
@@ -97,7 +97,8 @@ Editor1/
 - `clear-project-cookies/clear-project-cookies.css`: ظاهر دکمه پاک‌سازی داده پروژه.
 - `clear-project-cookies/clear-project-cookies.js`: رفتار و ارسال فرمان پاک‌سازی داده پروژه به Editor.
 - `clear-tabs/clear-tabs.html`: markup دکمه پاک کردن تب‌ها.
-- `clear-tabs/clear-tabs.css`: ظاهر دکمه پاک‌کردن تب‌ها.
+- `clear-tabs/clear-tabs.css`: فعلاً خالی؛ استایل دکمه Clear tabs به CSS ریشه منتقل شده.
+- `clear-tabs/clear-tabs-style-backup.css`: نسخه پشتیبان استایل Clear tabs پیش از انتقال به ریشه.
 - `clear-tabs/clear-tabs.js`: رفتار دکمه و ارسال فرمان پاک‌کردن تب‌ها.
 - `completion-catalog/catalog-loader.js`: بارگذاری کاتالوگ‌های پیشنهاد؛ پشتیبانی از منابع آنلاین و داده تعبیه‌شده آفلاین.
 - `completion-catalog/catalog-manager.js`: مدیریت/اعتبارسنجی/کار با رکوردهای کاتالوگ و ابزار پیش‌نویس.
