@@ -19,11 +19,13 @@
 - This is a registered plan; controls are not yet implemented just because they are listed.
 
 
-- The Visual Editor overlay has been redesigned with a left Elements rail, a top status strip, and a right Inspector panel, following the reference website-builder layout.
+- The Visual Editor full-screen workspace design is planned around a single fixed right-side panel for both element browsing and Inspector settings; Preview fills the remaining area. Implementation and browser verification are pending.
 - The Inspector now displays the selected element's tag and selector, and offers a dedicated **Select Element** action to re-enter preview selection.
 - The dark UI uses a restrained orange accent and compact panel/control styling.
 - The left-side element tiles and search field are currently non-functional placeholders; element insertion and search are future roadmap work.
 - Detailed completion plan: [`maps/VISUAL-EDITOR-ROADMAP.md`](maps/VISUAL-EDITOR-ROADMAP.md). Browser/manual and offline verification remain pending.
+- Planned hover identity hint: in Visual mode, hovering over a Preview element displays its ID and/or class in a small label beside the pointer (tag name fallback if neither exists). It must not block selection or clicks. Detailed checklist: maps/VISUAL-EDITOR-ROADMAP.md.
+
 
 ## Visual Editor
 
