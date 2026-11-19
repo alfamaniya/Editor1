@@ -380,3 +380,14 @@
 - [ ] Migrate editor/preview implementation and runtime dependencies from `backup/core-old/` into active `core/` modules after integration tests.
 - [x] Disable the `clear tab` button visibly until a current-tab-only command is implemented; it is not available in the reused editor script.
 - [ ] Reconcile `scripts/offline-manifest.json` and build/audit output paths with the actual active/archived component locations.
+
+
+## Reset Project / Clear Tab / Clear All Tabs — 19 November 2026
+- [x] Wired the three Header controls to Editor actions through `core/editor-bridge.js`.
+- [x] Added confirmation dialogs to avoid accidental loss of code.
+- [x] Reset Project restores the starter sources for HTML/CSS/JavaScript and selects HTML.
+- [x] Clear Tab removes code only from the active language.
+- [x] Clear All Tabs removes code from all three language tabs without switching the selected language.
+- [x] All actions render, schedule storage, and publish source updates; Preview receives the updated sources.
+- [x] Hide all completion/suggestion menus after Clear All Tabs and Reset Project (not just the HTML menu).
+- [ ] Manual browser test: verify confirm/cancel, each button action, persistence after reload, and Preview update.
