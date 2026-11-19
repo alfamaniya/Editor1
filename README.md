@@ -54,3 +54,10 @@ python -m http.server 8000
 
 ### نمونه پیش‌فرض جدید (در حال تأیید CI)
 نمونه‌های آغازین هر تب گسترش یافته‌اند: HTML شامل تگ‌های معنایی، متن، لیست، جدول، فرم و عناصر تعاملی/رسانه‌ای؛ CSS شامل Selectorهای متنوع، pseudo، attribute، Flex/Grid، Media Query و reduced-motion؛ JavaScript شامل متغیرها، توابع، شرط/حلقه، مجموعه‌ها، DOM/فرم، Date/Intl، Timer، Promise و Async/Await. تصویر نمونه به SVG inline تغییر داده شده تا وابستگی اینترنتی نداشته باشد. **CI پس از تغییر: ۱۰۹ تست موفق، ۰ شکست؛ Build آفلاین موفق، ۸۰ فایل Runtime و ۰ منبع خارجی (Run 44507418383/18489).**
+
+
+## اصلاح Responsive Layout — ۱۹ نوامبر ۲۰۲۶
+- [x] ممیزی CSSهای اصلی: شرط pointer-coarse از Layout اصلی، Editor، Header و Mobile workspace حذف شد؛ Layout موبایل اکنون بر اساس عرض viewport (۷۰۰px) فعال می‌شود.
+- [x] اسکرول افقی کد داخل scroll-host ویرایشگر حفظ شد تا محتوای طولانی عرض پنل را تحمیل نکند.
+- [x] Regression tests برای breakpoint و containment اضافه شد.
+- [ ] تست بصری واقعی مرورگر هنگام کوچک/بزرگ کردن پنجره همچنان لازم است.
