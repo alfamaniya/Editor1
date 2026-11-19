@@ -20,7 +20,8 @@ test("live HTML completion accepts catalog records and retains contextual candid
 
 test("live CSS completion uses catalog properties, values, at-rules, functions and units", async () => {
   const catalog = await records("css");
-  const property = getCSSCompletionSuggestions(".box { dis", 11, { catalog });
+  const propertySource = ".box { dis";
+  const property = getCSSCompletionSuggestions(propertySource, propertySource.length, { catalog });
   assert.ok(property?.options.some(option => option.label === "display"));
   const value = getCSSCompletionSuggestions(".box { display: fl", 18, { catalog });
   assert.ok(value?.options.some(option => option.label === "flex"));
