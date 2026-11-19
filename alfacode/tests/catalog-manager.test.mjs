@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { createBlankRecord, parseCatalogImport, serializeCatalog, validateCatalogDraft } from "../../core/completion-catalog/catalog-manager.js";
 
 test("TSV import preserves clipboard columns and converts typed values", () => {
-  const rows = parseCatalogImport(["label","description","order","enabled","contexts"].join("\\t") + "\\n" + ["main","Main content","2","true",'["body"]'].join("\\t"), "html");
+  const rows = parseCatalogImport(["label","description","order","enabled","contexts"].join(String.fromCharCode(9)) + String.fromCharCode(10) + ["main","Main content","2","true",'["body"]'].join(String.fromCharCode(9)), "html");
   assert.equal(rows.length, 1);
   assert.equal(rows[0].label, "main");
   assert.equal(rows[0].description, "Main content");
@@ -13,7 +13,7 @@ test("TSV import preserves clipboard columns and converts typed values", () => {
 });
 
 test("CSV import handles quoted commas and escaped quotes", () => {
-  const rows = parseCatalogImport(["label,description",'main,"A, ""quoted"" description"'].join("\\n"), "html");
+  const rows = parseCatalogImport(["label,description",'main,"A, ""quoted"" description"'].join(String.fromCharCode(10)), "html");
   assert.equal(rows[0].description, 'A, "quoted" description');
 });
 
