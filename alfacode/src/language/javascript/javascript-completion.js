@@ -38,6 +38,42 @@ function isInsideLiteralOrComment(source,cursor) {
   }
   return Boolean(quote);
 }
+const INSTANCE_OWNER_BY_TYPE = Object.freeze({
+  Array: "Array.prototype", BigInt: "BigInt.prototype", Boolean: "Boolean.prototype",
+  Date: "Date.prototype", Error: "Error.prototype", Function: "Function.prototype",
+  Map: "Map.prototype", Number: "Number.prototype", Object: "Object.prototype",
+  Promise: "Promise.prototype", RegExp: "RegExp.prototype", Set: "Set.prototype",
+  String: "String.prototype", Symbol: "Symbol.prototype", WeakMap: "WeakMap.prototype",
+  WeakSet: "WeakSet.prototype", URL: "URL.prototype", AbortController: "AbortController.prototype",
+  AbortSignal: "AbortSignal.prototype", Node: "Node.prototype", Element: "Element.prototype",
+  HTMLElement: "HTMLElement.prototype", Document: "Document.prototype",
+  EventTarget: "EventTarget.prototype", HTMLInputElement: "HTMLInputElement.prototype",
+  HTMLTextAreaElement: "HTMLTextAreaElement.prototype", HTMLSelectElement: "HTMLSelectElement.prototype",
+  HTMLButtonElement: "HTMLButtonElement.prototype"
+});
+
+function inferMemberOwner(source, expression) {
+  if (GLOBALS.includes(expression) || ["console", "document", "window"].includes(expression)) return expression;
+  const escaped = expression.replace(/[.*+?^\${}()|[\]\\]/g, "\\export function getJavaScriptCompletionSuggestions");
+  const declaration = new RegExp(
+    "(?:\\b(?:const|let|var)\\s+" + escaped + "\\s*=|\\b" + escaped + "\\s*=)\\s*([^;\\n]+)", "g"
+  );
+  let initializer = null;
+  for (const match of source.matchAll(declaration)) initializer = match[1].trim();
+  if (!initializer) return null;
+  const constructor = initializer.match(/^new\\s+([A-Za-z_$][\\w$]*)\\s*\\(/);
+  if (constructor) return INSTANCE_OWNER_BY_TYPE[constructor[1]] ?? constructor[1] + ".prototype";
+  if (/^(?:\\[\\s*\\]|Array\\s*\\()/i.test(initializer)) return "Array.prototype";
+  if (/^(?:["'\\x60]|String\\s*\\()/i.test(initializer)) return "String.prototype";
+  if (/^(?:-?\\d+(?:\\.\\d+)?|Number\\s*\\()/i.test(initializer)) return "Number.prototype";
+  if (/^(?:true|false|Boolean\\s*\\()/i.test(initializer)) return "Boolean.prototype";
+  if (/^(?:\\{\\s*\\}|Object\\s*\\()/i.test(initializer)) return "Object.prototype";
+  if (/^\\/(?:[^/]|\\\\.)+\\/[dgimsuvy]*$/.test(initializer)) return "RegExp.prototype";
+  if (/^document\\.querySelector(?:All)?\\s*\\(/.test(initializer)) return "Element.prototype";
+  if (/^document\\.createElement\\s*\\(/.test(initializer)) return "HTMLElement.prototype";
+  return null;
+}
+
 export function getJavaScriptCompletionSuggestions(source,cursor,options={}) {
   if(typeof source!=="string")throw new TypeError("JavaScript completion source must be a string.");
   if(!Number.isInteger(cursor)||cursor<0||cursor>source.length)throw new RangeError("JavaScript completion cursor is outside the source.");
@@ -47,10 +83,12 @@ export function getJavaScriptCompletionSuggestions(source,cursor,options={}) {
   let query="",from=cursor,candidates=[];
   if(member){
     query=member[2];from=cursor-query.length;
-    candidates=Array.isArray(options.catalog) && options.catalog.length
+    const inferredOwner = inferMemberOwner(prefix.slice(0, member.index), member[1]);
+    const owner = inferredOwner ?? member[1];
+    candidates = Array.isArray(options.catalog) && options.catalog.length
       ? options.catalog.filter(record => record.enabled !== false && record.type === "member" &&
-          record.owner === member[1]).map(record => ({...record,label:record.insertText ?? record.label}))
-      : (METHODS[member[1]]??[]).map(label=>({label,description:member[1]+" method"}));
+          record.owner === owner).map(record => ({...record,label:record.insertText ?? record.label}))
+      : (METHODS[owner] ?? []).map(label => ({label,description:owner+" method"}));
   }else{
     const match=prefix.match(/([A-Za-z_$][\w$]*)$/);
     if(!match)return null;
