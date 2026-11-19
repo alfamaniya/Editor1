@@ -329,3 +329,14 @@
 - [x] اتصال فایل `style.css` از طریق `<link rel="stylesheet">` در `index.html`.
 - [x] محدوده CSS جدید فقط استایل کلی Buttonهاست؛ استایل‌های Layout و سایر اجزا در این مرحله دست‌نخورده‌اند.
 - [ ] بررسی بصری در مرورگر و نسخه آفلاین پس از اتصال.
+
+
+## English-only LTR interface and clean core folder — 19 November 2026
+- [x] Set root document language to English and direction to LTR.
+- [x] Replace the visible document title with English.
+- [x] Remove RTL direction settings from Editor and Preview panes; set direction to LTR.
+- [x] Replace non-English accessible resize label with `Resize panels`.
+- [x] Archive the existing `core/` component directory as `core-old/` (tree operation prepared; branch update pending).
+- [x] Create a new `core/` directory represented by `.gitkeep` (Git cannot store truly empty folders).
+- [ ] Review all UI-visible strings in components, dialogs, tooltips, and status messages for English-only compliance.
+- [ ] Validate LTR layout in browser, including offline build.
