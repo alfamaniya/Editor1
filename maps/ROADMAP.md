@@ -233,3 +233,5 @@
 - [x] حذف ۶ فایل مربوط به mobile-workspace و mobile-extra-keys و حذف آن‌ها از Offline manifest.
 - [x] حذف ارتباط JavaScript با کلیدهای کمکی موبایل.
 - [ ] تست واقعی در مرورگر برای layout دوپنله در عرض‌های کوچک و بزرگ و resize بدون refresh.
+
+- [x] پاکسازی تکمیلی Media Queryهای موبایل در اکشن‌های Header، Completion Catalog و Tag Suggestions؛ حذف touch-action: manipulation از اکشن‌ها.
