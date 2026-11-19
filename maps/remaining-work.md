@@ -80,7 +80,7 @@
 - **معیار قبولی:** هیچ regression در رفتار legacy و درج/جابه‌جایی Cursor؛ اختلاف‌های پوشش افزوده JSON به‌صورت موردی پذیرفته و مستند شوند؛ تست repeatable با fixture ثابت باشد.
 - **پیشنهاد پیاده‌سازی بعدی:** adapter تستی مستقل با ورودی JSON تزریق‌شده، helper نرمال‌سازی خروجی و snapshotهای fixture؛ تست‌ها بدون network/fetch با داده محلی اجرا شوند. سپس به runtime متصل شود.
 - **وظیفه ۹ — Fixtureهای ثابت HTML (۱۹ نوامبر ۲۰۲۶):** فایل `alfacode/tests/html-completion-fixtures.mjs` با ۳۲ ورودی ثابت ایجاد شد.
-- **وظیفه ۱۰ — Shadow test (۱۹ نوامبر ۲۰۲۶):** فایل `alfacode/tests/html-completion-shadow.test.mjs` ساخته شد. موتور Legacy برای mode/context/بازه و منطق close/chain مرجع می‌ماند؛ adapter آزمایشی metadata و enabled/namespace/parentTags و rank/order را از JSON می‌خواند. اختلاف نام/ترتیب گزینه‌ها به‌عنوان داده Shadow جمع‌آوری می‌شود و هنوز مجوز تغییر runtime یا پذیرش همه اختلاف‌ها نیست. تست به CI افزوده شد؛ اجرای واقعی CI هنوز در انتظار نتیجه GitHub Actions است.
+- **وظیفه ۱۰ — Shadow test (۱۹ نوامبر ۲۰۲۶):** فایل `alfacode/tests/html-completion-shadow.test.mjs` ساخته شد. موتور Legacy مرجع mode/context/bounds و close/chain است؛ adapter آزمایشی metadata و enabled/namespace/parentTags و rank/order را از JSON می‌خواند. اجرای GitHub Actions روی commit `f219a887` موفق شد: ۸۸ تست موفق، صفر شکست؛ ۳۲ fixture بررسی و ۱۷ اختلاف رفتاری ثبت شد. اختلاف‌های مهم شامل حذف برخی گزینه‌های Legacy به‌علت parentTags (از جمله div/li در بدنه)، ترتیب rank در head/table/list/select و خالی‌شدن پیشنهادهای SVG زیرعنصر g است. این‌ها موارد بررسی‌اند؛ runtime همچنان Legacy است و هیچ اختلافی خودکار پذیرفته نشده است.
 
 
 ### ۱.۲ اتصال منبع داده
