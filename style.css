@@ -28,3 +28,6 @@
 .main-footer .scroll-area .item {
   font-size: clamp(0.75rem, 1.8vw, 0.9rem);
 }
+
+/* Global UI language direction and alignment */
+html, body { direction: ltr; text-align: left; }
