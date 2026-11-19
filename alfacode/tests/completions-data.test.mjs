@@ -105,14 +105,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 929, javascript: 790 };
+  const expected = { html: 146, css: 929, javascript: 872 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 1865);
+  assert.equal(records.length, 1947);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -1010,3 +1010,6 @@ test("JS-9 adds 95 curated browser API members with correct runtime and owner me
   assert.match(byLabel.get("Storage.prototype.setItem").description, /synchronous/);
   assert.ok(!byLabel.has("Window.prototype.navigation"), "newer Navigation API omitted from default suggestions");
 });
+
+
+test("JS-10 network/data APIs have expected labels and metadata",async()=>{const {javascript}=await readCatalogFiles();const byLabel=new Map(javascript.records.map(r=>[r.label,r]));for(const label of ["Request.prototype.method","Request.prototype.url","Request.prototype.headers","Request.prototype.body","Request.prototype.bodyUsed","Request.prototype.credentials","Request.prototype.cache","Request.prototype.redirect","Request.prototype.referrer","Request.prototype.referrerPolicy","Request.prototype.integrity","Request.prototype.keepalive","Request.prototype.mode","Request.prototype.signal","Request.prototype.destination","Request.prototype.clone","Request.prototype.arrayBuffer","Request.prototype.blob","Request.prototype.bytes","Request.prototype.formData","Request.prototype.json","Request.prototype.text","Response.prototype.status","Response.prototype.statusText","Response.prototype.ok","Response.prototype.redirected","Response.prototype.type","Response.prototype.url","Response.prototype.headers","Response.prototype.body","Response.prototype.bodyUsed","Response.prototype.clone","Response.prototype.arrayBuffer","Response.prototype.blob","Response.prototype.bytes","Response.prototype.formData","Response.prototype.json","Response.prototype.text","Headers.prototype.append","Headers.prototype.delete","Headers.prototype.get","Headers.prototype.has","Headers.prototype.set","Headers.prototype.forEach","Headers.prototype.entries","Headers.prototype.keys","Headers.prototype.values","Headers.prototype.[Symbol.iterator]","FormData.prototype.append","FormData.prototype.delete","FormData.prototype.get","FormData.prototype.getAll","FormData.prototype.has","FormData.prototype.set","FormData.prototype.forEach","FormData.prototype.entries","FormData.prototype.keys","FormData.prototype.values","FormData.prototype.[Symbol.iterator]","Blob.prototype.size","Blob.prototype.type","Blob.prototype.slice","Blob.prototype.stream","Blob.prototype.text","Blob.prototype.arrayBuffer","Blob.prototype.bytes","AbortController.prototype.signal","AbortController.prototype.abort","AbortSignal.prototype.aborted","AbortSignal.prototype.reason","AbortSignal.prototype.onabort","AbortSignal.prototype.throwIfAborted","AbortSignal.abort","AbortSignal.timeout","AbortSignal.any"]){const r=byLabel.get(label);assert.ok(r,"missing "+label);assert.equal(r.enabled,true);assert.equal(r.runtimeScope,"web-api");assert.equal(r.availability,"browser-and-worker");assert.ok(["WHATWG Fetch","WHATWG XMLHttpRequest","W3C File API"].includes(r.standardSource));assert.ok(Number.isInteger(r.order)&&r.order>0);}for(const label of ["Request","Response","Headers","FormData","Blob","AbortController","AbortSignal"]){const r=byLabel.get(label);assert.ok(r);assert.equal(r.runtimeScope,"web-api");assert.equal(r.availability,"browser-and-worker");}assert.equal(byLabel.get("fetch").standardSource,"WHATWG Fetch");assert.match(byLabel.get("Response.prototype.ok").description,/200/);assert.match(byLabel.get("Request.prototype.json").description,/one-shot/);assert.match(byLabel.get("Headers.prototype.set").description,/validation/);});

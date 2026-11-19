@@ -191,7 +191,7 @@
 - [x] JS-7 — تکمیل اعضای Promise و کنترل ناهمگام؛ متدهای static، prototype، withResolvers/try و پوشش کلیدواژه‌های async/await.
 - [x] JS-8 — تکمیل DOM: انتخاب عناصر، پیمایش، ساخت/حذف، ویژگی‌ها، کلاس‌ها، dataset، style، رویدادها و فرم‌ها.
 - [x] JS-9 — تکمیل Browser API: window، location، history، navigator، storage، timers، URL، clipboard و APIهای پرکاربرد؛ با تفکیک محیط مرورگر از JavaScript عمومی.
-- [ ] JS-10 — تکمیل شبکه و داده: fetch، Request، Response، Headers، FormData، Blob و مدیریت خطا.
+- [x] JS-10 — تکمیل شبکه و داده: fetch، Request، Response، Headers، FormData، Blob و AbortController/AbortSignal؛ APIهای شبکه و داده ثبت شدند.
 - [ ] JS-11 — تکمیل ماژول‌ها، کلاس‌ها و الگوهای کدنویسی: import/export، constructor، getter/setter، ارث‌بری و الگوهای متداول.
 - [ ] JS-12 — بازبینی snippetها و الگوهای چندخطی: فقط مواردی که درج آن‌ها امن و قابل پیش‌بینی است فعال شوند؛ الگوهای نمایشی یا آزمایشی غیرفعال بمانند.
 - [ ] JS-13 — ممیزی نهایی پوشش، توضیحات، دسته‌بندی، محیط اجرا، ترتیب و یکتایی شناسه‌ها.
@@ -408,7 +408,14 @@
 - این مرحله داده و آزمون را تغییر می‌دهد؛ اتصال کاتالوگ به موتور پیشنهادها و آزمون دستی مرورگر/IME انجام نشده است.
 
 
-### گزارش اجرای JavaScript-9
+### گزارش اجرای JavaScript-10
+
+- افزوده‌شده: 82 رکورد؛ JavaScript 872، مجموع 1947.
+- APIهای Fetch، Request/Response، Headers، FormData، Blob و AbortController/AbortSignal ثبت شدند. Bodyها stream و در حالت عادی یک‌بارمصرف هستند؛ HTTP status خطا به‌تنهایی fetch را reject نمی‌کند.
+- منابع: [Fetch Standard](https://fetch.spec.whatwg.org/)، [MDN Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)، [Using Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)، [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request)، [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response)، [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers)، [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData)، [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob)، [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController).
+- آزمون JS-10 افزوده شد؛ CI در PR بررسی می‌شود.
+
+## گزارش اجرای JavaScript-9
 
 - ۹۵ عضو Browser API و ۶ شناسه سراسری جدید افزوده شدند؛ JavaScript از ۶۸۹ به **۷۹۰ رکورد** رسید، مجموع سه کاتالوگ به **۱۸۶۵ رکورد** افزایش یافت.
 - پوشش: Window (۳۴ عضو)، Location (۱۲)، History (۸)، Navigator (۱۰)، Storage (۶)، StorageEvent (۵)، Clipboard (۴)، Screen (۶)، Performance (۷) و StorageManager (۳).
