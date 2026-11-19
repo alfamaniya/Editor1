@@ -59,3 +59,15 @@ test("Color reset clears drafts and rerenders its specialized control panel", ()
   assert.match(visual, /if\(cat==="color"\)renderColorControls\(\)/);
   assert.match(visual, /state\.draft\[prop\]=""\;if\(drafts\)drafts\.set\(prop,""/);
 });
+
+test("Visual preview picker shows a non-interactive hovered element identity tooltip", () => {
+  assert.match(visual, /editor1-visual-identity-tip/);
+  assert.match(visual, /function identityFor\(el\)/);
+  assert.match(visual, /el\.id\?\("\#\+el\.id\)/);
+  assert.match(visual, /\.classList\]/);
+  assert.match(visual, /pointer-events:none/);
+  assert.match(visual, /function moveIdentity\(e\)/);
+  assert.match(visual, /Math\.max\(pad,Math\.min/);
+  assert.match(visual, /function hideIdentity\(\)/);
+  assert.match(visual, /hideIdentity\(\)/);
+});
