@@ -400,3 +400,12 @@
 - [x] Add the root toolbar action to the offline build bootstrap using the embedded catalog page.
 - [x] Correct the offline manifest shell coordinator path from `script.js` to `core/editor-bridge.js`.
 - [ ] Run offline build and audit, then test the catalog button in browser (online and offline) and verify catalog search/filter/sort/draft controls.
+
+
+## اتصال Helper Keys — ۱۹ نوامبر ۲۰۲۶
+
+- [x] ایجاد فایل مستقل `core/extra-key-action/extra-key-action.js` برای اتصال دکمه‌های علائم پایین صفحه به ادیتور.
+- [x] اتصال دکمه‌ها به پیام `alfacode:extra-key-command` و استفاده از handler قدیمی `applyExtraKey` در Editor.
+- [x] جایگزینی دکمه‌های placeholder پایین صفحه با علائم پرکاربرد.
+- [x] افزودن فایل به offline manifest و مستندسازی README.
+- [ ] اجرای Build آفلاین و آزمون کلیک واقعی در مرورگر؛ هنوز تأیید نشده.
