@@ -44,3 +44,9 @@ python -m http.server 8000
 - [x] اصلاح درج تگ در پیشنهاد زنجیره‌ای: هر انتخاب child علامت `<` را خودش درج می‌کند.
 - [x] تست Regression برای درج تگ عادی، child و void و تگ بسته اضافه شد؛ CI: ۱۰۹ تست موفق، صفر شکست (Run 44506283327).
 - [x] Offline Build پس از اصلاح: Run 44506256461 موفق؛ Audit تأیید شد و ۸۰ فایل Runtime بررسی شدند، ۰ منبع خارجی.
+
+## نمونه‌های پیش‌فرض Editor
+- [x] نمونه HTML با ساختار معنایی، متن، لیست، جدول، فرم، عناصر جزئیات، progress/meter و رسانه/تصویر نمونه تعبیه‌شده.
+- [x] نمونه CSS با selectorهای متنوع، pseudo، attribute، flex/grid، animation، responsive media queries و متغیرها.
+- [x] نمونه JavaScript با متغیرها، آرایه/شیء، destructuring، function/arrow، شرط/حلقه، map/filter، DOM، فرم، Date/Intl، timer، Promise، Map/Set و try/catch.
+- [x] تصویر نمونه با SVG تعبیه‌شده و بدون وابستگی به منبع خارجی.
