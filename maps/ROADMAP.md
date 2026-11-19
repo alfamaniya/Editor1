@@ -477,3 +477,14 @@
 - [x] Implemented Color panel: Background, Text, Border, Opacity, HEX picker/entry, swatches, Linear/Radial gradients.
 - [x] Corrected Reset Category draft behavior so clearing properties can override committed properties when applied.
 - [ ] Run full automated suite, offline build, and manual browser interaction before considering Color fully verified.
+
+
+## Visual Editor full-screen workspace layout refinement — 20 November 2026
+- [ ] Clicking the Visual button switches the editor into a dedicated full-screen workspace/overlay, replacing the normal editor workspace while active.
+- [ ] Left Elements rail and right Inspector rail are fixed/pinned, with viewport-height sizing (`100vh`/dynamic viewport equivalent) and stable panel widths; they do not scroll with the Preview.
+- [ ] Preview/Canvas occupies all remaining horizontal space strictly between the two rails and expands/shrinks responsively.
+- [ ] Keep each rail's content scrolling independently when it exceeds its height; Preview/canvas scrolling is separate. Prevent the document/page itself from scrolling while Visual workspace is active.
+- [ ] Top Visual toolbar stays within the full-screen workspace; workspace uses correct layering and avoids overlap with the normal app header/workspace.
+- [ ] On narrow screens, adapt/collapse rails or provide a controlled toggle so Preview remains usable without breaking the fixed-height workspace.
+- [ ] Exit/close Visual mode restores the normal editor layout without losing selection, drafts, or committed CSS.
+- [ ] Verify at desktop, tablet, and narrow viewport sizes; browser/manual verification is still pending.
