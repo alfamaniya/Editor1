@@ -98,7 +98,7 @@ const initialSources = {
       <p>Progress: <progress value="65" max="100">65%</progress></p>
       <p>Meter: <meter value="0.7">70%</meter></p>
       <p>Published <time datetime="2026-11-19">November 19, 2026</time>.</p>
-      <figure><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMzIwIDEyMCI+PHJlY3Qgd2lkdGg9IjMyMCIgaGVpZ2h0PSIxMjAiIGZpbGw9ICJlOWVlZjgiLz48dGV4dCB4PSIxNjAiIHk9ICI2NCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjIyIiBmaWxsPSIjMjU2M2ViIj5IVE1MIEl tYWdlIFNhbXBsZTwvdGV4dD48L3N2Zz4=" alt="Placeholder illustration" width="320" height="120"><figcaption>Image and caption example (online placeholder).</figcaption></figure>
+      <figure><svg width="320" height="120" viewBox="0 0 320 120" role="img" aria-labelledby="sample-svg-title"><title id="sample-svg-title">SVG sample graphic</title><rect width="320" height="120" rx="12" fill="#e9eef8"></rect><text x="160" y="64" text-anchor="middle" font-family="Arial" font-size="22" fill="#2563eb">SVG Sample</text></svg><figcaption>Inline SVG graphic and caption example (works offline).</figcaption></figure>
       <address>Contact: <a href="mailto:hello@example.com">hello@example.com</a></address>
     </section>
   </main>
