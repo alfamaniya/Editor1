@@ -563,9 +563,9 @@ async function main() {
     catalogBootstrap: shell.includes("completionCatalogDocument"),
     objectUrlBootstrap: shell.includes("URL.createObjectURL"),
     forbiddenAboutBlank: shell.includes('window.open("about:blank"'),
-    inlineStyle: /<style\\b[^>]*>[\\s\\S]*?<\\/style>/i.test(shell),
-    inlineScript: /<script\\b[^>]*>[\\s\\S]*?<\\/script>/i.test(shell),
-    externalSourceAttributes: /<script\\b[^>]*\\bsrc\\s*=|<link\\b[^>]*\\bhref\\s*=|<iframe\\b[^>]*\\bsrc\\s*=/i.test(shell)
+    inlineStyle: new RegExp("<style\\b[^>]*>[\\s\\S]*?</style>", "i").test(shell),
+    inlineScript: new RegExp("<script\\b[^>]*>[\\s\\S]*?</script>", "i").test(shell),
+    externalSourceAttributes: new RegExp("<script\\b[^>]*\\bsrc\\s*=|<link\\b[^>]*\\bhref\\s*=|<iframe\\b[^>]*\\bsrc\\s*=", "i").test(shell)
   };
   const failedChecks = Object.entries(outputChecks).filter(([key,value]) =>
     (key === "forbiddenAboutBlank" || key === "externalSourceAttributes") ? value : !value
