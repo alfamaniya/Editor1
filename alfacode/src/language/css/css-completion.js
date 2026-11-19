@@ -77,8 +77,10 @@ export function getCSSCompletionSuggestions(source, cursor, options = {}) {
     if (!match || match[1].length < 1) return null;
     const query = match[1];
     const from = cursor - query.length;
-    const candidates = [".container","#app",":hover",":focus",":active","::before","::after","button","div","body","html"]
-      .map(label => ({label,description:"Selector"}));
+    const candidates = Array.isArray(options.catalog) && options.catalog.length
+      ? options.catalog.filter(record => record.enabled !== false && record.mode === "selector")
+      : [".container","#app",":hover",":focus",":active","::before","::after","button","div","body","html"]
+        .map(label => ({label,description:"Selector"}));
     const optionsList = makeOptions(candidates, query, from, cursor, "selector").slice(0,limit);
     return optionsList.length ? {language:"css",mode:"selector",query,from,to:cursor,options:optionsList} : null;
   }
@@ -89,16 +91,21 @@ export function getCSSCompletionSuggestions(source, cursor, options = {}) {
     if (!match || !match[1]) return null;
     const query = match[1];
     const from = cursor - query.length;
-    const optionsList = makeOptions(CSS_PROPERTIES.map(label => ({
-      label, description:DESCRIPTIONS[label] ?? "CSS property"
-    })), query, from, cursor, "property").slice(0,limit);
+    const propertyRecords = Array.isArray(options.catalog) && options.catalog.length
+      ? options.catalog.filter(record => record.enabled !== false && record.mode === "property")
+      : CSS_PROPERTIES.map(label => ({ label, description:DESCRIPTIONS[label] ?? "CSS property" }));
+    const optionsList = makeOptions(propertyRecords, query, from, cursor, "property").slice(0,limit);
     return optionsList.length ? {language:"css",mode:"property",query,from,to:cursor,options:optionsList} : null;
   }
 
   const valuePrefix = state.segment.slice(colon + 1).match(/([A-Za-z-]*)$/)?.[1] ?? "";
   const property = state.segment.slice(0,colon).trim().toLowerCase();
-  const values = [...new Set([...(VALUE_CATALOG[property] ?? []),...COMMON_VALUES])];
-  const optionsList = makeOptions(values.map(label => ({label,description:"Value for "+property})),
+  const valueRecords = Array.isArray(options.catalog) && options.catalog.length
+    ? options.catalog.filter(record => record.enabled !== false && record.mode === "value" &&
+        (record.propertyName === "*" || record.propertyName === property))
+    : [...new Set([...(VALUE_CATALOG[property] ?? []),...COMMON_VALUES])]
+        .map(label => ({label,description:"Value for "+property}));
+  const optionsList = makeOptions(valueRecords,
     valuePrefix,cursor-valuePrefix.length,cursor,"value").slice(0,limit);
   return optionsList.length ? {language:"css",mode:"value",query:valuePrefix,from:cursor-valuePrefix.length,to:cursor,options:optionsList} : null;
 }
