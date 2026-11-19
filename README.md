@@ -12,7 +12,7 @@
 
 **اصلاح اندازه Gutter:** ستون شماره خطوط در Editor روی عرض ۴۲px قفل شده؛ محتوای کد جداگانه در ظرف اسکرول افقی رشد می‌کند.
 
-## Visual Editor redesign (builder-inspired)
+## Visual Editor redesign (builder-inspired)\n\n### Stage 1 — shared Inspector controls\n- Added `core/visual-editor/property-controls.js` as the shared control factory and draft-state helper.\n- Inspector now uses the shared control factory when available, while keeping a fallback renderer.\n- Added Cancel, Apply, and Reset Category lifecycle actions.\n- Reset Category clears only the active category properties in the preview draft.\n- Current controls still need category-specific readback, validation, specialized widgets, and browser testing.\n
 ### Inspector properties and controls plan
 - Detailed checklist for every Visual Editor property category and the settings nested within each category: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](maps/VISUAL-PROPERTIES-ROADMAP.md).
 - Includes color formats/palette/gradients, independent border sides and corners, sizing/units, layered shadows, box model, typography, Flex/Grid, positioning, filters/effects, transforms, transitions/animations, element-specific options, responsive breakpoints, presets, and CSS integrity safeguards.
