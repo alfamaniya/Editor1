@@ -196,5 +196,6 @@
 - [x] نمونه تصویر از منبع خارجی به SVG inline منتقل شد تا offline-safe بماند.
 - [x] خطای undefined بودن `isClosing` در مسیر اعمال پیشنهاد HTML، هنگام بررسی کد کشف و تعریف آن اضافه شد.
 - [x] Template literals تو در تو در نمونه JavaScript به رشته‌سازی ساده تغییر یافتند تا در template والد، interpolation ناخواسته ایجاد نکنند.
-- [ ] CI پس از آخرین commit نمونه و README/Roadmap، تست و build آفلاین را تأیید کند.
+- [x] CI پس از نمونه‌های گسترش‌یافته: Run 44507418489، ۱۰۹ تست موفق، صفر شکست؛ ۳۲ HTML Shadow Fixture صفر اختلاف.
+- [x] Offline Build: Run 44507418383 موفق؛ ۸۰ فایل Runtime، ۰ منبع خارجی؛ Audit passed.
 - [ ] بازبینی دستی Preview و اجرای نمونه JavaScript در مرورگر؛ چون هنوز کاربر تست مرورگر این تغییر را انجام نداده است.
