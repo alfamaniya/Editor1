@@ -496,9 +496,9 @@
 - [ ] Verify at desktop, tablet, and narrow viewport sizes; browser/manual verification is still pending.
 
 
-## Visual Editor — hover element identity label (planned)
-- [ ] In Visual mode, pointer-hovering Preview elements displays a small label adjacent to the cursor showing the element's ID and/or class.
-- [ ] Show both ID and class when present; use whichever exists otherwise, with tag name as fallback.
-- [ ] Label tracks pointer, stays inside Preview bounds, and does not intercept clicks or selection.
-- [ ] Hide on pointer leave or Visual mode exit; safely handle long/multiple class names.
-- [ ] Add automated coverage and manual browser verification. Detailed checklist is in maps/VISUAL-EDITOR-ROADMAP.md.
+## Visual Editor — hover element identity label (implementation added; verification pending)
+- [x] Implemented in `core/visual-editor/visual-editor.js`: hovering a Preview element in Visual mode displays a label beside the cursor showing its ID and/or class.
+- [x] Both ID and class are shown when present; fallback to whichever exists or tag name.
+- [x] Label follows the pointer, is clamped inside Preview, and has `pointer-events: none`.
+- [x] Hides when Visual mode exits or selection ends; multiple/long classes are handled with truncation and full title.
+- [ ] Automated coverage added; CI and manual browser verification pending. Detailed checklist is in `maps/VISUAL-EDITOR-ROADMAP.md`.
