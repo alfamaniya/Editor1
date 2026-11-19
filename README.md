@@ -1,5 +1,10 @@
 # Editor1
 
+**UI language and direction:** English only; left-to-right (`LTR`) throughout. No Persian text is permitted in user-visible interface labels, messages, tooltips, or accessibility text. Source-code comments may be Persian.
+
+**Core folder policy:** Existing `core-old/` is archived as `core-old/`. The new `core-old/` is reserved for JavaScript files for page UI elements and contains only `.gitkeep` for now.
+
+
 ویرایشگر مستقل HTML، CSS و JavaScript با پیش‌نمایش زنده و امکان ساخت فایل تک‌صفحه‌ای آفلاین.
 
 **قانون CSS/JS:** هر صفحه یا بخش اصلی می‌تواند یک CSS مخصوص ظاهر خود داشته باشد؛ عناصر مشابه از استایل مشترک استفاده کنند. قابلیت‌ها و اکشن‌های دارای منطق در JavaScript جدا نگهداری شوند. [سند معماری](maps/CSS-ARCHITECTURE.md)
@@ -21,7 +26,8 @@ Editor1/
 │   ├── style-backup.css (نسخه پشتیبان قدیمی CSS)
 │   └── script.js (هماهنگ‌کننده قبلی Editor/Preview)
 ├── style.css (استایل عمومی Buttonهای Header و Footer؛ فعلاً فقط ظاهر کلی)\n├── README.md
-├── core/
+├── core-old/ (archived legacy components)
+├── core/ (new empty folder reserved for UI element JavaScript)
 │   ├── browser-storage/ (html, css, js)
 │   ├── clear-project-cookies/ (html, css, js)
 │   ├── clear-tabs/ (html, css خالی، js، clear-tabs-style-backup.css)
@@ -46,7 +52,7 @@ Editor1/
 │   │   └── completions.javascript.json
 │   ├── examples/.gitkeep
 │   ├── src/
-│   │   ├── core/ (document.js, editor-state.js, editor.js, history.js, selection.js, transaction.js)
+│   │   ├── core-old/ (document.js, editor-state.js, editor.js, history.js, selection.js, transaction.js)
 │   │   ├── features/
 │   │   │   ├── bracket-matching/bracket-matcher.js
 │   │   │   ├── line-numbers/line-numbers.js
@@ -94,7 +100,7 @@ Editor1/
 - `README.md`: راهنمای اصلی، درخت مخزن و توضیح فایل‌ها/روش اجرا/ساخت آفلاین/آزمون.
 - `maps/ROADMAP.md`: تنها سند برنامه‌ریزی؛ کارهای انجام‌شده، باقی‌مانده‌ها و معیارهای پذیرش.
 
-### اجزای رابط `core/`
+### اجزای رابط `core-old/`
 هر جزء HTML/CSS/JS جدا دارد؛ HTML ساختار، CSS ظاهر و JS رفتار را پیاده می‌کند.
 - `browser-storage/browser-storage.html`: نقطه تعریف Web Component ذخیره مرورگر.
 - `browser-storage/browser-storage.css`: استایل جزء ذخیره‌سازی؛ فایل بسیار کوچک فعلی.
@@ -142,12 +148,12 @@ Editor1/
 
 ### موتور AlfaCode `alfacode/src/`
 #### Core
-- `core/document.js`: مدل متن چندخطی و عملیات/موقعیت‌های متنی.
-- `core/editor-state.js`: state و موقعیت انتخاب Editor.
-- `core/editor.js`: API مرکزی Editor و هماهنگی document، selection، transaction و history.
-- `core/history.js`: تاریخچه تغییرات Undo/Redo.
-- `core/selection.js`: نگهداری و محاسبه بازه انتخاب و Cursor.
-- `core/transaction.js`: عملیات تغییر متن به‌صورت تراکنش.
+- `core-old/document.js`: مدل متن چندخطی و عملیات/موقعیت‌های متنی.
+- `core-old/editor-state.js`: state و موقعیت انتخاب Editor.
+- `core-old/editor.js`: API مرکزی Editor و هماهنگی document، selection، transaction و history.
+- `core-old/history.js`: تاریخچه تغییرات Undo/Redo.
+- `core-old/selection.js`: نگهداری و محاسبه بازه انتخاب و Cursor.
+- `core-old/transaction.js`: عملیات تغییر متن به‌صورت تراکنش.
 #### Features
 - `features/bracket-matching/bracket-matcher.js`: تشخیص جفت براکت/پرانتز و match فعال.
 - `features/line-numbers/line-numbers.js`: تولید DOM شماره خطوط و مشخص کردن خط فعال.
