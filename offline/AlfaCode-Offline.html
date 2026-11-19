@@ -101,9 +101,17 @@ clear-tabs-action { display: inline-flex; flex: 0 0 auto; min-width: 44px; }
   
 class OfflineAppHeader extends HTMLElement {
   connectedCallback() {
-    if (this.shadowRoot) return;
-    const root = this.attachShadow({ mode: "open" });
-    root.innerHTML = "<style>" + "" + "</style>" + "<header class=\"header-bar\">\n  <div class=\"brand\" aria-label=\"AlfaCode\">ALFA<span>CODE</span></div>\n  <div class=\"header-content\" aria-label=\"Project actions\">\n    <a class=\"maps-link\" href=\"./maps/map.html\" aria-label=\"نمایش نقشه‌های راه\">مپ</a>\n    <slot name=\"header-actions\"></slot>\n  </div>\n</header>";
+    if (this.querySelector(".header-bar")) return;
+    const template = document.createElement("template");
+    template.innerHTML = "<header class=\"header-bar\">\n  <div class=\"brand\" aria-label=\"AlfaCode\">ALFA<span>CODE</span></div>\n  <div class=\"header-content\" aria-label=\"Project actions\">\n    <a class=\"maps-link\" href=\"./maps/map.html\" aria-label=\"نمایش نقشه‌های راه\">مپ</a>\n    <div class=\"header-actions\"></div>\n  </div>\n</header>";
+    this.append(template.content.cloneNode(true));
+    const actions = this.querySelector(".header-actions");
+    for (const child of [...this.children]) {
+      if (child.matches('[slot="header-actions"]')) {
+        child.removeAttribute("slot");
+        actions?.append(child);
+      }
+    }
   }
 }
 customElements.define("app-header", OfflineAppHeader);
