@@ -554,14 +554,24 @@ async function main() {
 `;
   shell = injectBeforeBodyEnd(shell, "<script>\n" + escapeScript(bootstrap) + "\n</script>");
 
-  if (!/<!doctype html>/i.test(shell) || !editorDocument.trim() || !previewDocument.trim() ||
-      !shell.includes("editorFrame.srcdoc") || !shell.includes("previewFrame.srcdoc") ||
-      !shell.includes("completionCatalogDocument") || !shell.includes("URL.createObjectURL") ||
-      shell.includes('window.open("about:blank"') ||
-      !/<style\b[^>]*>[\s\S]*?<\/style>/i.test(shell) ||
-      !/<script\b[^>]*>[\s\S]*?<\/script>/i.test(shell) ||
-      /<script\b[^>]*\bsrc\s*=|<link\b[^>]*\bhref\s*=|<iframe\b[^>]*\bsrc\s*=/i.test(shell)) {
-    throw new Error("Offline output validation failed: an embedded document, inline runtime asset, or required resource is missing.");
+  const outputChecks = {
+    doctype: /<!doctype html>/i.test(shell),
+    editorDocument: Boolean(editorDocument.trim()),
+    previewDocument: Boolean(previewDocument.trim()),
+    editorSrcdoc: shell.includes("editorFrame.srcdoc"),
+    previewSrcdoc: shell.includes("previewFrame.srcdoc"),
+    catalogBootstrap: shell.includes("completionCatalogDocument"),
+    objectUrlBootstrap: shell.includes("URL.createObjectURL"),
+    forbiddenAboutBlank: shell.includes('window.open("about:blank"'),
+    inlineStyle: /<style\\b[^>]*>[\\s\\S]*?<\\/style>/i.test(shell),
+    inlineScript: /<script\\b[^>]*>[\\s\\S]*?<\\/script>/i.test(shell),
+    externalSourceAttributes: /<script\\b[^>]*\\bsrc\\s*=|<link\\b[^>]*\\bhref\\s*=|<iframe\\b[^>]*\\bsrc\\s*=/i.test(shell)
+  };
+  const failedChecks = Object.entries(outputChecks).filter(([key,value]) =>
+    (key === "forbiddenAboutBlank" || key === "externalSourceAttributes") ? value : !value
+  );
+  if (failedChecks.length) {
+    throw new Error("Offline output validation failed: " + JSON.stringify(outputChecks));
   }
   if (NETWORK_URL_PATTERN.test(shell) ||
       findExternalHtmlResources(shell).length ||
