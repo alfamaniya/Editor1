@@ -54,3 +54,15 @@ test("Color inspector exposes core color editing tools", () => {
   assert.match(visual, /#RRGGBB/);
   assert.match(visualCSS, /visual-color-swatches/);
 });
+
+test("Color inspector exposes core color editing tools", () => {
+  assert.match(visual, /renderColorControls/);
+  assert.match(visual, /addColorRow\("Background","background-color","backgroundColor"\)/);
+  assert.match(visual, /addColorRow\("Text","color","color"\)/);
+  assert.match(visual, /addColorRow\("Border","border-color","borderColor"\)/);
+  assert.match(visual, /Gradient background/);
+  assert.match(visual, /linear-gradient/);
+  assert.match(visual, /radial-gradient/);
+  assert.match(visual, /#RRGGBB/);
+  assert.match(visualCSS, /visual-color-swatches/);
+});
