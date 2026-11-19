@@ -217,3 +217,11 @@
 - [x] ارسال resize event به iframeهای داخلی هنگام تغییر اندازه panel یا drag divider.
 - [x] افزودن regression checks برای CSS shrink/overflow و Observer/iframe resize behavior.
 - [ ] آزمون بصری دستی در مرورگر دسکتاپ با resize پنجره و drag divider؛ این مرحله به تأیید دستی نیاز دارد.
+
+
+## ممیزی Responsive Layout — ۱۹ نوامبر ۲۰۲۶
+- [x] شرط pointer-coarse و ارتفاع صفحه که Layout موبایل را مستقل از عرض فعال می‌کرد، در CSS اصلی و اجزای مرتبط حذف شد.
+- [x] breakpoint موبایل در Layout، Editor، Header و Mobile workspace به عرض ۷۰۰px محدود شد.
+- [x] اسکرول افقی Editor داخل scroll-host حفظ شد.
+- [x] Regression test برای breakpointهای عرض‌محور و containment اضافه شد.
+- [ ] تست مرورگر واقعی: کاهش/افزایش عرض، resize چندباره و بررسی فضای خالی کنار Preview؛ تست ایستا رفتار بصری را اثبات نمی‌کند.
