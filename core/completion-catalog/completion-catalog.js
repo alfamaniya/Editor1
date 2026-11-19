@@ -186,13 +186,19 @@ function downloadDraft() {
   const anchor = document.createElement("a");
   anchor.href = url;
   anchor.download = "completions." + manager.language.value + ".json";
+  document.body.append(anchor);
   anchor.click();
-  URL.revokeObjectURL(url);
+  anchor.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 function loadDraftLanguage() {
   const language = manager.language.value;
-  manager.records = (catalogs[language]?.records ?? []).map(record => ({ ...record }));
+  const original = (catalogs[language]?.records ?? []).map(record => ({ ...record }));
   manager.version = catalogs[language]?.catalogVersion ?? 1;
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(draftStorageKey) || "{}")[language] ?? null; } catch {}
+  manager.records = Array.isArray(saved?.records) ? saved.records : original;
+  manager.version = saved?.version ?? manager.version;
   manager.selected = -1;
   manager.editor.value = "";
   renderDraftRecords();
@@ -243,8 +249,17 @@ document.querySelector("#save-draft")?.addEventListener("click", () => {
     managerMessage("پیش‌نویس فقط در همین مرورگر ذخیره شد؛ هنوز منتشر نشده است.");
   } catch (error) { managerMessage("ذخیره محلی ناموفق بود: " + error.message, true); }
 });
-document.querySelector("#discard-draft")?.addEventListener("click", loadDraftLanguage);
-loadCompletionCatalogs().then(loadedCatalogs => {
-  catalogs = loadedCatalogs;
-  loadDraftLanguage();
+document.querySelector("#discard-draft")?.addEventListener("click", () => {
+  try {
+    const stored = JSON.parse(localStorage.getItem(draftStorageKey) || "{}");
+    delete stored[manager.language.value];
+    localStorage.setItem(draftStorageKey, JSON.stringify(stored));
+  } catch {}
+  manager.records = (catalogs[manager.language.value]?.records ?? []).map(record => ({ ...record }));
+  manager.version = catalogs[manager.language.value]?.catalogVersion ?? 1;
+  manager.selected = -1;
+  manager.editor.value = "";
+  renderDraftRecords();
+  manager.errors.replaceChildren();
+  managerMessage("پیش‌نویس محلی کنار گذاشته شد؛ داده اصلی دوباره بارگذاری شد.");
 });
