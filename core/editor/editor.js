@@ -54,7 +54,7 @@ const initialSources = {
       <article>
         <h3>Formatting examples</h3>
         <p>Use <strong>strong importance</strong>, <em>emphasis</em>, <mark>highlight</mark>, <small>small print</small>, <abbr title="HyperText Markup Language">HTML</abbr>, and <code>inline code</code>.</p>
-        <blockquote cite="https://example.com/">
+        <blockquote>
           <p>Semantic markup makes structure easier to understand.</p>
         </blockquote>
         <p>Keyboard shortcut: <kbd>Ctrl</kbd> + <kbd>S</kbd>. Sample output: <samp>Saved</samp>.</p>
@@ -98,7 +98,7 @@ const initialSources = {
       <p>Progress: <progress value="65" max="100">65%</progress></p>
       <p>Meter: <meter value="0.7">70%</meter></p>
       <p>Published <time datetime="2026-11-19">November 19, 2026</time>.</p>
-      <figure><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='120' viewBox='0 0 320 120'%3E%3Crect width='320' height='120' fill='%23e9eef8'/%3E%3Ctext x='160' y='64' text-anchor='middle' font-family='Arial' font-size='22' fill='%232563eb'%3EHTML Image Sample%3C/text%3E%3C/svg%3E" alt="Placeholder illustration" width="320" height="120"><figcaption>Image and caption example (online placeholder).</figcaption></figure>
+      <figure><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMzIwIDEyMCI+PHJlY3Qgd2lkdGg9IjMyMCIgaGVpZ2h0PSIxMjAiIGZpbGw9ICJlOWVlZjgiLz48dGV4dCB4PSIxNjAiIHk9ICI2NCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjIyIiBmaWxsPSIjMjU2M2ViIj5IVE1MIEl tYWdlIFNhbXBsZTwvdGV4dD48L3N2Zz4=" alt="Placeholder illustration" width="320" height="120"><figcaption>Image and caption example (online placeholder).</figcaption></figure>
       <address>Contact: <a href="mailto:hello@example.com">hello@example.com</a></address>
     </section>
   </main>
