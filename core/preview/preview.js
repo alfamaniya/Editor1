@@ -79,10 +79,10 @@ function helperScript() {
 }
 function buildPreviewDocument(sources) {
   let html = sources.html || "<!doctype html><html><head></head><body></body></html>";
-  const css = sources.css.replace(/<\\/style/gi, "<\\\\/style");
+  const css = sources.css.replace(/<\/style/gi, "<\\/style");
   if (css) {
     const styleTag = "<style>" + css + "</style>";
-    if (/<\\/head\\s*>/i.test(html)) html = html.replace(/<\\/head\\s*>/i, styleTag + "</head>");
+    if (/<\/head\s*>/i.test(html)) html = html.replace(/<\\/head\\s*>/i, styleTag + "</head>");
     else html = styleTag + html;
   }
   html = insertBeforeClosingTag(html, "body", helperScript());
