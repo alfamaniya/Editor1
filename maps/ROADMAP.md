@@ -365,3 +365,16 @@
 - [x] Connected action to `index.html` and renamed button to `clear editor data`.
 - [ ] Manual browser and offline-file testing to confirm cleanup behavior and that unrelated website data remains untouched.
 **Limitations:** Only identifiable Editor1-related storage is targeted. HttpOnly cookies and cookies scoped to alternate paths/domains may not be removable from JavaScript.
+
+
+## Editor Bridge and Preview integration — 19 November 2026
+
+- [x] Root `index.html` now embeds the existing HTML/CSS/JavaScript editor and preview panels in flexible iframe containers.
+- [x] Created `core/editor-bridge.js` to receive source changes from the editor and relay the three language sources to Preview; forwards reset and clear-all commands.
+- [x] Replaced inline workspace styling with shared root `style.css` rules for the layout and reusable toolbar button style.
+- [x] Preserved the existing AlfaCode engine files under `alfacode/src/` unchanged.
+- [x] Used the existing editor implementation from `backup/core-old/` temporarily instead of rewriting it.
+- [ ] Test editing and live preview updates in browser; verify resize stability, mobile behavior, and offline operation.
+- [ ] Migrate editor/preview implementation and runtime dependencies from `backup/core-old/` into active `core/` modules after integration tests.
+- [ ] Connect the `clear tab` button (current tab only); it is presently not implemented by the reused editor script.
+- [ ] Reconcile `scripts/offline-manifest.json` and build/audit output paths with the actual active/archived component locations.
