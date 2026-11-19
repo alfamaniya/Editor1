@@ -1021,3 +1021,40 @@ test("JS-12 snippet review keeps all multiline patterns disabled and descriptive
 
 
 test("JS-13 final JavaScript catalog audit",async()=>{const {javascript}=await readCatalogFiles();const records=javascript.records;assert.equal(records.length,908);assert.deepEqual(records.reduce((a,r)=>(a[r.type]=(a[r.type]||0)+1,a),{}),{"identifier":111,"snippet":44,"member":750,"literal":3});const ids=new Set();const semantic=new Set();const ownerOrders=new Map();for(const r of records){assert.ok(Number.isInteger(r.order)&&r.order>0,r.label);assert.ok(typeof r.description==="string"&&r.description.trim().length>0,r.label+" requires a description");assert.ok(!ids.has(r.id),"duplicate id: "+r.id);ids.add(r.id);if(r.type==="member"){assert.ok(["static-method","instance-method","static-property","instance-property","host-method"].includes(r.memberKind),r.label);const key=r.owner+"::"+r.label;assert.ok(!semantic.has(key),"duplicate member: "+key);semantic.add(key);const orderKey=r.category+"::"+r.owner;const orders=ownerOrders.get(orderKey)||new Set();assert.ok(!orders.has(r.order),"duplicate order "+orderKey+" #"+r.order);orders.add(r.order);ownerOrders.set(orderKey,orders);}if(r.runtimeScope==="web-api"){assert.ok(r.availability,r.label);assert.ok(r.standardSource,r.label);}if(r.type==="snippet")assert.equal(r.enabled,false,r.label);}assert.equal(records.filter(r=>r.type==="identifier").length,111);assert.equal(records.filter(r=>r.type==="member").length,750);assert.equal(records.filter(r=>r.type==="snippet").length,44);assert.equal(records.filter(r=>r.type==="literal").length,3);assert.equal(records.filter(r=>r.runtimeScope==="web-api").length,358);assert.equal(records.find(r=>r.label==="Blob.prototype.bytes").memberKind,"instance-method");});
+
+
+test("HTML parentTags references resolve to catalog tags", async () => {
+  const { html } = await readCatalogFiles();
+  const names = new Set(html.records.filter(r => r.type === "tag").map(r => r.tagName.toLowerCase()));
+  const unresolved = html.records.flatMap(record =>
+    (record.parentTags || [])
+      .filter(parent => !names.has(parent.toLowerCase()))
+      .map(parent => record.tagName + " -> " + parent)
+  );
+  assert.deepEqual(unresolved, [], "every HTML parentTags entry must resolve to an available parent tag");
+});
+
+test("CSS value property references resolve or use the explicit global wildcard", async () => {
+  const { css } = await readCatalogFiles();
+  const properties = new Set(css.records.filter(r => r.type === "property").map(r => r.label));
+  const unresolved = css.records
+    .filter(r => r.type === "value" && r.propertyName !== "*" && !properties.has(r.propertyName))
+    .map(r => r.id + " -> " + r.propertyName);
+  assert.deepEqual(unresolved, []);
+  const globalValues = css.records.filter(r => r.type === "value" && r.propertyName === "*");
+  assert.ok(globalValues.length > 0);
+  assert.ok(globalValues.every(r => ["auto","inherit","initial","unset","revert","none","normal","0","1rem","100%"].includes(r.label)));
+});
+
+test("JavaScript member owners and classifications are complete", async () => {
+  const { javascript } = await readCatalogFiles();
+  const members = javascript.records.filter(r => r.type === "member");
+  assert.ok(members.length > 0);
+  for (const record of members) {
+    assert.ok(record.owner.trim(), record.id + " owner");
+    assert.ok(["static-method","instance-method","static-property","instance-property","host-method"].includes(record.memberKind), record.id);
+    assert.ok(record.insertText.trim(), record.id + " insertText");
+  }
+  assert.ok(members.some(r => r.owner === "ParentNode"), "DOM ParentNode mixin records remain present");
+  assert.ok(members.some(r => r.owner === "ChildNode"), "DOM ChildNode mixin records remain present");
+});
