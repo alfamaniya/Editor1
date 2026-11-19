@@ -28,7 +28,8 @@ test("live CSS completion uses catalog properties, values, at-rules, functions a
   assert.ok(atRule?.options.some(option => option.label === "@media"));
   const fn = getCSSCompletionSuggestions(".box { width: va(", 17, { catalog });
   assert.ok(fn?.options.some(option => option.label === "var()"));
-  const unit = getCSSCompletionSuggestions(".box { width: 12p", 18, { catalog });
+  const unitSource = ".box { width: 12p";
+  const unit = getCSSCompletionSuggestions(unitSource, unitSource.length, { catalog });
   assert.ok(unit?.options.some(option => option.label === "px"));
 });
 
