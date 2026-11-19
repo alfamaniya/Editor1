@@ -1,0 +1,42 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import { getHTMLTagSuggestions } from "../src/language/html/html-completion.js";
+import { getCSSCompletionSuggestions } from "../src/language/css/css-completion.js";
+import { getJavaScriptCompletionSuggestions } from "../src/language/javascript/javascript-completion.js";
+
+async function records(file) {
+  const payload = JSON.parse(await readFile(new URL("../data/completions." + file + ".json", import.meta.url), "utf8"));
+  return payload.records.filter(record => record.enabled !== false);
+}
+
+test("live HTML completion accepts catalog records and retains contextual candidates", async () => {
+  const catalog = await records("html");
+  const result = getHTMLTagSuggestions("<html><body><", 13, { catalog, limit: 10 });
+  assert.ok(result);
+  assert.ok(result.options.some(option => option.label === "div"));
+  assert.ok(result.options.every(option => option.kind === "open"));
+});
+
+test("live CSS completion uses catalog properties, values, at-rules, functions and units", async () => {
+  const catalog = await records("css");
+  const property = getCSSCompletionSuggestions(".box { dis", 11, { catalog });
+  assert.ok(property?.options.some(option => option.label === "display"));
+  const value = getCSSCompletionSuggestions(".box { display: fl", 18, { catalog });
+  assert.ok(value?.options.some(option => option.label === "flex"));
+  const atRule = getCSSCompletionSuggestions("@med", 4, { catalog });
+  assert.ok(atRule?.options.some(option => option.label === "@media"));
+  const fn = getCSSCompletionSuggestions(".box { width: va(", 17, { catalog });
+  assert.ok(fn?.options.some(option => option.label === "var()"));
+  const unit = getCSSCompletionSuggestions(".box { width: 12p", 18, { catalog });
+  assert.ok(unit?.options.some(option => option.label === "px"));
+});
+
+test("live JavaScript completion uses catalog identifiers and owner-scoped members", async () => {
+  const catalog = await records("javascript");
+  const identifier = getJavaScriptCompletionSuggestions("new Abort", 9, { catalog });
+  assert.ok(identifier?.options.some(option => option.label === "AbortController"));
+  const member = getJavaScriptCompletionSuggestions("document.query", 14, { catalog });
+  assert.ok(member?.options.some(option => option.label === "querySelector"));
+  assert.ok(member.options.every(option => option.kind === "method"));
+});
