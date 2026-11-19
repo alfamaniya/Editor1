@@ -140,3 +140,11 @@ Turn Visual Editor into a polished, capable visual styling tool: select an eleme
 - [ ] Complete CSS integrity, regression tests, and browser/offline verification.
 
 Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PROPERTIES-ROADMAP.md).
+
+
+## Color property — implementation started
+- [x] Background/Text/Border color pickers with manual HEX input.
+- [x] Initial quick palette.
+- [x] Opacity slider.
+- [x] Linear/Radial gradient controls with angle and two color stops.
+- [ ] Per-control clearing, expanded formats, gradient stop management, readback polish and browser/offline validation.
