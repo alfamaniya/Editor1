@@ -2,13 +2,12 @@
 (() => {
   "use strict";
   const frame=document.getElementById("preview-frame");
-  function insertBeforeBody(html,script){const re=/<\\/body\\s*>/i;return re.test(html)?html.replace(re,script+"</body>"):html+script;}
+  function insertBeforeBody(html,script){const close=new RegExp("</body\\s*>","i");return close.test(html)?html.replace(close,script+"</body>"):html+script;}
   function render(sources){
     let html=sources.html||"<!doctype html><html><head></head><body></body></html>";
-    const css=(sources.css||"").replace(/<\\/style/gi,"<\\\\/style");
-    if(css){const tag="<style>"+css+"</style>";html=/<\\/head\\s*>/i.test(html)?html.replace(/<\\/head\\s*>/i,tag+"</head>"):tag+html;}
-    const picker=window.Editor1VisualEditor?.pickerScript?.()||"";
-    html=insertBeforeBody(html,picker);
+    const css=(sources.css||"").replace(new RegExp("</style","gi"),"<"+String.fromCharCode(92)+"/style");
+    if(css){const tag="<style>"+css+"</style>",head=new RegExp("</head\\s*>","i");html=head.test(html)?html.replace(head,tag+"</head>"):tag+html;}
+    html=insertBeforeBody(html,window.Editor1VisualEditor?.pickerScript?.()||"");
     if(sources.javascript){const safe=JSON.stringify(sources.javascript).replace(/</g,"\\\\u003c");html=insertBeforeBody(html,"<script>try{const src="+safe+";(new Function(src))()}catch(e){console.error(e)}</script>");}
     frame.srcdoc=html;
   }
