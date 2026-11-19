@@ -480,6 +480,12 @@
 
 
 ## Visual Editor full-screen workspace layout refinement — 20 November 2026
+- [ ] Use only one fixed right-side panel; combine element browsing and Inspector settings in it, switching modes when needed.
+- [ ] Preview/Canvas fills remaining space to the left and available height.
+- [ ] Panel is viewport-fixed; panel contents and Preview scroll separately; lock page scrolling while Visual is open.
+- [ ] Full-screen toolbar and safe exit back to normal Editor.
+- [ ] Responsive panel collapse/overlay on small screens and manual verification.
+
 - [ ] Clicking the Visual button switches the editor into a dedicated full-screen workspace/overlay, replacing the normal editor workspace while active.
 - [ ] Left Elements rail and right Inspector rail are fixed/pinned, with viewport-height sizing (`100vh`/dynamic viewport equivalent) and stable panel widths; they do not scroll with the Preview.
 - [ ] Preview/Canvas occupies all remaining horizontal space strictly between the two rails and expands/shrinks responsively.
