@@ -1,11 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#10141d">
-  <title>Editor1</title>
+  <title>صفحه ریسپانسیو با پنل‌های قابل تنظیم</title>
+<style>
+/* === style.css === */
+
+    /* ========== ریست ========== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: Tahoma, sans-serif;
+      color: #1f2937;
+      background: #f3f4f6;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      height: 100dvh;   /* ارتفاع واقعی viewport در موبایل */
+    }
+
+    /* ========== هدر و فوتر (با اسکرول افقی) ========== */
+    .main-header,
+    .main-footer {
+      flex: 0 0 auto;
+      background: #1f2937;
+      color: #f9fafb;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: #4b5563 #1f2937;
+    }
+
+    .main-header::-webkit-scrollbar,
+    .main-footer::-webkit-scrollbar {
+      height: 6px;
+    }
+    .main-header::-webkit-scrollbar-thumb,
+    .main-footer::-webkit-scrollbar-thumb {
+      background: #4b5563;
+      border-radius: 3px;
+    }
+
+    .scroll-area {
+      display: inline-flex;
+      align-items: center;
+      gap: clamp(0.5rem, 2vw, 1.25rem);
+      padding: clamp(0.6rem, 2vw, 1rem) clamp(0.75rem, 3vw, 1.5rem);
+      white-space: nowrap;
+      min-width: 100%;
+    }
+
+    .scroll-area .item {
+      font-size: clamp(0.8rem, 2vw, 1rem);
+      padding: clamp(0.25rem, 1.5vw, 0.5rem) clamp(0.5rem, 2vw, 1rem);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .scroll-area .item:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .main-footer .scroll-area .item {
+      font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+    }
+
+    /* ========== بخش اصلی (دو پنل) ========== */
+    .split {
+      flex: 1 1 auto;
+      display: flex;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .pane {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    #leftPane  { flex: 0 0 50%;   background: #ffffff; }
+    #rightPane { flex: 1 1 auto;  background: #e5e7eb; }
+
+    .pane-header {
+      flex: 0 0 auto;
+      padding: clamp(0.5rem, 1.5vw, 0.9rem) clamp(0.75rem, 2vw, 1.25rem);
+      font-size: clamp(0.85rem, 1.8vw, 1rem);
+      font-weight: bold;
+      text-align: center;
+      background: #d1d5db;
+      border-bottom: 1px solid #9ca3af;
+    }
+
+    .pane-content {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto;
+      padding: clamp(0.75rem, 2vw, 1.5rem);
+      font-size: clamp(0.85rem, 1.6vw, 1rem);
+      line-height: 1.7;
+    }
+
+    .pane-content p { margin-bottom: 0.75rem; }
+
+    /* ========== خط جداکننده‌ی قابل درگ ========== */
+    .divider {
+      flex: 0 0 8px;
+      background: #9ca3af;
+      cursor: col-resize;
+      position: relative;
+      z-index: 5;
+      transition: background 0.15s ease;
+      touch-action: none;
+    }
+
+    /* ناحیه‌ی حساس بزرگ‌تر (برای راحتی کلیک و لمس) */
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -6px;
+      right: -6px;
+    }
+
+    /* دستگیره‌ی وسط (فقط تزئینی) */
+    .divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 2px;
+      height: 48px;
+      background: #e5e7eb;
+      border-radius: 2px;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .divider:hover,
+    .divider.dragging {
+      background: #4b5563;
+    }
+
+    body.dragging {
+      cursor: col-resize;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* ========== تنظیمات اضافی برای موبایل‌های کوچک ========== */
+    @media (max-width: 480px) {
+      .divider { flex: 0 0 10px; }
+      #leftPane { flex: 0 0 55%; }
+    }
   
+</style>
 <style>
 * { box-sizing: border-box; }
 :root {
@@ -73,28 +239,114 @@ clear-tabs-action { display: inline-flex; flex: 0 0 auto; min-width: 44px; }
 </style>
 </head>
 <body>
-  <app-header>
-    <clear-tabs-action slot="header-actions"></clear-tabs-action>
-    <project-reset-action slot="header-actions"></project-reset-action>
-    <clear-project-cookies-action slot="header-actions"></clear-project-cookies-action>
-    <new-page-action slot="header-actions"></new-page-action>
-  </app-header>
-  <main class="workspace" aria-label="Editor workspace">
-    <section class="workspace-panel editor-panel" aria-label="Code editor">
-      <iframe class="section-frame" title="Code editor"></iframe>
+  <header class="main-header">
+    <nav class="scroll-area">
+      <span class="item">clear cookies</span>
+      <span class="item">reset project</span>
+      <span class="item">clear all tabs</span>
+      <span class="item">clear tab</span>
+      <span class="item">json</span>
+      <span class="item">map</span>
+      <span class="item">2</span>
+      <span class="item">3</span>
+      <span class="item">4</span>
+    </nav>
+  </header>
+
+  <!-- ========== دو پنل ========== -->
+  <main class="split" id="split" dir="ltr">
+
+    <section class="pane" id="leftPane" dir="rtl">
+      <header class="pane-header">EDITOR</header>
+      <div class="pane-content">
+        </div>
     </section>
-    <workspace-divider></workspace-divider>
-    <section class="workspace-panel preview-panel" aria-label="Live preview">
-      <iframe class="section-frame" title="Live preview"></iframe>
+
+    <div class="divider" id="divider" aria-label="تغییر اندازه"></div>
+
+    <section class="pane" id="rightPane" dir="rtl">
+      <header class="pane-header">PREVIEW</header>
+      <div class="pane-content">
+          </div>
     </section>
+
   </main>
+
+  <!-- ========== فوتر ========== -->
+  <footer class="main-footer">
+    <div class="scroll-area">
+      <span class="item">1</span>
+      <span class="item">2</span>
+      <span class="item">3</span>
+      <span class="item">4</span>
+      <span class="item">5</span>
+      <span class="item">6</span>
+    </div>
+  </footer>
+
+  <!-- ========== جاوااسکریپت ========== -->
   
+
+ 
+<script>
+/* === script.js === */
+
+    (function () {
+      const split      = document.getElementById('split');
+      const leftPane   = document.getElementById('leftPane');
+      const divider    = document.getElementById('divider');
+
+      let isDragging = false;
+      let startX = 0;
+      let startLeftWidth = 0;
+      let containerWidth = 0;
+
+      const MIN_PANE = 100; // حداقل عرض هر پنل (پیکسل)
+
+      const getX = (e) => (e.touches ? e.touches[0].clientX : e.clientX);
+
+      function startDrag(e) {
+        isDragging = true;
+        startX = getX(e);
+        startLeftWidth = leftPane.getBoundingClientRect().width;
+        containerWidth = split.getBoundingClientRect().width;
+        divider.classList.add('dragging');
+        document.body.classList.add('dragging');
+      }
+
+      function moveDrag(e) {
+        if (!isDragging) return;
+        const currentX = getX(e);
+        const deltaX = currentX - startX;
+
+        let newWidth = startLeftWidth + deltaX;
+        const maxLeft = containerWidth - MIN_PANE;
+        newWidth = Math.max(MIN_PANE, Math.min(maxLeft, newWidth));
+
+        const percent = (newWidth / containerWidth) * 100;
+        leftPane.style.flex = `0 0 ${percent}%`;
+
+        if (e.cancelable) e.preventDefault();
+      }
+
+      function endDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        divider.classList.remove('dragging');
+        document.body.classList.remove('dragging');
+      }
+
+      divider.addEventListener('mousedown', startDrag);
+      window.addEventListener('mousemove', moveDrag);
+      window.addEventListener('mouseup', endDrag);
+
+      divider.addEventListener('touchstart', startDrag, { passive: true });
+      window.addEventListener('touchmove', moveDrag, { passive: false });
+      window.addEventListener('touchend', endDrag);
+      window.addEventListener('touchcancel', endDrag);
+    })();
   
-  
-  
-  
-  
-  
+</script>
 <script>
 
 (() => {
@@ -328,5 +580,4 @@ customElements.define("workspace-divider", OfflineWorkspaceDivider);
   previewFrame.srcdoc = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Live Preview</title>\n<style>\n* { box-sizing: border-box; }\nhtml, body { width: 100%; height: 100%; min-height: 0; margin: 0; overflow: hidden; background: #fff; }\n#preview-frame { display: block; width: 100%; height: 100%; border: 0; background: #fff; }\n\n</style>\n</head>\n<body>\n  <iframe id=\"preview-frame\" title=\"Live output\" sandbox=\"allow-scripts\"></iframe>\n<script>\nconst frame = document.getElementById(\"preview-frame\");\n\nfunction insertBeforeClosingTag(source, tagName, content) {\n  const closingTag = new RegExp(\"</\" + tagName + \"\\\\s*>\", \"i\");\n  if (closingTag.test(source)) {\n    return source.replace(closingTag, () => content + \"</\" + tagName + \">\");\n  }\n  return source + content;\n}\n\nfunction buildPreviewDocument(sources) {\n  let html = sources.html || \"<!doctype html><html><head></head><body></body></html>\";\n  const css = sources.css.replace(/<\\/style/gi, \"<\\\\/style\");\n  if (css) {\n    const styleTag = \"<style>\" + css + \"</style>\";\n    if (/<\\/head\\s*>/i.test(html)) {\n      html = html.replace(/<\\/head\\s*>/i, styleTag + \"</head>\");\n    } else {\n      html = styleTag + html;\n    }\n  }\n\n  if (sources.javascript) {\n    const safeSource = JSON.stringify(sources.javascript).replace(/</g, \"\\\\u003c\");\n    const scriptTag = \"<script>try { const source = \" + safeSource +\n      \"; (new Function(source))(); } catch (error) { console.error(error); }<\\/script>\";\n    html = insertBeforeClosingTag(html, \"body\", scriptTag);\n  }\n  return html;\n}\n\nwindow.addEventListener(\"message\", event => {\n  if (event.source !== window.parent || !event.data || event.data.type !== \"alfacode:render\") return;\n  const sources = event.data.sources;\n  if (!sources || ![\"html\", \"css\", \"javascript\"].every(key => typeof sources[key] === \"string\")) return;\n  frame.srcdoc = buildPreviewDocument(sources);\n});\n\n<\/script></body>\n</html>\n";
 })();
 
-</script></body>
-</html>
+</script></body></html>
