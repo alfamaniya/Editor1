@@ -52,9 +52,22 @@
   window.addEventListener("message", handleMessage);
   previewFrame.addEventListener("load", renderPreview);
 
-  document.getElementById("clearAllTabs")?.addEventListener("click", () => postEditorCommand("clear-tabs"));
-  document.getElementById("clearCurrentTab")?.addEventListener("click", () => postEditorCommand("clear-tab"));
-  document.getElementById("resetProject")?.addEventListener("click", () => postEditorCommand("project-reset"));
+  // Confirmation prompts prevent accidental loss of code.
+  document.getElementById("clearAllTabs")?.addEventListener("click", () => {
+    if (window.confirm("Clear all code from HTML, CSS, and JavaScript tabs?")) {
+      postEditorCommand("clear-tabs");
+    }
+  });
+  document.getElementById("clearCurrentTab")?.addEventListener("click", () => {
+    if (window.confirm("Clear the code in the currently active tab?")) {
+      postEditorCommand("clear-tab");
+    }
+  });
+  document.getElementById("resetProject")?.addEventListener("click", () => {
+    if (window.confirm("Reset the project to the original sample code? This replaces code in all three tabs.")) {
+      postEditorCommand("project-reset");
+    }
+  });
 
   // کنترل تغییر اندازه پنل‌ها؛ ابعاد iframe با Flexbox/CSS هماهنگ می‌شود.
   const getX = event => event.touches ? event.touches[0].clientX : event.clientX;
