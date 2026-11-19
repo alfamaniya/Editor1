@@ -722,26 +722,19 @@ window.addEventListener("message", event => {
     let mergedCSS = baseCSS;
     const unmatchedRules = [];
     for (const update of parsedUpdates) {
-      const escaped = update.selector.split("").map(character => ".^$*+?()[]{}|".includes(character) || character.charCodeAt(0) === 92 ? "\\" + character : character).join("");
-    const startMarker = "/* Editor1 Visual Styles - Start */";
-    const endMarker = "/* Editor1 Visual Styles - End */";
-    const currentCSS = sources.css || "";
-    const beforeBlock = currentCSS.split(startMarker)[0].trimEnd();
-    const generatedBlock = command.css.trim();
-    sources.css = beforeBlock + (generatedBlock ? "\n\n" + startMarker + "\n" + generatedBlock + "\n" + endMarker : "");
-    if (activeLanguage.id === "css") editor.setDocument(sources.css);
-    publishSource();
-    renderEditor();
-    view.focus();
-    return;
-  }").replace(/{/g, "\\{").replace(/}/g, "\\}");
-      const targetRule = new RegExp("(^|\\})\\s*(" + escaped + ")\\s*\\{([^{}]*)\\}", "g");
+      const chunks = mergedCSS.split("}");
       let merged = false;
-      mergedCSS = mergedCSS.replace(targetRule, (whole, boundary, selector, body) => {
+      for (let index = 0; index < chunks.length; index++) {
+        const chunk = chunks[index];
+        const openBrace = chunk.lastIndexOf("{");
+        if (openBrace < 0 || chunk.slice(0, openBrace).trim() !== update.selector) continue;
+        const existingBody = chunk.slice(openBrace + 1);
+        chunks[index] = chunk.slice(0, openBrace + 1) + mergeRuleBody(existingBody, update.declarations);
         merged = true;
-        return boundary + selector + " {\n" + mergeRuleBody(body, update.declarations) + "\n}";
-      });
-      if (!merged) unmatchedRules.push(update.selector + " {\n" + update.declarations.map(item => "  " + item.replace(/;?$/, ";")).join("\n") + "\n}");
+        break;
+      }
+      mergedCSS = chunks.join("}");
+      if (!merged) unmatchedRules.push(update.selector + " {\\n" + update.declarations.map(item => "  " + item.replace(/;?$/, ";")).join("\\n") + "\\n}");
     }
     const extraBlock = unmatchedRules.join("\n\n");
     sources.css = mergedCSS + (extraBlock ? "\n\n" + startMarker + "\n" + extraBlock + "\n" + endMarker : "");
