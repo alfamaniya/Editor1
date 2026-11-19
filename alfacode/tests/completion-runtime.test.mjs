@@ -78,3 +78,30 @@ test("catalog loader consumes embedded offline JSON without network requests", a
     delete globalThis.__ALFACODE_COMPLETION_CATALOGS__;
   }
 });
+
+
+test("JavaScript completion infers built-in instance prototype members", async () => {
+  const catalog = await records("javascript");
+  const cases = [
+    ["const date = new Date(); date.to", "toISOString"],
+    ["let list = []; list.for", "forEach"],
+    ['const text = ""; text.to', "toUpperCase"],
+    ["const count = 1; count.to", "toFixed"],
+    ["const map = new Map(); map.ge", "get"],
+    ["const node = document.querySelector('main'); node.cl", "classList"]
+  ];
+  for (const [source, expected] of cases) {
+    const result = getJavaScriptCompletionSuggestions(source, source.length, { catalog });
+    assert.ok(result?.options.some(option => option.label === expected), source);
+  }
+});
+
+test("JavaScript completion keeps static constructor members separate from instance members", async () => {
+  const catalog = await records("javascript");
+  const staticResult = getJavaScriptCompletionSuggestions("Date.no", 7, { catalog });
+  assert.ok(staticResult?.options.some(option => option.label === "now"));
+  const instanceSource = "const date = new Date(); date.ge";
+  const instanceResult = getJavaScriptCompletionSuggestions(instanceSource, instanceSource.length, { catalog });
+  assert.ok(instanceResult?.options.some(option => option.label === "getDate"));
+  assert.ok(!instanceResult?.options.some(option => option.label === "now"));
+});
