@@ -274,3 +274,12 @@ Editor1/
 ## Browser data cleanup
 - `core/clear-editor-storage.js` implements the Header action that removes Editor1-associated browser data: LocalStorage and SessionStorage keys prefixed `editor1`, visible Editor1 cookies, IndexedDB databases named for Editor1, and CacheStorage entries with Editor1 in the name. The action asks for confirmation and reports the cleanup result.
 - Cleanup is scoped by Editor1-related naming to avoid deleting unrelated website data. Browser restrictions may prevent JavaScript from deleting HttpOnly cookies or cookies set for other paths/domains.
+
+
+## Editor workspace connection — 19 November 2026
+
+- The root `index.html` now hosts the archived AlfaCode editor and preview as resizable iframe panels, and includes the HTML/CSS/JavaScript tabs from the existing editor implementation.
+- `core/editor-bridge.js` mediates editor source-change messages and forwards the combined HTML, CSS, and JavaScript sources to the preview iframe. It also forwards the existing clear-tabs and project-reset commands.
+- The existing AlfaCode engine source under `alfacode/src/` was not modified. The editor implementation and suggestion UI are currently reused from `backup/core-old/` as a transitional integration; their files remain archived and are not migrated yet.
+- Root `style.css` now owns the shared workspace layout and common toolbar button appearance. Both iframe panels fill their parent containers so resizing the workspace changes the panel viewport without recreating the engine.
+- Browser verification, mobile testing, and offline bundle audit/build are still pending. The clear-current-tab button is not yet wired to a supported command in the legacy editor.
