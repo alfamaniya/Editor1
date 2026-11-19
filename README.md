@@ -5,6 +5,7 @@
 ## وضعیت
 - مقایسه اولیه سازگاری کاتالوگ JSON با موتور HTML انجام شد؛ داده JSON گسترده‌تر است و اتصال باید context/parentTags و fallback رتبه‌بندی را حفظ کند.
 - طرح adapter برای تبدیل JSON HTML به گزینه‌های داخلی موتور و حفظ context، parent-child، رتبه‌بندی و قرارداد UI ثبت شد؛ اجرا هنوز انجام نشده است.
+- طرح آزمون Shadow برای HTML ثبت شد: legacy و adapter JSON روی fixtureهای root/body/head/p/list/table/select/SVG و opening/closing/chain/void/raw-text مقایسه شوند؛ runtime هنوز legacy است.
 - ممیزی ریسک اتصال HTML فهرست شد: close/jump-close، chain، head/root، SVG، phrasing، parentTags، ranking و قرارداد درج باید در adapter و Regression حفظ شوند.
 - محیط ویرایش، تب‌های سه زبان، Preview، ذخیره محلی و رابط موبایل پیاده‌سازی شده‌اند.
 - صفحه «فهرست تکمیل خودکار» هر سه JSON را در جدول تمام‌فیلدی شبیه اکسل نمایش می‌دهد؛ جستجو در تمام فیلدها، مرتب‌سازی با کلیک روی سرستون، اسکرول افقی و نمایش مقادیر آرایه/شیء پشتیبانی می‌شود. دکمه بازگشت فقط تلاش می‌کند پنجره را ببندد. اتصال پیشنهادهای runtime به JSONها هنوز باقی است.
