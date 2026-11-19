@@ -71,7 +71,7 @@ export function getCSSCompletionSuggestions(source, cursor, options = {}) {
   if (insideCommentOrString(source, cursor)) return null;
   const catalog = Array.isArray(options.catalog) ? options.catalog.filter(record => record.enabled !== false) : [];
   const beforeCursor = source.slice(0, cursor);
-  const atRule = beforeCursor.match(/(?:^|[;}])\\s*(@[\\w-]*)$/);
+  const atRule = beforeCursor.match(/(?:^|[;}])\s*(@[\w-]*)$/);
   if (atRule && catalog.length) {
     const query = atRule[1];
     const from = cursor - query.length;
@@ -109,8 +109,8 @@ export function getCSSCompletionSuggestions(source, cursor, options = {}) {
 
   const valuePrefix = state.segment.slice(colon + 1).match(/([A-Za-z-]*)$/)?.[1] ?? "";
   const property = state.segment.slice(0,colon).trim().toLowerCase();
-  const numericUnit = /\\d+[A-Za-z-]*$/.test(state.segment.slice(colon + 1));
-  const functionContext = /[A-Za-z-]+\\($/.test(state.segment.slice(colon + 1));
+  const numericUnit = /\d+[A-Za-z-]*$/.test(state.segment.slice(colon + 1));
+  const functionContext = /[A-Za-z-]+\($/.test(state.segment.slice(colon + 1));
   const catalogMode = numericUnit ? "unit" : functionContext ? "function" : "value";
   const valueRecords = catalog.length
     ? catalog.filter(record => record.mode === catalogMode &&
@@ -118,7 +118,7 @@ export function getCSSCompletionSuggestions(source, cursor, options = {}) {
     : [...new Set([...(VALUE_CATALOG[property] ?? []),...COMMON_VALUES])]
         .map(label => ({label,description:"Value for "+property}));
   const query = numericUnit ? (state.segment.slice(colon + 1).match(/([A-Za-z-]*)$/)?.[1] ?? "") :
-    functionContext ? (state.segment.slice(colon + 1).match(/([A-Za-z-]+)\\($/)?.[1] ?? "") : valuePrefix;
+    functionContext ? (state.segment.slice(colon + 1).match(/([A-Za-z-]+)\($/)?.[1] ?? "") : valuePrefix;
   const optionsList = makeOptions(valueRecords, query, cursor-query.length, cursor, catalogMode).slice(0,limit);
   return optionsList.length ? {language:"css",mode:catalogMode,query,from:cursor-query.length,to:cursor,options:optionsList} : null;
 }
