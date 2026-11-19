@@ -30,48 +30,48 @@
       "id": "header",
       "kind": "component",
       "active": true,
-      "html": "core/header/header.html",
+      "html": "backup/core-old/header/header.html",
       "styles": [
-        "core/header/header.css"
+        "backup/core-old/header/header.css"
       ],
       "scripts": [
-        "core/header/header.js"
+        "backup/core-old/header/header.js"
       ]
     },
     {
       "id": "clear-tabs",
       "kind": "component",
       "active": true,
-      "html": "core/clear-tabs/clear-tabs.html",
+      "html": "backup/core-old/clear-tabs/clear-tabs.html",
       "styles": [
-        "core/clear-tabs/clear-tabs.css"
+        "backup/core-old/clear-tabs/clear-tabs.css"
       ],
       "scripts": [
-        "core/clear-tabs/clear-tabs.js"
+        "backup/core-old/clear-tabs/clear-tabs.js"
       ]
     },
     {
       "id": "project-reset",
       "kind": "component",
       "active": true,
-      "html": "core/project-reset/project-reset.html",
+      "html": "backup/core-old/project-reset/project-reset.html",
       "styles": [
-        "core/project-reset/project-reset.css"
+        "backup/core-old/project-reset/project-reset.css"
       ],
       "scripts": [
-        "core/project-reset/project-reset.js"
+        "backup/core-old/project-reset/project-reset.js"
       ]
     },
     {
       "id": "clear-project-cookies",
       "kind": "component",
       "active": true,
-      "html": "core/clear-project-cookies/clear-project-cookies.html",
+      "html": "backup/core-old/clear-project-cookies/clear-project-cookies.html",
       "styles": [
-        "core/clear-project-cookies/clear-project-cookies.css"
+        "backup/core-old/clear-project-cookies/clear-project-cookies.css"
       ],
       "scripts": [
-        "core/clear-project-cookies/clear-project-cookies.js"
+        "backup/core-old/clear-project-cookies/clear-project-cookies.js"
       ]
     },
     {
@@ -102,12 +102,12 @@
       "id": "workspace-divider",
       "kind": "component",
       "active": true,
-      "html": "core/workspace-divider/workspace-divider.html",
+      "html": "backup/core-old/workspace-divider/workspace-divider.html",
       "styles": [
-        "core/workspace-divider/workspace-divider.css"
+        "backup/core-old/workspace-divider/workspace-divider.css"
       ],
       "scripts": [
-        "core/workspace-divider/workspace-divider.js"
+        "backup/core-old/workspace-divider/workspace-divider.js"
       ]
     },
     {
