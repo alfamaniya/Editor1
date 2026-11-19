@@ -18,6 +18,9 @@ import { createTagSuggestions } from "../tag-suggestions/tag-suggestions.js";
 import { createCSSSuggestions } from "../css-suggestions/css-suggestions.js";
 import { createJavaScriptSuggestions } from "../javascript-suggestions/javascript-suggestions.js";
 import { applySuggestionForMenu } from "../../alfacode/src/input/suggestion-dispatcher.js";
+import { loadCompletionCatalogs } from "../completion-catalog/catalog-loader.js";
+
+const completionCatalogs = await loadCompletionCatalogs();
 
 const initialSources = {
   html: `<!DOCTYPE html>
@@ -291,9 +294,9 @@ function updateCompletionSuggestions() {
   if (!menu) return;
   if (!editor.selection.isEmpty) { menu.hide(); chainSuggestionMode = false; return; }
   let result = null;
-  if (activeLanguage.id === "html") result = getHTMLTagSuggestions(editor.text, editor.selection.head, { chain: chainSuggestionMode, limit: 10 });
-  else if (activeLanguage.id === "css") result = getCSSCompletionSuggestions(editor.text, editor.selection.head, { limit: 10 });
-  else if (activeLanguage.id === "javascript") result = getJavaScriptCompletionSuggestions(editor.text, editor.selection.head, { limit: 10 });
+  if (activeLanguage.id === "html") result = getHTMLTagSuggestions(editor.text, editor.selection.head, { chain: chainSuggestionMode, limit: 10, catalog: completionCatalogs.html?.records });
+  else if (activeLanguage.id === "css") result = getCSSCompletionSuggestions(editor.text, editor.selection.head, { limit: 10, catalog: completionCatalogs.css?.records });
+  else if (activeLanguage.id === "javascript") result = getJavaScriptCompletionSuggestions(editor.text, editor.selection.head, { limit: 10, catalog: completionCatalogs.javascript?.records });
   if (!result || !result.options.length) { menu.hide(); if (chainSuggestionMode) chainSuggestionMode = false; return; }
   const point = getDOMPointFromDocumentOffset(editor.selection.head);
   let anchor = null;
