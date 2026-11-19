@@ -2,7 +2,7 @@
 
 **UI language and direction:** English only; left-to-right (`LTR`) throughout. No Persian text is permitted in user-visible interface labels, messages, tooltips, or accessibility text. Source-code comments may be Persian.
 
-**Core folder policy:** The former `core/` component directory has been moved intact to `core-old/`. The new `core/` contains only `.gitkeep` and is reserved for JavaScript files for page UI elements.
+**Core folder policy:** Legacy components remain preserved in `core-old/`. The new `core/` contains active JavaScript files, including the unified browser-storage engine `core/browser-storage.js`.
 
 
 
@@ -41,8 +41,8 @@ Editor1/
 │   ├── project-reset/ ...
 │   ├── tag-suggestions/ ...
 │   └── workspace-divider/ ...
-├── core/ (new JavaScript-only workspace; currently `.gitkeep`)
-│   └── .gitkeep
+├── core/ (active JavaScript files)
+│   └── browser-storage.js (unified LocalStorage, IndexedDB, cookies, projects, auto-save and quota helpers)
  (html, css, js)
 │   ├── clear-project-cookies/ (html, css, js)
 │   ├── clear-tabs/ (html, css خالی، js، clear-tabs-style-backup.css)
@@ -114,6 +114,10 @@ Editor1/
 - `backup/script.js`: هماهنگ‌کننده قبلی Editor/Preview و فرمان‌های Header؛ فعلاً از ریشه جدا و غیرفعال نگهداری می‌شود.
 - `README.md`: راهنمای اصلی، درخت مخزن و توضیح فایل‌ها/روش اجرا/ساخت آفلاین/آزمون.
 - `maps/ROADMAP.md`: تنها سند برنامه‌ریزی؛ کارهای انجام‌شده، باقی‌مانده‌ها و معیارهای پذیرش.
+
+### موتور ذخیره‌سازی مرورگر (`core/browser-storage.js`)
+- `core/browser-storage.js`: موتور یکپارچه ذخیره‌سازی مرورگر؛ API عمومی `window.Editor1Storage`، مدیریت LocalStorage، IndexedDB، کوکی‌های قابل دسترس JavaScript، ذخیره/بازیابی/فهرست پروژه‌ها، زمان‌بندی Auto-save، برآورد ظرفیت و پاک‌سازی داده‌های Editor1.
+- فایل موتور به صورت مستقل پیاده‌سازی شده است؛ هنوز به `index.html` یا Editor متصل نشده و یکپارچه‌سازی/آزمون واقعی مرورگر در مرحله بعد است.
 
 ### اجزای رابط `core-old/`
 هر جزء HTML/CSS/JS جدا دارد؛ HTML ساختار، CSS ظاهر و JS رفتار را پیاده می‌کند.
