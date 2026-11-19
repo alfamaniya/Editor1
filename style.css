@@ -58,3 +58,21 @@ body.dragging { cursor: col-resize; user-select: none; -webkit-user-select: none
   #leftPane { flex-basis: 55%; }
 }
 
+
+/* نوار علائم مخصوص موبایل؛ در حالت عادی و دسکتاپ مخفی است. */
+.mobile-helper-keys { display: none; }
+@media (max-width: 700px) {
+  .mobile-helper-keys {
+    display: none; position: fixed; z-index: 30; left: 0; right: 0;
+    bottom: 0; padding: 6px 8px; gap: 6px; overflow-x: auto;
+    white-space: nowrap; background: var(--ui-header); color: #f9fafb;
+    border-top: 1px solid var(--ui-border); -webkit-overflow-scrolling: touch;
+  }
+  .mobile-helper-keys.is-visible { display: flex; }
+  .mobile-helper-keys button {
+    flex: 0 0 auto; min-width: 38px; height: 36px; border: 0; border-radius: 5px;
+    padding: 0 10px; font: inherit; font-size: 15px; color: inherit;
+    background: rgba(255,255,255,.12); touch-action: manipulation;
+  }
+  .mobile-helper-keys button:active { background: rgba(255,255,255,.24); }
+}
