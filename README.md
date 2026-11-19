@@ -24,6 +24,12 @@
 - در بارگذاری Preview، بلوک CSS تولیدشده دوباره به state ابزار بصری خوانده می‌شود تا Apply بعدی تنظیمات قبلی را از بین نبرد.
 - این قابلیت اولیه است؛ انتخاب selectorهای پیچیده و آزمون مرورگر/آفلاین هنوز نیاز به بررسی دارند.
 
+### Visual Editor completion plan
+
+- Detailed implementation plan: [`maps/VISUAL-EDITOR-ROADMAP.md`](maps/VISUAL-EDITOR-ROADMAP.md).
+- Scope includes full UI/UX redesign, completing the setting categories and controls, safe CSS merging, Draft/Apply/Cancel/Reset behavior, advanced layout/effects, and acceptance tests.
+- The plan is registered as **Planned**; implementation work for these phases has not started yet.
+
 ## درخت مخزن
 
 ```text
