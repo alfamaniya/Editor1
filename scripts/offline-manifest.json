@@ -11,7 +11,8 @@
         "style.css"
       ],
       "scripts": [
-        "core/editor-bridge.js"
+        "core/editor-bridge.js",
+        "core/extra-key-action/extra-key-action.js"
       ],
       "includes": [
         "header",
