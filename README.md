@@ -291,3 +291,11 @@ Editor1/
 - Supporting modules copied into `core/`: browser-storage UI module, completion catalog loader/components, and HTML/CSS/JavaScript suggestion menus.
 - `core/editor-bridge.js`: receives editor source updates and sends them to Preview; also relays reset, clear-all, and clear-current-tab commands.
 - The original runtime files are retained under `backup/core-old/`.
+
+
+## Editor toolbar actions — 19 November 2026
+- `reset project`: after confirmation, restores the original starter code in all three languages and switches to the HTML tab.
+- `clear tab`: after confirmation, clears only the currently selected language tab.
+- `clear all tabs`: after confirmation, clears HTML, CSS, and JavaScript while keeping the currently selected tab active.
+- All three actions run through `core/editor-bridge.js` and the Editor's message handler. The active editor updates its storage schedule and emits a source-change message so Preview updates immediately. Suggestion menus are hidden after clearing/reset.
+- AlfaCode engine files under `alfacode/src/` are unchanged.
