@@ -11,8 +11,8 @@
 |---|---|---:|
 | HTML | `alfacode/data/completions.html.json` | ۱۴۶ |
 | CSS | `alfacode/data/completions.css.json` | 929 |
-| JavaScript | `alfacode/data/completions.javascript.json` | ۳۷۶ |
-| **مجموع** | سه فایل مستقل | **۱۴۵۱** |
+| JavaScript | `alfacode/data/completions.javascript.json` | ۴۱۸ |
+| **مجموع** | سه فایل مستقل | **۱۴۹۳** |
 
 ## ۱. نقشه راه HTML
 
@@ -184,7 +184,7 @@
 ### مراحل تکمیل JavaScript
 - [x] JS-1 — بازبینی کلمات کلیدی و مقادیر زبانی: پوشش واژه‌های رزروشده، رزروشده آینده، زمینه‌ای و literalهای ثابت؛ تفکیک دقیق کلیدواژه از مقدار و نام سراسری.
 - [x] JS-2 — تکمیل اشیاء و توابع استاندارد سراسری: Number، String، Object، Date، RegExp، Map، Set، Symbol، Error، URL و توابع تبدیل و بررسی؛ متدهای ایستا و نمونه، ویژگی‌ها و APIهای محیطی با وضعیت استاندارد تفکیک شدند.
-- [ ] JS-3 — تکمیل متدهای Array: متدهای پیمایش، جست‌وجو، تبدیل، تغییر آرایه، کپی و مرتب‌سازی.
+- [x] JS-3 — تکمیل متدهای Array: ۳۹ متد نمونه و ۳ ویژگی نمونه شامل پیمایش، جست‌وجو، تبدیل، تغییر آرایه، کپی، مرتب‌سازی و iteratorها اضافه شد؛ متدهای mutating از non-mutating جدا توضیح داده شدند و metadata استاندارد نسخه ثبت شد.
 - [ ] JS-4 — تکمیل متدهای String و Number: متدهای رشته، قالب‌بندی، بررسی و تبدیل عددی.
 - [ ] JS-5 — تکمیل متدهای Object، Date و RegExp: ساخت، بررسی، پیمایش و عملیات متداول.
 - [ ] JS-6 — تکمیل Math، JSON و ساختارهای داده: متدهای جاافتاده و Map/Set/WeakMap/WeakSet.
@@ -334,3 +334,14 @@
 - [x] موجودی HTML: ۱۴۶ رکورد.
 - [x] CSS-1 تا CSS-12 تکمیل شدند؛ JS-1 و JS-2 نیز تکمیل داده‌ای شدند.
 - [ ] اتصال کاتالوگ به موتور زمان اجرا خارج از این مجموعه تغییرات است.
+
+
+### گزارش اجرای JavaScript-3
+
+- کاتالوگ JavaScript از ۳۷۶ به **۴۱۸ رکورد** افزایش یافت؛ مجموع سه کاتالوگ به **۱۴۹۳ رکورد** رسید.
+- ۴۲ عضو Array اضافه شدند: ۳۹ متد نمونه شامل متدهای پیمایش، جست‌وجو، تغییر، کپی، مرتب‌سازی، iteratorها و ۳ ویژگی نمونه (`constructor`، `length` و `Symbol.unscopables`).
+- متدهای تغییردهنده مانند `push`، `pop`، `splice`، `sort`، `reverse`، `shift`، `unshift`، `fill` و `copyWithin` در توضیحات مشخص شدند؛ متدهای جدید `toReversed`، `toSorted`، `toSpliced` و `with` به‌عنوان نسخه‌های بدون تغییر آرایه اصلی معرفی شدند.
+- `findLast`، `findLastIndex` و متدهای نسخه ES2023، به همراه `at`، `flat` و `flatMap` ثبت شدند.
+- آزمون اختصاصی JS-3 برای پوشش اعضای Array، نوع ویژگی‌ها و تفاوت mutating/non-mutating اضافه شد.
+- منابع بررسی: [MDN Array reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) و [ECMAScript specification](https://262.ecma-international.org/).
+- این مرحله صرفاً کاتالوگ و آزمون داده را تغییر می‌دهد؛ اتصال موتور پیشنهادها به JSONها و آزمون دستی مرورگر انجام نشده است.
