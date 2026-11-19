@@ -399,10 +399,10 @@
 ## گزارش اجرای JavaScript-8
 
 - تاریخ اجرا: ۲۰۲۶-۱۱-۱۹
-- تعداد **155 عضو DOM و HTML DOM** افزوده شد؛ کاتالوگ JavaScript از ۵۳۴ به **689 رکورد** و مجموع سه کاتالوگ از ۱۶۰۹ به **1764 رکورد** رسید.
+- تعداد **۱۵۵ عضو DOM و HTML DOM** افزوده شد؛ کاتالوگ JavaScript از ۵۳۴ به **۶۸۹ رکورد** و مجموع سه کاتالوگ از ۱۶۰۹ به **۱۷۶۴ رکورد** رسید.
 - دامنه شامل Node و tree manipulation، ParentNode/ChildNode، EventTarget، Document، Element و selector/attributeها، HTMLElement، DOMTokenList، فرم و کنترل‌های input/textarea/select/button است.
 - همه رکوردهای افزوده با runtimeScope برابر `web-api`، availability برابر `window-only` و منبع مشخص `WHATWG DOM` یا `WHATWG HTML` ثبت شدند؛ اعضای deprecated، legacy و experimental به پیشنهاد عادی وارد نشدند.
 - برای `innerHTML`، `insertAdjacentHTML` و `HTMLFormElement.submit` هشدارهای امنیتی/رفتاری درج شد تا کاربرد ورودی نامطمئن و bypass اعتبارسنجی فرم روشن باشد.
-- آزمون اختصاصی JS-8 برای تمام 155 عضو و فراداده، دسته‌بندی، order مثبت، یکتایی شناسه/label و موارد امنیتی افزوده شد.
+- آزمون اختصاصی JS-8 برای تمام ۱۵۵ عضو و فراداده، دسته‌بندی، order مثبت، یکتایی شناسه/label و موارد امنیتی افزوده شد.
 - منابع: [WHATWG DOM Living Standard](https://dom.spec.whatwg.org/)، [WHATWG HTML — DOM interfaces](https://html.spec.whatwg.org/multipage/dom.html)، [MDN DOM overview](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)، [MDN EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget)، [MDN HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)، [MDN HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement).
 - این مرحله داده و آزمون را تغییر می‌دهد؛ اتصال کاتالوگ به موتور پیشنهادها و آزمون دستی مرورگر/IME انجام نشده است.
