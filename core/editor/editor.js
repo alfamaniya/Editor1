@@ -696,10 +696,55 @@ window.addEventListener("message", event => {
   if (command.type === "alfacode:visual-css-update" && typeof command.css === "string") {
     const startMarker = "/* Editor1 Visual Styles - Start */";
     const endMarker = "/* Editor1 Visual Styles - End */";
+    const markerBlock = /\/\* Editor1 Visual Styles - Start \*\/([\s\S]*?)\/\* Editor1 Visual Styles - End \*\//;
+    const baseCSS = (sources.css || "").replace(markerBlock, "").trimEnd();
+    const parsedUpdates = [];
+    const generatedRules = /([^{}]+)\{([^{}]*)\}/g;
+    let generatedMatch;
+    while ((generatedMatch = generatedRules.exec(command.css))) {
+      const selector = generatedMatch[1].trim();
+      const declarations = generatedMatch[2].split(";").map(item => item.trim()).filter(Boolean);
+      if (!selector || selector.endsWith(">") || selector.endsWith("+") || selector.endsWith("~")) continue;
+      parsedUpdates.push({ selector, declarations });
+    }
+    function mergeRuleBody(existingBody, updates) {
+      const declarations = new Map();
+      existingBody.split(";").map(item => item.trim()).filter(Boolean).forEach(item => {
+        const colon = item.indexOf(":");
+        if (colon > 0) declarations.set(item.slice(0, colon).trim(), item.slice(colon + 1).trim());
+      });
+      updates.forEach(item => {
+        const colon = item.indexOf(":");
+        if (colon > 0) declarations.set(item.slice(0, colon).trim(), item.slice(colon + 1).trim());
+      });
+      return [...declarations].map(([property, value]) => "  " + property + ": " + value + ";").join("\n");
+    }
+    let mergedCSS = baseCSS;
+    const unmatchedRules = [];
+    for (const update of parsedUpdates) {
+      const escaped = update.selector.replace(/[.*+?^$()|[\\]\\]/g, "\\  if (command.type === "alfacode:visual-css-update" && typeof command.css === "string") {
+    const startMarker = "/* Editor1 Visual Styles - Start */";
+    const endMarker = "/* Editor1 Visual Styles - End */";
     const currentCSS = sources.css || "";
     const beforeBlock = currentCSS.split(startMarker)[0].trimEnd();
     const generatedBlock = command.css.trim();
     sources.css = beforeBlock + (generatedBlock ? "\n\n" + startMarker + "\n" + generatedBlock + "\n" + endMarker : "");
+    if (activeLanguage.id === "css") editor.setDocument(sources.css);
+    publishSource();
+    renderEditor();
+    view.focus();
+    return;
+  }").replace(/{/g, "\\{").replace(/}/g, "\\}");
+      const targetRule = new RegExp("(^|\\})\\s*(" + escaped + ")\\s*\\{([^{}]*)\\}", "g");
+      let merged = false;
+      mergedCSS = mergedCSS.replace(targetRule, (whole, boundary, selector, body) => {
+        merged = true;
+        return boundary + selector + " {\n" + mergeRuleBody(body, update.declarations) + "\n}";
+      });
+      if (!merged) unmatchedRules.push(update.selector + " {\n" + update.declarations.map(item => "  " + item.replace(/;?$/, ";")).join("\n") + "\n}");
+    }
+    const extraBlock = unmatchedRules.join("\n\n");
+    sources.css = mergedCSS + (extraBlock ? "\n\n" + startMarker + "\n" + extraBlock + "\n" + endMarker : "");
     if (activeLanguage.id === "css") editor.setDocument(sources.css);
     publishSource();
     renderEditor();
