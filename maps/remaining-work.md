@@ -72,6 +72,16 @@
 - **این مرحله ممیزی است؛ فایل اجرایی تغییر نکرد.**
 
 
+### طرح آزمون مقایسه‌ای Shadow برای HTML (۱۹ نوامبر ۲۰۲۶)
+- **اصل آزمون:** در یک ورودی/offset واحد، خروجی legacy و adapter JSON محاسبه شود؛ هیچ خروجی جدیدی به UI ارسال نشود و legacy منبع رفتار فعال بماند.
+- **Fixtureهای context:** root خالی و root دارای html/head/body؛ body معمولی؛ head؛ داخل p؛ ul/ol/menu؛ dl؛ table و tbody/thead/tfoot/tr؛ select و optgroup؛ SVG و زیرعنصر SVG.
+- **Fixtureهای تکمیل:** prefix خالی و prefix چندحرفی، opening، closing، chain، وجود تگ ساختاری تکراری، تگ void، متن/attribute/comment، script/style raw text، تگ ناقص و cursor در ابتدا/انتهای متن.
+- **مقایسه خروجی:** mode/context/from/to؛ تعداد گزینه؛ label و ترتیب؛ kind؛ isVoid؛ description؛ closeTo. اختلاف‌ها طبقه‌بندی شوند: مورد قابل قبول (گسترش کاتالوگ)، regression، اختلاف رتبه، اختلاف context/namespace، اختلاف قرارداد UI.
+- **معیار قبولی:** هیچ regression در رفتار legacy و درج/جابه‌جایی Cursor؛ اختلاف‌های پوشش افزوده JSON به‌صورت موردی پذیرفته و مستند شوند؛ تست repeatable با fixture ثابت باشد.
+- **پیشنهاد پیاده‌سازی بعدی:** adapter تستی مستقل با ورودی JSON تزریق‌شده، helper نرمال‌سازی خروجی و snapshotهای fixture؛ تست‌ها بدون network/fetch با داده محلی اجرا شوند. سپس به runtime متصل شود.
+- **این مرحله طرح آزمون است؛ هیچ تست یا کد اجرایی اضافه/اجرا نشد.**
+
+
 ### ۱.۲ اتصال منبع داده
 - [x] بررسی ساختار JSON پیشنهاد HTML
 - [x] مقایسه سازگاری فیلدهای JSON با موتور HTML
@@ -79,6 +89,7 @@
 - [x] بررسی خطا و حالت خالی برای هر فایل JSON
 - [x] طراحی تبدیل JSON به پیشنهادهای موتور HTML
 - [x] ممیزی اثرات رفتاری اتصال JSON
+- [x] طراحی آزمون مقایسه‌ای Shadow HTML
 - [ ] اتصال داده HTML به موتور پیشنهاد
 - [ ] اتصال داده CSS به موتور پیشنهاد
 - [ ] اتصال داده JavaScript به موتور پیشنهاد
