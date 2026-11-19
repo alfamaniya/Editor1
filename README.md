@@ -2,7 +2,7 @@
 
 **UI language and direction:** English only; left-to-right (`LTR`) throughout. No Persian text is permitted in user-visible interface labels, messages, tooltips, or accessibility text. Source-code comments may be Persian.
 
-**Core folder policy:** The existing component directory still needs to be moved to `core-old/` (rename operation is pending). A new `core/` directory has been created and contains only `.gitkeep`; it is reserved for JavaScript files for page UI elements.
+**Core folder policy:** The former `core/` component directory has been moved intact to `core-old/`. The new `core/` contains only `.gitkeep` and is reserved for JavaScript files for page UI elements.
 
 
 
