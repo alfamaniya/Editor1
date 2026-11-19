@@ -66,19 +66,19 @@ function inferMemberOwner(source, expression, seen = new Set()) {
     declarationStart = match.index;
   }
   if (!initializer) return null;
-  const constructor = initializer.match(/^new\\s+([A-Za-z_$][\\w$]*)\\s*\\(/);
+  const constructor = initializer.match(/^new\s+([A-Za-z_$][\w$]*)\s*\(/);
   if (constructor) return INSTANCE_OWNER_BY_TYPE[constructor[1]] ?? constructor[1] + ".prototype";
-  if (/^(?:\\[\\s*\\]|Array\\s*\\()/i.test(initializer)) return "Array";
-  if (/^(?:["'\\x60]|String\\s*\\()/i.test(initializer)) return "String.prototype";
-  if (/^(?:-?\\d+(?:\\.\\d+)?|Number\\s*\\()/i.test(initializer)) return "Number.prototype";
-  if (/^(?:true|false|Boolean\\s*\\()/i.test(initializer)) return "Boolean.prototype";
-  if (/^(?:\\{\\s*\\}|Object\\s*\\()/i.test(initializer)) return "Object.prototype";
-  if (/^\\/(?:[^/]|\\\\.)+\\/[dgimsuvy]*$/.test(initializer)) return "RegExp.prototype";
-  if (/^document\\.querySelector(?:All)?\\s*\\(/.test(initializer)) return "Element.prototype";
-  if (/^document\\.createElement\\s*\\(/.test(initializer)) return "HTMLElement.prototype";
+  if (/^(?:\[\s*\]|Array\s*\()/i.test(initializer)) return "Array";
+  if (/^(?:["'\x60]|String\s*\()/i.test(initializer)) return "String.prototype";
+  if (/^(?:-?\d+(?:\.\d+)?|Number\s*\()/i.test(initializer)) return "Number.prototype";
+  if (/^(?:true|false|Boolean\s*\()/i.test(initializer)) return "Boolean.prototype";
+  if (/^(?:\{\s*\}|Object\s*\()/i.test(initializer)) return "Object.prototype";
+  if (/^\/(?:[^/]|\\.)+\/[dgimsuvy]*$/.test(initializer)) return "RegExp.prototype";
+  if (/^document\.querySelector(?:All)?\s*\(/.test(initializer)) return "Element.prototype";
+  if (/^document\.createElement\s*\(/.test(initializer)) return "HTMLElement.prototype";
 
   // Follow simple identifier aliases; avoid guessing through arbitrary expressions.
-  const alias = initializer.match(/^([A-Za-z_$][\\w$]*)$/);
+  const alias = initializer.match(/^([A-Za-z_$][\w$]*)$/);
   if (alias && declarationStart >= 0) {
     return inferMemberOwner(source.slice(0, declarationStart), alias[1], seen);
   }
