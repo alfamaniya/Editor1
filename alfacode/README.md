@@ -19,7 +19,7 @@ alfacode/
 ├── data/
 │   ├── completions.html.json  (۱۴۶ رکورد HTML)
 │   ├── completions.css.json  (929 رکورد CSS)
-│   └── completions.javascript.json  (۶۸۹ رکورد JavaScript)
+│   └── completions.javascript.json (872 رکورد JavaScript)
 ├── examples/
 ├── src/
 │   ├── core/
@@ -167,7 +167,7 @@ Workflow متناظر `.github/workflows/alfacode-tests.yml` است. مجموع�
 
 ## نقشه راه تکمیل کاتالوگ سه زبان
 
-موجودی فعلی و برنامه تکمیل مرحله‌ای پیشنهادهای HTML، CSS و JavaScript در [نقشه راه تکمیل کاتالوگ](../maps/catalog-completion.md) نگهداری می‌شود. تعداد فعلی داده‌ها ۱۴۶ رکورد HTML، 929 رکورد CSS و ۷۹۰ رکورد JavaScript (مجموع ۱۸۶۵) است. JS-1 کلیدواژه‌ها و literalها را تفکیک کرد؛ JS-2 نیز متدها و ویژگی‌های اشیاء استاندارد، توابع تبدیل و بررسی و API جداگانه URL را تکمیل کرد؛ JS-3 با افزودن ۴۲ عضو Array (۳۹ متد و ۳ ویژگی نمونه) و JS-4 با تکمیل ۹ عضو String/Number، ویژگی‌های constructor و iterator را پوشش داد؛ JS-5 نیز ۲۳ عضو Object، Date و RegExp را اضافه کرد؛ JS-6 با ۷۲ عضو Math، JSON و ساختارهای مجموعه‌ای را تکمیل کرد؛ CI یک نقص order را کشف کرد و اصلاح شد؛ JS-7 نیز ۱۲ عضو Promise، JS-8 با ۱۵۵ عضو DOM/HTML DOM و JS-9 با ۹۵ عضو Browser API تکمیل شدند. اتصال داده‌های کاتالوگ به پیشنهادهای زمان اجرا هنوز انجام نشده است. HTML-1 تا HTML-10 و CSS-1 تا CSS-12 تکمیل شدند و PR اصلاحی #13 نیز ادغام شد. همه ۱۷۹ ویژگی CSS اکنون دست‌کم یک مقدار وابسته به ویژگی دارند. اجرای نهایی [AlfaCode Tests #191](https://github.com/alfamaniya/Editor1/actions/runs/44392206875) با ۶۶ موفق و صفر ناموفق و ساخت [نسخه آفلاین #180](https://github.com/alfamaniya/Editor1/actions/runs/44392206906) موفق شدند. آزمون مرورگر/IME با این تغییرات انجام نشده است. اتصال داده‌ها به موتورهای زمان اجرا خارج از دامنه این برنامه است.
+موجودی فعلی و برنامه تکمیل مرحله‌ای پیشنهادهای HTML، CSS و JavaScript در [نقشه راه تکمیل کاتالوگ](../maps/catalog-completion.md) نگهداری می‌شود. تعداد فعلی داده‌ها ۱۴۶ رکورد HTML، 929 رکورد CSS و 872 رکورد JavaScript (مجموع 1947) است. JS-1 کلیدواژه‌ها و literalها را تفکیک کرد؛ JS-2 نیز متدها و ویژگی‌های اشیاء استاندارد، توابع تبدیل و بررسی و API جداگانه URL را تکمیل کرد؛ JS-3 با افزودن ۴۲ عضو Array (۳۹ متد و ۳ ویژگی نمونه) و JS-4 با تکمیل ۹ عضو String/Number، ویژگی‌های constructor و iterator را پوشش داد؛ JS-5 نیز ۲۳ عضو Object، Date و RegExp را اضافه کرد؛ JS-6 با ۷۲ عضو Math، JSON و ساختارهای مجموعه‌ای را تکمیل کرد؛ CI یک نقص order را کشف کرد و اصلاح شد؛ JS-7 نیز ۱۲ عضو Promise، JS-8 با ۱۵۵ عضو DOM/HTML DOM و JS-9 با ۹۵ عضو Browser API تکمیل شدند. اتصال داده‌های کاتالوگ به پیشنهادهای زمان اجرا هنوز انجام نشده است. HTML-1 تا HTML-10 و CSS-1 تا CSS-12 تکمیل شدند و PR اصلاحی #13 نیز ادغام شد. همه ۱۷۹ ویژگی CSS اکنون دست‌کم یک مقدار وابسته به ویژگی دارند. اجرای نهایی [AlfaCode Tests #191](https://github.com/alfamaniya/Editor1/actions/runs/44392206875) با ۶۶ موفق و صفر ناموفق و ساخت [نسخه آفلاین #180](https://github.com/alfamaniya/Editor1/actions/runs/44392206906) موفق شدند. آزمون مرورگر/IME با این تغییرات انجام نشده است. اتصال داده‌ها به موتورهای زمان اجرا خارج از دامنه این برنامه است.
 
 
 ## سیاست منابع و صحت‌سنجی کاتالوگ
