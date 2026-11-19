@@ -53,6 +53,7 @@
   previewFrame.addEventListener("load", renderPreview);
 
   document.getElementById("clearAllTabs")?.addEventListener("click", () => postEditorCommand("clear-tabs"));
+  document.getElementById("clearCurrentTab")?.addEventListener("click", () => postEditorCommand("clear-tab"));
   document.getElementById("resetProject")?.addEventListener("click", () => postEditorCommand("project-reset"));
 
   // کنترل تغییر اندازه پنل‌ها؛ ابعاد iframe با Flexbox/CSS هماهنگ می‌شود.
