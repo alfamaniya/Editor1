@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { getHTMLTagSuggestions } from "../src/language/html/html-completion.js";
+import { parseHTML } from "../src/language/html/html-parser.js";
 import { htmlCompletionFixtures } from "./html-completion-fixtures.mjs";
 
 const catalogUrl = new URL("../data/completions.html.json", import.meta.url);
@@ -25,32 +26,64 @@ function normalizeLegacy(result) {
   };
 }
 
-// Shadow adapter: use the legacy engine as the behavioral boundary while sourcing
-// candidate metadata and enabled state from JSON. Empty parentTags retain the
-// legacy context allow-list; explicit parentTags are enforced.
-function getJSONShadowSuggestions(fixture, legacy, records) {
+// Read the actual open-element path from the parser tree. The semantic context
+// used by catalog records is deliberately kept separate from the real parent.
+function getOpenTagState(source) {
+  const parsed = parseHTML(source);
+  const path = [];
+  let children = parsed.root.children;
+
+  while (children) {
+    const openElement = [...children].reverse().find(node =>
+      node.type === "Element" && !node.selfClosing &&
+      node.closeStart === undefined && node.end === source.length
+    );
+    if (!openElement) break;
+    path.push(openElement.name.toLowerCase());
+    children = openElement.children;
+  }
+
+  const parent = path.at(-1) ?? "root";
+  const isSVG = path.includes("svg");
+  const context = isSVG ? "svg" : parent === "html" ? "root" : parent;
+  return { parent, context, isSVG };
+}
+
+// Shadow adapter: JSON supplies enabled state and metadata. Existing Legacy
+// candidates remain eligible as a compatibility floor; explicit parentTags
+// constrain additional JSON coverage, not established Legacy behavior.
+function getJSONShadowSuggestions(legacy, records, source, tagStart) {
   if (!legacy) return null;
-  const isSVG = fixture.source.slice(0, fixture.cursor).toLowerCase().includes("<svg");
-  const parent = legacy.context?.toLowerCase() ?? "root";
+  const state = getOpenTagState(source.slice(0, tagStart));
   const legacyLabels = new Set(legacy.options.map(option => option.label.toLowerCase()));
   const candidates = records.filter(record => {
     if (record.enabled !== true || record.operation !== "open") return false;
-    if (record.namespace !== (isSVG ? "svg" : "html")) return false;
-    if (record.parentTags?.length) {
-      if (!record.parentTags.map(value => value.toLowerCase()).includes(parent)) return false;
-    } else if (!legacyLabels.has(record.tagName.toLowerCase())) {
-      return false;
-    }
-    if (record.contexts?.length && !record.contexts.includes(parent)) return false;
+    if (record.namespace !== (state.isSVG ? "svg" : "html")) return false;
+    const name = record.tagName.toLowerCase();
+    const legacyCompatible = legacyLabels.has(name);
+    const parentAllowed = !record.parentTags?.length ||
+      record.parentTags.some(value => value.toLowerCase() === state.parent) ||
+      legacyCompatible;
+    if (!parentAllowed) return false;
+    if (record.contexts?.length && !record.contexts.includes(state.context)) return false;
     return true;
   });
 
+  const legacyOrder = new Map(legacy.options.map((option, index) =>
+    [option.label.toLowerCase(), index]));
   const rank = record => Number.isInteger(record.rank) ? record.rank :
     Number.isInteger(record.order) ? record.order : Number.MAX_SAFE_INTEGER;
   const query = legacy.query?.toLowerCase() ?? "";
   const ordered = candidates
     .filter(record => record.tagName.toLowerCase().startsWith(query))
-    .sort((a, b) => rank(a) - rank(b) || a.order - b.order);
+    .sort((a, b) => {
+      const aLegacy = legacyOrder.get(a.tagName.toLowerCase());
+      const bLegacy = legacyOrder.get(b.tagName.toLowerCase());
+      if (aLegacy !== undefined && bLegacy !== undefined) return aLegacy - bLegacy;
+      if (aLegacy !== undefined) return -1;
+      if (bLegacy !== undefined) return 1;
+      return rank(a) - rank(b) || a.order - b.order;
+    });
 
   const jsonOptions = ordered.slice(0, legacy.options.length).map(record => ({
     label: record.tagName,
@@ -62,9 +95,7 @@ function getJSONShadowSuggestions(fixture, legacy, records) {
   }));
 
   // close/jump-close are stack operations, not catalog operations.
-  if (legacy.mode === "close") {
-    return normalizeLegacy(legacy);
-  }
+  if (legacy.mode === "close") return normalizeLegacy(legacy);
   if (legacy.mode === "chain") {
     const jumpClose = legacy.options.find(option => option.kind === "jump-close");
     if (jumpClose) jsonOptions.push({
@@ -98,7 +129,9 @@ test("HTML JSON shadow adapter compares all fixed fixtures against legacy behavi
       chain,
       limit: 10
     });
-    const shadow = getJSONShadowSuggestions(fixture, legacy, records);
+    const tagStart = fixture.source.slice(0, fixture.cursor).match(/<\/?[A-Za-z][A-Za-z0-9:-]*$/)?.index
+      ?? fixture.cursor;
+    const shadow = getJSONShadowSuggestions(legacy, records, fixture.source, tagStart);
 
     if (legacy === null) {
       assert.equal(shadow, null, fixture.id);
@@ -133,8 +166,6 @@ test("HTML JSON shadow adapter compares all fixed fixtures against legacy behavi
     }
   }
 
-  // Differences are intentionally reported as shadow data, not treated as
-  // regressions until the adapter's context/ranking policy is approved.
   console.log("HTML shadow fixtures:", htmlCompletionFixtures.length,
     "behavioral differences:", differences.length,
     JSON.stringify(differences));
