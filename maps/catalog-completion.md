@@ -11,7 +11,7 @@
 |---|---|---:|
 | HTML | `alfacode/data/completions.html.json` | ۱۴۶ |
 | CSS | `alfacode/data/completions.css.json` | 929 |
-| JavaScript | `alfacode/data/completions.javascript.json` | ۴۲۷ |
+| JavaScript | `alfacode/data/completions.javascript.json` | ۴۵۰ |
 | **مجموع** | سه فایل مستقل | **۱۵۰۲** |
 
 ## ۱. نقشه راه HTML
@@ -186,7 +186,7 @@
 - [x] JS-2 — تکمیل اشیاء و توابع استاندارد سراسری: Number، String، Object، Date، RegExp، Map، Set، Symbol، Error، URL و توابع تبدیل و بررسی؛ متدهای ایستا و نمونه، ویژگی‌ها و APIهای محیطی با وضعیت استاندارد تفکیک شدند.
 - [x] JS-3 — تکمیل متدهای Array: ۳۹ متد نمونه و ۳ ویژگی نمونه شامل پیمایش، جست‌وجو، تبدیل، تغییر آرایه، کپی، مرتب‌سازی و iteratorها اضافه شد؛ متدهای mutating از non-mutating جدا توضیح داده شدند و metadata استاندارد نسخه ثبت شد.
 - [x] JS-4 — تکمیل String و Number: ۹ عضو شامل ویژگی‌های سازنده، iterator رشته و ویژگی‌های static مربوط به constructorها تکمیل شد؛ مجموعه متدهای String و Number موجود بازبینی و با منابع رسمی تطبیق داده شد.
-- [ ] JS-5 — تکمیل متدهای Object، Date و RegExp: ساخت، بررسی، پیمایش و عملیات متداول.
+- [x] JS-5 — تکمیل متدها و ویژگی‌های سازنده و prototype در Object، Date و RegExp؛ شامل ویژگی‌های سازنده، متدهای نمادین RegExp و تبدیل Date به primitive.
 - [ ] JS-6 — تکمیل Math، JSON و ساختارهای داده: متدهای جاافتاده و Map/Set/WeakMap/WeakSet.
 - [ ] JS-7 — تکمیل Promise و برنامه‌نویسی ناهمگام: all، allSettled، any، race، resolve، reject، finally و الگوهای async/await.
 - [ ] JS-8 — تکمیل DOM: انتخاب عناصر، پیمایش، ساخت/حذف، ویژگی‌ها، کلاس‌ها، dataset، style، رویدادها و فرم‌ها.
@@ -297,7 +297,7 @@
 - [x] HTML-1 اجرا شد: ۳۲ تگ جدید افزوده شد؛ موجودی HTML از ۶۰ به ۹۲ رسید.
 - [x] HTML-2 اجرا شد: ۴ تگ تأییدشده افزوده شد؛ موجودی HTML از ۹۲ به ۹۶ رسید.
 - [x] CSS-1 تا CSS-12 تکمیل و هر ۱۲ درخواست Pull Request پس از موفقیت CI به‌ترتیب در `main` ادغام شدند.
-- [x] JavaScript-1 تا JavaScript-4 تکمیل داده‌ای شدند؛ JS-5 تا JS-13 باقی هستند.
+- [x] JavaScript-1 تا JavaScript-5 تکمیل داده‌ای شدند؛ JS-6 تا JS-13 باقی هستند.
 - [ ] اعتبارسنجی نهایی انجام نشده است.
 
 
@@ -355,3 +355,16 @@
 - آزمون اختصاصی JS-4 برای پوشش متدها و ویژگی‌های String/Number و نوع memberKind اضافه شد.
 - منابع: [ECMA-262 2026](https://tc39.es/ecma262/2026/) و [MDN String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)، [MDN Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number).
 - این مرحله صرفاً کاتالوگ و آزمون داده را تغییر می‌دهد؛ اتصال به موتور autocomplete و آزمون دستی مرورگر/IME انجام نشده است.
+
+
+## گزارش اجرای JavaScript-5
+
+- تاریخ اجرا: ۲۰۲۶-۱۱-۱۹
+- کاتالوگ JavaScript از ۴۲۷ به **۴۵۰ رکورد** رسید؛ در JS-5 تعداد **۲۳ عضو** برای Object، Date و RegExp افزوده شد. مجموع سه کاتالوگ **۱۵۲۵ رکورد** است.
+- Object: ویژگی‌های سازنده (prototype، length، name)، constructor نمونه و well-known Symbol.toStringTag اضافه شد.
+- Date: ویژگی‌های static (prototype، length، name)، constructor نمونه، Symbol.toPrimitive و Symbol.toStringTag ثبت شدند.
+- RegExp: ویژگی‌های سازنده، constructor نمونه، lastIndex، toString و متدهای well-known symbol شامل match، matchAll، replace، search و split و ویژگی Symbol.toStringTag اضافه شدند.
+- موارد deprecated و legacy مانند accessorهای __proto__ و متدهای قدیمی Object.__defineGetter__ / __lookupGetter__ در پیشنهادهای عادی این مرحله افزوده نشدند.
+- آزمون اختصاصی JS-5 برای ۲۳ عضو و memberKind افزوده شد؛ شمارنده‌های تست JavaScript و مجموع کاتالوگ نیز به‌روزرسانی شدند.
+- منابع رسمی: [ECMA-262 2026 — Object](https://tc39.es/ecma262/2026/multipage/fundamental-objects.html)، [Date](https://tc39.es/ecma262/2026/multipage/numbers-and-dates.html)، [RegExp](https://tc39.es/ecma262/2026/multipage/text-processing.html)، [MDN Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)، [MDN RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
+- این مرحله داده و آزمون را تغییر می‌دهد؛ اتصال کاتالوگ به موتور پیشنهادها و آزمایش دستی مرورگر/IME انجام نشده است.
