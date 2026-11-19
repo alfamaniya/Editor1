@@ -135,6 +135,9 @@ test("HTML JSON shadow adapter compares all fixed fixtures against legacy behavi
 
   // Differences are intentionally reported as shadow data, not treated as
   // regressions until the adapter's context/ranking policy is approved.
+  console.log("HTML shadow fixtures:", htmlCompletionFixtures.length,
+    "behavioral differences:", differences.length,
+    JSON.stringify(differences));
   assert.ok(Array.isArray(differences));
   assert.equal(htmlCompletionFixtures.length, 32);
 });
