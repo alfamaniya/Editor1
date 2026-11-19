@@ -164,7 +164,7 @@ img { max-width: 100%; height: auto; border-radius: 8px; }
 const sampleItems = ["HTML", "CSS", "JavaScript"];
 const profile = { name: "AlfaCode learner", level: "beginner" };
 const [firstTopic, secondTopic] = sampleItems;
-const profileLabel = \`${profile.name} — ${profile.level}\`;
+const profileLabel = profile.name + " — " + profile.level;
 console.log(profileLabel, firstTopic, secondTopic);
 
 // 2) Function, arrow function, conditional, loop and map/filter
@@ -183,7 +183,7 @@ form?.addEventListener("submit", event => {
   event.preventDefault();
   const formData = new FormData(form);
   const visitor = formData.get("name")?.toString().trim() || "Visitor";
-  result.textContent = \`Thanks, ${visitor}! The sample form passed its required-field check.\`;
+  result.textContent = "Thanks, " + visitor + "! The sample form passed its required-field check.";
 });
 form?.addEventListener("reset", () => {
   if (result) result.textContent = "Form reset. Try submitting it again.";
