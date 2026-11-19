@@ -316,3 +316,12 @@ Editor1/
 - The footer provides quick access to parentheses, braces, brackets, angle signs, quotes, and common punctuation. The helper module is included in the offline build manifest.
 
 - Offline builder: `scripts/build-offline.mjs` embeds the Helper Keys module into the standalone shell (rather than leaving an external script reference).
+
+
+## Mobile Helper Keys — 19 November 2026
+
+- Added a compact mobile symbol row that appears only while the editor is focused and the on-screen keyboard is detected.
+- Mobile row includes `:`, `;`, `"`, `()`, `)`, `{}`, `}`, `<`, and `>` (paired insertion behavior is handled by the existing editor).
+- Desktop footer helper keys are unchanged.
+- Visibility and placement use the Visual Viewport API with a height-loss heuristic; browser/keyboard combinations may vary.
+- [ ] Test on Android/iOS browsers, landscape mode, tab switching, keyboard hide/show, and offline build.
