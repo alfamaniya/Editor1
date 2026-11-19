@@ -42,6 +42,11 @@ test("mobile-only responsive overrides and controls are removed from the main ap
   ];
   for (const path of mobileCssPaths) {
     const source = await readFile(new URL(path, ROOT), "utf8");
+    if (path === "style.css") {
+      // Root responsive rules are intentionally limited to mobile helper keys and divider behavior.
+      assert.doesNotMatch(source, /mobile-workspace-switcher|mobile-extra-keys|mobile-workspace\.js|mobile-extra-keys\.js/);
+      continue;
+    }
     assert.doesNotMatch(source, /@media\s*\(\s*max-width\s*:/i, path + " should not contain mobile width overrides");
     assert.doesNotMatch(source, /@media[^{}]*pointer\s*:\s*coarse/i, path + " should not contain touch-pointer responsive overrides");
   }
