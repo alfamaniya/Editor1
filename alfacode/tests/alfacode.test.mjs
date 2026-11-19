@@ -427,6 +427,6 @@ test("HTML chained child suggestion inserts its own opening angle bracket", () =
   assert.deepEqual(child, { insertion: "<span></span>", cursorOffset: 6 });
   const childVoid = buildHTMLTagInsertion({ kind: "child", label: "img", isVoid: true });
   assert.deepEqual(childVoid, { insertion: "<img>", cursorOffset: 5 });
-  const closing = buildHTMLTagInsertion({ kind: "close", label: "</div", isVoid: false });
-  assert.deepEqual(closing, { insertion: "</div>", cursorOffset: 6 });
+  const closing = buildHTMLTagInsertion({ kind: "close", label: "div", isVoid: false });
+  assert.deepEqual(closing, { insertion: "div>", cursorOffset: 4 });
 });
