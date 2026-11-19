@@ -22,10 +22,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Test ordered attachment splitting
+      - name: Test one-email three-attachment packaging
         run: python -m unittest discover -s scripts -p 'test_*.py' -v
 
-      - name: Send offline HTML in numbered attachment emails
+      - name: Send offline HTML in one email with three attachments
         env:
           GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
