@@ -52,4 +52,4 @@ python -m http.server 8000
 - [x] تصویر نمونه با SVG تعبیه‌شده و بدون وابستگی به منبع خارجی.
 
 ### نمونه پیش‌فرض جدید (در حال تأیید CI)
-نمونه‌های آغازین هر تب گسترش یافته‌اند: HTML شامل تگ‌های معنایی، متن، لیست، جدول، فرم و عناصر تعاملی/رسانه‌ای؛ CSS شامل Selectorهای متنوع، pseudo، attribute، Flex/Grid، Media Query و reduced-motion؛ JavaScript شامل متغیرها، توابع، شرط/حلقه، مجموعه‌ها، DOM/فرم، Date/Intl، Timer، Promise و Async/Await. تصویر نمونه به SVG inline تغییر داده شده تا وابستگی اینترنتی نداشته باشد.
+نمونه‌های آغازین هر تب گسترش یافته‌اند: HTML شامل تگ‌های معنایی، متن، لیست، جدول، فرم و عناصر تعاملی/رسانه‌ای؛ CSS شامل Selectorهای متنوع، pseudo، attribute، Flex/Grid، Media Query و reduced-motion؛ JavaScript شامل متغیرها، توابع، شرط/حلقه، مجموعه‌ها، DOM/فرم، Date/Intl، Timer، Promise و Async/Await. تصویر نمونه به SVG inline تغییر داده شده تا وابستگی اینترنتی نداشته باشد. **CI پس از تغییر: ۱۰۹ تست موفق، ۰ شکست؛ Build آفلاین موفق، ۸۰ فایل Runtime و ۰ منبع خارجی (Run 44507418383/18489).**
