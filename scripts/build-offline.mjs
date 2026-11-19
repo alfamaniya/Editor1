@@ -265,12 +265,12 @@ function injectBeforeBodyEnd(html, fragment) {
   return html + fragment;
 }
 
-function inlineEditorDocument(template, styles, bundle, tagSuggestionsTemplate) {
+function inlineEditorDocument(template, styles, bundle, tagSuggestionsTemplate, completionCatalogs) {
   let html = template;
   html = html.replace(/\s*<link\b[^>]*href=["'][^"']+["'][^>]*>/gi, "");
   html = html.replace(/\s*<script\b[^>]*src=["'][^"']*editor\.js["'][^>]*>\s*<\/script>/i, "");
   html = html.replace("</head>", "<style>\n" + styles + "\n</style>\n</head>");
-  const templateBootstrap = "<script>window.__ALFACODE_TAG_SUGGESTIONS_TEMPLATE__ = " + JSON.stringify(tagSuggestionsTemplate) + ";</script>";
+  const templateBootstrap = "<script>window.__ALFACODE_TAG_SUGGESTIONS_TEMPLATE__ = " + JSON.stringify(tagSuggestionsTemplate) + "; window.__ALFACODE_COMPLETION_CATALOGS__ = " + JSON.stringify(completionCatalogs) + ";</script>";
   html = injectBeforeBodyEnd(html, templateBootstrap + "<script>\n" + escapeScript(bundle) + "\n</script>");
   return html;
 }
@@ -284,13 +284,13 @@ function inlinePreviewDocument(template, stylesheet, script) {
   return html;
 }
 
-function inlineCatalogDocument(template, stylesheet, bundle) {
+function inlineCatalogDocument(template, stylesheet, bundle, completionCatalogs) {
   let html = template;
   html = html.replace(/\s*<link\b[^>]*href=["'][^"']*completion-catalog\.css["'][^>]*>/i, "");
   html = html.replace(/\s*<script\b[^>]*src=["'][^"']*completion-catalog\.js["'][^>]*>\s*<\/script>/i, "");
   html = html.replace(/(<a\b(?=[^>]*\bclass=["'][^"']*\bback-link\b)[^>]*\bhref=)["'][^"']*["']/i, '$1"#"');
   html = html.replace("</head>", "<style>\n" + stylesheet + "\n</style>\n</head>");
-  const runtime = "<script>\n" + escapeScript(bundle) + "\n</script>";
+  const runtime = "<script>window.__ALFACODE_COMPLETION_CATALOGS__ = " + JSON.stringify(completionCatalogs) + ";</script><script>\n" + escapeScript(bundle) + "\n</script>";
   const backAction = "<script>document.querySelector('.back-link')?.addEventListener('click', event => { event.preventDefault(); window.close(); });</script>";
   return injectBeforeBodyEnd(html, runtime + backAction);
 }
@@ -485,6 +485,11 @@ async function main() {
     legalComments: "none"
   });
   const editorBundle = bundleResult.outputFiles[0].text;
+  const completionCatalogs = {
+    html: JSON.parse(await read("alfacode/data/completions.html.json")),
+    css: JSON.parse(await read("alfacode/data/completions.css.json")),
+    javascript: JSON.parse(await read("alfacode/data/completions.javascript.json"))
+  };
 
   const extraKeysBundleResult = await build({
     absWorkingDir: ROOT,
@@ -511,7 +516,8 @@ async function main() {
   const completionCatalogDocument = inlineCatalogDocument(
     await readEntry(assembly.completionCatalog, "html"),
     await readEntry(assembly.completionCatalog, "styles"),
-    catalogBundleResult.outputFiles[0].text
+    catalogBundleResult.outputFiles[0].text,
+    completionCatalogs
   );
 
   const tagSuggestionEntry = assembly.editorSupport[0];
@@ -521,7 +527,8 @@ async function main() {
     editorTemplate,
     [editorCss, tagSuggestionsCss, ...await Promise.all(assembly.editorThemeFiles.map(read))].join("\n"),
     editorBundle,
-    tagSuggestionsTemplate
+    tagSuggestionsTemplate,
+    completionCatalogs
   );
   const previewDocument = inlinePreviewDocument(previewTemplate, previewCss, previewScript);
 
