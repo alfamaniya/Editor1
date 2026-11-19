@@ -11,7 +11,7 @@
 |---|---|---:|
 | HTML | `alfacode/data/completions.html.json` | ۱۴۶ |
 | CSS | `alfacode/data/completions.css.json` | 929 |
-| JavaScript | `alfacode/data/completions.javascript.json` | ۵۲۲ |
+| JavaScript | `alfacode/data/completions.javascript.json` | ۵۳۴ |
 | **مجموع** | سه فایل مستقل | **۱۵۰۲** |
 
 ## ۱. نقشه راه HTML
@@ -188,7 +188,7 @@
 - [x] JS-4 — تکمیل String و Number: ۹ عضو شامل ویژگی‌های سازنده، iterator رشته و ویژگی‌های static مربوط به constructorها تکمیل شد؛ مجموعه متدهای String و Number موجود بازبینی و با منابع رسمی تطبیق داده شد.
 - [x] JS-5 — تکمیل متدها و ویژگی‌های سازنده و prototype در Object، Date و RegExp؛ شامل ویژگی‌های سازنده، متدهای نمادین RegExp و تبدیل Date به primitive.
 - [x] JS-6 — تکمیل Math و JSON و پوشش Map/Set/WeakMap/WeakSet؛ شامل متدها، ویژگی‌ها، iteratorها و روش‌های جدید ES2026.
-- [ ] JS-7 — تکمیل Promise و برنامه‌نویسی ناهمگام: all، allSettled، any، race، resolve، reject، finally و الگوهای async/await.
+- [x] JS-7 — تکمیل اعضای Promise و کنترل ناهمگام؛ متدهای static، prototype، withResolvers/try و پوشش کلیدواژه‌های async/await.
 - [ ] JS-8 — تکمیل DOM: انتخاب عناصر، پیمایش، ساخت/حذف، ویژگی‌ها، کلاس‌ها، dataset، style، رویدادها و فرم‌ها.
 - [ ] JS-9 — تکمیل Browser API: window، location، history، navigator، storage، timers، URL، clipboard و APIهای پرکاربرد؛ با تفکیک محیط مرورگر از JavaScript عمومی.
 - [ ] JS-10 — تکمیل شبکه و داده: fetch، Request، Response، Headers، FormData، Blob و مدیریت خطا.
@@ -297,7 +297,7 @@
 - [x] HTML-1 اجرا شد: ۳۲ تگ جدید افزوده شد؛ موجودی HTML از ۶۰ به ۹۲ رسید.
 - [x] HTML-2 اجرا شد: ۴ تگ تأییدشده افزوده شد؛ موجودی HTML از ۹۲ به ۹۶ رسید.
 - [x] CSS-1 تا CSS-12 تکمیل و هر ۱۲ درخواست Pull Request پس از موفقیت CI به‌ترتیب در `main` ادغام شدند.
-- [x] JavaScript-1 تا JavaScript-6 تکمیل داده‌ای شدند؛ JS-7 تا JS-13 باقی هستند.
+- [x] JavaScript-1 تا JavaScript-7 تکمیل داده‌ای شدند؛ JS-8 تا JS-13 باقی هستند.
 - [ ] اعتبارسنجی نهایی انجام نشده است.
 
 
@@ -381,4 +381,16 @@
 - WeakSet: متدهای add/delete/has، ویژگی‌های سازنده و `Symbol.toStringTag` اضافه شدند.
 - آزمون اختصاصی JS-6 برای ۷۲ عضو و نسخه استاندارد هر قابلیت افزوده شد؛ شمارنده‌های تست JavaScript و مجموع سه کاتالوگ به‌روزرسانی شدند. CI ابتدا ۲۷ order نامعتبر در دسته‌های تازه کشف کرد؛ همه مقادیر اصلاح شدند و commit اصلاحی جداگانه ثبت شد.
 - منابع رسمی: [ECMA-262 2026 — Numbers and Dates / Math](https://tc39.es/ecma262/2026/multipage/numbers-and-dates.html)، [Keyed Collections](https://tc39.es/ecma262/2026/multipage/keyed-collections.html)، [Structured Data / JSON](https://tc39.es/ecma262/2026/multipage/structured-data.html)، [MDN Math](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math)، [MDN JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON)، [MDN Keyed Collections](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Keyed_collections).
+- این مرحله داده و آزمون را تغییر می‌دهد؛ اتصال کاتالوگ به موتور پیشنهادها و آزمایش دستی مرورگر/IME انجام نشده است.
+
+
+## گزارش اجرای JavaScript-7
+
+- تاریخ اجرا: ۲۰۲۶-۱۱-۱۹
+- کاتالوگ JavaScript از ۵۲۲ به **۵۳۴ رکورد** رسید؛ **۱۲ عضو** Promise افزوده شدند. مجموع سه کاتالوگ **۱۶۰۹ رکورد** است.
+- متدهای جدید: `Promise.any`، `Promise.withResolvers` و `Promise.try`؛ با وضعیت نسخه ES2021، ES2024 و ES2025 به‌ترتیب.
+- ویژگی‌های سازنده و prototype: `name`، `length`، `prototype`، `Symbol.species`، `Promise.prototype.constructor` و `Symbol.toStringTag`.
+- متدهای نمونه `then`، `catch` و `finally` تکمیل شدند.
+- آزمون اختصاصی JS-7 برای ۱۲ عضو، نسخه استاندارد و وجود کلیدواژه‌های `async` و `await` اضافه شد.
+- منابع رسمی: [ECMA-262 2026 — Promise Objects](https://tc39.es/ecma262/2026/multipage/control-abstraction-objects.html)، [MDN Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)، [MDN async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)، [MDN await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await).
 - این مرحله داده و آزمون را تغییر می‌دهد؛ اتصال کاتالوگ به موتور پیشنهادها و آزمایش دستی مرورگر/IME انجام نشده است.

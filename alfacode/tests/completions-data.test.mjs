@@ -105,14 +105,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 929, javascript: 522 };
+  const expected = { html: 146, css: 929, javascript: 534 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 1597);
+  assert.equal(records.length, 1609);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -667,4 +667,38 @@ test("JS-6 completes Math, JSON and keyed-collection built-ins", async () => {
   for (const label of ["Map.[Symbol.species]","Set.[Symbol.species]","Math.[Symbol.toStringTag]","JSON.[Symbol.toStringTag]"]) {
     assert.equal(byLabel.get(label)?.memberKind, "static-property", label);
   }
+});
+
+test("JS-7 completes Promise static, prototype, and async control members", async () => {
+  const records = (await readCatalog()).records.filter(r => r.language === "javascript");
+  const members = new Map(records.filter(r => r.type === "member").map(r => [r.label,r]));
+  const labels = [
+  "Promise.any",
+  "Promise.withResolvers",
+  "Promise.try",
+  "Promise.[Symbol.species]",
+  "Promise.name",
+  "Promise.length",
+  "Promise.prototype",
+  "Promise.prototype.constructor",
+  "Promise.prototype.then",
+  "Promise.prototype.catch",
+  "Promise.prototype.finally",
+  "Promise.prototype.[Symbol.toStringTag]"
+];
+  for (const label of labels) {
+    const record = members.get(label);
+    assert.ok(record, "missing JS-7 Promise member: " + label);
+    assert.equal(record.enabled,true,label);
+    assert.equal(record.standardSource,"ECMA-262 2026",label);
+  }
+  assert.equal(labels.length,12);
+  assert.equal(members.get("Promise.withResolvers")?.standardStatus,"es2024");
+  assert.equal(members.get("Promise.try")?.standardStatus,"es2025");
+  assert.equal(members.get("Promise.any")?.standardStatus,"es2021");
+  assert.equal(members.get("Promise.prototype.then")?.memberKind,"instance-method");
+  assert.equal(members.get("Promise.prototype.finally")?.memberKind,"instance-method");
+  const keywords=new Set(records.filter(r=>r.type==="identifier"&&r.category==="کلمات کلیدی").map(r=>r.label));
+  assert.ok(keywords.has("async"));
+  assert.ok(keywords.has("await"));
 });
