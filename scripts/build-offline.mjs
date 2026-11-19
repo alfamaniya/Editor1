@@ -49,7 +49,6 @@ async function loadOfflineManifest() {
   }
   const assemblyIds = [
     manifest.assembly.shell, manifest.assembly.header, manifest.assembly.newPageAction,
-    manifest.assembly.mobileWorkspace, manifest.assembly.mobileExtraKeys,
     manifest.assembly.workspaceDivider, manifest.assembly.editor, manifest.assembly.preview,
     manifest.assembly.completionCatalog,
     ...(manifest.assembly.actionComponents || []), ...(manifest.assembly.editorSupport || [])
@@ -376,43 +375,6 @@ class OfflineWorkspaceDivider extends HTMLElement {
 customElements.define("workspace-divider", OfflineWorkspaceDivider);
 `;
 }
-function makeMobileWorkspaceComponent(markup, stylesheet) {
-  return `
-class OfflineMobileWorkspace extends HTMLElement {
-  connectedCallback() {
-    if (this.shadowRoot) return;
-    const root = this.attachShadow({ mode: "open" });
-    root.innerHTML = "<style>" + ${JSON.stringify(stylesheet)} + "</style>" + ${JSON.stringify(markup)};
-    root.addEventListener("click", event => {
-      const button = event.target.closest("button[data-view]");
-      if (button) this.setView(button.dataset.view);
-    });
-    this.setView(document.body.dataset.mobileView || "editor");
-    this.syncViewportHeight();
-    window.visualViewport?.addEventListener("resize", () => this.syncViewportHeight());
-    window.addEventListener("resize", () => this.syncViewportHeight());
-  }
-  setView(view) {
-    if (view !== "editor" && view !== "preview") return;
-    document.body.dataset.mobileView = view;
-    for (const button of this.shadowRoot.querySelectorAll("button[data-view]")) {
-      const active = button.dataset.view === view;
-      button.classList.toggle("is-active", active);
-      button.setAttribute("aria-pressed", String(active));
-    }
-  }
-  syncViewportHeight() {
-    const viewport = window.visualViewport;
-    if (viewport && Math.abs(viewport.scale - 1) < 0.01) {
-      document.documentElement.style.setProperty("--app-height", viewport.height + "px");
-    } else if (!viewport) {
-      document.documentElement.style.removeProperty("--app-height");
-    }
-  }
-}
-customElements.define("mobile-workspace-switcher", OfflineMobileWorkspace);
-`;
-}
 
 async function main() {
   const manifest = await loadOfflineManifest();
@@ -436,16 +398,12 @@ async function main() {
     indexTemplate, rootCss, coordinator,
     headerMarkup, headerCss, headerModule,
     newPageMarkup, newPageCss, newPageModule,
-    mobileMarkup, mobileCss, mobileModule,
-    extraKeysMarkup, extraKeysCss, extraKeysModule,
     dividerMarkup, dividerCss, dividerModule,
     editorTemplate, editorCss, previewTemplate, previewCss, previewScript
   ] = await Promise.all([
     readEntry(assembly.shell, "html"), readEntry(assembly.shell, "styles"), readEntry(assembly.shell, "scripts"),
     readEntry(assembly.header, "html"), readEntry(assembly.header, "styles"), readEntry(assembly.header, "scripts"),
     readEntry(assembly.newPageAction, "html"), readEntry(assembly.newPageAction, "styles"), readEntry(assembly.newPageAction, "scripts"),
-    readEntry(assembly.mobileWorkspace, "html"), readEntry(assembly.mobileWorkspace, "styles"), readEntry(assembly.mobileWorkspace, "scripts"),
-    readEntry(assembly.mobileExtraKeys, "html"), readEntry(assembly.mobileExtraKeys, "styles"), readEntry(assembly.mobileExtraKeys, "scripts"),
     readEntry(assembly.workspaceDivider, "html"), readEntry(assembly.workspaceDivider, "styles"), readEntry(assembly.workspaceDivider, "scripts"),
     readEntry(assembly.editor, "html"), readEntry(assembly.editor, "styles"),
     readEntry(assembly.preview, "html"), readEntry(assembly.preview, "styles"), readEntry(assembly.preview, "scripts")
@@ -470,9 +428,7 @@ async function main() {
       !clearTabsModule.includes("customElements.define") ||
       !projectResetModule.includes("customElements.define") ||
       !clearBrowserDataModule.includes("customElements.define") ||
-      !extraKeysModule.includes("customElements.define") ||
-      !dividerModule.includes("customElements.define") ||
-      !mobileModule.includes("customElements.define")) {
+      !dividerModule.includes("customElements.define")) {
     throw new Error("A required UI component module is missing its custom-element registration.");
   }
 
@@ -492,18 +448,6 @@ async function main() {
     css: JSON.parse(await read("alfacode/data/completions.css.json")),
     javascript: JSON.parse(await read("alfacode/data/completions.javascript.json"))
   };
-
-  const extraKeysBundleResult = await build({
-    absWorkingDir: ROOT,
-    entryPoints: [path.join(ROOT, file(assembly.mobileExtraKeys, "scripts"))],
-    bundle: true,
-    write: false,
-    format: "iife",
-    platform: "browser",
-    target: ["es2020"],
-    legalComments: "none"
-  });
-  const extraKeysBundle = extraKeysBundleResult.outputFiles[0].text;
 
   const catalogBundleResult = await build({
     absWorkingDir: ROOT,
@@ -569,8 +513,6 @@ async function main() {
     }
   }
   customElements.define("new-page-action", OfflineNewPageAction);
-  window.__ALFACODE_EXTRA_KEYS_ASSETS__ = { html: ${JSON.stringify(extraKeysMarkup)}, css: ${JSON.stringify(extraKeysCss)} };
-  ${extraKeysBundle}
   window.__ALFACODE_ACTION_ASSETS__ = {
     "clear-tabs": { html: ${JSON.stringify(clearTabsMarkup)}, css: ${JSON.stringify(clearTabsCss)} },
     "project-reset": { html: ${JSON.stringify(projectResetMarkup)}, css: ${JSON.stringify(projectResetCss)} },
@@ -580,7 +522,6 @@ async function main() {
   ${projectResetModule}
   ${clearBrowserDataModule}
   ${makeDividerComponent(dividerMarkup, dividerCss)}
-  ${makeMobileWorkspaceComponent(mobileMarkup, mobileCss)}
   const editorFrame = document.querySelector(".editor-panel .section-frame");
   const previewFrame = document.querySelector(".preview-panel .section-frame");
   // Register message and load listeners before assigning fast-loading srcdoc documents.
