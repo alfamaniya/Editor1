@@ -153,10 +153,12 @@
       "active": true,
       "html": "core/preview/preview.html",
       "styles": [
-        "core/preview/preview.css"
+        "core/preview/preview.css",
+        "core/visual-editor/visual.css"
       ],
       "scripts": [
-        "core/preview/preview.js"
+        "core/preview/preview.js",
+        "core/visual-editor/visual-editor.js"
       ]
     }
   ],
