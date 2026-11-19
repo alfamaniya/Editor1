@@ -7,11 +7,11 @@ const css = await readFile(new URL("style.css", ROOT), "utf8");
 const divider = await readFile(new URL("backup/core-old/workspace-divider/workspace-divider.js", ROOT), "utf8");
 
 test("workspace flex panes and frames shrink without overflow", () => {
-  assert.match(css, /\\.split\\s*\\{[^}]*display:\\s*flex/);
-  assert.match(css, /\\.split\\s*\\{[^}]*min-height:\\s*0/);
-  assert.match(css, /\\.pane\\s*\\{[^}]*min-width:\\s*0/);
-  assert.match(css, /\\.pane-content\\s*\\{[^}]*min-height:\\s*0/);
-  assert.match(css, /\\.workspace-frame\\s*\\{[^}]*width:\\s*100%/);
+  assert.match(css, /\.split\s*\{[^}]*display:\s*flex/);
+  assert.match(css, /\.split\s*\{[^}]*min-height:\s*0/);
+  assert.match(css, /\.pane\s*\{[^}]*min-width:\s*0/);
+  assert.match(css, /\.pane-content\s*\{[^}]*min-height:\s*0/);
+  assert.match(css, /\.workspace-frame\s*\{[^}]*width:\s*100%/);
 });
 
 test("split-panel sizing is observed independently from window resize", () => {
