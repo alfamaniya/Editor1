@@ -20,7 +20,6 @@ Editor1/
 │   ├── style.css (CSS ریشه ساختار قبلی)
 │   ├── style-backup.css (نسخه پشتیبان قدیمی CSS)
 │   └── script.js (هماهنگ‌کننده قبلی Editor/Preview)
-├── script.js (حذف‌شده از ریشه؛ منتقل‌شده به backup/)
 ├── README.md
 ├── core/
 │   ├── browser-storage/ (html, css, js)
