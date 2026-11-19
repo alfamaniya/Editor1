@@ -448,3 +448,13 @@
 - [x] Recorded staged scope: UI/UX redesign; complete Color, Border, Size, Shadow, Spacing, Typography; advanced Layout/Flex/Grid/Position/Effects/Transform/Transition; Draft/Apply/Cancel/Reset; CSS integrity; testing and acceptance criteria.
 - [ ] Begin Stage A: redesign the Visual Editor interface and establish consistent control/button standards.
 - [ ] Implement subsequent stages according to the detailed map; do not mark items complete without verification.
+
+
+## Visual Editor redesign started — 19 November 2026
+- [x] Replaced the previous single settings panel with a builder-style overlay: Elements rail on the left, top status strip, and Inspector on the right.
+- [x] Added a clear Select Element action and selected-element tag/selector display.
+- [x] Redesigned the panel and control styling with a restrained dark UI and orange accent; added narrow viewport adjustments.
+- [ ] Element insertion tiles are currently visual placeholders; insertion/search are not functional yet.
+- [ ] Visual Editor category settings remain the existing initial set; the roadmap for completing them remains open.
+- [ ] Verify interactions in browser, responsive layouts, and offline build before calling this stage fully tested.
+- [x] Updated README and detailed Visual Editor roadmap to reflect this implementation.
