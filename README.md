@@ -6,8 +6,9 @@
 - کاتالوگ‌های JSON هر سه زبان به موتورهای پیشنهاد زنده متصل‌اند؛ Legacy در HTML تا تکمیل Regression به‌عنوان سازگاری حفظ شده است.
 - CSS از JSON برای selector، property، value، at-rule، function و unit استفاده می‌کند؛ JavaScript از JSON برای identifier و owner-scoped member بهره می‌برد.
 - JavaScript inference اکنون aliasهای ساده متغیر را دنبال می‌کند؛ inference زنجیره‌ای، بازگشت تابع، class/inheritance و module analysis همچنان توسعه‌نیافته‌اند.
+- تشخیص Context در CSS آکولاد و دونقطه داخل string/comment را نادیده می‌گیرد و Regression test دارد.
 - آزمون Shadow HTML برای ۳۲ Fixture اختلاف برچسب/ترتیب را صفر الزام می‌کند.
-- GitHub Actions Run 44497589186: **۱۰۷ تست موفق، صفر شکست**؛ Shadow: ۳۲ Fixture، صفر اختلاف.
+- GitHub Actions Run 44497848391: **۱۰۸ تست موفق، صفر شکست**؛ Shadow: ۳۲ Fixture، صفر اختلاف.
 - Offline Build Run 44497589099 موفق است؛ آزمون واقعی مرورگر و قطع شبکه همچنان لازم است.
 - پنل مدیریت کاتالوگ پیش‌نویس محلی و خروجی JSON می‌سازد؛ انتشار مستقیم GitHub فعال نیست.
 
