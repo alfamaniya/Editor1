@@ -46,6 +46,6 @@
   font: 700 90%/1 Consolas, monospace;
   color: #72a7f8;
 }
-@media (max-width: 700px), (pointer: coarse) and (max-height: 1000px) {
+@media (max-width: 700px) {
   :host { display: block; }
 }
