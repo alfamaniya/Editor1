@@ -471,3 +471,9 @@
 - [x] Implemented Color panel: Background, Text, Border, Opacity, HEX picker/entry, swatches, Linear/Radial gradients.
 - [x] Corrected Reset Category draft behavior so clearing properties can override committed properties when applied.
 - [ ] Run full automated suite, offline build, and manual browser interaction before considering Color fully verified.
+
+
+## Visual Editor Color category — 20 November 2026
+- [x] Implemented Color panel: Background, Text, Border, Opacity, HEX picker/entry, swatches, Linear/Radial gradients.
+- [x] Corrected Reset Category draft behavior so clearing properties can override committed properties when applied.
+- [ ] Run full automated suite, offline build, and manual browser interaction before considering Color fully verified.
