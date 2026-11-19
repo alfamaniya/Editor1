@@ -80,9 +80,30 @@ const CONTEXT_TAGS = Object.freeze({
   optgroup: ["option"]
 });
 
-function getContextTags(stack) {
+function getContextTags(stack, catalog) {
   const parent = stack.at(-1)?.name?.toLowerCase() ?? "root";
-  if (stack.some(node => node.name.toLowerCase() === "svg")) return SVG_TAGS;
+  const inSVG = stack.some(node => node.name.toLowerCase() === "svg");
+  if (Array.isArray(catalog) && catalog.length) {
+    const namespace = inSVG ? "svg" : "html";
+    return catalog.filter(record => {
+      if (record.namespace !== namespace || record.enabled === false) return false;
+      const parents = Array.isArray(record.parentTags) ? record.parentTags : [];
+      if (inSVG) return true;
+      if (parents.length) return parents.includes(parent);
+      if (record.contexts?.includes("root")) return parent === "root";
+      if (record.contexts?.includes("head")) return parent === "head";
+      if (parent === "root" || parent === "head") return false;
+      if (parent === "p") return PHRASING_TAGS.has(record.tagName);
+      if (CONTEXT_TAGS[parent]) return CONTEXT_TAGS[parent].includes(record.tagName);
+      return !record.contexts?.length || record.contexts.includes("body");
+    }).map(record => ({
+      name: record.tagName,
+      rank: Number.isFinite(record.rank) ? record.rank : (record.order ?? 9999),
+      description: record.description,
+      void: record.isVoid === true
+    }));
+  }
+  if (inSVG) return SVG_TAGS;
   if (parent === "head") return HEAD_TAGS;
   if (CONTEXT_TAGS[parent]) {
     return CONTEXT_TAGS[parent].map((name, index) => {
@@ -215,7 +236,7 @@ export function getHTMLTagSuggestions(source, cursor, options = {}) {
   if (chain) {
     const stack = scanHTMLStack(prefix);
     const parentName = stack.at(-1)?.name?.toLowerCase() ?? "root";
-    const candidates = getContextTags(stack);
+    const candidates = getContextTags(stack, options.catalog);
     const optionsList = makeOptions(candidates, "", cursor, cursor, Math.max(1, limit - 1))
       .map(item => Object.freeze({ ...item, kind: "child", from: cursor, to: cursor }));
     const openName = stack.at(-1)?.name;
@@ -267,7 +288,7 @@ export function getHTMLTagSuggestions(source, cursor, options = {}) {
       : null;
   }
 
-  const contextTags = getContextTags(stack);
+  const contextTags = getContextTags(stack, options.catalog);
   const present = new Set(contextSource.match(/<([A-Za-z][\w:-]*)/g)?.map(value =>
     value.slice(1).toLowerCase()) ?? []);
   const candidates = contextTags.filter(item => {
