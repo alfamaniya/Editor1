@@ -12,7 +12,7 @@
 | HTML | `alfacode/data/completions.html.json` | ۱۴۶ |
 | CSS | `alfacode/data/completions.css.json` | 929 |
 | JavaScript | `alfacode/data/completions.javascript.json` | 908 |
-| **مجموع** | سه فایل مستقل | **۱۵۰۲** |
+| **مجموع** | سه فایل مستقل | **۱۹۸۳** |
 
 ## ۱. نقشه راه HTML
 
