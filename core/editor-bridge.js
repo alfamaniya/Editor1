@@ -39,9 +39,15 @@
 
   // فقط پیام‌های iframe شناخته‌شده پذیرفته می‌شوند
   function handleMessage(event) {
-    if (event.source !== editorFrame.contentWindow || !event.data) return;
+    if (!event.data) return;
     const data = event.data;
 
+    if (event.source === previewFrame.contentWindow &&
+        data.type === "alfacode:visual-css-update" && typeof data.css === "string") {
+      editorFrame.contentWindow?.postMessage({ type: "alfacode:visual-css-update", css: data.css }, "*");
+      return;
+    }
+    if (event.source !== editorFrame.contentWindow) return;
     if (data.type === "alfacode:editor-state") return;
 
     if (data.type === "alfacode:visual-css-update" && typeof data.css === "string") {
