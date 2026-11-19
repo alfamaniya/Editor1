@@ -54,7 +54,7 @@
     const start="/* Editor1 Visual Styles - Start */",end="/* Editor1 Visual Styles - End */";
     const block=String(cssText||"").split(start)[1]?.split(end)[0]||"";
     const parsed={};
-    const rule=/([^{}]+)\\{([^{}]*)\\}/g;let match;
+    const rule=/([^{}]+)\{([^{}]*)\}/g;let match;
     while((match=rule.exec(block))){const selector=match[1].trim(),props={};match[2].split(";").forEach(decl=>{const colon=decl.indexOf(":");if(colon>0){const key=decl.slice(0,colon).trim(),value=decl.slice(colon+1).trim();if(key&&value)props[key]=value;}});if(selector&&Object.keys(props).length)parsed[selector]=props;}
     state.committed=parsed;
   }
