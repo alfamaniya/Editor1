@@ -15,7 +15,7 @@ Editor1/
 │   ├── build-offline.yml
 │   └── send-offline-email.yml
 ├── index.html (نسخه جدید Layout؛ مستقل و هنوز بدون اتصال به اجزای مخزن)
-├── index-original-disabled.html (نسخه قبلی ورودی اصلی؛ نگهداری‌شده و غیرفعال)
+├── backup/index-original-disabled.html (نسخه پشتیبان ایندکس قدیمی) (نسخه قبلی ورودی اصلی؛ نگهداری‌شده و غیرفعال)
 ├── backup/
 │   ├── style.css (CSS ریشه ساختار قبلی)
 │   ├── style-backup.css (نسخه پشتیبان قدیمی CSS)
