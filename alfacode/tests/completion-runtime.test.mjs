@@ -28,6 +28,9 @@ test("live CSS completion uses catalog properties, values, at-rules, functions a
   assert.ok(value?.options.some(option => option.label === "flex"));
   const atRule = getCSSCompletionSuggestions("@med", 4, { catalog });
   assert.ok(atRule?.options.some(option => option.label === "@media"));
+  const functionPrefix = ".box { width: va";
+  const functionSuggestion = getCSSCompletionSuggestions(functionPrefix, functionPrefix.length, { catalog });
+  assert.ok(functionSuggestion?.options.some(option => option.label === "var()"));
   const functionSource = ".box { width: va(";
   const fn = getCSSCompletionSuggestions(functionSource, functionSource.length, { catalog });
   assert.ok(fn?.options.some(option => option.label === "var()"));
@@ -40,6 +43,8 @@ test("live JavaScript completion uses catalog identifiers and owner-scoped membe
   const catalog = await records("javascript");
   const identifier = getJavaScriptCompletionSuggestions("new Abort", 9, { catalog });
   assert.ok(identifier?.options.some(option => option.label === "AbortController"));
+  const literal = getJavaScriptCompletionSuggestions("nu", 2, { catalog });
+  assert.ok(literal?.options.some(option => option.label === "null" && option.kind === "literal"));
   const member = getJavaScriptCompletionSuggestions("document.query", 14, { catalog });
   assert.ok(member?.options.some(option => option.label === "querySelector"));
   assert.ok(member.options.every(option => option.kind === "method"));
