@@ -105,14 +105,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 929, javascript: 534 };
+  const expected = { html: 146, css: 929, javascript: 689 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 1609);
+  assert.equal(records.length, 1764);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -701,4 +701,181 @@ test("JS-7 completes Promise static, prototype, and async control members", asyn
   const keywords=new Set(records.filter(r=>r.type==="identifier"&&r.category==="کلمات کلیدی").map(r=>r.label));
   assert.ok(keywords.has("async"));
   assert.ok(keywords.has("await"));
+});
+
+test("JS-8 covers curated DOM and HTML form interface records", async () => {
+  const records = (await readCatalog()).records.filter(r => r.language === "javascript");
+  const members = records.filter(r => r.type === "member");
+  const byLabel = new Map(members.map(r => [r.label, r]));
+  const expectedLabels = [
+  "Node.prototype.nodeType",
+  "Node.prototype.nodeName",
+  "Node.prototype.nodeValue",
+  "Node.prototype.textContent",
+  "Node.prototype.parentNode",
+  "Node.prototype.parentElement",
+  "Node.prototype.childNodes",
+  "Node.prototype.firstChild",
+  "Node.prototype.lastChild",
+  "Node.prototype.nextSibling",
+  "Node.prototype.previousSibling",
+  "Node.prototype.ownerDocument",
+  "Node.prototype.isConnected",
+  "Node.prototype.baseURI",
+  "Node.prototype.cloneNode",
+  "Node.prototype.contains",
+  "Node.prototype.appendChild",
+  "Node.prototype.insertBefore",
+  "Node.prototype.removeChild",
+  "Node.prototype.replaceChild",
+  "Node.prototype.normalize",
+  "Node.prototype.compareDocumentPosition",
+  "Node.prototype.getRootNode",
+  "Node.prototype.hasChildNodes",
+  "ParentNode.append",
+  "ParentNode.prepend",
+  "ParentNode.replaceChildren",
+  "ChildNode.before",
+  "ChildNode.after",
+  "ChildNode.remove",
+  "ChildNode.replaceWith",
+  "EventTarget.prototype.addEventListener",
+  "EventTarget.prototype.removeEventListener",
+  "EventTarget.prototype.dispatchEvent",
+  "Document.prototype.createTextNode",
+  "Document.prototype.createDocumentFragment",
+  "Document.prototype.createAttribute",
+  "Document.prototype.createComment",
+  "Document.prototype.importNode",
+  "Document.prototype.adoptNode",
+  "Document.prototype.activeElement",
+  "Document.prototype.body",
+  "Document.prototype.head",
+  "Document.prototype.forms",
+  "Document.prototype.title",
+  "Document.prototype.documentElement",
+  "Element.prototype.id",
+  "Element.prototype.className",
+  "Element.prototype.classList",
+  "Element.prototype.attributes",
+  "Element.prototype.tagName",
+  "Element.prototype.innerHTML",
+  "Element.prototype.outerHTML",
+  "Element.prototype.children",
+  "Element.prototype.childElementCount",
+  "Element.prototype.firstElementChild",
+  "Element.prototype.lastElementChild",
+  "Element.prototype.previousElementSibling",
+  "Element.prototype.nextElementSibling",
+  "Element.prototype.getAttribute",
+  "Element.prototype.setAttribute",
+  "Element.prototype.removeAttribute",
+  "Element.prototype.hasAttribute",
+  "Element.prototype.toggleAttribute",
+  "Element.prototype.matches",
+  "Element.prototype.closest",
+  "Element.prototype.querySelector",
+  "Element.prototype.querySelectorAll",
+  "Element.prototype.insertAdjacentHTML",
+  "Element.prototype.insertAdjacentText",
+  "Element.prototype.insertAdjacentElement",
+  "Element.prototype.remove",
+  "Element.prototype.replaceWith",
+  "Element.prototype.attachShadow",
+  "Element.prototype.scrollIntoView",
+  "HTMLElement.prototype.hidden",
+  "HTMLElement.prototype.style",
+  "HTMLElement.prototype.tabIndex",
+  "HTMLElement.prototype.title",
+  "HTMLElement.prototype.lang",
+  "HTMLElement.prototype.dir",
+  "HTMLElement.prototype.contentEditable",
+  "HTMLElement.prototype.innerText",
+  "HTMLElement.prototype.outerText",
+  "HTMLElement.prototype.accessKey",
+  "HTMLElement.prototype.focus",
+  "HTMLElement.prototype.blur",
+  "HTMLElement.prototype.click",
+  "DOMTokenList.prototype.value",
+  "DOMTokenList.prototype.length",
+  "DOMTokenList.prototype.add",
+  "DOMTokenList.prototype.remove",
+  "DOMTokenList.prototype.toggle",
+  "DOMTokenList.prototype.contains",
+  "DOMTokenList.prototype.replace",
+  "DOMTokenList.prototype.item",
+  "HTMLFormElement.prototype.action",
+  "HTMLFormElement.prototype.method",
+  "HTMLFormElement.prototype.elements",
+  "HTMLFormElement.prototype.name",
+  "HTMLFormElement.prototype.target",
+  "HTMLFormElement.prototype.enctype",
+  "HTMLFormElement.prototype.autocomplete",
+  "HTMLFormElement.prototype.submit",
+  "HTMLFormElement.prototype.requestSubmit",
+  "HTMLFormElement.prototype.reset",
+  "HTMLFormElement.prototype.checkValidity",
+  "HTMLFormElement.prototype.reportValidity",
+  "HTMLInputElement.prototype.value",
+  "HTMLInputElement.prototype.valueAsNumber",
+  "HTMLInputElement.prototype.checked",
+  "HTMLInputElement.prototype.type",
+  "HTMLInputElement.prototype.disabled",
+  "HTMLInputElement.prototype.required",
+  "HTMLInputElement.prototype.name",
+  "HTMLInputElement.prototype.placeholder",
+  "HTMLInputElement.prototype.files",
+  "HTMLInputElement.prototype.form",
+  "HTMLInputElement.prototype.validity",
+  "HTMLInputElement.prototype.selectionStart",
+  "HTMLInputElement.prototype.selectionEnd",
+  "HTMLInputElement.prototype.select",
+  "HTMLInputElement.prototype.setRangeText",
+  "HTMLInputElement.prototype.checkValidity",
+  "HTMLInputElement.prototype.reportValidity",
+  "HTMLTextAreaElement.prototype.value",
+  "HTMLTextAreaElement.prototype.rows",
+  "HTMLTextAreaElement.prototype.cols",
+  "HTMLTextAreaElement.prototype.disabled",
+  "HTMLTextAreaElement.prototype.required",
+  "HTMLTextAreaElement.prototype.maxLength",
+  "HTMLTextAreaElement.prototype.minLength",
+  "HTMLTextAreaElement.prototype.selectionStart",
+  "HTMLTextAreaElement.prototype.selectionEnd",
+  "HTMLTextAreaElement.prototype.form",
+  "HTMLTextAreaElement.prototype.select",
+  "HTMLTextAreaElement.prototype.setRangeText",
+  "HTMLTextAreaElement.prototype.checkValidity",
+  "HTMLTextAreaElement.prototype.reportValidity",
+  "HTMLSelectElement.prototype.value",
+  "HTMLSelectElement.prototype.selectedIndex",
+  "HTMLSelectElement.prototype.options",
+  "HTMLSelectElement.prototype.multiple",
+  "HTMLSelectElement.prototype.disabled",
+  "HTMLSelectElement.prototype.required",
+  "HTMLSelectElement.prototype.form",
+  "HTMLSelectElement.prototype.add",
+  "HTMLSelectElement.prototype.remove",
+  "HTMLSelectElement.prototype.checkValidity",
+  "HTMLSelectElement.prototype.reportValidity",
+  "HTMLButtonElement.prototype.type",
+  "HTMLButtonElement.prototype.disabled",
+  "HTMLButtonElement.prototype.name",
+  "HTMLButtonElement.prototype.value",
+  "HTMLButtonElement.prototype.form"
+];
+  assert.equal(expectedLabels.length, 155);
+  for (const label of expectedLabels) {
+    const record = byLabel.get(label);
+    assert.ok(record, "missing JS-8 member: " + label);
+    assert.equal(record.enabled, true, label);
+    assert.ok(["instance-method","instance-property"].includes(record.memberKind), label);
+    assert.equal(record.runtimeScope, "web-api", label);
+    assert.equal(record.availability, "window-only", label);
+    assert.ok(["WHATWG DOM","WHATWG HTML"].includes(record.standardSource), label);
+    assert.ok(Number.isInteger(record.order) && record.order > 0, label);
+  }
+  assert.match(byLabel.get("Element.prototype.insertAdjacentHTML")?.description || "", /XSS/);
+  assert.match(byLabel.get("HTMLFormElement.prototype.submit")?.description || "", /requestSubmit/);
+  assert.ok(!members.some(r => r.label === "HTMLElement.anchorElement" && r.enabled), "experimental anchorElement must not be enabled");
 });
