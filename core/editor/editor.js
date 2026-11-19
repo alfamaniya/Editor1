@@ -694,7 +694,12 @@ window.addEventListener("message", event => {
     return;
   }
   if (command.type === "alfacode:visual-css-update" && typeof command.css === "string") {
-    sources.css = command.css;
+    const startMarker = "/* Editor1 Visual Styles - Start */";
+    const endMarker = "/* Editor1 Visual Styles - End */";
+    const currentCSS = sources.css || "";
+    const beforeBlock = currentCSS.split(startMarker)[0].trimEnd();
+    const generatedBlock = command.css.trim();
+    sources.css = beforeBlock + (generatedBlock ? "\n\n" + startMarker + "\n" + generatedBlock + "\n" + endMarker : "");
     if (activeLanguage.id === "css") editor.setDocument(sources.css);
     renderEditor();
     view.focus();
