@@ -5936,7 +5936,7 @@
       "type": "member",
       "category": "متدهای Array",
       "label": "Array.prototype.sort",
-      "description": "مرتب‌سازی درجا؛ comparator اختیاری",
+      "description": "مرتب‌سازی درجا؛ تغییردهنده آرایه و comparator اختیاری",
       "mode": "member",
       "owner": "Array",
       "insertText": "sort",
