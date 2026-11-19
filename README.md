@@ -113,7 +113,7 @@ python -m http.server 8000
 
 ## نقشه راه تکمیل داده‌های پیشنهاد خودکار
 
-موجودی و مراحل تکمیل سه کاتالوگ HTML، CSS و JavaScript در [نقشه راه تکمیل کاتالوگ HTML، CSS و JavaScript](./maps/catalog-completion.md) ثبت شده است. مراحل HTML-1 تا HTML-10 و CSS-1 تا CSS-12 تکمیل شدند؛ کاتالوگ‌ها اکنون ۱۴۶ رکورد HTML، ۹۲۹ رکورد CSS و ۶۸۹ رکورد JavaScript (مجموع ۱۷۶۴) دارند. هر ۱۲ PR مرحله‌ای CSS و PR اصلاحی #13 پس از موفقیت CI در main ادغام شدند؛ هر ۱۷۹ ویژگی CSS دست‌کم یک مقدار وابسته به خود دارد. JS-1 در [PR #14](https://github.com/alfamaniya/Editor1/pull/14) ادغام شده است. JS-2 در [PR #15](https://github.com/alfamaniya/Editor1/pull/15) ادغام شد؛ JS-3 (متدهای Array)، JS-4 (String/Number) و JS-5 (Object/Date/RegExp) نیز تکمیل شده‌اند. داده‌های کاتالوگ هنوز به موتور پیشنهاد زمان اجرا متصل نشده‌اند.
+موجودی و مراحل تکمیل سه کاتالوگ HTML، CSS و JavaScript در [نقشه راه تکمیل کاتالوگ HTML، CSS و JavaScript](./maps/catalog-completion.md) ثبت شده است. مراحل HTML-1 تا HTML-10 و CSS-1 تا CSS-12 تکمیل شدند؛ کاتالوگ‌ها اکنون ۱۴۶ رکورد HTML، ۹۲۹ رکورد CSS و ۶۸۹ رکورد JavaScript (مجموع ۱۷۶۴) دارند. هر ۱۲ PR مرحله‌ای CSS و PR اصلاحی #13 پس از موفقیت CI در main ادغام شدند؛ هر ۱۷۹ ویژگی CSS دست‌کم یک مقدار وابسته به خود دارد. JS-1 در [PR #14](https://github.com/alfamaniya/Editor1/pull/14) ادغام شده است. JS-2 در [PR #15](https://github.com/alfamaniya/Editor1/pull/15) ادغام شد؛ JS-3 (متدهای Array)، JS-4 (String/Number)، JS-5 (Object/Date/RegExp)، JS-6 (Math/JSON/Collections)، JS-7 (Promise) و JS-8 (DOM) نیز تکمیل شده‌اند. داده‌های کاتالوگ هنوز به موتور پیشنهاد زمان اجرا متصل نشده‌اند.
 
 
 ## سیاست منابع کاتالوگ
