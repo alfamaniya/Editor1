@@ -2,6 +2,8 @@
 
 ویرایشگر مستقل HTML، CSS و JavaScript با پیش‌نمایش زنده و امکان ساخت فایل تک‌صفحه‌ای آفلاین.
 
+**قانون CSS:** تمام استایل‌ها فقط در `style.css` ریشه نگهداری شوند؛ المان‌های هم‌نوع استایل مشترک داشته باشند. [سند قانون CSS](maps/CSS-ARCHITECTURE.md)
+
 **اصلاح اندازه Gutter:** ستون شماره خطوط در Editor روی عرض ۴۲px قفل شده؛ محتوای کد جداگانه در ظرف اسکرول افقی رشد می‌کند.
 
 ## درخت مخزن
@@ -68,7 +70,9 @@ Editor1/
 │   │   ├── html-completion-fixtures.mjs
 │   │   ├── html-completion-shadow.test.mjs
 │   │   └── workspace-layout.test.mjs
-├── maps/ROADMAP.md
+├── maps/
+│   ├── CSS-ARCHITECTURE.md (قانون رسمی CSS مرکزی و استایل مشترک)
+│   └── ROADMAP.md
 ├── scripts/
 │   ├── offline-manifest.json
 │   ├── build-offline.mjs
