@@ -22,7 +22,7 @@
 .header-content slot { display: contents; }
 .maps-link { display:inline-flex; align-items:center; justify-content:center; min-width:42px; padding:6px 12px; border:1px solid #45648d; border-radius:8px; background:#20324a; color:#e8edf5; font-size:13px; font-weight:700; text-decoration:none; white-space:nowrap; }
 .maps-link:hover { background:#2b4566; border-color:#72a7f8; }
-@media (max-width: 700px), (pointer: coarse) and (max-height: 1000px) {
+@media (max-width: 700px) {
   :host { flex: 0 0 56px; }
   .header-bar {
     height: 100%;
