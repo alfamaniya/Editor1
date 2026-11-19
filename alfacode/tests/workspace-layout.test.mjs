@@ -54,5 +54,10 @@ test("mobile-only responsive overrides and controls are removed from the main ap
 test("editor content overflow stays inside its scroll host", async () => {
   const editorCss = await readFile(new URL("core/editor/editor.css", ROOT), "utf8");
   assert.match(editorCss, /\.editor-host\s*\{[^}]*min-width:\s*0[^}]*overflow:\s*auto/s);
-  assert.match(editorCss, /\.alfacode-editor-layout[^}]*min-width:\s*max-content/);
+  assert.match(editorCss, /\.alfacode-editor-layout[^}]*width:\s*max-content/);
+  assert.match(editorCss, /\.alfacode-editor-layout[^}]*min-width:\s*100%/);
+  assert.match(editorCss, /\.alfacode-gutter-host[^}]*flex:\s*0\s+0\s+42px/);
+  assert.match(editorCss, /\.alfacode-gutter-host[^}]*width:\s*42px/);
+  assert.match(editorCss, /\.alfacode-gutter-host[^}]*max-width:\s*42px/);
+  assert.match(editorCss, /\.alfacode-editor-canvas[^}]*min-width:\s*max-content/);
 });
