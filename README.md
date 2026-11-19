@@ -13,6 +13,11 @@
 **اصلاح اندازه Gutter:** ستون شماره خطوط در Editor روی عرض ۴۲px قفل شده؛ محتوای کد جداگانه در ظرف اسکرول افقی رشد می‌کند.
 
 ## Visual Editor redesign (builder-inspired)
+### Inspector properties and controls plan
+- Detailed checklist for every Visual Editor property category and the settings nested within each category: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](maps/VISUAL-PROPERTIES-ROADMAP.md).
+- Includes color formats/palette/gradients, independent border sides and corners, sizing/units, layered shadows, box model, typography, Flex/Grid, positioning, filters/effects, transforms, transitions/animations, element-specific options, responsive breakpoints, presets, and CSS integrity safeguards.
+- This is a registered plan; controls are not yet implemented just because they are listed.
+
 
 - The Visual Editor overlay has been redesigned with a left Elements rail, a top status strip, and a right Inspector panel, following the reference website-builder layout.
 - The Inspector now displays the selected element's tag and selector, and offers a dedicated **Select Element** action to re-enter preview selection.
