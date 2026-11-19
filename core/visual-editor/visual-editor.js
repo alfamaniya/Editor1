@@ -46,7 +46,7 @@
   }
   function resetCategory(cat){
     const props=specs[cat].map(row=>row[1]);props.forEach(prop=>{state.draft[prop]="";if(drafts)drafts.set(prop,"");});
-    controls.replaceChildren();specs[cat].forEach(row=>controls.appendChild(makeControl(row)));
+    controls.replaceChildren();if(cat==="color")renderColorControls();else specs[cat].forEach(row=>controls.appendChild(makeControl(row)));
     draftPreview();
   }
   function currentColor(prop,computedKey){const value=state.draft[prop]??state.committed[state.selector]?.[prop]??state.computed[computedKey]??"#ffffff";return hex(value);}
