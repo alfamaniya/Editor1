@@ -20,7 +20,7 @@ Editor1/
 ├── core/
 │   ├── browser-storage/ (html, css, js)
 │   ├── clear-project-cookies/ (html, css, js)
-│   ├── clear-tabs/ (html, css خالی، js؛ نسخه پشتیبان CSS نیز)
+│   ├── clear-tabs/ (html, css خالی، js، clear-tabs-style-backup.css)
 │   ├── completion-catalog/
 │   │   ├── catalog-loader.js
 │   │   ├── catalog-manager.js
@@ -112,7 +112,8 @@ Editor1/
 - `editor/editor.css`: استایل Editor، تب‌ها، Gutter شماره خطوط، سطح کد، اسکرول و Footer؛ محل قواعد عرض/Overflow داخلی Editor.
 - `editor/editor.js`: اتصال موتور AlfaCode به UI؛ نمونه‌های اولیه، تب زبان، رندر، انتخاب/Cursor، هایلایت، bracket matching، پیشنهادها، ذخیره‌سازی و پیام‌رسانی.
 - `header/header.html`: ساختار برند و محل slot دکمه‌های هدر.
-- `header/header.css`: ظاهر و چیدمان Header و اکشن‌های آن، شامل رفتار Overflow افقی.
+- `header/header.css`: فعلاً خالی؛ CSS Header در فایل ریشه متمرکز شده است.
+- `header/header-style-backup.css`: نسخه پشتیبان CSS Header پیش از انتقال.
 - `header/header.js`: تعریف Web Component هدر و رویدادهای اکشن.
 - `javascript-suggestions/javascript-suggestions.html`: قالب عنصر پیشنهادهای JavaScript.
 - `javascript-suggestions/javascript-suggestions.css`: استایل حداقلی پیشنهادهای JavaScript.
