@@ -1,0 +1,10 @@
+/* Visual Editor panel styling. */
+#visual-inspector{position:absolute;z-index:20;top:12px;right:12px;width:min(290px,calc(100% - 24px));max-height:calc(100% - 24px);overflow:auto;padding:12px;border:1px solid #353a49;border-radius:12px;background:#161922;color:#e5e7eb;font:13px/1.4 system-ui,sans-serif;box-shadow:0 12px 36px #0005}
+#visual-inspector[hidden],#visual-inspector [hidden]{display:none!important}
+.visual-inspector-head,.visual-actions{display:flex;align-items:center;justify-content:space-between;gap:8px}.visual-inspector-head{margin-bottom:10px}
+#visual-inspector button{color:inherit;border:1px solid #3b4150;background:#252b38;padding:8px 10px;border-radius:7px;cursor:pointer;font:inherit}#visual-inspector button:hover{background:#30394b}
+.visual-category-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.visual-control-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0}
+.visual-control-row input,.visual-control-row select{width:120px;min-width:0;color:#f3f4f6;border:1px solid #3b4150;background:#222735;border-radius:6px;padding:6px}
+.visual-control-row input[type=color]{height:30px;padding:2px}.visual-control-row input[type=range]{padding:0;accent-color:#7967ed}
+.visual-actions{margin-top:12px}.visual-actions button:last-child{background:#6552bf;border-color:#6552bf}
+@media(max-width:520px){#visual-inspector{top:8px;right:8px;width:min(270px,calc(100% - 16px));max-height:calc(100% - 16px)}}
