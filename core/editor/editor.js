@@ -32,98 +32,183 @@ const initialSources = {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AlfaCode Starter</title>
+  <meta name="description" content="A starter page to explore HTML elements and AlfaCode editor suggestions.">
+  <title>HTML Element Showcase</title>
 </head>
 <body>
-  <main class="demo-card">
-    <p class="eyebrow">ALFACODE STARTER</p>
-    <h1>Welcome to AlfaCode</h1>
-    <p class="description">Your HTML, CSS, and JavaScript work together in this live preview.</p>
-    <button id="demo-button" type="button">Click me</button>
-    <p id="demo-message" class="message" aria-live="polite">Your interaction will appear here.</p>
+  <header class="site-header">
+    <h1>HTML Element Showcase</h1>
+    <p>Explore common HTML tags, semantic layout, forms, tables and media.</p>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="#text-elements">Text</a></li>
+        <li><a href="#lists">Lists</a></li>
+        <li><a href="#table">Table</a></li>
+        <li><a href="#form-demo">Form</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section id="text-elements">
+      <h2>Text and semantic elements</h2>
+      <article>
+        <h3>Formatting examples</h3>
+        <p>Use <strong>strong importance</strong>, <em>emphasis</em>, <mark>highlight</mark>, <small>small print</small>, <abbr title="HyperText Markup Language">HTML</abbr>, and <code>inline code</code>.</p>
+        <blockquote cite="https://example.com/">
+          <p>Semantic markup makes structure easier to understand.</p>
+        </blockquote>
+        <p>Keyboard shortcut: <kbd>Ctrl</kbd> + <kbd>S</kbd>. Sample output: <samp>Saved</samp>.</p>
+        <pre><code>&lt;article&gt;Meaningful content&lt;/article&gt;</code></pre>
+        <hr>
+        <p>Subscript H<sub>2</sub>O and superscript x<sup>2</sup>.</p>
+      </article>
+    </section>
+    <section id="lists">
+      <h2>Lists and definitions</h2>
+      <ul><li>Unordered item</li><li>Another item<ul><li>Nested item</li></ul></li></ul>
+      <ol><li>First step</li><li>Second step</li></ol>
+      <dl><dt>HTML</dt><dd>Markup language for web documents.</dd><dt>CSS</dt><dd>Style and layout language.</dd></dl>
+    </section>
+    <section id="table">
+      <h2>Table sample</h2>
+      <table>
+        <caption>Example feature comparison</caption>
+        <thead><tr><th scope="col">Feature</th><th scope="col">Status</th><th scope="col">Level</th></tr></thead>
+        <tbody><tr><td>Editor</td><td>Ready to explore</td><td>Basic</td></tr><tr><td>Preview</td><td>Interactive</td><td>Live</td></tr></tbody>
+        <tfoot><tr><td colspan="2">Two example rows</td><td>—</td></tr></tfoot>
+      </table>
+    </section>
+    <section id="form-demo">
+      <h2>Form controls</h2>
+      <form id="sample-form">
+        <fieldset><legend>Contact details</legend>
+          <label for="visitor-name">Name</label><input id="visitor-name" name="name" type="text" placeholder="Your name" required>
+          <label for="visitor-email">Email</label><input id="visitor-email" name="email" type="email" placeholder="name@example.com">
+          <label for="visitor-topic">Topic</label><select id="visitor-topic" name="topic"><option>HTML</option><option>CSS</option><option>JavaScript</option></select>
+          <label for="visitor-note">Message</label><textarea id="visitor-note" name="message" rows="3"></textarea>
+          <label><input name="updates" type="checkbox"> Send me updates</label>
+          <button type="submit">Submit example</button><button type="reset">Reset form</button>
+        </fieldset>
+      </form>
+      <p id="form-result" role="status">Form status appears here.</p>
+    </section>
+    <section id="other-elements">
+      <h2>Other useful elements</h2>
+      <details><summary>Expand details</summary><p>Content inside a disclosure widget.</p></details>
+      <p>Progress: <progress value="65" max="100">65%</progress></p>
+      <p>Meter: <meter value="0.7">70%</meter></p>
+      <p>Published <time datetime="2026-11-19">November 19, 2026</time>.</p>
+      <figure><img src="https://placehold.co/320x120?text=HTML+Image" alt="Placeholder illustration" width="320" height="120"><figcaption>Image and caption example (online placeholder).</figcaption></figure>
+      <address>Contact: <a href="mailto:hello@example.com">hello@example.com</a></address>
+    </section>
   </main>
+  <footer class="site-footer"><p>&copy; AlfaCode HTML sample</p><a href="#top">Back to top</a></footer>
 </body>
 </html>`,
-  css: `:root {
-  font-family: Arial, sans-serif;
-  color: #1f2937;
-  background: #eef2f7;
+  css: `/* Selectors: tag, class, id, attribute, combinations and pseudo states */
+:root {
+  font-family: system-ui, sans-serif;
+  color: #243047;
+  background: #f2f5fb;
+  --accent: #2563eb;
+  --surface: #ffffff;
+  --radius: 14px;
 }
-
-* {
-  box-sizing: border-box;
+* { box-sizing: border-box; }
+body { margin: 0; line-height: 1.6; }
+.site-header, main, .site-footer {
+  width: min(100% - 2rem, 900px);
+  margin: 1.5rem auto;
 }
-
-body {
-  min-height: 100vh;
-  margin: 0;
-  display: grid;
-  place-items: center;
-  padding: 24px;
+.site-header, .site-footer, section, article {
+  padding: 1.25rem;
+  background: var(--surface);
+  border-radius: var(--radius);
 }
-
-.demo-card {
-  width: min(100%, 520px);
-  padding: 36px;
-  border: 1px solid #dbe3ee;
-  border-radius: 18px;
-  background: #ffffff;
-  box-shadow: 0 16px 40px rgba(31, 41, 55, 0.10);
+.site-header > h1 { color: var(--accent); }
+nav ul { display: flex; flex-wrap: wrap; gap: .75rem; padding: 0; list-style: none; }
+a { color: var(--accent); text-decoration-thickness: 2px; }
+a:hover, a:focus-visible { color: #1748a0; }
+a[href^="#"] { scroll-behavior: smooth; }
+section { margin-block: 1rem; border: 1px solid #dce3ef; }
+section h2::before { content: "✦ "; color: var(--accent); }
+p, li { max-width: 72ch; }
+article p:first-child { font-size: 1.05rem; }
+mark { padding: .15rem .35rem; border-radius: 4px; }
+code, kbd, samp { padding: .15rem .4rem; border-radius: 5px; background: #e9eef8; }
+pre { overflow-x: auto; padding: 1rem; border-radius: 10px; background: #e9eef8; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: .6rem; border: 1px solid #ccd5e4; text-align: left; }
+thead { background: #e9eef8; }
+tbody tr:nth-child(even) { background: #f7f9fd; }
+form { display: grid; gap: .75rem; }
+fieldset { display: grid; gap: .65rem; border: 1px solid #cbd5e1; border-radius: 10px; }
+input, select, textarea, button { font: inherit; padding: .6rem; border: 1px solid #b8c5d8; border-radius: 8px; }
+button { cursor: pointer; background: var(--accent); color: white; }
+button[type="reset"] { background: #64748b; }
+button:hover { filter: brightness(.95); }
+:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+details { padding: .75rem; border: 1px solid #dce3ef; border-radius: 8px; }
+progress, meter { width: 100%; }
+img { max-width: 100%; height: auto; border-radius: 8px; }
+.site-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+@media (min-width: 700px) {
+  main { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: start; }
+  #text-elements, #table, #form-demo { grid-column: span 2; }
 }
-
-.eyebrow {
-  margin: 0 0 12px;
-  color: #2563eb;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+`,
+  javascript: `// 1) Variables, arrays, objects, destructuring and template strings
+const sampleItems = ["HTML", "CSS", "JavaScript"];
+const profile = { name: "AlfaCode learner", level: "beginner" };
+const [firstTopic, secondTopic] = sampleItems;
+const profileLabel = \`${profile.name} — ${profile.level}\`;
+console.log(profileLabel, firstTopic, secondTopic);
 
-h1 {
-  margin: 0 0 12px;
-  font-size: clamp(26px, 6vw, 36px);
+// 2) Function, arrow function, conditional, loop and map/filter
+function describeTopic(topic) {
+  if (!topic) return "No topic selected";
+  return topic.toUpperCase();
 }
+const topicLabels = sampleItems.map(describeTopic);
+const longerTopics = sampleItems.filter(topic => topic.length > 3);
+for (const topic of topicLabels) console.log("Topic:", topic);
 
-.description {
-  color: #64748b;
-  line-height: 1.6;
+// 3) DOM selection and event handling (form validation/status)
+const form = document.querySelector("#sample-form");
+const result = document.querySelector("#form-result");
+form?.addEventListener("submit", event => {
+  event.preventDefault();
+  const formData = new FormData(form);
+  const visitor = formData.get("name")?.toString().trim() || "Visitor";
+  result.textContent = \`Thanks, ${visitor}! The sample form passed its required-field check.\`;
+});
+form?.addEventListener("reset", () => {
+  if (result) result.textContent = "Form reset. Try submitting it again.";
+});
+
+// 4) Date/time, Intl formatter and timer
+const now = new Date();
+const clock = new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" });
+console.log("Current local time:", clock.format(now));
+const timeoutId = setTimeout(() => console.log("Timer example: 1.5 seconds passed."), 1500);
+
+// 5) Map, Set, try/catch and a Promise
+const uniqueTopics = new Set(sampleItems);
+const topicLengths = new Map([...uniqueTopics].map(topic => [topic, topic.length]));
+console.log("Topic lengths:", [...topicLengths.entries()]);
+Promise.resolve("Async example complete").then(console.log).catch(error => console.error(error));
+
+// 6) Safe optional DOM interaction with a fallback
+const missingElement = document.querySelector("#element-that-does-not-exist");
+try {
+  if (!missingElement) throw new Error("Demo element was not found.");
+} catch (error) {
+  console.warn("Handled example error:", error.message);
 }
-
-button {
-  margin-top: 12px;
-  padding: 11px 18px;
-  border: 0;
-  border-radius: 9px;
-  background: #2563eb;
-  color: #ffffff;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #1d4ed8;
-}
-
-button:focus-visible {
-  outline: 3px solid #93c5fd;
-  outline-offset: 3px;
-}
-
-.message {
-  min-height: 24px;
-  margin: 20px 0 0;
-  color: #475569;
-}`,
-  javascript: `const button = document.querySelector("#demo-button");
-const message = document.querySelector("#demo-message");
-
-let clickCount = 0;
-
-button.addEventListener("click", () => {
-  clickCount += 1;
-  message.textContent = "Great! You clicked the button " + clickCount + " time" + (clickCount === 1 ? "" : "s") + ".";
-});`
+`
 };
 
 const host = document.getElementById("editor-host");
@@ -338,6 +423,7 @@ function applyTagSuggestion(option) {
 
   const from = option.from;
   const to = option.to;
+  const isClosing = option.kind === "close";
   const { insertion, cursorOffset } = buildHTMLTagInsertion(option);
   editor.transact(transaction => transaction.replace(from, to, insertion));
   editor.moveTo(from + cursorOffset);
