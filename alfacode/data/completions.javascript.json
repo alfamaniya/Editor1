@@ -6080,7 +6080,7 @@
       "type": "member",
       "category": "متدهای Array",
       "label": "Array.prototype.with",
-      "description": "ساخت نسخه با جایگزینی عنصر در شاخص؛ پشتیبانی شاخص منفی",
+      "description": "ساخت نسخه جدید بدون تغییر آرایه اصلی با جایگزینی عنصر در شاخص؛ پشتیبانی شاخص منفی",
       "mode": "member",
       "owner": "Array",
       "insertText": "with",
