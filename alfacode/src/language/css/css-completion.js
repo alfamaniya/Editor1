@@ -113,8 +113,9 @@ export function getCSSCompletionSuggestions(source, cursor, options = {}) {
   const functionContext = /[A-Za-z-]+\($/.test(state.segment.slice(colon + 1));
   const catalogMode = numericUnit ? "unit" : functionContext ? "function" : "value";
   const valueRecords = catalog.length
-    ? catalog.filter(record => record.mode === catalogMode &&
-        (catalogMode !== "value" || record.propertyName === "*" || record.propertyName === property))
+    ? catalog.filter(record => (record.mode === catalogMode ||
+        (catalogMode === "value" && record.mode === "function")) &&
+        (record.mode !== "value" || record.propertyName === "*" || record.propertyName === property))
     : [...new Set([...(VALUE_CATALOG[property] ?? []),...COMMON_VALUES])]
         .map(label => ({label,description:"Value for "+property}));
   const query = numericUnit ? (state.segment.slice(colon + 1).match(/([A-Za-z-]*)$/)?.[1] ?? "") :
