@@ -177,10 +177,10 @@ Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PRO
 - [ ] Verify at desktop, tablet, and narrow viewport sizes; browser/manual verification is still pending.
 
 
-## Hover element identity tooltip — planned
-- [ ] While Visual mode is active, moving the pointer over Preview elements shows a compact floating label beside the cursor identifying the hovered element by ID and/or class.
-- [ ] If both exist, display the ID (#id) and class names (.class); otherwise show whichever is available. For elements without either, use the tag name as fallback.
-- [ ] Keep the label close to the pointer, clamp it within Preview bounds, and update smoothly without flicker.
-- [ ] The label must not intercept pointer events or block element selection/clicking; hide when pointer leaves Preview or Visual mode exits.
-- [ ] Handle multiple/long class names safely (truncate display, preserve full identity for inspection if needed).
-- [ ] Add automated coverage for ID-only, class-only, both, neither, pointer exit, and positioning; manually verify in browser.
+## Hover element identity tooltip — implementation added (verification pending)
+- [x] Added in `core/visual-editor/visual-editor.js`: while Visual mode selection is active, hovering Preview elements shows a compact floating label beside the cursor with the element ID and/or class.
+- [x] Display ID and classes when both exist; show whichever exists alone, and use tag name if neither is present.
+- [x] Keep label close to the pointer, clamp its position to Preview bounds, and track pointer movement.
+- [x] Tooltip is pointer-events-none and hides on Visual mode exit / selection cancellation.
+- [x] Supports multiple class names; CSS ellipsis handles long display strings, and the title retains the full label.
+- [ ] Automated tests were added for core tooltip behavior; confirm CI passes and perform manual browser verification. (Automated test does not yet exercise all ID/class combinations.)
