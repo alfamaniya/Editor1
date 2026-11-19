@@ -410,3 +410,12 @@
 - [x] افزودن فایل به offline manifest و مستندسازی README.
 - [x] اصلاح اسکریپت Build برای embed کردن ماژول Helper Keys در خروجی مستقل (تغییر منبع ثبت شد).
 - [ ] اجرای Build آفلاین و آزمون کلیک واقعی در مرورگر؛ هنوز تأیید نشده.
+
+
+## Mobile Helper Keys — 19 November 2026
+- [x] Added a mobile-only symbol accessory row, hidden by default.
+- [x] Show only when editor focus and detected native keyboard visibility coincide.
+- [x] Mobile row has one horizontally scrollable line and the requested nine symbol buttons.
+- [x] Keep existing desktop footer helper keys and insertion pathway unchanged.
+- [x] Use Visual Viewport height change heuristic; no direct native keyboard-open event is available.
+- [ ] Manual device testing for keyboard timing, viewport edge cases, Android/iOS, and offline artifact.
