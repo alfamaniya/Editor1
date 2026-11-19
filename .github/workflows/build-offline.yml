@@ -7,6 +7,7 @@ on:
       - "**"
       - "!**/*.md"
       - "!alfacode/tests/**"
+      - "alfacode/tests/workspace-layout.test.mjs"
       - "!alfacode/examples/**"
       - "!offline/AlfaCode-Offline.html"
   workflow_dispatch:
