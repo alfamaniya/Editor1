@@ -336,7 +336,7 @@
 - [x] Replace the visible document title with English.
 - [x] Remove RTL direction settings from Editor and Preview panes; set direction to LTR.
 - [x] Replace non-English accessible resize label with `Resize panels`.
-- [x] Move the existing `core/` component directory intact to `core-old/`; create a clean `core/` reserved for UI-element JavaScript.
+- [x] Move the existing `core/` component directory intact to `core-old/`, then archive it under `backup/core-old/`; keep active `core/` reserved for JavaScript modules.
 - [x] Create a new `core/` directory represented by `.gitkeep` (Git cannot store truly empty folders).
 - [ ] Review all UI-visible strings in components, dialogs, tooltips, and status messages for English-only compliance.
 - [ ] Validate LTR layout in browser, including offline build.
