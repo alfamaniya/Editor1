@@ -418,8 +418,8 @@ async function main() {
   ]);
   const previewStyles = await Promise.all((entry(assembly.preview).styles || []).map(read));
   const previewScripts = await Promise.all((entry(assembly.preview).scripts || []).map(read));
-  const previewCss = previewStyles.join("\\n");
-  const previewScript = previewScripts.join("\\n");
+  const previewCss = previewStyles.join("\n");
+  const previewScript = previewScripts.join("\n");
   const extraKeyModule = await readEntry(assembly.shell, "scripts", 1);
   const actionAssets = await Promise.all(assembly.actionComponents.map(async id => ({
     markup: await readEntry(id, "html"), css: await readEntry(id, "styles"),
