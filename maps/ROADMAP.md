@@ -376,5 +376,5 @@
 - [x] Used the existing editor implementation from `backup/core-old/` temporarily instead of rewriting it.
 - [ ] Test editing and live preview updates in browser; verify resize stability, mobile behavior, and offline operation.
 - [ ] Migrate editor/preview implementation and runtime dependencies from `backup/core-old/` into active `core/` modules after integration tests.
-- [ ] Connect the `clear tab` button (current tab only); it is presently not implemented by the reused editor script.
+- [x] Disable the `clear tab` button visibly until a current-tab-only command is implemented; it is not available in the reused editor script.
 - [ ] Reconcile `scripts/offline-manifest.json` and build/audit output paths with the actual active/archived component locations.
