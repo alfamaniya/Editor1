@@ -15,3 +15,20 @@ test("Visual preview picker shows a non-interactive hovered element identity too
   assert.ok(visual.includes("function hideIdentity()"));
   assert.ok(visual.includes("hideIdentity()"));
 });
+
+test("Visual workspace uses one right-side panel with Elements and Settings modes", async () => {
+  assert.ok(visual.includes('data-mode="elements"'));
+  assert.ok(visual.includes('data-mode="settings"'));
+  assert.ok(visual.includes("function setMode(mode)"));
+  assert.ok(visual.includes("function enterVisual()"));
+  assert.ok(visual.includes("function exitVisual()"));
+  const visualCss = await readFile(new URL("core/visual-editor/visual-editor.css", ROOT), "utf8");
+  assert.match(visualCss, /\.visual-editor-right-panel\s*\{[^}]*right:\s*0/s);
+  assert.match(visualCss, /#visual-editor-shell\[data-mode="elements"\]\s+#visual-inspector\s*\{[^}]*display:\s*none/s);
+  assert.match(visualCss, /#visual-editor-shell\[data-mode="settings"\]\s+\.visual-editor-elements\s*\{[^}]*display:\s*none/s);
+  const rootCss = await readFile(new URL("style.css", ROOT), "utf8");
+  assert.match(rootCss, /body\.visual-mode\s+#leftPane[^}]*display:\s*none/s);
+  const bridge = await readFile(new URL("core/editor-bridge.js", ROOT), "utf8");
+  assert.ok(bridge.includes("alfacode:visual-mode-active"));
+  assert.ok(bridge.includes('classList.toggle("visual-mode", data.active)'));
+});
