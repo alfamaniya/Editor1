@@ -296,13 +296,21 @@ function inlineCatalogDocument(template, stylesheet, bundle, completionCatalogs)
   return injectBeforeBodyEnd(html, runtime + backAction);
 }
 
-function makeHeaderComponent(markup, stylesheet) {
+function makeHeaderComponent(markup) {
   return `
 class OfflineAppHeader extends HTMLElement {
   connectedCallback() {
-    if (this.shadowRoot) return;
-    const root = this.attachShadow({ mode: "open" });
-    root.innerHTML = "<style>" + ${JSON.stringify(stylesheet)} + "</style>" + ${JSON.stringify(markup)};
+    if (this.querySelector(".header-bar")) return;
+    const template = document.createElement("template");
+    template.innerHTML = ${JSON.stringify(markup)};
+    this.append(template.content.cloneNode(true));
+    const actions = this.querySelector(".header-actions");
+    for (const child of [...this.children]) {
+      if (child.matches('[slot="header-actions"]')) {
+        child.removeAttribute("slot");
+        actions?.append(child);
+      }
+    }
   }
 }
 customElements.define("app-header", OfflineAppHeader);
