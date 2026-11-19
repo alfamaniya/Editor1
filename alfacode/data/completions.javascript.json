@@ -5952,7 +5952,7 @@
       "type": "member",
       "category": "متدهای Array",
       "label": "Array.prototype.splice",
-      "description": "حذف و یا درج عناصر درجا؛ بازگرداندن عناصر حذف‌شده",
+      "description": "حذف و یا درج عناصر درجا؛ تغییردهنده و بازگرداندن عناصر حذف‌شده",
       "mode": "member",
       "owner": "Array",
       "insertText": "splice",
