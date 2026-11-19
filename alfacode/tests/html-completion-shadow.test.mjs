@@ -85,7 +85,10 @@ function getJSONShadowSuggestions(legacy, records, source, tagStart) {
       return rank(a) - rank(b) || a.order - b.order;
     });
 
-  const jsonOptions = ordered.slice(0, legacy.options.length).map(record => ({
+  const hasJumpClose = legacy.mode === "chain" &&
+    legacy.options.some(option => option.kind === "jump-close");
+  const candidateLimit = Math.max(0, legacy.options.length - (hasJumpClose ? 1 : 0));
+  const jsonOptions = ordered.slice(0, candidateLimit).map(record => ({
     label: record.tagName,
     kind: legacy.mode === "chain" ? "child" : "open",
     isVoid: record.isVoid,
