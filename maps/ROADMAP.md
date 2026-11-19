@@ -440,3 +440,11 @@
 - [x] Fixed malformed newline escape in `core/editor-bridge.js` that prevented the bridge script from parsing and receiving editor source updates.
 - [x] Fixed malformed newline escape in `core/extra-key-action/extra-key-action.js`.
 - [ ] Run automated syntax/build validation and manually confirm live Preview.
+
+
+## Visual Editor completion roadmap — 19 November 2026
+- [x] Registered the detailed Visual Editor completion plan in `maps/VISUAL-EDITOR-ROADMAP.md`.
+- [x] Linked the plan from README.
+- [x] Recorded staged scope: UI/UX redesign; complete Color, Border, Size, Shadow, Spacing, Typography; advanced Layout/Flex/Grid/Position/Effects/Transform/Transition; Draft/Apply/Cancel/Reset; CSS integrity; testing and acceptance criteria.
+- [ ] Begin Stage A: redesign the Visual Editor interface and establish consistent control/button standards.
+- [ ] Implement subsequent stages according to the detailed map; do not mark items complete without verification.
