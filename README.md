@@ -10,145 +10,52 @@ Editor1/
 │   ├── alfacode-tests.yml
 │   ├── build-offline.yml
 │   └── send-offline-email.yml
-├── README.md
 ├── index.html
 ├── style.css
 ├── script.js
+├── README.md
 ├── core/
-│   ├── browser-storage/
-│   │   ├── browser-storage.html
-│   │   ├── browser-storage.css
-│   │   └── browser-storage.js
-│   ├── clear-project-cookies/
-│   │   ├── clear-project-cookies.html
-│   │   ├── clear-project-cookies.css
-│   │   └── clear-project-cookies.js
-│   ├── clear-tabs/
-│   │   ├── clear-tabs.html
-│   │   ├── clear-tabs.css
-│   │   └── clear-tabs.js
+│   ├── browser-storage/ (html, css, js)
+│   ├── clear-project-cookies/ (html, css, js)
+│   ├── clear-tabs/ (html, css, js)
 │   ├── completion-catalog/
 │   │   ├── catalog-loader.js
 │   │   ├── catalog-manager.js
-│   │   ├── completion-catalog.html
-│   │   ├── completion-catalog.css
-│   │   └── completion-catalog.js
-│   ├── css-suggestions/
-│   │   ├── css-suggestions.html
-│   │   ├── css-suggestions.css
-│   │   └── css-suggestions.js
-│   ├── editor/
-│   │   ├── editor.html
-│   │   ├── editor.css
-│   │   └── editor.js
-│   ├── header/
-│   │   ├── header.html
-│   │   ├── header.css
-│   │   └── header.js
-│   ├── javascript-suggestions/
-│   │   ├── javascript-suggestions.html
-│   │   ├── javascript-suggestions.css
-│   │   └── javascript-suggestions.js
-│   ├── new-page-action/
-│   │   ├── new-page-action.html
-│   │   ├── new-page-action.css
-│   │   └── new-page-action.js
-│   ├── preview/
-│   │   ├── preview.html
-│   │   ├── preview.css
-│   │   └── preview.js
-│   ├── project-reset/
-│   │   ├── project-reset.html
-│   │   ├── project-reset.css
-│   │   └── project-reset.js
+│   │   └── completion-catalog/ (html, css, js)
+│   ├── css-suggestions/ (html, css, js)
+│   ├── editor/ (editor.html, editor.css, editor.js)
+│   ├── header/ (header.html, header.css, header.js)
+│   ├── javascript-suggestions/ (html, css, js)
+│   ├── new-page-action/ (html, css, js)
+│   ├── preview/ (html, css, js)
+│   ├── project-reset/ (html, css, js)
+│   ├── tag-suggestions/ (html, css, js)
+│   └── workspace-divider/ (html, css, js)
 ├── alfacode/
 │   ├── README.md
 │   ├── data/
 │   │   ├── completions.html.json
 │   │   ├── completions.css.json
 │   │   └── completions.javascript.json
-│   ├── examples/
-│   │   └── .gitkeep
+│   ├── examples/.gitkeep
 │   ├── src/
-│   │   ├── core/
-│   │   │   ├── document.js
-│   │   │   ├── editor-state.js
-│   │   │   ├── editor.js
-│   │   │   ├── history.js
-│   │   │   ├── selection.js
-│   │   │   └── transaction.js
+│   │   ├── core/ (document.js, editor-state.js, editor.js, history.js, selection.js, transaction.js)
 │   │   ├── features/
 │   │   │   ├── bracket-matching/bracket-matcher.js
 │   │   │   ├── line-numbers/line-numbers.js
 │   │   │   └── syntax-highlighting/highlighter.js
-│
-│   │   ├── input/
-│   │   │   ├── clipboard-handler.js
-│   │   │   ├── input-controller.js
-│
-│   │   │   ├── keyboard-handler.js
-│
-│   │   │   └── suggestion-dispatcher.js
-│
+│   │   ├── input/ (clipboard-handler.js, input-controller.js, keyboard-handler.js, suggestion-dispatcher.js)
 │   │   ├── language/
-│   │   │   ├── tokenizer.js
+│   │   │   ├── tokenizer.js, language-manager.js, parser-manager.js
+│   │   │   ├── css/ (css-completion.js, css-language.js, css-parser.js, css-rules.js)
 │
-│   │   │   ├── language-manager.js
+│   │   │   ├── html/ (html-completion.js, html-language.js, html-parser.js, html-rules.js)
 │
-│   │   │   ├── parser-manager.js
+│   │   │   └── javascript/ (javascript-completion.js, javascript-language.js, javascript-parser.js, javascript-rules.js)
 │
-│   │   │   ├── css/
-│
-│   │   │   │   ├── css-completion.js
-│
-│   │   │   │   ├── css-language.js
-│
-│   │   │   │   ├── css-parser.js
-│
-│   │   │   │   └── css-rules.js
-│
-│   │   │   ├── html/
-│
-│   │   │   │   ├── html-completion.js
-│
-│   │   │   │   ├── html-language.js
-│
-│   │   │   │   ├── html-parser.js
-│
-│   │   │   │   └── html-rules.js
-│
-│   │   │   └── javascript/
-│
-│   │   │   │   ├── javascript-completion.js
-│
-│   │   │   │   ├── javascript-language.js
-│
-│   │   │   │   ├── javascript-parser.js
-│
-│   │   │   │   └── javascript-rules.js
-│
-│   │   ├── rendering/
-│
-│   │   │   ├── cursor-renderer.js
-│
-│   │   │   ├── editor-view.js
-│
-│   │   │   └── line-renderer.js
-│
-│   │   ├── themes/
-│
-│   │   │   ├── dark.css
-│
-│   │   │   ├── light.css
-│
-│   │   │   └── theme-manager.js
-│
-│   │   └── utils/
-│
-│   │           ├── dom.js
-│
-│   │           └── helpers.js
-│
+│   │   ├── rendering/ (cursor-renderer.js, editor-view.js, line-renderer.js)
+│   │   ├── themes/ (dark.css, light.css, theme-manager.js)
+│   │   └── utils/ (dom.js, helpers.js)
 │   ├── tests/
 │   │   ├── .gitkeep
 │   │   ├── alfacode.test.mjs
@@ -158,16 +65,14 @@ Editor1/
 │   │   ├── html-completion-fixtures.mjs
 │   │   ├── html-completion-shadow.test.mjs
 │   │   └── workspace-layout.test.mjs
-│├── maps/
-│   └── ROADMAP.md
+├── maps/ROADMAP.md
 ├── scripts/
 │   ├── offline-manifest.json
 │   ├── build-offline.mjs
 │   ├── audit-offline-output.mjs
 │   ├── send-offline-email.py
 │   └── test_send_offline_email.py
-└── offline/
-    └── AlfaCode-Offline.html (generated output; very large)
+└── offline/AlfaCode-Offline.html (فایل خروجی تولیدی)
 ```
 
 ## شرح فایل‌ها (فهرست کامل)
