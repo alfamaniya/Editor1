@@ -1,0 +1,27 @@
+* { box-sizing: border-box; }
+:root {
+  color-scheme: dark;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  background: #10141d;
+  color: #e8edf5;
+}
+html, body { width: 100%; height: 100%; min-width: 0; min-height: 0; margin: 0; }
+body { display: flex; flex-direction: column; width: 100%; height: 100vh; height: 100dvh; min-width: 0; min-height: 0; overflow: hidden; }
+app-header { display: block; flex: 0 0 54px; width: 100%; min-width: 0; }
+.workspace {
+  display: grid;
+  flex: 1 1 0;
+  grid-template-columns: minmax(0, 1fr) 6px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: 0;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.workspace-panel { min-width: 0; min-height: 0; width: 100%; height: 100%; overflow: hidden; background: #111722; }
+.section-frame { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; max-width: 100%; border: 0; background: transparent; }
+workspace-divider { display: block; width: 6px; min-width: 6px; min-height: 100%; }
+
+/* Responsive workspace layout */
+
