@@ -10,6 +10,7 @@ on:
       - "core/completion-catalog/**"
       - "core/browser-storage/**"
       - "core/preview/**"
+      - "core/visual-editor/**"
       - "core/clear-tabs/**"
       - "core/project-reset/**"
       - "core/clear-project-cookies/**"
@@ -50,6 +51,6 @@ jobs:
         with:
           node-version: 22
       - name: Check integration JavaScript syntax
-        run: node --experimental-default-type=module --check core/completion-catalog/completion-catalog.js && node --experimental-default-type=module --check core/completion-catalog/catalog-manager.js && node --experimental-default-type=module --check core/editor/editor.js && node --experimental-default-type=module --check core/browser-storage/browser-storage.js && node --experimental-default-type=module --check core/header/header.js && node --experimental-default-type=module --check core/clear-tabs/clear-tabs.js && node --experimental-default-type=module --check core/project-reset/project-reset.js && node --experimental-default-type=module --check core/clear-project-cookies/clear-project-cookies.js && node --experimental-default-type=module --check core/workspace-divider/workspace-divider.js && node --experimental-default-type=module --check core/tag-suggestions/tag-suggestions.js && node --check core/preview/preview.js && node --check script.js
+        run: node --experimental-default-type=module --check core/completion-catalog/completion-catalog.js && node --experimental-default-type=module --check core/completion-catalog/catalog-manager.js && node --experimental-default-type=module --check core/editor/editor.js && node --experimental-default-type=module --check core/browser-storage/browser-storage.js && node --experimental-default-type=module --check core/header/header.js && node --experimental-default-type=module --check core/clear-tabs/clear-tabs.js && node --experimental-default-type=module --check core/project-reset/project-reset.js && node --experimental-default-type=module --check core/clear-project-cookies/clear-project-cookies.js && node --experimental-default-type=module --check core/workspace-divider/workspace-divider.js && node --experimental-default-type=module --check core/tag-suggestions/tag-suggestions.js && node --check core/preview/preview.js && node --check core/visual-editor/visual-editor.js && node --check script.js
       - name: Run AlfaCode tests
         run: node --experimental-default-type=module --test alfacode/tests/alfacode.test.mjs alfacode/tests/completions-data.test.mjs alfacode/tests/html-completion-shadow.test.mjs alfacode/tests/completion-runtime.test.mjs alfacode/tests/catalog-manager.test.mjs alfacode/tests/workspace-layout.test.mjs
