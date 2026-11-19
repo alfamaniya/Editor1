@@ -368,3 +368,8 @@ Editor1/
 ### Color property progress
 - Initial Color inspector includes Background, Text and Border color pickers with HEX entry, quick palette, opacity slider, and a two-stop Linear/Radial gradient builder. Per-control clear, richer color formats, and verification remain incomplete.
 - Progress checklist: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](maps/VISUAL-PROPERTIES-ROADMAP.md).
+
+
+### Color property progress
+- Initial Color inspector includes Background, Text and Border color pickers with HEX entry, quick palette, opacity slider, and a two-stop Linear/Radial gradient builder. Per-control clear, richer color formats, and verification remain incomplete.
+- Progress checklist: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](maps/VISUAL-PROPERTIES-ROADMAP.md).
