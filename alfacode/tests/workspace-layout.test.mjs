@@ -27,18 +27,23 @@ test("iframe resize notification is sent on panel resize and divider movement", 
 });
 
 
-test("main responsive breakpoints are based on viewport width rather than pointer type", async () => {
-  const responsiveCssPaths = [
+
+test("mobile-only responsive overrides and controls are removed from the main app", async () => {
+  const mobileCssPaths = [
     "style.css",
     "core/editor/editor.css",
     "core/header/header.css",
-    "core/mobile-workspace/mobile-workspace.css"
+    "core/new-page-action/new-page-action.css"
   ];
-  for (const path of responsiveCssPaths) {
+  for (const path of mobileCssPaths) {
     const source = await readFile(new URL(path, ROOT), "utf8");
-    assert.doesNotMatch(source, /@media[^{}]*pointer:\s*coarse[^{}]*max-height:\s*1000px/i, path + " should not depend on pointer type");
-    assert.match(source, /@media\s*\(max-width:\s*700px\)/, path + " should use the viewport-width breakpoint");
+    assert.doesNotMatch(source, /@media\s*\(\s*max-width\s*:/i, path + " should not contain mobile width overrides");
+    assert.doesNotMatch(source, /@media[^{}]*pointer\s*:\s*coarse/i, path + " should not contain touch-pointer responsive overrides");
   }
+  const shell = await readFile(new URL("index.html", ROOT), "utf8");
+  assert.doesNotMatch(shell, /mobile-workspace-switcher|mobile-extra-keys|mobile-workspace\.js|mobile-extra-keys\.js/);
+  const manifest = await readFile(new URL("scripts/offline-manifest.json", ROOT), "utf8");
+  assert.doesNotMatch(manifest, /mobile-workspace|mobile-extra-keys/);
 });
 
 test("editor content overflow stays inside its scroll host", async () => {
