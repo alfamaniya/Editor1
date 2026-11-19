@@ -85,23 +85,29 @@ function getContextTags(stack, catalog) {
   const inSVG = stack.some(node => node.name.toLowerCase() === "svg");
   if (Array.isArray(catalog) && catalog.length) {
     const namespace = inSVG ? "svg" : "html";
+    const legacy = getContextTags(stack);
+    const legacyNames = new Set(legacy.map(item => item.name.toLowerCase()));
     return catalog.filter(record => {
       if (record.namespace !== namespace || record.enabled === false) return false;
+      const name = record.tagName.toLowerCase();
       const parents = Array.isArray(record.parentTags) ? record.parentTags : [];
-      if (inSVG) return true;
-      if (parents.length) return parents.includes(parent);
-      if (record.contexts?.includes("root")) return parent === "root";
-      if (record.contexts?.includes("head")) return parent === "head";
-      if (parent === "root" || parent === "head") return false;
-      if (parent === "p") return PHRASING_TAGS.has(record.tagName);
-      if (CONTEXT_TAGS[parent]) return CONTEXT_TAGS[parent].includes(record.tagName);
-      return !record.contexts?.length || record.contexts.includes("body");
+      const parentAllowed = !parents.length || parents.includes(parent) || legacyNames.has(name);
+      if (!parentAllowed) return false;
+      if (record.contexts?.length) {
+        const context = inSVG ? "svg" : parent === "html" ? "root" : parent;
+        if (!record.contexts.includes(context) && !legacyNames.has(name)) return false;
+      }
+      if (parent === "p" && !PHRASING_TAGS.has(name) && !legacyNames.has(name)) return false;
+      if (CONTEXT_TAGS[parent] && !parents.length && !CONTEXT_TAGS[parent].includes(name) && !legacyNames.has(name)) return false;
+      return true;
     }).map(record => ({
       name: record.tagName,
       rank: Number.isFinite(record.rank) ? record.rank : (record.order ?? 9999),
       description: record.description,
       void: record.isVoid === true
-    }));
+    })).concat(legacy.filter(item => !catalog.some(record =>
+      record.namespace === namespace && record.tagName.toLowerCase() === item.name.toLowerCase()
+    )));
   }
   if (inSVG) return SVG_TAGS;
   if (parent === "head") return HEAD_TAGS;
