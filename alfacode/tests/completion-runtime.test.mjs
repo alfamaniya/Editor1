@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import { getHTMLTagSuggestions } from "../src/language/html/html-completion.js";
 import { getCSSCompletionSuggestions } from "../src/language/css/css-completion.js";
 import { getJavaScriptCompletionSuggestions } from "../src/language/javascript/javascript-completion.js";
+import { loadCompletionCatalogs } from "../../core/completion-catalog/catalog-loader.js";
 
 async function records(file) {
   const payload = JSON.parse(await readFile(new URL("../data/completions." + file + ".json", import.meta.url), "utf8"));
@@ -48,4 +49,32 @@ test("live JavaScript completion uses catalog identifiers and owner-scoped membe
   const member = getJavaScriptCompletionSuggestions("document.query", 14, { catalog });
   assert.ok(member?.options.some(option => option.label === "querySelector"));
   assert.ok(member.options.every(option => option.kind === "method"));
+});
+
+test("catalog loader consumes embedded offline JSON without network requests", async () => {
+  const makePayload = language => ({
+    schemaVersion: 1,
+    catalogVersion: 1,
+    records: [
+      { id: language + ":active", label: "active", enabled: true },
+      { id: language + ":disabled", label: "disabled", enabled: false }
+    ]
+  });
+  globalThis.__ALFACODE_COMPLETION_CATALOGS__ = {
+    html: makePayload("html"),
+    css: makePayload("css"),
+    javascript: makePayload("javascript")
+  };
+  try {
+    const catalogs = await loadCompletionCatalogs({
+      fetcher: async () => { throw new Error("Offline loader must not fetch"); }
+    });
+    for (const language of ["html", "css", "javascript"]) {
+      assert.equal(catalogs[language].records.length, 1);
+      assert.equal(catalogs[language].records[0].label, "active");
+      assert.equal(catalogs[language].error, null);
+    }
+  } finally {
+    delete globalThis.__ALFACODE_COMPLETION_CATALOGS__;
+  }
 });
