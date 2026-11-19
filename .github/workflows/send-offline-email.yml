@@ -22,7 +22,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Send offline HTML source in email bodies
+      - name: Test ordered attachment splitting
+        run: python -m unittest discover -s scripts -p 'test_*.py' -v
+
+      - name: Send offline HTML in numbered attachment emails
         env:
           GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
