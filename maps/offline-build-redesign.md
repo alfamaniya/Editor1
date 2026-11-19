@@ -8,8 +8,8 @@
 - تعبیه سه کاتالوگ JSON در Editor و صفحه فهرست.
 - آزمون CI روی ۸۰ فایل Runtime؛ صفر منبع خارجی.
 - ممیزی فایل خروجی: تمام رکوردهای سه کاتالوگ در HTML مستقل حضور دارند و script/link/iframe خارجی باقی نمانده است.
-- Build و audit موفق: Run 44495264825.
-- خروجی نهایی: offline/AlfaCode-Offline.html، حدود ۱۷۵۵٫۲۳ KiB.
+- Build و audit موفق: Run 44495576645.
+- خروجی نهایی: offline/AlfaCode-Offline.html، حدود ۱۷۵۷٫۰۹ KiB.
 - کاربر پیش‌تر New Page، Preview HTML، ذخیره/بازیابی محتوا و بارگذاری اولیه Offline را تأیید کرده است.
 
 ## باقی‌مانده — آزمون دستگاه
