@@ -505,13 +505,13 @@ async function main() {
 
   const bootstrap = `
 (() => {
+  const completionCatalogDocument = ${JSON.stringify(completionCatalogDocument)};
   ${makeHeaderComponent(headerMarkup, headerCss)}
   class OfflineNewPageAction extends HTMLElement {
     connectedCallback() {
       if (this.shadowRoot) return;
       const root = this.attachShadow({ mode: "open" });
       root.innerHTML = "<style>" + ${JSON.stringify(newPageCss)} + "</style>" + ${JSON.stringify(newPageMarkup)};
-      const completionCatalogDocument = ${JSON.stringify(completionCatalogDocument)};
       root.querySelector("button").addEventListener("click", () => {
         const catalogBlob = new Blob([completionCatalogDocument], { type: "text/html;charset=utf-8" });
         const catalogUrl = URL.createObjectURL(catalogBlob);
