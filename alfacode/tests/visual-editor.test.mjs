@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 
 const ROOT = new URL("../../", import.meta.url);
 const visual = await readFile(new URL("core/visual-editor/visual-editor.js", ROOT), "utf8");
+const visualCSS = await readFile(new URL("core/visual-editor/visual-editor.css", ROOT), "utf8");
 const editor = await readFile(new URL("core/editor/editor.js", ROOT), "utf8");
 
 test("body selection creates a valid body selector instead of body child combinator", () => {
@@ -40,4 +41,16 @@ test("Visual Editor uses shared controls and category reset action", () => {
   assert.match(visual, /data-reset/);
   assert.match(previewHTML, /property-controls\.js/);
   assert.match(previewHTML, /visual-editor\.js/);
+});
+
+test("Color inspector exposes core color editing tools", () => {
+  assert.match(visual, /renderColorControls/);
+  assert.match(visual, /addColorRow\("Background","background-color","backgroundColor"\)/);
+  assert.match(visual, /addColorRow\("Text","color","color"\)/);
+  assert.match(visual, /addColorRow\("Border","border-color","borderColor"\)/);
+  assert.match(visual, /Gradient background/);
+  assert.match(visual, /linear-gradient/);
+  assert.match(visual, /radial-gradient/);
+  assert.match(visual, /#RRGGBB/);
+  assert.match(visualCSS, /visual-color-swatches/);
 });
