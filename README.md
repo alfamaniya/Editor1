@@ -12,6 +12,14 @@
 
 **اصلاح اندازه Gutter:** ستون شماره خطوط در Editor روی عرض ۴۲px قفل شده؛ محتوای کد جداگانه در ظرف اسکرول افقی رشد می‌کند.
 
+## Visual Editor redesign (builder-inspired)
+
+- The Visual Editor overlay has been redesigned with a left Elements rail, a top status strip, and a right Inspector panel, following the reference website-builder layout.
+- The Inspector now displays the selected element's tag and selector, and offers a dedicated **Select Element** action to re-enter preview selection.
+- The dark UI uses a restrained orange accent and compact panel/control styling.
+- The left-side element tiles and search field are currently non-functional placeholders; element insertion and search are future roadmap work.
+- Detailed completion plan: [`maps/VISUAL-EDITOR-ROADMAP.md`](maps/VISUAL-EDITOR-ROADMAP.md). Browser/manual and offline verification remain pending.
+
 ## Visual Editor
 
 - Dedicated logic module: `core/visual-editor/visual-editor.js`; its panel styles are in `core/visual-editor/visual-editor.css`. Preview rendering is kept in `core/preview/preview.js`.
