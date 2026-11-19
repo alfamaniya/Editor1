@@ -1,33 +1,59 @@
-/* =========================================================
-   استایل کلی Buttonهای Header و Footer
-   این فایل فقط ظاهر دکمه‌ها را تعریف می‌کند؛ عملکرد در JS خواهد بود.
-   ========================================================= */
-
-/* استایل پایه مشترک تمام دکمه‌های نوار بالا و پایین */
+/* Shared workspace styles and common toolbar button appearance. */
+:root {
+  color-scheme: light;
+  --ui-bg: #f3f4f6;
+  --ui-panel: #ffffff;
+  --ui-header: #1f2937;
+  --ui-border: #d1d5db;
+  --ui-text: #1f2937;
+  --ui-accent: #4b5563;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; width: 100%; overflow: hidden; direction: ltr; text-align: left; }
+body {
+  display: flex; flex-direction: column; height: 100vh; height: 100dvh;
+  font-family: Tahoma, sans-serif; color: var(--ui-text); background: var(--ui-bg);
+}
+.main-header, .main-footer {
+  flex: 0 0 auto; background: var(--ui-header); color: #f9fafb;
+  overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+}
+.scroll-area {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 0.75rem; white-space: nowrap; min-width: 100%;
+}
 .scroll-area .item {
-  border: 0;
-  color: inherit;
-  font-family: inherit;
-  line-height: inherit;
-  appearance: none;
-  -webkit-appearance: none;
-  font-size: clamp(0.8rem, 2vw, 1rem);
-  padding: clamp(0.25rem, 1.5vw, 0.5rem) clamp(0.5rem, 2vw, 1rem);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.08);
-  cursor: pointer;
-  transition: background 0.15s ease;
+  appearance: none; border: 0; color: inherit; font: inherit; font-size: 0.875rem;
+  line-height: 1.25; padding: 0.4rem 0.75rem; border-radius: 5px;
+  background: rgba(255,255,255,0.08); cursor: pointer; transition: background 0.15s ease;
 }
-
-/* تغییر ملایم پس‌زمینه هنگام Hover */
-.scroll-area .item:hover {
-  background: rgba(255, 255, 255, 0.18);
+.scroll-area .item:hover { background: rgba(255,255,255,0.18); }
+.scroll-area .item:focus-visible { outline: 2px solid #9ca3af; outline-offset: 2px; }
+.main-footer .scroll-area .item { font-size: 0.8125rem; }
+.split { flex: 1 1 auto; display: flex; min-height: 0; overflow: hidden; }
+.pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; background: var(--ui-panel); }
+#leftPane { flex: 0 0 50%; }
+#rightPane { flex: 1 1 auto; }
+.pane-header {
+  flex: 0 0 auto; padding: 0.55rem 0.75rem; font-size: 0.875rem; font-weight: 600;
+  text-align: left; background: #e5e7eb; border-bottom: 1px solid var(--ui-border);
 }
-
-/* اندازه متن دکمه‌های Footer کمی کوچک‌تر از Header */
-.main-footer .scroll-area .item {
-  font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+.pane-content { flex: 1 1 auto; min-height: 0; overflow: auto; padding: 0; }
+.editor-content { background: #111827; }
+.preview-content { background: #fff; }
+.workspace-frame { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; border: 0; }
+.divider {
+  flex: 0 0 8px; position: relative; z-index: 5; background: #9ca3af; cursor: col-resize;
+  touch-action: none; transition: background 0.15s ease;
 }
-
-/* Global UI language direction and alignment */
-html, body { direction: ltr; text-align: left; }
+.divider::before { content: ""; position: absolute; inset: 0 -6px; }
+.divider::after {
+  content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 2px; height: 48px; border-radius: 2px; background: #e5e7eb; opacity: 0.7; pointer-events: none;
+}
+.divider:hover, .divider.dragging { background: var(--ui-accent); }
+body.dragging { cursor: col-resize; user-select: none; -webkit-user-select: none; }
+@media (max-width: 480px) {
+  .divider { flex-basis: 10px; }
+  #leftPane { flex-basis: 55%; }
+}
