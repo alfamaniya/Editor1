@@ -299,3 +299,12 @@ Editor1/
 - `clear all tabs`: after confirmation, clears HTML, CSS, and JavaScript while keeping the currently selected tab active.
 - All three actions run through `core/editor-bridge.js` and the Editor's message handler. The active editor updates its storage schedule and emits a source-change message so Preview updates immediately. Suggestion menus are hidden after clearing/reset.
 - AlfaCode engine files under `alfacode/src/` are unchanged.
+
+
+## Code Catalog toolbar action — 19 November 2026
+- Renamed the root toolbar placeholder from `json` to `Code Catalog` and assigned the stable `codeCatalog` ID.
+- Restored the archived New Page action component files to active `core/new-page-action/` (HTML, CSS, JavaScript).
+- Reconnected the native root toolbar button to open the active completion catalog in a new browser tab, matching the original New Page action.
+- Preserved the catalog page and its HTML/CSS/JavaScript reference table, filters, search, sorting, and draft tools.
+- Updated the offline build bootstrap so the root Code Catalog button opens the embedded catalog document; fixed the shell bridge manifest entry to `core/editor-bridge.js`.
+- Browser/CI and offline build verification are not yet performed in this repository-edit session.
