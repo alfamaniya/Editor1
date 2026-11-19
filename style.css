@@ -24,23 +24,4 @@ app-header { display: block; flex: 0 0 54px; width: 100%; min-width: 0; }
 workspace-divider { display: block; width: 6px; min-width: 6px; min-height: 100%; }
 
 /* Responsive workspace layout */
-@media (max-width: 700px) {
-  html, body { height: 100%; min-height: 0; overflow: hidden; }
-  body {
-    height: var(--app-visible-height, 100%);
-    padding-bottom: var(--mobile-extra-keys-height, 0px);
-  }
-  app-header { flex: 0 0 56px; }
-  .workspace {
-    grid-template-columns: 100% !important;
-    grid-template-rows: minmax(0, 100%);
-    flex: 1 1 0;
-    min-height: 0;
-    overflow: hidden;
-  }
-  .workspace-panel { display: none; min-width: 0; min-height: 0; }
-  body[data-mobile-view="editor"] .editor-panel,
-  body[data-mobile-view="preview"] .preview-panel { display: block; }
-  workspace-divider { display: none !important; }
-  .section-frame { width: 100%; height: 100%; }
-}
+
