@@ -225,3 +225,11 @@
 - [x] اسکرول افقی Editor داخل scroll-host حفظ شد.
 - [x] Regression test برای breakpointهای عرض‌محور و containment اضافه شد.
 - [ ] تست مرورگر واقعی: کاهش/افزایش عرض، resize چندباره و بررسی فضای خالی کنار Preview؛ تست ایستا رفتار بصری را اثبات نمی‌کند.
+
+
+## حذف Mobile UI و CSS اختصاصی — ۱۹ نوامبر ۲۰۲۶
+- [x] حذف breakpointهای CSS مخصوص موبایل از صفحه اصلی، Editor، Header و New Page.
+- [x] حذف کنترل سوییچر پنل موبایل و کلیدهای کمکی موبایل از HTML و بارگذاری اسکریپت‌ها.
+- [x] حذف ۶ فایل مربوط به mobile-workspace و mobile-extra-keys و حذف آن‌ها از Offline manifest.
+- [x] حذف ارتباط JavaScript با کلیدهای کمکی موبایل.
+- [ ] تست واقعی در مرورگر برای layout دوپنله در عرض‌های کوچک و بزرگ و resize بدون refresh.
