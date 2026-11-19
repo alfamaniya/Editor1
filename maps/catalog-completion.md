@@ -379,6 +379,6 @@
 - Map/WeakMap: `getOrInsert` و `getOrInsertComputed` (ES2026)، ویژگی‌های سازنده و `Symbol.toStringTag` تکمیل شدند.
 - Map/Set: `Symbol.iterator`، `Symbol.species` و ویژگی‌های سازنده تکمیل شدند. متدهای Set جدید ES2025 از قبل در کاتالوگ بودند و تکرار نشدند.
 - WeakSet: متدهای add/delete/has، ویژگی‌های سازنده و `Symbol.toStringTag` اضافه شدند.
-- آزمون اختصاصی JS-6 برای ۷۲ عضو و نسخه استاندارد هر قابلیت افزوده شد؛ شمارنده‌های تست JavaScript و مجموع سه کاتالوگ به‌روزرسانی شدند.
+- آزمون اختصاصی JS-6 برای ۷۲ عضو و نسخه استاندارد هر قابلیت افزوده شد؛ شمارنده‌های تست JavaScript و مجموع سه کاتالوگ به‌روزرسانی شدند. CI ابتدا ۲۷ order نامعتبر در دسته‌های تازه کشف کرد؛ همه مقادیر اصلاح شدند و commit اصلاحی جداگانه ثبت شد.
 - منابع رسمی: [ECMA-262 2026 — Numbers and Dates / Math](https://tc39.es/ecma262/2026/multipage/numbers-and-dates.html)، [Keyed Collections](https://tc39.es/ecma262/2026/multipage/keyed-collections.html)، [Structured Data / JSON](https://tc39.es/ecma262/2026/multipage/structured-data.html)، [MDN Math](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math)، [MDN JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON)، [MDN Keyed Collections](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Keyed_collections).
 - این مرحله داده و آزمون را تغییر می‌دهد؛ اتصال کاتالوگ به موتور پیشنهادها و آزمایش دستی مرورگر/IME انجام نشده است.
