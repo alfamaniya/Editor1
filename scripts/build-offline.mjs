@@ -521,6 +521,14 @@ async function main() {
     }
   }
   customElements.define("new-page-action", OfflineNewPageAction);
+  // Connect the native Code Catalog toolbar button in the standalone offline shell.
+  const codeCatalogButton = document.getElementById("codeCatalog");
+  if (codeCatalogButton) codeCatalogButton.addEventListener("click", () => {
+    const catalogBlob = new Blob([completionCatalogDocument], { type: "text/html;charset=utf-8" });
+    const catalogUrl = URL.createObjectURL(catalogBlob);
+    window.open(catalogUrl, "_blank", "noopener");
+    window.setTimeout(() => URL.revokeObjectURL(catalogUrl), 60000);
+  });
   window.__ALFACODE_ACTION_ASSETS__ = {
     "clear-tabs": { html: ${JSON.stringify(clearTabsMarkup)}, css: ${JSON.stringify(clearTabsCss)} },
     "project-reset": { html: ${JSON.stringify(projectResetMarkup)}, css: ${JSON.stringify(projectResetCss)} },
