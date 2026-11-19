@@ -25,3 +25,24 @@ test("iframe resize notification is sent on panel resize and divider movement", 
   assert.match(divider, /dispatchEvent\(new Event\("resize"\)\)/);
   assert.match(divider, /querySelectorAll\("\.workspace-panel"\)\.forEach\(panel => this\.notifyFrameResize\(panel\)\)/);
 });
+
+
+test("main responsive breakpoints are based on viewport width rather than pointer type", async () => {
+  const responsiveCssPaths = [
+    "style.css",
+    "core/editor/editor.css",
+    "core/header/header.css",
+    "core/mobile-workspace/mobile-workspace.css"
+  ];
+  for (const path of responsiveCssPaths) {
+    const source = await readFile(new URL(path, ROOT), "utf8");
+    assert.doesNotMatch(source, /@media[^{}]*pointer:\s*coarse[^{}]*max-height:\s*1000px/i, path + " should not depend on pointer type");
+    assert.match(source, /@media\s*\(max-width:\s*700px\)/, path + " should use the viewport-width breakpoint");
+  }
+});
+
+test("editor content overflow stays inside its scroll host", async () => {
+  const editorCss = await readFile(new URL("core/editor/editor.css", ROOT), "utf8");
+  assert.match(editorCss, /\.editor-host\s*\{[^}]*min-width:\s*0[^}]*overflow:\s*auto/s);
+  assert.match(editorCss, /\.alfacode-editor-layout[^}]*min-width:\s*max-content/);
+});
