@@ -2,7 +2,7 @@
   "use strict";
   const preview=document.getElementById("preview-frame"); if(!preview)return;
   const specs={
-    color:[["Background","background-color","color","backgroundColor"],["Text color","color","color","color"],["Opacity","opacity","range","opacity"]],
+    color:[["Background","background-color","color","backgroundColor"],["Text color","color","color","color"],["Border color","border-color","color","borderColor"],["Opacity","opacity","range","opacity"],["Background image","background-image","text","backgroundImage"]],
     border:[["Color","border-color","color","borderColor"],["Width","border-width","text","borderWidth"],["Style","border-style","select","borderStyle"],["Radius","border-radius","text","borderRadius"]],
     size:[["Width","width","text","width"],["Height","height","text","height"],["Min width","min-width","text"],["Max width","max-width","text"],["Min height","min-height","text"],["Max height","max-height","text"]],
     shadow:[["Box shadow","box-shadow","text","boxShadow"]],
@@ -43,12 +43,48 @@
     const change=()=>{state.draft[prop]=input.value;if(drafts)drafts.set(prop,input.value);draftPreview();};input.addEventListener("input",change);input.addEventListener("change",change);return wrap;
   }
   function resetCategory(cat){
-    const props=specs[cat].map(row=>row[1]);props.forEach(prop=>delete state.draft[prop]);
-    if(drafts)drafts.reset(props);
+    const props=specs[cat].map(row=>row[1]);props.forEach(prop=>{state.draft[prop]="";if(drafts)drafts.set(prop,"");});
     controls.replaceChildren();specs[cat].forEach(row=>controls.appendChild(makeControl(row)));
     draftPreview();
   }
-  function openCategory(cat){state.draft={...(state.committed[state.selector]||{})};if(drafts)drafts.begin(state.draft);controls.replaceChildren();specs[cat].forEach(row=>controls.appendChild(makeControl(row)));grid.hidden=true;controls.hidden=false;actions.hidden=false;title.textContent=cat[0].toUpperCase()+cat.slice(1);}
+  function currentColor(prop,computedKey){const value=state.draft[prop]??state.committed[state.selector]?.[prop]??state.computed[computedKey]??"#ffffff";return hex(value);}
+  function setColorProperty(prop,value){state.draft[prop]=value;if(drafts)drafts.set(prop,value);draftPreview();}
+  function renderColorControls(){
+    const section=document.createElement("div");section.className="visual-color-panel";
+    const swatches=["#111827","#ffffff","#f97316","#7c3aed","#2563eb","#16a34a","#ef4444","#eab308","#ec4899","#06b6d4"];
+    function addColorRow(label,prop,computedKey){
+      const row=document.createElement("div");row.className="visual-color-row";
+      const heading=document.createElement("span");heading.textContent=label;
+      const picker=document.createElement("input");picker.type="color";picker.value=currentColor(prop,computedKey);picker.setAttribute("aria-label",label+" color picker");
+      const text=document.createElement("input");text.type="text";text.value=picker.value;text.placeholder="#RRGGBB";text.setAttribute("aria-label",label+" hex value");
+      const applyValue=value=>{if(/^#[0-9a-f]{6}$/i.test(value)){text.value=value.toLowerCase();picker.value=value;text.removeAttribute("aria-invalid");setColorProperty(prop,value);}else{text.setAttribute("aria-invalid","true");}};
+      picker.addEventListener("input",()=>applyValue(picker.value));text.addEventListener("input",()=>applyValue(text.value.trim()));
+      row.append(heading,picker,text);section.appendChild(row);
+    }
+    addColorRow("Background","background-color","backgroundColor");
+    addColorRow("Text","color","color");
+    addColorRow("Border","border-color","borderColor");
+    const alphaRow=document.createElement("div");alphaRow.className="visual-color-row visual-alpha-row";
+    const alphaLabel=document.createElement("span");alphaLabel.textContent="Opacity";
+    const alpha=document.createElement("input");alpha.type="range";alpha.min="0";alpha.max="1";alpha.step="0.01";alpha.value=state.draft.opacity??state.committed[state.selector]?.opacity??state.computed.opacity??1;
+    const alphaValue=document.createElement("output");alphaValue.textContent=Math.round(Number(alpha.value)*100)+"%";
+    alpha.addEventListener("input",()=>{alphaValue.textContent=Math.round(Number(alpha.value)*100)+"%";setColorProperty("opacity",alpha.value);});
+    alphaRow.append(alphaLabel,alpha,alphaValue);section.appendChild(alphaRow);
+    const swatchTitle=document.createElement("small");swatchTitle.textContent="Quick palette";section.appendChild(swatchTitle);
+    const palette=document.createElement("div");palette.className="visual-color-swatches";
+    swatches.forEach(color=>{const b=document.createElement("button");b.type="button";b.title=color;b.style.background=color;b.setAttribute("aria-label","Set background "+color);b.addEventListener("click",()=>{const picker=section.querySelector('input[type="color"]');const hexInput=section.querySelector('input[type="text"]');picker.value=color;hexInput.value=color;setColorProperty("background-color",color);});palette.appendChild(b);});
+    section.appendChild(palette);
+    const gradientTitle=document.createElement("small");gradientTitle.textContent="Gradient background";section.appendChild(gradientTitle);
+    const gradientRow=document.createElement("div");gradientRow.className="visual-gradient-row";
+    const mode=document.createElement("select");["None","Linear","Radial"].forEach(v=>{const option=document.createElement("option");option.value=v.toLowerCase();option.textContent=v;mode.appendChild(option);});
+    const angle=document.createElement("input");angle.type="number";angle.value="135";angle.min="0";angle.max="360";angle.setAttribute("aria-label","Gradient angle");
+    const g1=document.createElement("input");g1.type="color";g1.value="#7c3aed";g1.setAttribute("aria-label","Gradient start color");
+    const g2=document.createElement("input");g2.type="color";g2.value="#111827";g2.setAttribute("aria-label","Gradient end color");
+    const updateGradient=()=>{let val="";if(mode.value==="linear")val="linear-gradient("+angle.value+"deg, "+g1.value+", "+g2.value+")";if(mode.value==="radial")val="radial-gradient(circle, "+g1.value+", "+g2.value+")";setColorProperty("background-image",val);};
+    [mode,angle,g1,g2].forEach(el=>el.addEventListener("input",updateGradient));gradientRow.append(mode,angle,g1,g2);section.appendChild(gradientRow);
+    controls.appendChild(section);
+  }
+  function openCategory(cat){state.draft={...(state.committed[state.selector]||{})};if(drafts)drafts.begin(state.draft);controls.replaceChildren();if(cat==="color")renderColorControls();else specs[cat].forEach(row=>controls.appendChild(makeControl(row)));grid.hidden=true;controls.hidden=false;actions.hidden=false;title.textContent=cat[0].toUpperCase()+cat.slice(1);}
   function sendCSS(){window.parent.postMessage({type:"alfacode:visual-css-update",css:cssFor(state.committed)},"*");}
   panel.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.matches("[data-pick]")){state.picking=true;title.textContent="Select an element";grid.hidden=true;controls.hidden=true;actions.hidden=true;if(status)status.textContent="Click an element in the preview";picker(true);return;}if(b.matches("[data-close]")){state.picking=false;state.draft={...(state.committed[state.selector]||{})};previewCSS(state.committed);panel.hidden=true;picker(false);return;}if(b.dataset.cat)openCategory(b.dataset.cat);if(b.matches("[data-back]")){state.draft={...(state.committed[state.selector]||{})};if(drafts)state.draft=drafts.cancel();draftPreview();showCategories();}if(b.matches("[data-reset]")){const active=title.textContent.toLowerCase();const cat=Object.keys(specs).find(k=>k===active);if(cat)resetCategory(cat);}if(b.matches("[data-apply]")){state.committed[state.selector]={...(state.committed[state.selector]||{}),...(drafts?drafts.commit():state.draft)};sendCSS();showCategories();}});
   window.addEventListener("message",e=>{if(e.source!==window.parent||!e.data)return;if(e.data.type==="alfacode:visual-toggle"){state.picking=!state.picking;panel.hidden=!state.picking;if(!state.picking){state.draft={...(state.committed[state.selector]||{})};previewCSS(state.committed);picker(false);return;}title.textContent="Select an element";grid.hidden=true;controls.hidden=true;actions.hidden=true;picker(true);}});
