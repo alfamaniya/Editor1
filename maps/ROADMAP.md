@@ -458,3 +458,10 @@
 - [ ] Visual Editor category settings remain the existing initial set; the roadmap for completing them remains open.
 - [ ] Verify interactions in browser, responsive layouts, and offline build before calling this stage fully tested.
 - [x] Updated README and detailed Visual Editor roadmap to reflect this implementation.
+
+
+## Visual Editor properties and settings roadmap — 20 November 2026
+- [x] Added a dedicated detailed map for Inspector properties and every nested control: `maps/VISUAL-PROPERTIES-ROADMAP.md`.
+- [x] Covered Color, Border, Size, Shadow, Spacing/Box Model, Typography, Layout/Flex/Grid, Position, Effects, Transform, Transition/Animation, Content/Element-specific, Responsive/Breakpoints, Presets/Utilities, and CSS integrity.
+- [x] Registered the new map in README and the Visual Editor completion map.
+- [ ] Implement the shared control state contract and then deliver categories in the map's staged sequence; all listed controls are planned, not implemented yet.
