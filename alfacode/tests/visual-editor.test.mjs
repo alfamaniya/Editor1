@@ -17,3 +17,27 @@ test("Visual CSS updates merge declarations into an existing matching rule", () 
   assert.match(editor, /if \(!merged\) unmatchedRules\.push/);
   assert.match(editor, /updates\.forEach/);
 });
+
+const controls = await readFile(new URL("core/visual-editor/property-controls.js", ROOT), "utf8");
+const previewHTML = await readFile(new URL("core/preview/preview.html", ROOT), "utf8");
+
+test("shared inspector controls provide reusable fields and draft lifecycle", () => {
+  assert.match(controls, /function createDraftState\(\)/);
+  assert.match(controls, /begin\(source\)/);
+  assert.match(controls, /commit\(\)/);
+  assert.match(controls, /cancel\(\)/);
+  assert.match(controls, /reset\(properties\)/);
+  assert.match(controls, /function createField/);
+  assert.match(controls, /window\.Editor1PropertyControls/);
+});
+
+test("Visual Editor uses shared controls and category reset action", () => {
+  assert.match(visual, /const shared=window\.Editor1PropertyControls/);
+  assert.match(visual, /drafts\.begin\(state\.draft\)/);
+  assert.match(visual, /drafts\.cancel\(\)/);
+  assert.match(visual, /drafts\.commit\(\)/);
+  assert.match(visual, /function resetCategory\(cat\)/);
+  assert.match(visual, /data-reset/);
+  assert.match(previewHTML, /property-controls\.js/);
+  assert.match(previewHTML, /visual-editor\.js/);
+});
