@@ -113,9 +113,20 @@ python -m http.server 8000
 
 ## نقشه راه تکمیل داده‌های پیشنهاد خودکار
 
-موجودی و مراحل تکمیل سه کاتالوگ HTML، CSS و JavaScript در [نقشه راه تکمیل کاتالوگ HTML، CSS و JavaScript](./maps/catalog-completion.md) ثبت شده است. مراحل HTML-1 تا HTML-10 و CSS-1 تا CSS-12 تکمیل شدند؛ کاتالوگ‌ها اکنون ۱۴۶ رکورد HTML، ۹۲۹ رکورد CSS و ۶۸۹ رکورد JavaScript (مجموع ۱۷۶۴) دارند. هر ۱۲ PR مرحله‌ای CSS و PR اصلاحی #13 پس از موفقیت CI در main ادغام شدند؛ هر ۱۷۹ ویژگی CSS دست‌کم یک مقدار وابسته به خود دارد. JS-1 در [PR #14](https://github.com/alfamaniya/Editor1/pull/14) ادغام شده است. JS-2 در [PR #15](https://github.com/alfamaniya/Editor1/pull/15) ادغام شد؛ JS-3 (متدهای Array)، JS-4 (String/Number)، JS-5 (Object/Date/RegExp)، JS-6 (Math/JSON/Collections)، JS-7 (Promise) و JS-8 (DOM) نیز تکمیل شده‌اند. داده‌های کاتالوگ هنوز به موتور پیشنهاد زمان اجرا متصل نشده‌اند.
+موجودی و مراحل تکمیل سه کاتالوگ HTML، CSS و JavaScript در [نقشه راه تکمیل کاتالوگ HTML، CSS و JavaScript](./maps/catalog-completion.md) ثبت شده است. مراحل HTML-1 تا HTML-10 و CSS-1 تا CSS-12 تکمیل شدند؛ کاتالوگ‌ها اکنون ۱۴۶ رکورد HTML، ۹۲۹ رکورد CSS و ۷۹۰ رکورد JavaScript (مجموع ۱۸۶۵) دارند. هر ۱۲ PR مرحله‌ای CSS و PR اصلاحی #13 پس از موفقیت CI در main ادغام شدند؛ هر ۱۷۹ ویژگی CSS دست‌کم یک مقدار وابسته به خود دارد. JS-1 در [PR #14](https://github.com/alfamaniya/Editor1/pull/14) ادغام شده است. JS-2 در [PR #15](https://github.com/alfamaniya/Editor1/pull/15) ادغام شد؛ JS-3 (متدهای Array)، JS-4 (String/Number)، JS-5 (Object/Date/RegExp)، JS-6 (Math/JSON/Collections)، JS-7 (Promise) و JS-8 (DOM) و JS-9 (Browser API) نیز تکمیل شده‌اند. داده‌های کاتالوگ هنوز به موتور پیشنهاد زمان اجرا متصل نشده‌اند.
 
 
 ## سیاست منابع کاتالوگ
 
 گردآوری و صحت‌سنجی همه رکوردهای HTML، CSS و JavaScript باید بر پایه استانداردهای رسمی WHATWG/W3C/ECMA و مستندات MDN انجام شود. هر مرحله باید ارجاع منابع، وضعیت استاندارد/آزمایشی/منسوخ و نتیجه بررسی معنایی، context و سازگاری را ثبت کند. هیچ رکوردی بدون تأیید مستند وارد JSON نمی‌شود.
+
+
+### گزارش اجرای JavaScript-9
+
+- ۹۵ عضو Browser API و ۶ شناسه سراسری جدید افزوده شدند؛ JavaScript از ۶۸۹ به **۷۹۰ رکورد** رسید، مجموع سه کاتالوگ به **۱۸۶۵ رکورد** افزایش یافت.
+- پوشش: Window (۳۴ عضو)، Location (۱۲)، History (۸)، Navigator (۱۰)، Storage (۶)، StorageEvent (۵)، Clipboard (۴)، Screen (۶)، Performance (۷) و StorageManager (۳).
+- همه اعضا با `runtimeScope=web-api` و `availability=window-only` ثبت شدند؛ منبع استاندارد بر اساس interface مشخص است. `crypto` به‌عنوان global browser/worker جدا ثبت شد.
+- محدودیت‌های security/permission، popup blocker، same-origin، synchronous storage و clipboard/geolocation access در توضیحات درج شد. API جدیدتر Navigation API در پیشنهادهای عادی نیامد.
+- آزمون اختصاصی JS-9 شامل ۹۵ عضو مورد انتظار، ۶ شناسه، فراداده، نوع member، order مثبت و نکات امنیتی است؛ شمارش مورد انتظار JavaScript در تست‌های کلی به ۷۹۰ تغییر یافت.
+- منابع بررسی: [MDN Window](https://developer.mozilla.org/en-US/docs/Web/API/Window)، [MDN Location](https://developer.mozilla.org/en-US/docs/Web/API/Location)، [MDN History API](https://developer.mozilla.org/en-US/docs/Web/API/History_API)، [MDN Navigator](https://developer.mozilla.org/en-US/docs/Web/API/Navigator)، [MDN Web Storage](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)، [MDN Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API)، [MDN Screen](https://developer.mozilla.org/en-US/docs/Web/API/Screen)، [MDN Performance](https://developer.mozilla.org/en-US/docs/Web/API/Performance)، [WHATWG HTML](https://html.spec.whatwg.org/) و [W3C Performance Timeline](https://www.w3.org/TR/performance-timeline/).
+- این مرحله داده و آزمون را تغییر می‌دهد؛ آزمون دستی مرورگر/IME و اتصال به runtime انجام نشده است.
