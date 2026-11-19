@@ -159,6 +159,14 @@ Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PRO
 
 
 ## Visual Editor full-screen workspace layout refinement — 20 November 2026
+- [ ] Use a single fixed right-side panel instead of left Elements rail plus right Inspector rail.
+- [ ] Combine element browsing/insertion and Inspector settings in the same panel, switching panel modes as appropriate.
+- [ ] Preview/Canvas fills all remaining width to the left of the panel and full available height.
+- [ ] Right panel stays pinned to viewport; panel content and Preview scroll independently; document scroll is disabled while Visual mode is active.
+- [ ] Integrate toolbar into full-screen Visual workspace and restore normal Editor safely on exit.
+- [ ] Responsive narrow-screen behavior: right panel collapses or overlays when toggled.
+- [ ] Manually verify desktop, tablet, mobile layouts and scroll independence.
+
 - [ ] Clicking the Visual button switches the editor into a dedicated full-screen workspace/overlay, replacing the normal editor workspace while active.
 - [ ] Left Elements rail and right Inspector rail are fixed/pinned, with viewport-height sizing (`100vh`/dynamic viewport equivalent) and stable panel widths; they do not scroll with the Preview.
 - [ ] Preview/Canvas occupies all remaining horizontal space strictly between the two rails and expands/shrinks responsively.
