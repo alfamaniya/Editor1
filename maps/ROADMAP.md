@@ -252,3 +252,13 @@
 - [ ] پس از تست، تصمیم برای بازگردانی فایل پشتیبان یا اصلاح CSS.
 
 **توجه:** CSS داخلی iframeها دست‌نخورده باقی مانده؛ این آزمایش فقط CSS ریشه را حذف می‌کند.
+
+
+## انتقال استایل Header و Clear tabs به CSS ریشه — ۱۹ نوامبر ۲۰۲۶
+- [x] تهیه نسخه پشتیبان `core/header/header-style-backup.css`.
+- [x] تهیه نسخه پشتیبان `core/clear-tabs/clear-tabs-style-backup.css`.
+- [x] انتقال قواعد Header و Clear tabs به `style.css` مرکزی.
+- [x] تبدیل Header و Clear tabs به Light DOM تا استایل ریشه بتواند آن‌ها را کنترل کند.
+- [x] خالی‌کردن فایل‌های `core/header/header.css` و `core/clear-tabs/clear-tabs.css` پس از تهیه نسخه پشتیبان.
+- [x] هماهنگ‌سازی Header و clear-tabs در منطق ساخت نسخه آفلاین با CSS ریشه.
+- [ ] اجرای تست‌های CI و بررسی دستی آنلاین/آفلاین؛ هنوز نتیجه مرورگر پس از این انتقال تأیید نشده.
