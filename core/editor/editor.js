@@ -695,6 +695,16 @@ window.addEventListener("message", event => {
   }
   if (command.type !== "alfacode:toolbar-command") return;
 
+  if (command.action === "clear-tab") {
+    sources[activeLanguage.id] = "";
+    editor.setDocument("");
+    chainSuggestionMode = false;
+    hideSuggestionMenus();
+    renderEditor();
+    view.focus();
+    return;
+  }
+
   if (command.action === "clear-tabs") {
     for (const key of Object.keys(sources)) sources[key] = "";
     editor.setDocument(sources[activeLanguage.id]);
