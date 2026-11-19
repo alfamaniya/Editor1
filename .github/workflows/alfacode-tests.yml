@@ -27,6 +27,7 @@ on:
       - ".github/workflows/alfacode-tests.yml"
   pull_request:
     paths:
+      - "core/visual-editor/**"
       - "alfacode/src/**"
       - "alfacode/data/**"
       - "core/editor/**"
