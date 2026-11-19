@@ -39,7 +39,7 @@ function isInsideLiteralOrComment(source,cursor) {
   return Boolean(quote);
 }
 const INSTANCE_OWNER_BY_TYPE = Object.freeze({
-  Array: "Array.prototype", BigInt: "BigInt.prototype", Boolean: "Boolean.prototype",
+  Array: "Array", BigInt: "BigInt.prototype", Boolean: "Boolean.prototype",
   Date: "Date.prototype", Error: "Error.prototype", Function: "Function.prototype",
   Map: "Map.prototype", Number: "Number.prototype", Object: "Object.prototype",
   Promise: "Promise.prototype", RegExp: "RegExp.prototype", Set: "Set.prototype",
