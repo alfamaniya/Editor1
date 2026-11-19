@@ -96,6 +96,19 @@ test("JavaScript completion infers built-in instance prototype members", async (
   }
 });
 
+test("JavaScript completion follows simple variable aliases when inferring member owners", async () => {
+  const catalog = await records("javascript");
+  const cases = [
+    ["const original = new Date(); const alias = original; alias.to", "toISOString"],
+    ["const original = new Map(); let alias = original; alias.ge", "get"],
+    ['const original = ""; const alias = original; alias.to', "toUpperCase"]
+  ];
+  for (const [source, expected] of cases) {
+    const result = getJavaScriptCompletionSuggestions(source, source.length, { catalog });
+    assert.ok(result?.options.some(option => option.label === expected), source);
+  }
+});
+
 test("JavaScript completion keeps static constructor members separate from instance members", async () => {
   const catalog = await records("javascript");
   const staticResult = getJavaScriptCompletionSuggestions("Date.no", 7, { catalog });
