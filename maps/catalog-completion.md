@@ -11,8 +11,8 @@
 |---|---|---:|
 | HTML | `alfacode/data/completions.html.json` | ۱۴۶ |
 | CSS | `alfacode/data/completions.css.json` | 929 |
-| JavaScript | `alfacode/data/completions.javascript.json` | ۴۱۸ |
-| **مجموع** | سه فایل مستقل | **۱۴۹۳** |
+| JavaScript | `alfacode/data/completions.javascript.json` | ۴۲۷ |
+| **مجموع** | سه فایل مستقل | **۱۵۰۲** |
 
 ## ۱. نقشه راه HTML
 
@@ -185,7 +185,7 @@
 - [x] JS-1 — بازبینی کلمات کلیدی و مقادیر زبانی: پوشش واژه‌های رزروشده، رزروشده آینده، زمینه‌ای و literalهای ثابت؛ تفکیک دقیق کلیدواژه از مقدار و نام سراسری.
 - [x] JS-2 — تکمیل اشیاء و توابع استاندارد سراسری: Number، String، Object، Date، RegExp، Map، Set، Symbol، Error، URL و توابع تبدیل و بررسی؛ متدهای ایستا و نمونه، ویژگی‌ها و APIهای محیطی با وضعیت استاندارد تفکیک شدند.
 - [x] JS-3 — تکمیل متدهای Array: ۳۹ متد نمونه و ۳ ویژگی نمونه شامل پیمایش، جست‌وجو، تبدیل، تغییر آرایه، کپی، مرتب‌سازی و iteratorها اضافه شد؛ متدهای mutating از non-mutating جدا توضیح داده شدند و metadata استاندارد نسخه ثبت شد.
-- [ ] JS-4 — تکمیل متدهای String و Number: متدهای رشته، قالب‌بندی، بررسی و تبدیل عددی.
+- [x] JS-4 — تکمیل String و Number: ۹ عضو شامل ویژگی‌های سازنده، iterator رشته و ویژگی‌های static مربوط به constructorها تکمیل شد؛ مجموعه متدهای String و Number موجود بازبینی و با منابع رسمی تطبیق داده شد.
 - [ ] JS-5 — تکمیل متدهای Object، Date و RegExp: ساخت، بررسی، پیمایش و عملیات متداول.
 - [ ] JS-6 — تکمیل Math، JSON و ساختارهای داده: متدهای جاافتاده و Map/Set/WeakMap/WeakSet.
 - [ ] JS-7 — تکمیل Promise و برنامه‌نویسی ناهمگام: all، allSettled، any، race، resolve، reject، finally و الگوهای async/await.
@@ -297,7 +297,7 @@
 - [x] HTML-1 اجرا شد: ۳۲ تگ جدید افزوده شد؛ موجودی HTML از ۶۰ به ۹۲ رسید.
 - [x] HTML-2 اجرا شد: ۴ تگ تأییدشده افزوده شد؛ موجودی HTML از ۹۲ به ۹۶ رسید.
 - [x] CSS-1 تا CSS-12 تکمیل و هر ۱۲ درخواست Pull Request پس از موفقیت CI به‌ترتیب در `main` ادغام شدند.
-- [x] JavaScript-1 و JavaScript-2 تکمیل داده‌ای شدند؛ JS-3 تا JS-13 باقی هستند.
+- [x] JavaScript-1 تا JavaScript-4 تکمیل داده‌ای شدند؛ JS-5 تا JS-13 باقی هستند.
 - [ ] اعتبارسنجی نهایی انجام نشده است.
 
 
@@ -345,3 +345,13 @@
 - آزمون اختصاصی JS-3 برای پوشش اعضای Array، نوع ویژگی‌ها و تفاوت mutating/non-mutating اضافه شد.
 - منابع بررسی: [MDN Array reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) و [ECMAScript specification](https://262.ecma-international.org/).
 - این مرحله صرفاً کاتالوگ و آزمون داده را تغییر می‌دهد؛ اتصال موتور پیشنهادها به JSONها و آزمون دستی مرورگر انجام نشده است.
+
+
+### گزارش اجرای JavaScript-4
+
+- کاتالوگ JavaScript از ۴۱۸ به **۴۲۷ رکورد** رسید؛ مجموع HTML/CSS/JavaScript اکنون **۱۵۰۲ رکورد** است.
+- ۹ عضو جدید اضافه شدند: `String.prototype.constructor`، `String.prototype.[Symbol.iterator]`، `String.prototype`، ویژگی‌های static `String.length` و `String.name`؛ `Number.prototype.constructor`، `Number.prototype`، `Number.length` و `Number.name`.
+- متدهای String و Number موجود بازبینی شدند؛ متدهای standard instance/static و properties تفکیک شدند.
+- آزمون اختصاصی JS-4 برای پوشش متدها و ویژگی‌های String/Number و نوع memberKind اضافه شد.
+- منابع: [ECMA-262 2026](https://tc39.es/ecma262/2026/) و [MDN String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)، [MDN Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number).
+- این مرحله صرفاً کاتالوگ و آزمون داده را تغییر می‌دهد؛ اتصال به موتور autocomplete و آزمون دستی مرورگر/IME انجام نشده است.
