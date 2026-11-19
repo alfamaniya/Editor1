@@ -20,7 +20,11 @@ import { createJavaScriptSuggestions } from "../javascript-suggestions/javascrip
 import { applySuggestionForMenu } from "../../alfacode/src/input/suggestion-dispatcher.js";
 import { loadCompletionCatalogs } from "../completion-catalog/catalog-loader.js";
 
-const completionCatalogs = await loadCompletionCatalogs();
+let completionCatalogs = { html: { records: [] }, css: { records: [] }, javascript: { records: [] } };
+loadCompletionCatalogs().then(catalogs => {
+  completionCatalogs = catalogs;
+  updateCompletionSuggestions();
+});
 
 const initialSources = {
   html: `<!DOCTYPE html>
