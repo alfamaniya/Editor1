@@ -35,7 +35,7 @@ export const htmlCompletionFixtures = [
   atEnd("inside-comment", "suppressed", "<!-- <di"),
   atEnd("inside-attribute", "suppressed", '<div title="<di'),
   atEnd("script-raw-text", "suppressed", "<script>const sample = '<di"),
-  atEnd("style-raw-text", "suppressed", "<style>.box { content: '<di'),
+  atEnd("style-raw-text", "suppressed", "<style>.box { content: '<di"),
   atEnd("incomplete-open-tag", "body", "<body><div"),
   atEnd("cursor-at-start", "root", "<body>", { cursor: 0 }),
   atEnd("cursor-before-prefix-end", "body", "<body><div>", { cursor: 8 }),
