@@ -69,3 +69,5 @@ python -m http.server 8000
 - [x] حذف اجزای mobile-workspace و mobile-extra-keys از Offline manifest و سورس.
 - [x] حذف منطق JavaScript کلیدهای کمکی موبایل از هماهنگ‌کننده برنامه.
 - [ ] بررسی بصری پس از انتشار: Layout ثابت دوپنله در عرض‌های مختلف و آزمون مجدد مشکل resize.
+
+- [x] پاکسازی گسترده‌تر: Media Queryهای موبایل از اکشن‌های Header، Completion Catalog و Tag Suggestions نیز حذف شدند؛ touch-action: manipulation از اکشن‌های Header برداشته شد.
