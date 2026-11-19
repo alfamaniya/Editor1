@@ -198,3 +198,8 @@ Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PRO
 - [x] Tooltip is pointer-events-none and hides on Visual mode exit / selection cancellation.
 - [x] Supports multiple class names; CSS ellipsis handles long display strings, and the title retains the full label.
 - [ ] Automated tests were added for core tooltip behavior; confirm CI passes and perform manual browser verification. (Automated test does not yet exercise all ID/class combinations.)
+
+### CI verification — 20 November 2026
+- [x] AlfaCode Tests: **116 passed, 0 failed** (Run 44623052830).
+- [x] Offline build and audit completed successfully; generated HTML commit pushed (Run 44623039708).
+- [ ] Manual browser checks for layout, scroll independence, selection and exit/restore remain open.
