@@ -1,73 +1,234 @@
 # Editor1
 
-ویرایشگر وب HTML، CSS و JavaScript با پیش‌نمایش زنده و نسخه مستقل آفلاین.
+ویرایشگر مستقل HTML، CSS و JavaScript با پیش‌نمایش زنده و امکان ساخت فایل تک‌صفحه‌ای آفلاین.
 
-## وضعیت
-- کاتالوگ‌های JSON هر سه زبان به موتورهای پیشنهاد زنده متصل‌اند؛ Legacy در HTML تا تکمیل Regression به‌عنوان سازگاری حفظ شده است.
-- CSS از JSON برای selector، property، value، at-rule، function و unit استفاده می‌کند؛ JavaScript از JSON برای identifier و owner-scoped member بهره می‌برد.
-- JavaScript inference اکنون aliasهای ساده متغیر را دنبال می‌کند؛ inference زنجیره‌ای، بازگشت تابع، class/inheritance و module analysis همچنان توسعه‌نیافته‌اند.
-- تشخیص Context در CSS آکولاد و دونقطه داخل string/comment را نادیده می‌گیرد و Regression test دارد.
-- آزمون Shadow HTML برای ۳۲ Fixture اختلاف برچسب/ترتیب را صفر الزام می‌کند.
-- GitHub Actions Run 44497848391: **۱۰۸ تست موفق، صفر شکست**؛ Shadow: ۳۲ Fixture، صفر اختلاف.
-- Offline Build Run 44497589099 موفق است؛ آزمون واقعی مرورگر و قطع شبکه همچنان لازم است.
-- پنل مدیریت کاتالوگ پیش‌نویس محلی و خروجی JSON می‌سازد؛ انتشار مستقیم GitHub فعال نیست.
-- Layout پنل Editor/Preview با ResizeObserver و minmax برای جلوگیری از بیرون‌زدگی/فضای خالی هنگام resize اصلاح شده است؛ تست‌های Regression افزوده شد.
+## درخت مخزن
 
-## ارسال نسخه آفلاین با ایمیل
-
-اکشن Gmail فایل HTML آفلاین را به سه پیوست باینری شماره‌دار (هرکدام حداکثر ۷۵۰ KiB) تقسیم می‌کند و هر سه را در **یک ایمیل** می‌فرستد. بدنه ایمیل شامل اندازه فایل اصلی و SHA-256 کل فایل است. آزمون‌های تقسیم، تعداد و ترتیب پیوست‌ها و بازسازی پیش از ارسال اجرا می‌شوند؛ اگر فایل به‌جای سه بخش، تعداد کمتر یا بیشتری ایجاد کند، ارسال متوقف می‌شود.
-
-## تأیید عملی آفلاین
-- آزمون دستی کاربر: دریافت سه ایمیل BIN، ذخیره، بازسازی با Notepad و اجرای موفق سایت در Google Chrome بدون اینترنت و بدون نرم‌افزار جانبی. این تأیید بارگذاری است، نه آزمون همه قابلیت‌ها یا checksum بازسازی.
-
-## نقشه راه
-
-تمام اولویت‌ها، کارهای انجام‌شده و باقی‌مانده فقط در [نقشه راه واحد پروژه](./maps/ROADMAP.md) نگهداری می‌شوند.
-## ساختار
-- `core/`: اجزای رابط
-- `alfacode/`: موتور و کاتالوگ
-- `scripts/`: ابزار ساخت
-- `offline/`: خروجی
-
-## اجرا
-از ریشه مخزن اجرا کنید:
-```bash
-python -m http.server 8000
+```text
+Editor1/
+├── .github/workflows/
+│   ├── alfacode-tests.yml
+│   ├── build-offline.yml
+│   └── send-offline-email.yml
+├── README.md
+├── index.html
+├── style.css
+├── script.js
+├── core/
+│   ├── browser-storage/
+│   │   ├── browser-storage.html
+│   │   ├── browser-storage.css
+│   │   └── browser-storage.js
+│   ├── clear-project-cookies/
+│   │   ├── clear-project-cookies.html
+│   │   ├── clear-project-cookies.css
+│   │   └── clear-project-cookies.js
+│   ├── clear-tabs/
+│   │   ├── clear-tabs.html
+│   │   ├── clear-tabs.css
+│   │   └── clear-tabs.js
+│   ├── completion-catalog/
+│   │   ├── catalog-loader.js
+│   │   ├── catalog-manager.js
+│   │   ├── completion-catalog.html
+│   │   ├── completion-catalog.css
+│   │   └── completion-catalog.js
+│   ├── css-suggestions/
+│   │   ├── css-suggestions.html
+│   │   ├── css-suggestions.css
+│   │   └── css-suggestions.js
+│   ├── editor/
+│   │   ├── editor.html
+│   │   ├── editor.css
+│   │   └── editor.js
+│   ├── header/
+│   │   ├── header.html
+│   │   ├── header.css
+│   │   └── header.js
+│   ├── javascript-suggestions/
+│   │   ├── javascript-suggestions.html
+│   │   ├── javascript-suggestions.css
+│   │   └── javascript-suggestions.js
+│   ├── new-page-action/
+│   │   ├── new-page-action.html
+│   │   ├── new-page-action.css
+│   │   └── new-page-action.js
+│   ├── preview/
+│   │   ├── preview.html
+│   │   ├── preview.css
+│   │   └── preview.js
+│   ├── project-reset/
+│   │   ├── project-reset.html
+│   │   ├── project-reset.css
+│   │   └── project-reset.js
+├── alfacode/
+│   ├── README.md
+│   ├── data/
+│   │   ├── completions.html.json
+│   │   ├── completions.css.json
+│   │   └── completions.javascript.json
+│   ├── examples/ (.gitkeep)
+│   ├── src/
+│   │   ├── core/ (document, editor, state, selection, transaction, history)
+│   │   ├── features/ (bracket matching, line numbers, syntax highlighting)
+│   │   ├── input/ (input controller, keyboard, clipboard, suggestions)
+│   │   ├── language/ (language manager, parsers, rules, completion)
+│   │   ├── rendering/ (editor view, line renderer, cursor)
+│   │   ├── themes/ (theme CSS and manager)
+│   │   └── utils/ (utility placeholders)
+│   │   └── [فایل‌های کامل زیر در فهرست شرح فایل‌ها]
+│   ├── tests/
+│   │   ├── alfacode.test.mjs
+│   │   ├── catalog-manager.test.mjs
+│   │   ├── completion-runtime.test.mjs
+│   │   ├── completions-data.test.mjs
+│   │   ├── html-completion-fixtures.mjs
+│   │   ├── html-completion-shadow.test.mjs
+│   │   └── workspace-layout.test.mjs
+├── maps/
+│   └── ROADMAP.md
+├── scripts/
+│   ├── offline-manifest.json
+│   ├── build-offline.mjs
+│   ├── audit-offline-output.mjs
+│   ├── send-offline-email.py
+│   └── test_send_offline_email.py
+└── offline/
+    └── AlfaCode-Offline.html (generated output; very large)
 ```
-سپس `http://localhost:8000` را باز کنید. به‌دلیل JavaScript modules، اجرای مستقیم `file://` مناسب توسعه نیست.
 
-## خروجی آفلاین
-از `scripts/build-offline.mjs` و `scripts/offline-manifest.json` ساخته می‌شود. پس از تغییر سورس، build را مجدداً اجرا کنید؛ خروجی را دستی ویرایش نکنید.
+## شرح فایل‌ها (فهرست کامل)
 
-## آزمون
-نتایج CI و آزمون دستی جدا ثبت شوند؛ Build موفق جایگزین تست مرورگر نیست.
-## رفع ایراد پیشنهاد زنجیره‌ای HTML
-- [x] اصلاح درج تگ در پیشنهاد زنجیره‌ای: هر انتخاب child علامت `<` را خودش درج می‌کند.
-- [x] تست Regression برای درج تگ عادی، child و void و تگ بسته اضافه شد؛ CI: ۱۰۹ تست موفق، صفر شکست (Run 44506283327).
-- [x] Offline Build پس از اصلاح: Run 44506256461 موفق؛ Audit تأیید شد و ۸۰ فایل Runtime بررسی شدند، ۰ منبع خارجی.
+### فایل‌های ریشه
+- `index.html`: پوسته صفحه؛ قرار دادن Header، پنل Editor، پنل Preview، Divider و اتصال اسکریپت‌های اجزا.
+- `style.css`: چیدمان اصلی صفحه، تقسیم فضای Editor/Preview، ابعاد iframeها، Overflow و قواعد عمومی.
+- `script.js`: هماهنگ‌کننده برنامه؛ پیام‌های Editor را دریافت و محتوای HTML/CSS/JS را به Preview منتقل می‌کند و فرمان‌های Header را به Editor می‌فرستد.
+- `README.md`: راهنمای اصلی، درخت مخزن و توضیح فایل‌ها/روش اجرا/ساخت آفلاین/آزمون.
+- `maps/ROADMAP.md`: تنها سند برنامه‌ریزی؛ کارهای انجام‌شده، باقی‌مانده‌ها و معیارهای پذیرش.
 
-## نمونه‌های پیش‌فرض Editor
-- [x] نمونه HTML با ساختار معنایی، متن، لیست، جدول، فرم، عناصر جزئیات، progress/meter و رسانه/تصویر نمونه تعبیه‌شده.
-- [x] نمونه CSS با selectorهای متنوع، pseudo، attribute، flex/grid، animation، responsive media queries و متغیرها.
-- [x] نمونه JavaScript با متغیرها، آرایه/شیء، destructuring، function/arrow، شرط/حلقه، map/filter، DOM، فرم، Date/Intl، timer، Promise، Map/Set و try/catch.
-- [x] تصویر نمونه با SVG تعبیه‌شده و بدون وابستگی به منبع خارجی.
+### اجزای رابط `core/`
+هر جزء HTML/CSS/JS جدا دارد؛ HTML ساختار، CSS ظاهر و JS رفتار را پیاده می‌کند.
+- `browser-storage/browser-storage.html`: نقطه تعریف Web Component ذخیره مرورگر.
+- `browser-storage/browser-storage.css`: استایل جزء ذخیره‌سازی؛ فایل بسیار کوچک فعلی.
+- `browser-storage/browser-storage.js`: ذخیره، بازیابی، زمان‌بندی ذخیره و اعلان وضعیت داده‌های پروژه در مرورگر.
+- `clear-project-cookies/clear-project-cookies.html`: markup دکمه پاک‌سازی داده/کوکی‌های پروژه.
+- `clear-project-cookies/clear-project-cookies.css`: ظاهر دکمه پاک‌سازی داده پروژه.
+- `clear-project-cookies/clear-project-cookies.js`: رفتار و ارسال فرمان پاک‌سازی داده پروژه به Editor.
+- `clear-tabs/clear-tabs.html`: markup دکمه پاک کردن تب‌ها.
+- `clear-tabs/clear-tabs.css`: ظاهر دکمه پاک‌کردن تب‌ها.
+- `clear-tabs/clear-tabs.js`: رفتار دکمه و ارسال فرمان پاک‌کردن تب‌ها.
+- `completion-catalog/catalog-loader.js`: بارگذاری کاتالوگ‌های پیشنهاد؛ پشتیبانی از منابع آنلاین و داده تعبیه‌شده آفلاین.
+- `completion-catalog/catalog-manager.js`: مدیریت/اعتبارسنجی/کار با رکوردهای کاتالوگ و ابزار پیش‌نویس.
+- `completion-catalog/completion-catalog.html`: ساختار پنل مدیریت کاتالوگ.
+- `completion-catalog/completion-catalog.css`: ظاهر پنل کاتالوگ.
+- `completion-catalog/completion-catalog.js`: منطق پنل، ورود و ویرایش داده، جستجو، اعتبارسنجی، پیش‌نویس و خروجی.
+- `css-suggestions/css-suggestions.html`: قالب عنصر پیشنهادهای CSS.
+- `css-suggestions/css-suggestions.css`: استایل پیشنهادهای CSS (در حال حاضر حداقلی).
+- `css-suggestions/css-suggestions.js`: رابط/راه‌انداز پیشنهادهای CSS و اتصال به runtime.
+- `editor/editor.html`: سند iframe ادیتور، تب‌های زبان، میزبان کد، Gutter و Footer.
+- `editor/editor.css`: استایل Editor، تب‌ها، Gutter شماره خطوط، سطح کد، اسکرول و Footer؛ محل قواعد عرض/Overflow داخلی Editor.
+- `editor/editor.js`: اتصال موتور AlfaCode به UI؛ نمونه‌های اولیه، تب زبان، رندر، انتخاب/Cursor، هایلایت، bracket matching، پیشنهادها، ذخیره‌سازی و پیام‌رسانی.
+- `header/header.html`: ساختار برند و محل slot دکمه‌های هدر.
+- `header/header.css`: ظاهر و چیدمان Header و اکشن‌های آن، شامل رفتار Overflow افقی.
+- `header/header.js`: تعریف Web Component هدر و رویدادهای اکشن.
+- `javascript-suggestions/javascript-suggestions.html`: قالب عنصر پیشنهادهای JavaScript.
+- `javascript-suggestions/javascript-suggestions.css`: استایل حداقلی پیشنهادهای JavaScript.
+- `javascript-suggestions/javascript-suggestions.js`: رابط/راه‌انداز پیشنهادهای JavaScript.
+- `new-page-action/new-page-action.html`: markup دکمه New Page.
+- `new-page-action/new-page-action.css`: ظاهر دکمه New Page.
+- `new-page-action/new-page-action.js`: رفتار ساخت/درخواست صفحه یا پروژه تازه.
+- `preview/preview.html`: سند Preview و iframe نمایش خروجی.
+- `preview/preview.css`: قواعد اندازه Preview و iframe خروجی.
+- `preview/preview.js`: دریافت پیام‌های render و اعمال HTML/CSS/JavaScript در Preview.
+- `project-reset/project-reset.html`: markup دکمه Reset پروژه.
+- `project-reset/project-reset.css`: ظاهر دکمه Reset.
+- `project-reset/project-reset.js`: رفتار reset و ارسال فرمان به Editor.
+- `workspace-divider/workspace-divider.html`: markup تقسیم‌کننده قابل کشیدن.
+- `workspace-divider/workspace-divider.css`: عرض، ظاهر، cursor و handle تقسیم‌کننده.
+- `workspace-divider/workspace-divider.js`: drag/keyboard interaction و تغییر نسبت عرض Editor و Preview.
 
-### نمونه پیش‌فرض جدید (در حال تأیید CI)
-نمونه‌های آغازین هر تب گسترش یافته‌اند: HTML شامل تگ‌های معنایی، متن، لیست، جدول، فرم و عناصر تعاملی/رسانه‌ای؛ CSS شامل Selectorهای متنوع، pseudo، attribute، Flex/Grid، Media Query و reduced-motion؛ JavaScript شامل متغیرها، توابع، شرط/حلقه، مجموعه‌ها، DOM/فرم، Date/Intl، Timer، Promise و Async/Await. تصویر نمونه به SVG inline تغییر داده شده تا وابستگی اینترنتی نداشته باشد. **CI پس از تغییر: ۱۰۹ تست موفق، ۰ شکست؛ Build آفلاین موفق، ۸۰ فایل Runtime و ۰ منبع خارجی (Run 44507418383/18489).**
+### موتور AlfaCode `alfacode/src/`
+#### Core
+- `core/document.js`: مدل متن چندخطی و عملیات/موقعیت‌های متنی.
+- `core/editor-state.js`: state و موقعیت انتخاب Editor.
+- `core/editor.js`: API مرکزی Editor و هماهنگی document، selection، transaction و history.
+- `core/history.js`: تاریخچه تغییرات Undo/Redo.
+- `core/selection.js`: نگهداری و محاسبه بازه انتخاب و Cursor.
+- `core/transaction.js`: عملیات تغییر متن به‌صورت تراکنش.
+#### Features
+- `features/bracket-matching/bracket-matcher.js`: تشخیص جفت براکت/پرانتز و match فعال.
+- `features/line-numbers/line-numbers.js`: تولید DOM شماره خطوط و مشخص کردن خط فعال.
+- `features/syntax-highlighting/highlighter.js`: تبدیل Tokenها به نمایش syntax رنگی.
+#### Input
+- `input/clipboard-handler.js`: عملیات clipboard و متن paste/copy.
+- `input/input-controller.js`: کنترل ورودی کاربر و تبدیل رخدادهای ورودی به عملیات Editor.
+- `input/keyboard-handler.js`: مدیریت کلیدها و رفتارهای ویرایش/حرکت/انتخاب.
+- `input/suggestion-dispatcher.js`: توزیع/اتصال مسیر درخواست پیشنهادها.
+#### Language
+- `language/tokenizer.js`: tokenization عمومی و ابزارهای مشترک زبان.
+- `language/language-manager.js`: ثبت زبان‌ها و انتخاب زبان فعال.
+- `language/parser-manager.js`: مدیریت parserهای زبان.
+- `language/html/html-language.js`: adapter تعریف زبان HTML.
+- `language/html/html-parser.js`: parsing و تشخیص Context در HTML.
+- `language/html/html-rules.js`: قواعد HTML و محدودیت/metadata تگ‌ها.
+- `language/html/html-completion.js`: تولید پیشنهادهای HTML از catalog و context.
+- `language/css/css-language.js`: adapter تعریف زبان CSS.
+- `language/css/css-parser.js`: parsing و تحلیل Context در CSS.
+- `language/css/css-rules.js`: قواعد CSS و داده/metadata ساختاری.
+- `language/css/css-completion.js`: تولید پیشنهادهای CSS در context مناسب.
+- `language/javascript/javascript-language.js`: adapter تعریف زبان JavaScript.
+- `language/javascript/javascript-parser.js`: parsing/تحلیل context JavaScript و inferenceهای پشتیبانی‌شده.
+- `language/javascript/javascript-rules.js`: قواعد و metadata زبان JavaScript.
+- `language/javascript/javascript-completion.js`: تولید پیشنهادهای JavaScript.
+#### Rendering
+- `rendering/editor-view.js`: ساخت و مدیریت نمای DOM و خطوط Editor.
+- `rendering/line-renderer.js`: رندر محتوای یک خط و ساختار آن.
+- `rendering/cursor-renderer.js`: رندر Cursor/نشانگر انتخاب.
+#### Themes and utilities
+- `themes/dark.css`: متغیرها و رنگ‌های Theme تیره.
+- `themes/light.css`: متغیرها و رنگ‌های Theme روشن.
+- `themes/theme-manager.js`: انتخاب و اعمال Theme روی Editor.
+- `utils/dom.js`: جایگاه ابزارهای کمکی DOM؛ فایل خالی/placeholder فعلی.
+- `utils/helpers.js`: جایگاه helperهای عمومی؛ فایل خالی/placeholder فعلی.
 
+### داده‌های پیشنهاد `alfacode/data/`
+- `completions.html.json`: مجموعه رکوردهای پیشنهاد HTML (نام، context، متن درج و metadata).
+- `completions.css.json`: مجموعه پیشنهادهای CSS شامل selector، property، value، at-rule، function و unit.
+- `completions.javascript.json`: مجموعه پیشنهادهای JavaScript شامل identifier و memberهای دسته‌بندی‌شده.
+- `alfacode/examples/.gitkeep`: نگه داشتن پوشه examples در Git؛ پوشه فعلاً نمونه فایل مستقل ندارد.
 
-## اصلاح Responsive Layout — ۱۹ نوامبر ۲۰۲۶
-- [x] ممیزی CSSهای اصلی: شرط pointer-coarse از Layout اصلی، Editor، Header و Mobile workspace حذف شد؛ Layout موبایل اکنون بر اساس عرض viewport (۷۰۰px) فعال می‌شود.
-- [x] اسکرول افقی کد داخل scroll-host ویرایشگر حفظ شد تا محتوای طولانی عرض پنل را تحمیل نکند.
-- [x] Regression tests برای breakpoint و containment اضافه شد.
-- [ ] تست بصری واقعی مرورگر هنگام کوچک/بزرگ کردن پنجره همچنان لازم است.
+### آزمون‌ها `alfacode/tests/`
+- `alfacode.test.mjs`: آزمون‌های پایه هسته، سند، Editor، ورودی و ویژگی‌های موتور.
+- `catalog-manager.test.mjs`: آزمون منطق مدیریت و اعتبارسنجی کاتالوگ.
+- `completion-runtime.test.mjs`: آزمون رفتار runtime پیشنهادها و inference.
+- `completions-data.test.mjs`: آزمون ساختار، شناسه‌ها و یکپارچگی داده‌های completion.
+- `html-completion-fixtures.mjs`: Fixtureهای ثابت برای Context/پیشنهاد HTML.
+- `html-completion-shadow.test.mjs`: مقایسه Shadow/Legacy پیشنهاد HTML با Fixtureها.
+- `workspace-layout.test.mjs`: Regression checks برای قواعد Layout، containment و موارد responsive حذف‌شده.
+- `alfacode/tests/.gitkeep`: فایل نگهدارنده پوشه تست (در صورت نیاز؛ کنار تست‌های موجود).
 
+### ساخت، آفلاین و ارسال ایمیل `scripts/`
+- `offline-manifest.json`: فهرست اجزای فعال، منابع و روابط dependency که Builder برای بسته آفلاین می‌خواند.
+- `build-offline.mjs`: خواندن manifest، جمع‌آوری HTML/CSS/JS و importها، bundle و ساخت HTML مستقل؛ اعتبارسنجی مسیرهای محلی.
+- `audit-offline-output.mjs`: بررسی ساختار فایل مستقل، وجود Editor/Preview/کاتالوگ‌ها و نبود منابع خارجی.
+- `send-offline-email.py`: تقسیم فایل آفلاین به بخش‌های باینری پیوست و ارسال از طریق Gmail با مشخصات/هش‌ها.
+- `test_send_offline_email.py`: آزمون بسته‌بندی، محدودیت اندازه، شماره‌گذاری، hash و بازسازی پیوست‌ها.
+- `offline/AlfaCode-Offline.html`: خروجی تولیدشده Builder؛ فایل توزیع است و نباید دستی ویرایش شود.
 
-## حذف تنظیمات و اجزای ظاهری موبایل — ۱۹ نوامبر ۲۰۲۶
-- [x] حذف Media Queryهای اختصاصی عرض موبایل از Layout اصلی، Editor، Header و New Page.
-- [x] حذف سوییچر موبایل Editor/Preview و کلیدهای کمکی مخصوص موبایل از صفحه اصلی.
-- [x] حذف اجزای mobile-workspace و mobile-extra-keys از Offline manifest و سورس.
-- [x] حذف منطق JavaScript کلیدهای کمکی موبایل از هماهنگ‌کننده برنامه.
-- [ ] بررسی بصری پس از انتشار: Layout ثابت دوپنله در عرض‌های مختلف و آزمون مجدد مشکل resize.
+### GitHub Actions `.github/workflows/`
+- `alfacode-tests.yml`: اجرای بررسی syntax و تست‌های Node برای موتور، کاتالوگ و integration.
+- `build-offline.yml`: build و audit نسخه آفلاین؛ commit/push خروجی تولیدشده در صورت تغییر.
+- `send-offline-email.yml`: اجرای تست بسته‌بندی و ارسال فایل آفلاین از طریق secrets ایمیل، به درخواست دستی.
 
-- [x] پاکسازی گسترده‌تر: Media Queryهای موبایل از اکشن‌های Header، Completion Catalog و Tag Suggestions نیز حذف شدند؛ touch-action: manipulation از اکشن‌های Header برداشته شد.
+### اجرا و ساخت
+- توسعه: `python -m http.server 8000` از ریشه؛ سپس `http://localhost:8000`.
+- ساخت Offline: `node scripts/build-offline.mjs` (نیاز به esbuild؛ workflow نسخه 0.25.12 را نصب می‌کند).
+- Audit: `node scripts/audit-offline-output.mjs`.
+- تست AlfaCode: فرمان Node test که در workflow `alfacode-tests.yml` تعریف شده است.
+- فایل Offline خروجی یک HTML مستقل است؛ بعد از تغییر منابع، Builder باید دوباره اجرا شود.
+
+## نکات و محدودیت‌های فعلی
+- `utils/dom.js` و `utils/helpers.js` خالی هستند و placeholder محسوب می‌شوند.
+- `alfacode/examples/` و `alfacode/tests/.gitkeep` فایل نگهدارنده خالی دارند؛ فایل‌های نمونه واقعی در این پوشه فعلاً وجود ندارند.
+- مستندات، ادعاهای CI را از آزمون واقعی مرورگر/موبایل جدا نگه می‌دارند؛ آزمون دستی روی دستگاه باید جدا ثبت شود.
+- برنامه و اولویت‌های کار فقط در `maps/ROADMAP.md` نگهداری می‌شود.
