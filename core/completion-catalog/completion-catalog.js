@@ -113,7 +113,8 @@ document.querySelector(".language-tabs").addEventListener("click", event => {
 });
 search.addEventListener("input", render);
 
-catalogs = await loadCompletionCatalogs();
+loadCompletionCatalogs().then(loadedCatalogs => {
+catalogs = loadedCatalogs;
 const allRecords = flattenCatalogs();
 rebuildColumns(allRecords);
 const total = Object.values(catalogs).reduce((sum, item) => sum + item.records.length, 0);
@@ -130,3 +131,4 @@ if (errorsBox) {
     : "";
 }
 render();
+});
