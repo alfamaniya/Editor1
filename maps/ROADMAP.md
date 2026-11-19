@@ -373,7 +373,9 @@
 - [x] Created `core/editor-bridge.js` to receive source changes from the editor and relay the three language sources to Preview; forwards reset and clear-all commands.
 - [x] Replaced inline workspace styling with shared root `style.css` rules for the layout and reusable toolbar button style.
 - [x] Preserved the existing AlfaCode engine files under `alfacode/src/` unchanged.
-- [x] Used the existing editor implementation from `backup/core-old/` temporarily instead of rewriting it.
+- [x] Copied existing editor, preview, storage, completion-catalog, and suggestion UI runtime files from `backup/core-old/` to active `core/` paths, preserving archived originals.
+- [x] Corrected iframe URLs to the active `core/editor/editor.html` and `core/preview/preview.html` documents.
+- [x] Added a current-tab-only clear command to the active editor UI script (not to AlfaCode engine files).
 - [ ] Test editing and live preview updates in browser; verify resize stability, mobile behavior, and offline operation.
 - [ ] Migrate editor/preview implementation and runtime dependencies from `backup/core-old/` into active `core/` modules after integration tests.
 - [x] Disable the `clear tab` button visibly until a current-tab-only command is implemented; it is not available in the reused editor script.
