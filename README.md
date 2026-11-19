@@ -2,7 +2,8 @@
 
 **UI language and direction:** English only; left-to-right (`LTR`) throughout. No Persian text is permitted in user-visible interface labels, messages, tooltips, or accessibility text. Source-code comments may be Persian.
 
-**Core folder policy:** Existing `core-old/` is archived as `core-old/`. The new `core-old/` is reserved for JavaScript files for page UI elements and contains only `.gitkeep` for now.
+**Core folder policy:** The previous component directory is preserved in `core-old/`. The new `core/` is reserved for JavaScript files for page UI elements and currently contains only `.gitkeep.
+
 
 
 ویرایشگر مستقل HTML، CSS و JavaScript با پیش‌نمایش زنده و امکان ساخت فایل تک‌صفحه‌ای آفلاین.
@@ -26,9 +27,9 @@ Editor1/
 │   ├── style-backup.css (نسخه پشتیبان قدیمی CSS)
 │   └── script.js (هماهنگ‌کننده قبلی Editor/Preview)
 ├── style.css (استایل عمومی Buttonهای Header و Footer؛ فعلاً فقط ظاهر کلی)\n├── README.md
-├── core-old/ (archived legacy components)
-├── core/ (new empty folder reserved for UI element JavaScript)
-│   ├── browser-storage/ (html, css, js)
+├── core-old/ (legacy components archive)
+├── core/ (new JavaScript-only workspace; currently `.gitkeep`)
+ (html, css, js)
 │   ├── clear-project-cookies/ (html, css, js)
 │   ├── clear-tabs/ (html, css خالی، js، clear-tabs-style-backup.css)
 │   ├── completion-catalog/
