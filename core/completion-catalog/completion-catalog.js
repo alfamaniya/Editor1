@@ -1,23 +1,24 @@
-import { getHTMLCompletionCatalog } from "../../alfacode/src/language/html/html-completion.js";
-import { getCSSCompletionCatalog } from "../../alfacode/src/language/css/css-completion.js";
-import { getJavaScriptCompletionCatalog } from "../../alfacode/src/language/javascript/javascript-completion.js";
+import { loadCompletionCatalogs } from "./catalog-loader.js";
 
-const catalog = [
-  ...getHTMLCompletionCatalog().map(item => ({language:"HTML",...item})),
-  ...getCSSCompletionCatalog().map(item => ({language:"CSS",...item})),
-  ...getJavaScriptCompletionCatalog().map(item => ({language:"JavaScript",...item}))
-];
 const rows = document.querySelector("#rows");
 const count = document.querySelector("#count");
 const updated = document.querySelector("#updated");
 const search = document.querySelector("#search");
+let catalogs = {};
 let activeLanguage = "all";
+
+function flattenCatalogs() {
+  return Object.entries(catalogs).flatMap(([language, catalog]) =>
+    catalog.records.map(record => ({ ...record, language: language.toUpperCase() }))
+  );
+}
 
 function render() {
   const query = search.value.trim().toLocaleLowerCase();
-  const filtered = catalog.filter(item => {
+  const all = flattenCatalogs();
+  const filtered = all.filter(item => {
     const languageMatch = activeLanguage === "all" || item.language.toLowerCase() === activeLanguage;
-    const text = [item.category,item.label,item.description,item.language].join(" ").toLocaleLowerCase();
+    const text = [item.category, item.label, item.description, item.language, item.type].join(" ").toLocaleLowerCase();
     return languageMatch && text.includes(query);
   });
   count.textContent = String(filtered.length);
@@ -25,12 +26,14 @@ function render() {
   if (!filtered.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan = 4; td.className = "empty"; td.textContent = "موردی پیدا نشد.";
+    td.colSpan = 4; td.className = "empty";
+    const errors = Object.entries(catalogs).filter(([, data]) => data.error).map(([lang, data]) => lang.toUpperCase() + ": " + data.error);
+    td.textContent = errors.length ? "بارگذاری ناموفق: " + errors.join(" | ") : "موردی پیدا نشد.";
     tr.append(td); rows.append(tr); return;
   }
   for (const item of filtered) {
     const tr = document.createElement("tr");
-    for (const [value,className] of [[item.language,"language"],[item.category,""],[item.label,"token"],[item.description || "—",""]]) {
+    for (const [value, className] of [[item.language,"language"],[item.category || item.type || "—",""],[item.label,"token"],[item.description || item.insertText || item.tagName || "—",""]]) {
       const td = document.createElement("td");
       td.textContent = value; if (className) td.className = className;
       tr.append(td);
@@ -46,5 +49,9 @@ document.querySelector(".language-tabs").addEventListener("click", event => {
   render();
 });
 search.addEventListener("input",render);
-updated.textContent = "منبع: موتورهای تکمیل خودکار";
+
+catalogs = await loadCompletionCatalogs();
+const total = Object.values(catalogs).reduce((sum, item) => sum + item.records.length, 0);
+const failed = Object.entries(catalogs).filter(([, item]) => item.error).map(([language]) => language.toUpperCase());
+updated.textContent = failed.length ? "خطا در: " + failed.join(", ") : "دریافت مستقیم از JSON · " + total + " رکورد";
 render();
