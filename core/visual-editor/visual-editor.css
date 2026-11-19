@@ -42,3 +42,4 @@
 .visual-actions button:last-child{background:#ff6a22;border-color:#ff6a22;color:#fff}
 @media(max-width:650px){.visual-editor-elements{width:142px;left:6px;top:50px;bottom:6px;padding:8px}.visual-editor-tilegrid{grid-template-columns:repeat(2,1fr)}#visual-inspector{width:200px;right:6px;top:50px;bottom:6px;padding:8px}.visual-editor-topbar{top:5px;gap:6px;padding:5px 7px}.visual-editor-selection-status{display:none}}
 @media(max-width:420px){.visual-editor-elements{width:118px}.visual-editor-tile{min-height:42px}#visual-inspector{width:180px}}
+\n/* Shared control reset affordance */\n.visual-actions button[data-reset]{background:transparent;border-color:#444;color:#bfc1c8;font-size:10px;padding:6px 7px}.visual-actions button[data-reset]:hover{border-color:#ff7938;color:#eee}\n
