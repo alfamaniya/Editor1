@@ -380,3 +380,10 @@ Editor1/
 
 ## Visual Editor workspace layout refinement
 - Visual mode is planned to become a dedicated full-screen workspace. The left Elements rail and right Inspector rail will remain fixed to viewport height and position; the Preview/Canvas will occupy the flexible space between them. Rail contents and Preview will scroll independently, while page-level scrolling is disabled during Visual mode. Responsive rail behavior and safe return to the normal editor are included in the implementation/verification checklist. This is a registered design requirement, not yet implemented.
+
+## Visual Editor workspace update — single right-side panel
+
+- Visual mode now has a full-screen workspace state: the Preview expands to the viewport, while the normal header/footer, Editor pane, and divider are hidden.
+- The Visual Editor uses one fixed right-side panel with **Elements** and **Settings** modes instead of separate side rails.
+- Selecting an element from Preview switches the panel to Settings; closing Visual restores the normal workspace.
+- Automated regression checks cover mode markup, CSS panel layout, and the parent/Preview mode message. CI and manual browser verification are pending.
