@@ -175,3 +175,12 @@ Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PRO
 - [ ] On narrow screens, adapt/collapse rails or provide a controlled toggle so Preview remains usable without breaking the fixed-height workspace.
 - [ ] Exit/close Visual mode restores the normal editor layout without losing selection, drafts, or committed CSS.
 - [ ] Verify at desktop, tablet, and narrow viewport sizes; browser/manual verification is still pending.
+
+
+## Hover element identity tooltip — planned
+- [ ] While Visual mode is active, moving the pointer over Preview elements shows a compact floating label beside the cursor identifying the hovered element by ID and/or class.
+- [ ] If both exist, display the ID (#id) and class names (.class); otherwise show whichever is available. For elements without either, use the tag name as fallback.
+- [ ] Keep the label close to the pointer, clamp it within Preview bounds, and update smoothly without flicker.
+- [ ] The label must not intercept pointer events or block element selection/clicking; hide when pointer leaves Preview or Visual mode exits.
+- [ ] Handle multiple/long class names safely (truncate display, preserve full identity for inspection if needed).
+- [ ] Add automated coverage for ID-only, class-only, both, neither, pointer exit, and positioning; manually verify in browser.
