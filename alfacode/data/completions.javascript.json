@@ -6205,13 +6205,13 @@
       "type": "member",
       "category": "متدهای String",
       "label": "String.length",
-      "description": "تعداد آرگومان‌های مورد انتظار سازنده String (۱).",
+      "description": "طول رشته بر حسب واحدهای UTF-16؛ ویژگی نمونه فقط‌خواندنی.",
       "mode": "member",
-      "owner": "String",
+      "owner": "String.prototype",
       "insertText": "length",
       "order": 38,
       "enabled": true,
-      "memberKind": "static-property",
+      "memberKind": "instance-property",
       "standardSource": "ECMA-262 2026"
     },
     {
