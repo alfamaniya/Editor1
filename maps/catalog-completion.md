@@ -11,7 +11,7 @@
 |---|---|---:|
 | HTML | `alfacode/data/completions.html.json` | ۱۴۶ |
 | CSS | `alfacode/data/completions.css.json` | 929 |
-| JavaScript | `alfacode/data/completions.javascript.json` | ۴۵۰ |
+| JavaScript | `alfacode/data/completions.javascript.json` | ۵۲۲ |
 | **مجموع** | سه فایل مستقل | **۱۵۰۲** |
 
 ## ۱. نقشه راه HTML
@@ -187,7 +187,7 @@
 - [x] JS-3 — تکمیل متدهای Array: ۳۹ متد نمونه و ۳ ویژگی نمونه شامل پیمایش، جست‌وجو، تبدیل، تغییر آرایه، کپی، مرتب‌سازی و iteratorها اضافه شد؛ متدهای mutating از non-mutating جدا توضیح داده شدند و metadata استاندارد نسخه ثبت شد.
 - [x] JS-4 — تکمیل String و Number: ۹ عضو شامل ویژگی‌های سازنده، iterator رشته و ویژگی‌های static مربوط به constructorها تکمیل شد؛ مجموعه متدهای String و Number موجود بازبینی و با منابع رسمی تطبیق داده شد.
 - [x] JS-5 — تکمیل متدها و ویژگی‌های سازنده و prototype در Object، Date و RegExp؛ شامل ویژگی‌های سازنده، متدهای نمادین RegExp و تبدیل Date به primitive.
-- [ ] JS-6 — تکمیل Math، JSON و ساختارهای داده: متدهای جاافتاده و Map/Set/WeakMap/WeakSet.
+- [x] JS-6 — تکمیل Math و JSON و پوشش Map/Set/WeakMap/WeakSet؛ شامل متدها، ویژگی‌ها، iteratorها و روش‌های جدید ES2026.
 - [ ] JS-7 — تکمیل Promise و برنامه‌نویسی ناهمگام: all، allSettled، any، race، resolve، reject، finally و الگوهای async/await.
 - [ ] JS-8 — تکمیل DOM: انتخاب عناصر، پیمایش، ساخت/حذف، ویژگی‌ها، کلاس‌ها، dataset، style، رویدادها و فرم‌ها.
 - [ ] JS-9 — تکمیل Browser API: window، location، history، navigator، storage، timers، URL، clipboard و APIهای پرکاربرد؛ با تفکیک محیط مرورگر از JavaScript عمومی.
@@ -297,7 +297,7 @@
 - [x] HTML-1 اجرا شد: ۳۲ تگ جدید افزوده شد؛ موجودی HTML از ۶۰ به ۹۲ رسید.
 - [x] HTML-2 اجرا شد: ۴ تگ تأییدشده افزوده شد؛ موجودی HTML از ۹۲ به ۹۶ رسید.
 - [x] CSS-1 تا CSS-12 تکمیل و هر ۱۲ درخواست Pull Request پس از موفقیت CI به‌ترتیب در `main` ادغام شدند.
-- [x] JavaScript-1 تا JavaScript-5 تکمیل داده‌ای شدند؛ JS-6 تا JS-13 باقی هستند.
+- [x] JavaScript-1 تا JavaScript-6 تکمیل داده‌ای شدند؛ JS-7 تا JS-13 باقی هستند.
 - [ ] اعتبارسنجی نهایی انجام نشده است.
 
 
@@ -367,4 +367,18 @@
 - موارد deprecated و legacy مانند accessorهای __proto__ و متدهای قدیمی Object.__defineGetter__ / __lookupGetter__ در پیشنهادهای عادی این مرحله افزوده نشدند.
 - آزمون اختصاصی JS-5 برای ۲۳ عضو و memberKind افزوده شد؛ شمارنده‌های تست JavaScript و مجموع کاتالوگ نیز به‌روزرسانی شدند.
 - منابع رسمی: [ECMA-262 2026 — Object](https://tc39.es/ecma262/2026/multipage/fundamental-objects.html)، [Date](https://tc39.es/ecma262/2026/multipage/numbers-and-dates.html)، [RegExp](https://tc39.es/ecma262/2026/multipage/text-processing.html)، [MDN Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)، [MDN RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
+- این مرحله داده و آزمون را تغییر می‌دهد؛ اتصال کاتالوگ به موتور پیشنهادها و آزمایش دستی مرورگر/IME انجام نشده است.
+
+
+## گزارش اجرای JavaScript-6
+
+- تاریخ اجرا: ۲۰۲۶-۱۱-۱۹
+- کاتالوگ JavaScript از ۴۵۰ به **۵۲۲ رکورد** رسید؛ **۷۲ عضو** برای Math، JSON، Map، Set، WeakMap و WeakSet افزوده شدند. مجموع سه کاتالوگ **۱۵۹۷ رکورد** است.
+- Math: متدهای مثلثاتی، لگاریمی، گردکردن و محاسبات عددی و ثابت‌های ریاضی تکمیل شدند؛ `Math.f16round` (ES2025) و `Math.sumPrecise` (ES2026) نیز ثبت شدند.
+- JSON: `JSON.rawJSON` و `JSON.isRawJSON` به‌عنوان قابلیت‌های ES2026، همراه `Symbol.toStringTag` ثبت شدند.
+- Map/WeakMap: `getOrInsert` و `getOrInsertComputed` (ES2026)، ویژگی‌های سازنده و `Symbol.toStringTag` تکمیل شدند.
+- Map/Set: `Symbol.iterator`، `Symbol.species` و ویژگی‌های سازنده تکمیل شدند. متدهای Set جدید ES2025 از قبل در کاتالوگ بودند و تکرار نشدند.
+- WeakSet: متدهای add/delete/has، ویژگی‌های سازنده و `Symbol.toStringTag` اضافه شدند.
+- آزمون اختصاصی JS-6 برای ۷۲ عضو و نسخه استاندارد هر قابلیت افزوده شد؛ شمارنده‌های تست JavaScript و مجموع سه کاتالوگ به‌روزرسانی شدند.
+- منابع رسمی: [ECMA-262 2026 — Numbers and Dates / Math](https://tc39.es/ecma262/2026/multipage/numbers-and-dates.html)، [Keyed Collections](https://tc39.es/ecma262/2026/multipage/keyed-collections.html)، [Structured Data / JSON](https://tc39.es/ecma262/2026/multipage/structured-data.html)، [MDN Math](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math)، [MDN JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON)، [MDN Keyed Collections](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Keyed_collections).
 - این مرحله داده و آزمون را تغییر می‌دهد؛ اتصال کاتالوگ به موتور پیشنهادها و آزمایش دستی مرورگر/IME انجام نشده است.
