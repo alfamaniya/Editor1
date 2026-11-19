@@ -391,3 +391,12 @@
 - [x] All actions render, schedule storage, and publish source updates; Preview receives the updated sources.
 - [x] Hide all completion/suggestion menus after Clear All Tabs and Reset Project (not just the HTML menu).
 - [ ] Manual browser test: verify confirm/cancel, each button action, persistence after reload, and Preview update.
+
+
+## Restore and connect Code Catalog button — 19 November 2026
+- [x] Rename the root toolbar placeholder `json` to `Code Catalog` and add ID `codeCatalog`.
+- [x] Restore active `core/new-page-action/new-page-action.html`, `new-page-action.css`, and `new-page-action.js` from archived legacy versions, updating button label and accessible text.
+- [x] Connect the native root button to open `core/completion-catalog/completion-catalog.html` in a new tab; retain legacy Web Component behavior for compatibility.
+- [x] Add the root toolbar action to the offline build bootstrap using the embedded catalog page.
+- [x] Correct the offline manifest shell coordinator path from `script.js` to `core/editor-bridge.js`.
+- [ ] Run offline build and audit, then test the catalog button in browser (online and offline) and verify catalog search/filter/sort/draft controls.
