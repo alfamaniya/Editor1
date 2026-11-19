@@ -314,3 +314,5 @@ Editor1/
 
 - `core/extra-key-action/extra-key-action.js`: connects the footer symbol buttons to the AlfaCode editor using the `alfacode:extra-key-command` message. Buttons preserve the editor's insertion and cursor behavior by reusing the existing `applyExtraKey` handler.
 - The footer provides quick access to parentheses, braces, brackets, angle signs, quotes, and common punctuation. The helper module is included in the offline build manifest.
+
+- Offline builder: `scripts/build-offline.mjs` embeds the Helper Keys module into the standalone shell (rather than leaving an external script reference).
