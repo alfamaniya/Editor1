@@ -48,47 +48,7 @@ html, body { width: 100%; height: 100%; min-height: 0; margin: 0; overflow: hidd
 .browser-storage-status[data-state="saving"] { color: #e6bd72; }
 .browser-storage-status[data-state="error"] { color: #ef8989; }
 
-@media (max-width: 700px) {
-  .editor-tabs {
-    flex: 0 0 8%;
-    border-bottom-width: 0.08em;
-    gap: 1%;
-    padding-inline: 1.5%;
-    -webkit-overflow-scrolling: touch;
-  }
-  .editor-tab {
-    min-width: 18%;
-    border-bottom-width: 0.12em;
-    min-height: 100%;
-    padding-inline: 2%;
-    font-size: 85%;
-    touch-action: manipulation;
-  }
-  .editor-host {
-    overflow: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x pan-y;
-  }
-  .alfacode-gutter-host { flex: 0 0 9%; min-width: 9%; }
-  .alfacode-line-numbers { padding: 4% 2% 4% 0; }
-  .editor-host .alfacode-editor-view {
-    padding: 4% !important;
-    font-size: 100% !important;
-    line-height: 1.6 !important;
-  }
-  .editor-host .alfacode-line,
-  .editor-host .alfacode-line-content,
-  .alfacode-line-number { height: 1.6em; min-height: 1.6em; line-height: 1.6; }
-  .editor-footer {
-    flex: 0 0 5%;
-    border-top-width: 0.08em;
-    gap: 1%;
-    padding-inline: 1.5%;
-  }
-  .editor-status,
-  .browser-storage-status { font-size: 72%; }
-}
+
 
 /* The popup is positioned against the editor iframe viewport. */
 .editor-host { position: relative; }
