@@ -111,10 +111,13 @@ test("completion engines stay responsive on representative catalog-backed inputs
   const [html, css, javascript] = await Promise.all([
     records("html"), records("css"), records("javascript")
   ]);
+  const htmlSource = "<html><body><di";
+  const cssSource = ".card { display: fl";
+  const jsSource = "const date = new Date(); date.to";
   const cases = [
-    ["HTML", () => getHTMLTagSuggestions("<html><body><di", 15, { catalog: html, limit: 10 })],
-    ["CSS", () => getCSSCompletionSuggestions(".card { display: fl", 20, { catalog: css })],
-    ["JavaScript", () => getJavaScriptCompletionSuggestions("const date = new Date(); date.to", 33, { catalog: javascript })]
+    ["HTML", () => getHTMLTagSuggestions(htmlSource, htmlSource.length, { catalog: html, limit: 10 })],
+    ["CSS", () => getCSSCompletionSuggestions(cssSource, cssSource.length, { catalog: css })],
+    ["JavaScript", () => getJavaScriptCompletionSuggestions(jsSource, jsSource.length, { catalog: javascript })]
   ];
   for (const [name, run] of cases) {
     for (let i = 0; i < 5; i++) run();
