@@ -408,4 +408,5 @@
 - [x] اتصال دکمه‌ها به پیام `alfacode:extra-key-command` و استفاده از handler قدیمی `applyExtraKey` در Editor.
 - [x] جایگزینی دکمه‌های placeholder پایین صفحه با علائم پرکاربرد.
 - [x] افزودن فایل به offline manifest و مستندسازی README.
+- [x] اصلاح اسکریپت Build برای embed کردن ماژول Helper Keys در خروجی مستقل (تغییر منبع ثبت شد).
 - [ ] اجرای Build آفلاین و آزمون کلیک واقعی در مرورگر؛ هنوز تأیید نشده.
