@@ -494,3 +494,11 @@
 - [ ] On narrow screens, adapt/collapse rails or provide a controlled toggle so Preview remains usable without breaking the fixed-height workspace.
 - [ ] Exit/close Visual mode restores the normal editor layout without losing selection, drafts, or committed CSS.
 - [ ] Verify at desktop, tablet, and narrow viewport sizes; browser/manual verification is still pending.
+
+
+## Visual Editor — hover element identity label (planned)
+- [ ] In Visual mode, pointer-hovering Preview elements displays a small label adjacent to the cursor showing the element's ID and/or class.
+- [ ] Show both ID and class when present; use whichever exists otherwise, with tag name as fallback.
+- [ ] Label tracks pointer, stays inside Preview bounds, and does not intercept clicks or selection.
+- [ ] Hide on pointer leave or Visual mode exit; safely handle long/multiple class names.
+- [ ] Add automated coverage and manual browser verification. Detailed checklist is in maps/VISUAL-EDITOR-ROADMAP.md.
