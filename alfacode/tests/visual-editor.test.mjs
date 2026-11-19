@@ -13,7 +13,7 @@ test("body selection creates a valid body selector instead of body child combina
 
 test("Visual CSS updates merge declarations into an existing matching rule", () => {
   assert.match(editor, /function mergeRuleBody\(existingBody, updates\)/);
-  assert.match(editor, /mergedCSS\.replace\(targetRule/);
+  assert.match(editor, /mergedCSS = chunks.join/);
   assert.match(editor, /if \(!merged\) unmatchedRules\.push/);
   assert.match(editor, /updates\.forEach/);
 });
