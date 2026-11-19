@@ -105,7 +105,7 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 929, javascript: 376 };
+  const expected = { html: 146, css: 929, javascript: 418 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
@@ -485,8 +485,8 @@ test("JS-3 covers standard Array instance methods and separates mutators from co
     "Array.prototype.reverse","Array.prototype.shift","Array.prototype.slice","Array.prototype.some",
     "Array.prototype.sort","Array.prototype.splice","Array.prototype.toLocaleString","Array.prototype.toReversed",
     "Array.prototype.toSorted","Array.prototype.toSpliced","Array.prototype.toString","Array.prototype.unshift",
-    "Array.prototype.values","Array.prototype.with","Array.prototype[Symbol.iterator]",
-    "Array.prototype.constructor","Array.prototype.length","Array.prototype[Symbol.unscopables]"
+    "Array.prototype.values","Array.prototype.with","Array.prototype.[Symbol.iterator]",
+    "Array.prototype.constructor","Array.prototype.length","Array.prototype.[Symbol.unscopables]"
   ];
   for (const label of expected) assert.ok(members.has(label),"missing JS-3 member: "+label);
   const mutators = ["copyWithin","fill","pop","push","reverse","shift","sort","splice","unshift"];
