@@ -50,6 +50,14 @@
       window.addEventListener("message",e=>{if(e.data?.type==="alfacode:visual-preview-css"){let st=document.getElementById("editor1-visual-preview-styles");if(!st){st=document.createElement("style");st.id="editor1-visual-preview-styles";document.head.appendChild(st);}st.textContent=e.data.css||"";}if(e.data?.type==="alfacode:visual-pick"){picking=!!e.data.enabled;document.body.style.cursor=picking?"crosshair":"";if(!picking)clear();}});
     })();
         ` + "</" + "script>";}
+  function loadGeneratedCSS(cssText){
+    const start="/* Editor1 Visual Styles - Start */",end="/* Editor1 Visual Styles - End */";
+    const block=String(cssText||"").split(start)[1]?.split(end)[0]||"";
+    const parsed={};
+    const rule=/([^{}]+)\\{([^{}]*)\\}/g;let match;
+    while((match=rule.exec(block))){const selector=match[1].trim(),props={};match[2].split(";").forEach(decl=>{const colon=decl.indexOf(":");if(colon>0){const key=decl.slice(0,colon).trim(),value=decl.slice(colon+1).trim();if(key&&value)props[key]=value;}});if(selector&&Object.keys(props).length)parsed[selector]=props;}
+    state.committed=parsed;
+  }
   preview.addEventListener("load",refreshPreviewStyles);
-  window.Editor1VisualEditor={refreshPreviewStyles,pickerScript};
+  window.Editor1VisualEditor={refreshPreviewStyles,pickerScript,loadGeneratedCSS};
 })();
