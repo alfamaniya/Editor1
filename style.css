@@ -57,3 +57,5 @@ body.dragging { cursor: col-resize; user-select: none; -webkit-user-select: none
   .divider { flex-basis: 10px; }
   #leftPane { flex-basis: 55%; }
 }
+
+.scroll-area .item:disabled { opacity: 0.45; cursor: not-allowed; }
