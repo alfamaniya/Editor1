@@ -356,3 +356,12 @@
 - [ ] آزمون ذخیره/بازیابی، quota، قطع اینترنت، چند تب و اجرای فایل آفلاین.
 
 **دامنه:** موتور ساخته شده ولی فعلاً به رابط Editor وصل نشده است؛ قابلیت‌های Auto-save و ذخیره پروژه فقط API آماده دارند و رفتار یکپارچه واقعی پس از اتصال و آزمون تأیید می‌شود.
+
+
+## Browser data cleanup button — 19 November 2026
+- [x] Added `core/clear-editor-storage.js` as a standalone Header action.
+- [x] Removes `editor1`-prefixed LocalStorage/SessionStorage keys, visible Editor1 cookies, Editor1-named IndexedDB databases, and CacheStorage entries whose names include Editor1.
+- [x] Added confirmation prompt and success/failure feedback.
+- [x] Connected action to `index.html` and renamed button to `clear editor data`.
+- [ ] Manual browser and offline-file testing to confirm cleanup behavior and that unrelated website data remains untouched.
+**Limitations:** Only identifiable Editor1-related storage is targeted. HttpOnly cookies and cookies scoped to alternate paths/domains may not be removable from JavaScript.
