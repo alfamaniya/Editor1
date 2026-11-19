@@ -1,16 +1,22 @@
-const CATALOG_URLS = {
-  html: new URL("../../alfacode/data/completions.html.json", import.meta.url),
-  css: new URL("../../alfacode/data/completions.css.json", import.meta.url),
-  javascript: new URL("../../alfacode/data/completions.javascript.json", import.meta.url)
+const CATALOG_PATHS = {
+  html: "../../alfacode/data/completions.html.json",
+  css: "../../alfacode/data/completions.css.json",
+  javascript: "../../alfacode/data/completions.javascript.json"
 };
 
-export async function loadCompletionCatalogs({ fetcher = fetch } = {}) {
-  const entries = await Promise.all(Object.entries(CATALOG_URLS).map(async ([language, url]) => {
+export async function loadCompletionCatalogs({ fetcher = fetch, baseUrl = globalThis.document?.baseURI ?? "http://localhost/" } = {}) {
+  const embedded = globalThis.__ALFACODE_COMPLETION_CATALOGS__;
+  const entries = await Promise.all(Object.entries(CATALOG_PATHS).map(async ([language, path]) => {
     try {
-      const response = await fetcher(url, { cache: "no-store" });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const payload = await response.json();
-      if (!payload || !Array.isArray(payload.records)) throw new Error("Invalid catalog schema");
+      let payload = embedded?.[language];
+      if (!payload) {
+        const response = await fetcher(new URL(path, baseUrl), { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        payload = await response.json();
+      }
+      if (!payload || payload.schemaVersion !== 1 || !Array.isArray(payload.records)) {
+        throw new Error("Invalid catalog schema");
+      }
       const active = payload.records.filter(record =>
         record && record.enabled !== false && typeof record.label === "string"
       );
