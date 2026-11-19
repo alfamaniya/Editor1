@@ -193,7 +193,7 @@
 - [x] JS-9 — تکمیل Browser API: window، location، history، navigator، storage، timers، URL، clipboard و APIهای پرکاربرد؛ با تفکیک محیط مرورگر از JavaScript عمومی.
 - [x] JS-10 — تکمیل شبکه و داده: fetch، Request، Response، Headers، FormData، Blob و AbortController/AbortSignal؛ APIهای شبکه و داده ثبت شدند.
 - [x] JS-11 — تکمیل ماژول‌ها و کلاس‌ها: ۱۶ snippet شامل import/export، constructor، getter/setter، ارث‌بری، private/static و dynamic import اضافه شدند؛ همه غیرفعال هستند.
-- [ ] JS-12 — بازبینی snippetها و الگوهای چندخطی: فقط مواردی که درج آن‌ها امن و قابل پیش‌بینی است فعال شوند؛ الگوهای نمایشی یا آزمایشی غیرفعال بمانند.
+- [x] JS-12 — بازبینی snippetها و الگوهای چندخطی: ۲۰ snippet جدید برای الگوهای ساختاری/تکراری اضافه شد؛ همه snippetها غیرفعال نگه داشته شدند و توضیحات عمومی اصلاح شد.
 - [ ] JS-13 — ممیزی نهایی پوشش، توضیحات، دسته‌بندی، محیط اجرا، ترتیب و یکتایی شناسه‌ها.
 
 
@@ -408,7 +408,15 @@
 - این مرحله داده و آزمون را تغییر می‌دهد؛ اتصال کاتالوگ به موتور پیشنهادها و آزمون دستی مرورگر/IME انجام نشده است.
 
 
-### گزارش اجرای JavaScript-11
+### گزارش اجرای JavaScript-12
+
+- ۲۰ snippet جدید برای destructuring، spread/rest، optional chaining، nullish/logical assignment، loops، switch، error handling، async، Promise و array transforms اضافه شدند. همه snippetها disabled باقی می‌مانند.
+- JavaScript: 908؛ مجموع: 1983.
+- توضیحات snippetهای قدیمی عمومی‌سازی/اصلاح شد؛ هیچ الگوی multiline به‌طور پیش‌فرض فعال نیست.
+- منابع: [ECMA-262](https://tc39.es/ecma262/)، [MDN JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)، [MDN Control flow](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling).
+- آزمون JS-12 بررسی snippetهای غیرفعال و توضیحات اضافه شد.
+
+## گزارش اجرای JavaScript-11
 
 - 16 snippet مربوط به کلاس‌ها و module syntax اضافه شدند؛ کاتالوگ JavaScript 888 رکورد و مجموع 1963 رکورد.
 - همه snippetها غیرفعال هستند تا درج ناخواسته کد چندخطی رخ ندهد.
