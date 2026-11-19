@@ -42,7 +42,7 @@
     if (event.source !== editorFrame.contentWindow || !event.data) return;
     const data = event.data;
 
-    if (data.type === "alfacode:source-change" && data.sources &&
+    if (data.type === "alfacode:editor-state") return;\n\n    if (data.type === "alfacode:source-change" && data.sources &&
         ["html", "css", "javascript"].every(key => typeof data.sources[key] === "string")) {
       Object.assign(sources, data.sources);
       renderPreview();
