@@ -23,6 +23,7 @@
 
 ### CSS
 - [x] اتصال گروه‌های selector، property، value، at-rule، function و unit به داده JSON.
+- [x] تشخیص مرز declaration در CSS بدون اشتباه گرفتن آکولاد/دونقطه داخل string و comment؛ آزمون‌های Regression اضافه شد.
 - [ ] تکمیل فیلتر Context برای selector/property/value و ترکیب‌های واقعی CSS.
 - [ ] آزمون نمایش، رتبه‌بندی و درج پیشنهادها در سناریوهای واقعی.
 
@@ -129,6 +130,8 @@
 - [x] تست‌های Runtime برای aliasهای Date، Map و String اضافه شد.
 - [x] HTML Shadow: adapter آزمایشی، گزینه‌های Legacy را در فیلتر contexts حفظ می‌کند؛ آزمون دیگر صرفاً وجود آرایه اختلاف را بررسی نمی‌کند و صفر اختلاف برچسب/ترتیب را برای ۳۲ Fixture الزام می‌کند.
 - [x] GitHub Actions: Run 44497589186 موفق؛ ۱۰۷ تست موفق، صفر شکست. گزارش Shadow: ۳۲ Fixture و صفر اختلاف.
+- [x] CSS: تشخیص Context در presence of strings/comments اصلاح شد؛ آزمون Run 44497848391 شامل ۱۰۸ تست موفق، صفر شکست.
+- [x] Offline Build: Run 44497830716 موفق.
 - [x] Offline Build: Run 44497589099 موفق.
 
 **دامنه تأیید:** این نتایج، آزمون‌های خودکار Node/CI و Build آفلاین‌اند. inference پیشرفته، اجرای واقعی مرورگر، قطع شبکه، موبایل، IME، Cursor/Selection و سایر موارد باز این نقشه هنوز تأیید نشده‌اند.
