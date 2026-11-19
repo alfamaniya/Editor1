@@ -693,6 +693,13 @@ window.addEventListener("message", event => {
     applyExtraKey(command.key);
     return;
   }
+  if (command.type === "alfacode:visual-css-update" && typeof command.css === "string") {
+    sources.css = command.css;
+    if (activeLanguage.id === "css") editor.setDocument(sources.css);
+    renderEditor();
+    view.focus();
+    return;
+  }
   if (command.type !== "alfacode:toolbar-command") return;
 
   if (command.action === "clear-tab") {
