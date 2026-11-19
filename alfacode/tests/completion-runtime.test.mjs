@@ -40,6 +40,24 @@ test("live CSS completion uses catalog properties, values, at-rules, functions a
   assert.ok(unit?.options.some(option => option.label === "px"));
 });
 
+test("CSS context detection ignores braces and colons inside strings and comments", async () => {
+  const catalog = await records("css");
+  const propertySource = '.box { content: "}"; dis';
+  const property = getCSSCompletionSuggestions(propertySource, propertySource.length, { catalog });
+  assert.equal(property?.mode, "property");
+  assert.ok(property?.options.some(option => option.label === "display"));
+
+  const valueSource = '.box { content: "{"; color: re';
+  const value = getCSSCompletionSuggestions(valueSource, valueSource.length, { catalog });
+  assert.equal(value?.mode, "value");
+  assert.ok(value?.options.some(option => option.label === "red"));
+
+  const commentSource = ".box { /* } */ dis";
+  const comment = getCSSCompletionSuggestions(commentSource, commentSource.length, { catalog });
+  assert.equal(comment?.mode, "property");
+  assert.ok(comment?.options.some(option => option.label === "display"));
+});
+
 test("live JavaScript completion uses catalog identifiers and owner-scoped members", async () => {
   const catalog = await records("javascript");
   const identifier = getJavaScriptCompletionSuggestions("new Abort", 9, { catalog });
