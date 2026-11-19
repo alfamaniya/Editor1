@@ -105,14 +105,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 929, javascript: 418 };
+  const expected = { html: 146, css: 929, javascript: 427 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 1493);
+  assert.equal(records.length, 1502);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -493,4 +493,41 @@ test("JS-3 covers standard Array instance methods and separates mutators from co
   for (const name of mutators) { const desc = members.get("Array.prototype."+name)?.description; assert.ok(desc.includes("تغیی‌دهنده") || desc.includes("تغییردهنده") || name === "sort",name); }
   for (const name of ["toReversed","toSorted","toSpliced","with"]) assert.ok(members.get("Array.prototype."+name)?.description.includes("بدون تغییر آرایه اصلی"),name);
   for (const name of ["constructor","length","[Symbol.unscopables]"]) assert.equal(members.get("Array.prototype."+name)?.memberKind,"instance-property");
+});
+
+
+test("JS-4 completes String and Number standard constructor and prototype properties", async () => {
+  const { javascript } = await readCatalogFiles();
+  const members = new Map(javascript.records.filter(r => r.type === "member").map(r => [r.label,r]));
+  const stringExpected = [
+    "String.fromCharCode","String.fromCodePoint","String.raw",
+    "String.prototype.constructor","String.prototype.[Symbol.iterator]",
+    "String.prototype.length","String.prototype.at","String.prototype.charAt",
+    "String.prototype.charCodeAt","String.prototype.codePointAt","String.prototype.concat",
+    "String.prototype.endsWith","String.prototype.includes","String.prototype.indexOf",
+    "String.prototype.lastIndexOf","String.prototype.localeCompare","String.prototype.match",
+    "String.prototype.matchAll","String.prototype.normalize","String.prototype.padEnd",
+    "String.prototype.padStart","String.prototype.repeat","String.prototype.replace",
+    "String.prototype.replaceAll","String.prototype.search","String.prototype.slice",
+    "String.prototype.split","String.prototype.startsWith","String.prototype.substring",
+    "String.prototype.toLocaleLowerCase","String.prototype.toLocaleUpperCase",
+    "String.prototype.toLowerCase","String.prototype.toUpperCase","String.prototype.trim",
+    "String.prototype.trimEnd","String.prototype.trimStart","String.prototype.toString",
+    "String.prototype.valueOf","String.prototype.isWellFormed","String.prototype.toWellFormed",
+    "String.prototype"
+  ];
+  for (const label of stringExpected) assert.ok(members.has(label),"missing JS-4 String member: "+label);
+  for (const label of ["Number.isFinite","Number.isInteger","Number.isNaN","Number.isSafeInteger","Number.parseFloat","Number.parseInt",
+    "Number.prototype.constructor","Number.prototype.toExponential","Number.prototype.toFixed","Number.prototype.toLocaleString",
+    "Number.prototype.toPrecision","Number.prototype.toString","Number.prototype.valueOf",
+    "Number.EPSILON","Number.MAX_SAFE_INTEGER","Number.MIN_SAFE_INTEGER","Number.MAX_VALUE","Number.MIN_VALUE",
+    "Number.NaN","Number.POSITIVE_INFINITY","Number.NEGATIVE_INFINITY","Number.prototype"]) {
+    assert.ok(members.has(label),"missing JS-4 Number member: "+label);
+  }
+  assert.equal(members.get("String.prototype.[Symbol.iterator]")?.memberKind,"instance-method");
+  assert.equal(members.get("String.prototype.constructor")?.memberKind,"instance-property");
+  assert.equal(members.get("Number.prototype.constructor")?.memberKind,"instance-property");
+  for (const label of ["String.length","String.name","String.prototype","Number.length","Number.name","Number.prototype"]) {
+    assert.equal(members.get(label)?.memberKind,"static-property",label);
+  }
 });
