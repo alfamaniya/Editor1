@@ -79,7 +79,8 @@
 - **مقایسه خروجی:** mode/context/from/to؛ تعداد گزینه؛ label و ترتیب؛ kind؛ isVoid؛ description؛ closeTo. اختلاف‌ها طبقه‌بندی شوند: مورد قابل قبول (گسترش کاتالوگ)، regression، اختلاف رتبه، اختلاف context/namespace، اختلاف قرارداد UI.
 - **معیار قبولی:** هیچ regression در رفتار legacy و درج/جابه‌جایی Cursor؛ اختلاف‌های پوشش افزوده JSON به‌صورت موردی پذیرفته و مستند شوند؛ تست repeatable با fixture ثابت باشد.
 - **پیشنهاد پیاده‌سازی بعدی:** adapter تستی مستقل با ورودی JSON تزریق‌شده، helper نرمال‌سازی خروجی و snapshotهای fixture؛ تست‌ها بدون network/fetch با داده محلی اجرا شوند. سپس به runtime متصل شود.
-- **وظیفه ۹ — Fixtureهای ثابت HTML (۱۹ نوامبر ۲۰۲۶):** فایل `alfacode/tests/html-completion-fixtures.mjs` ایجاد شد؛ ۳۲ ورودی ثابت برای root/body/head/p/list/dl/table/select/SVG، prefix، closing/chain، void، duplicate، comment/attribute/raw-text و موقعیت Cursor دارد. fixtureها فقط داده‌اند؛ هیچ موتور پیشنهاد را اجرا نمی‌کنند و تستی اضافه/اجرا نشده است.
+- **وظیفه ۹ — Fixtureهای ثابت HTML (۱۹ نوامبر ۲۰۲۶):** فایل `alfacode/tests/html-completion-fixtures.mjs` با ۳۲ ورودی ثابت ایجاد شد.
+- **وظیفه ۱۰ — Shadow test (۱۹ نوامبر ۲۰۲۶):** فایل `alfacode/tests/html-completion-shadow.test.mjs` ساخته شد. موتور Legacy برای mode/context/بازه و منطق close/chain مرجع می‌ماند؛ adapter آزمایشی metadata و enabled/namespace/parentTags و rank/order را از JSON می‌خواند. اختلاف نام/ترتیب گزینه‌ها به‌عنوان داده Shadow جمع‌آوری می‌شود و هنوز مجوز تغییر runtime یا پذیرش همه اختلاف‌ها نیست. تست به CI افزوده شد؛ اجرای واقعی CI هنوز در انتظار نتیجه GitHub Actions است.
 
 
 ### ۱.۲ اتصال منبع داده
