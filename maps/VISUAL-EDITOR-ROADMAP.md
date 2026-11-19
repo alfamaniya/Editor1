@@ -177,6 +177,8 @@ Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PRO
 - [ ] Verify at desktop, tablet, and narrow viewport sizes; browser/manual verification is still pending.
 
 
+
+- [x] Fixed the regression test harness to import `node:test` and `node:assert/strict` and load the Visual Editor source; the previous CI failure was a test setup `ReferenceError`, not a workspace flex-pane sizing regression.
 ## Hover element identity tooltip — implementation added (verification pending)
 - [x] Added in `core/visual-editor/visual-editor.js`: while Visual mode selection is active, hovering Preview elements shows a compact floating label beside the cursor with the element ID and/or class.
 - [x] Display ID and classes when both exist; show whichever exists alone, and use tag name if neither is present.
