@@ -502,3 +502,12 @@
 - [x] Label follows the pointer, is clamped inside Preview, and has `pointer-events: none`.
 - [x] Hides when Visual mode exits or selection ends; multiple/long classes are handled with truncation and full title.
 - [ ] Automated coverage added; CI and manual browser verification pending. Detailed checklist is in `maps/VISUAL-EDITOR-ROADMAP.md`.
+
+## Visual Editor single-panel full-screen workspace — 20 November 2026
+
+- [x] Visual mode expands Preview to fill the viewport and hides the regular Header/Footer/Editor pane/divider.
+- [x] One right-side panel replaces the former dual-rail layout; Elements and Settings tabs switch within the same panel.
+- [x] Selecting a Preview element transitions to Settings mode.
+- [x] Exit Visual restores the standard workspace and updates the toolbar state.
+- [x] Regression tests added for panel modes and full-screen communication.
+- [ ] CI result and browser/manual desktop/tablet/mobile verification pending.
