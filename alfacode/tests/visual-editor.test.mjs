@@ -54,3 +54,8 @@ test("Color inspector exposes core color editing tools", () => {
   assert.match(visual, /#RRGGBB/);
   assert.match(visualCSS, /visual-color-swatches/);
 });
+
+test("Color reset clears drafts and rerenders its specialized control panel", () => {
+  assert.match(visual, /if\(cat==="color"\)renderColorControls\(\)/);
+  assert.match(visual, /state\.draft\[prop\]=""\;if\(drafts\)drafts\.set\(prop,""/);
+});
