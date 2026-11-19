@@ -14,6 +14,8 @@
 
 ## Visual Editor
 
+- Dedicated logic module: `core/visual-editor/visual-editor.js`; its panel styles are in `core/visual-editor/visual-editor.css`. Preview rendering is kept in `core/preview/preview.js`.
+
 - دکمه **Visual Settings** در Header، انتخاب عنصر را در Preview فعال می‌کند.
 - پس از انتخاب عنصر، پنل دسته‌بندی تنظیمات (Color، Border، Size، Shadow، Spacing، Typography) نمایش داده می‌شود.
 - کنترل‌ها تغییرات را به CSS Editor ارسال می‌کنند؛ Apply آن‌ها را تأیید و Back به دسته‌ها برمی‌گرداند.
