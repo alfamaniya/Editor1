@@ -127,9 +127,10 @@
 - [ ] تعیین contextهای CSS: selector، property و value
 - [ ] پیاده‌سازی/اتصال فیلتر context مربوط به CSS
 - [x] اتصال contextهای پایه JavaScript بر اساس identifier و owner/member
-- [ ] تکمیل تشخیص نوع متغیر برای پیشنهاد اعضای prototype
+- [x] تشخیص اولیه نوع متغیر برای پیشنهاد اعضای prototype (سازنده‌ها، literalهای رایج و چند API DOM؛ inference پیچیده و TypeScript باقی است)
 - [ ] پیاده‌سازی/اتصال فیلتر context مربوط به JavaScript
 - [ ] آزمون جداگانه هر context با نمونه‌های واقعی
+- [x] افزودن آزمون Runtime برای متدهای prototype و جداسازی متدهای static/instance
 
 ### ۱.۴ درج و کنترل صفحه‌کلید
 - [ ] بررسی نحوه درج متن پیشنهاد فعلی
