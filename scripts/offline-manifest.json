@@ -12,7 +12,8 @@
       ],
       "scripts": [
         "core/editor-bridge.js",
-        "core/extra-key-action/extra-key-action.js"
+        "core/extra-key-action/extra-key-action.js",
+        "core/clear-editor-storage.js"
       ],
       "includes": [
         "header",
