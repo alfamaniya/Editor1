@@ -277,8 +277,8 @@ function inlineEditorDocument(template, styles, bundle, tagSuggestionsTemplate, 
 
 function inlinePreviewDocument(template, stylesheet, script) {
   let html = template;
-  html = html.replace(/\s*<link\b[^>]*href=["'][^"']*preview\.css["'][^>]*>/i, "");
-  html = html.replace(/\s*<script\b[^>]*src=["'][^"']*preview\.js["'][^>]*>\s*<\/script>/i, "");
+  html = html.replace(/\s*<link\b[^>]*href=["'][^"']+\.css["'][^>]*>/gi, "");
+  html = html.replace(/\s*<script\b[^>]*src=["'][^"']+["'][^>]*>\s*<\/script>/gi, "");
   html = html.replace("</head>", "<style>\n" + stylesheet + "\n</style>\n</head>");
   html = injectBeforeBodyEnd(html, "<script>\n" + escapeScript(script) + "\n</script>");
   return html;
