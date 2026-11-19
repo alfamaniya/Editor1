@@ -132,7 +132,7 @@ test("semantic keys are unique and preserve owner-specific values", async () => 
 });
 test("all JavaScript snippets are disabled", async () => {
   const snippets=(await readCatalog()).records.filter(r=>r.language==="javascript"&&r.type==="snippet");
-  assert.equal(snippets.length,8);
+  assert.equal(snippets.length,44;
   assert.ok(snippets.every(r=>r.enabled===false));
 });
 test("CSS values and JavaScript members declare owners", async () => {
