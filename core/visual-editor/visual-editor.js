@@ -1,0 +1,41 @@
+(() => {
+  "use strict";
+  const preview=document.getElementById("preview-frame"); if(!preview)return;
+  const specs={
+    color:[["Background","background-color","color","backgroundColor"],["Text color","color","color","color"],["Opacity","opacity","range","opacity"]],
+    border:[["Color","border-color","color","borderColor"],["Width","border-width","text","borderWidth"],["Style","border-style","select","borderStyle"],["Radius","border-radius","text","borderRadius"]],
+    size:[["Width","width","text","width"],["Height","height","text","height"],["Min width","min-width","text"],["Max width","max-width","text"],["Min height","min-height","text"],["Max height","max-height","text"]],
+    shadow:[["Box shadow","box-shadow","text","boxShadow"]],
+    spacing:[["Padding","padding","text","padding"],["Margin","margin","text","margin"],["Gap","gap","text","gap"]],
+    typography:[["Font size","font-size","text","fontSize"],["Font weight","font-weight","select","fontWeight"],["Line height","line-height","text","lineHeight"],["Letter spacing","letter-spacing","text","letterSpacing"]]
+  };
+  const state={picking:false,selector:"",tag:"",computed:{},committed:{},draft:{}};
+  const panel=document.createElement("aside"); panel.id="visual-inspector"; panel.hidden=true;
+  panel.innerHTML=`<div class="visual-inspector-head"><strong data-title>Visual Settings</strong><button type="button" data-close aria-label="Close Visual Editor">×</button></div>
+  <div class="visual-category-grid" data-categories><button data-cat="color">Color</button><button data-cat="border">Border</button><button data-cat="size">Size</button><button data-cat="shadow">Shadow</button><button data-cat="spacing">Spacing</button><button data-cat="typography">Typography</button></div>
+  <section data-controls hidden></section><div class="visual-actions" data-actions hidden><button data-back>Back</button><button data-apply>Apply</button></div>`;
+  document.body.appendChild(panel);
+  const title=panel.querySelector("[data-title]"),grid=panel.querySelector("[data-categories]"),controls=panel.querySelector("[data-controls]"),actions=panel.querySelector("[data-actions]");
+  function hex(value){const m=String(value).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);return m?"#"+m.slice(1,4).map(x=>Number(x).toString(16).padStart(2,"0")).join(""):"#ffffff";}
+  function cssFor(map){return Object.entries(map).map(([sel,props])=>{const lines=Object.entries(props).filter(([,v])=>v!==""&&v!=null).map(([k,v])=>k+": "+v+";");return lines.length?sel+" {\n  "+lines.join("\n  ")+"\n}":""}).filter(Boolean).join("\n\n");}
+  function previewCSS(map){preview.contentWindow?.postMessage({type:"alfacode:visual-preview-css",css:cssFor(map)},"*");}
+  function refreshPreviewStyles(){previewCSS(state.committed);}
+  function picker(on){preview.contentWindow?.postMessage({type:"alfacode:visual-pick",enabled:on},"*");}
+  function draftPreview(){previewCSS({...state.committed,[state.selector]:{...(state.committed[state.selector]||{}),...state.draft}});}
+  function showCategories(){grid.hidden=false;controls.hidden=true;actions.hidden=true;title.textContent=state.selector?"Element Settings · "+state.tag:"Select an element";}
+  function valueFor(prop,type,computed){if(Object.prototype.hasOwnProperty.call(state.draft,prop))return state.draft[prop];const val=state.computed[computed]||"";return type==="color"?hex(val):val;}
+  function makeControl(row){
+    const [label,prop,type,computed]=row;const wrap=document.createElement("label");wrap.className="visual-control-row";const caption=document.createElement("span");caption.textContent=label;let input;
+    if(type==="select"){input=document.createElement("select");const choices=prop==="border-style"?["none","solid","dashed","dotted","double"]:["100","200","300","400","500","600","700","800","900"];choices.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;input.appendChild(o);});}
+    else {input=document.createElement("input");input.type=type;if(type==="range"){input.min=0;input.max=1;input.step=.05;}}
+    input.value=valueFor(prop,type,computed);wrap.append(caption,input);
+    if(type==="range"){const output=document.createElement("output");output.textContent=input.value;wrap.appendChild(output);input.addEventListener("input",()=>output.textContent=input.value);}
+    const change=()=>{state.draft[prop]=input.value;draftPreview();};input.addEventListener("input",change);input.addEventListener("change",change);return wrap;
+  }
+  function openCategory(cat){state.draft={...(state.committed[state.selector]||{})};controls.replaceChildren();specs[cat].forEach(row=>controls.appendChild(makeControl(row)));grid.hidden=true;controls.hidden=false;actions.hidden=false;title.textContent=cat[0].toUpperCase()+cat.slice(1);}
+  function sendCSS(){window.parent.postMessage({type:"alfacode:visual-css-update",css:cssFor(state.committed)},"*");}
+  panel.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.matches("[data-close]")){state.picking=false;panel.hidden=true;picker(false);return;}if(b.dataset.cat)openCategory(b.dataset.cat);if(b.matches("[data-back]")){state.draft={...(state.committed[state.selector]||{})};draftPreview();showCategories();}if(b.matches("[data-apply]")){state.committed[state.selector]={...(state.committed[state.selector]||{}),...state.draft};sendCSS();showCategories();}});
+  window.addEventListener("message",e=>{if(e.source!==window.parent||!e.data)return;if(e.data.type==="alfacode:visual-toggle"){state.picking=!state.picking;panel.hidden=!state.picking;if(!state.picking){picker(false);return;}title.textContent="Select an element";grid.hidden=true;controls.hidden=true;actions.hidden=true;picker(true);}});
+  window.addEventListener("message",e=>{if(e.source!==preview.contentWindow||e.data?.type!=="alfacode:visual-selected")return;state.selector=e.data.selector||"";state.tag=e.data.tag||"";state.computed=e.data.computed||{};state.picking=false;panel.hidden=false;picker(false);showCategories();});
+  preview.addEventListener("load",refreshPreviewStyles);window.Editor1VisualEditor={refreshPreviewStyles};
+})();
