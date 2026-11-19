@@ -269,3 +269,8 @@ Editor1/
 - [x] تمام ۹ آیتم Header و ۶ آیتم Footer از `span.item` به `button type="button"` تغییر یافت.
 - [x] بازنشانی استایل پیش‌فرض دکمه‌ها (border، فونت، رنگ و appearance) برای حفظ ظاهر فعلی اضافه شد.
 - [ ] اکشن‌های دکمه‌ها هنوز به JavaScript متصل نشده‌اند؛ این تغییر فقط ساختار معنایی و قابلیت تعامل‌پذیری پایه را اصلاح می‌کند.
+
+
+## Browser data cleanup
+- `core/clear-editor-storage.js` implements the Header action that removes Editor1-associated browser data: LocalStorage and SessionStorage keys prefixed `editor1`, visible Editor1 cookies, IndexedDB databases named for Editor1, and CacheStorage entries with Editor1 in the name. The action asks for confirmation and reports the cleanup result.
+- Cleanup is scoped by Editor1-related naming to avoid deleting unrelated website data. Browser restrictions may prevent JavaScript from deleting HttpOnly cookies or cookies set for other paths/domains.
