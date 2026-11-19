@@ -105,14 +105,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 929, javascript: 427 };
+  const expected = { html: 146, css: 929, javascript: 450 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 1502);
+  assert.equal(records.length, 1525);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -531,4 +531,42 @@ test("JS-4 completes String and Number standard constructor and prototype proper
   for (const label of ["String.name","String.prototype","Number.length","Number.name","Number.prototype"]) {
     assert.equal(members.get(label)?.memberKind,"static-property",label);
   }
+});
+
+test("JS-5 Object, Date and RegExp constructor/prototype coverage", async () => {
+  const records = (await readCatalog()).records.filter(r => r.language === "javascript" && r.type === "member");
+  const byLabel = new Map(records.map(r => [r.label, r]));
+  const expected = {
+    "Object.prototype": "static-property",
+    "Object.length": "static-property",
+    "Object.name": "static-property",
+    "Object.prototype.constructor": "instance-property",
+    "Object.prototype.[Symbol.toStringTag]": "instance-property",
+    "Date.prototype": "static-property",
+    "Date.length": "static-property",
+    "Date.name": "static-property",
+    "Date.prototype.constructor": "instance-property",
+    "Date.prototype.[Symbol.toPrimitive]": "instance-method",
+    "Date.prototype.[Symbol.toStringTag]": "instance-property",
+    "RegExp.prototype": "static-property",
+    "RegExp.length": "static-property",
+    "RegExp.name": "static-property",
+    "RegExp.prototype.constructor": "instance-property",
+    "RegExp.prototype.lastIndex": "instance-property",
+    "RegExp.prototype.toString": "instance-method",
+    "RegExp.prototype.[Symbol.match]": "instance-method",
+    "RegExp.prototype.[Symbol.matchAll]": "instance-method",
+    "RegExp.prototype.[Symbol.replace]": "instance-method",
+    "RegExp.prototype.[Symbol.search]": "instance-method",
+    "RegExp.prototype.[Symbol.split]": "instance-method",
+    "RegExp.prototype.[Symbol.toStringTag]": "instance-property"
+  };
+  for (const [label, memberKind] of Object.entries(expected)) {
+    const record = byLabel.get(label);
+    assert.ok(record, "missing JS-5 member: " + label);
+    assert.equal(record.memberKind, memberKind, label);
+    assert.equal(record.enabled, true, label);
+    assert.equal(record.standardSource, "ECMA-262 2026", label);
+  }
+  assert.equal(Object.keys(expected).length, 23);
 });
