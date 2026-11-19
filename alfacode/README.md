@@ -173,3 +173,14 @@ Workflow متناظر `.github/workflows/alfacode-tests.yml` است. مجموع�
 ## سیاست منابع و صحت‌سنجی کاتالوگ
 
 ورود یا اصلاح هر رکورد در `data/` مشروط به گردآوری از منابع معتبر و ثبت ارجاع است: HTML از WHATWG و MDN، CSS از مشخصات W3C و MDN، JavaScript از ECMA-262 و MDN و Web APIها از مشخصات رسمی مربوط و MDN. هر رکورد از نظر تعریف، نحو، نوع، مقادیر/آرگومان‌ها، context، وضعیت استاندارد یا آزمایشی/منسوخ و سازگاری مرورگر بررسی می‌شود. آزمون JSON فقط صحت ساختاری را می‌سنجد و جای صحت‌سنجی معنایی را نمی‌گیرد. موارد مبهم یا دارای اختلاف مستندات تا تعیین تکلیف وارد پیشنهادهای عادی نمی‌شوند. گزارش منابع و نتیجه بررسی هر مرحله باید همراه تغییرات آن نگهداری شود.
+
+
+### گزارش اجرای JavaScript-9
+
+- ۹۵ عضو Browser API و ۶ شناسه سراسری جدید افزوده شدند؛ JavaScript از ۶۸۹ به **۷۹۰ رکورد** رسید، مجموع سه کاتالوگ به **۱۸۶۵ رکورد** افزایش یافت.
+- پوشش: Window (۳۴ عضو)، Location (۱۲)، History (۸)، Navigator (۱۰)، Storage (۶)، StorageEvent (۵)، Clipboard (۴)، Screen (۶)، Performance (۷) و StorageManager (۳).
+- همه اعضا با `runtimeScope=web-api` و `availability=window-only` ثبت شدند؛ منبع استاندارد بر اساس interface مشخص است. `crypto` به‌عنوان global browser/worker جدا ثبت شد.
+- محدودیت‌های security/permission، popup blocker، same-origin، synchronous storage و clipboard/geolocation access در توضیحات درج شد. API جدیدتر Navigation API در پیشنهادهای عادی نیامد.
+- آزمون اختصاصی JS-9 شامل ۹۵ عضو مورد انتظار، ۶ شناسه، فراداده، نوع member، order مثبت و نکات امنیتی است؛ شمارش مورد انتظار JavaScript در تست‌های کلی به ۷۹۰ تغییر یافت.
+- منابع بررسی: [MDN Window](https://developer.mozilla.org/en-US/docs/Web/API/Window)، [MDN Location](https://developer.mozilla.org/en-US/docs/Web/API/Location)، [MDN History API](https://developer.mozilla.org/en-US/docs/Web/API/History_API)، [MDN Navigator](https://developer.mozilla.org/en-US/docs/Web/API/Navigator)، [MDN Web Storage](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)، [MDN Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API)، [MDN Screen](https://developer.mozilla.org/en-US/docs/Web/API/Screen)، [MDN Performance](https://developer.mozilla.org/en-US/docs/Web/API/Performance)، [WHATWG HTML](https://html.spec.whatwg.org/) و [W3C Performance Timeline](https://www.w3.org/TR/performance-timeline/).
+- این مرحله داده و آزمون را تغییر می‌دهد؛ آزمون دستی مرورگر/IME و اتصال به runtime انجام نشده است.

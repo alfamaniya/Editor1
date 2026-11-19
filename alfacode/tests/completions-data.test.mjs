@@ -105,7 +105,7 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 929, javascript: 689 };
+  const expected = { html: 146, css: 929, javascript: 790 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
@@ -878,4 +878,135 @@ test("JS-8 covers curated DOM and HTML form interface records", async () => {
   assert.match(byLabel.get("Element.prototype.insertAdjacentHTML")?.description || "", /XSS/);
   assert.match(byLabel.get("HTMLFormElement.prototype.submit")?.description || "", /requestSubmit/);
   assert.ok(!members.some(r => r.label === "HTMLElement.anchorElement" && r.enabled), "experimental anchorElement must not be enabled");
+});
+ 
+test("JS-9 adds 95 curated browser API members with correct runtime and owner metadata", async () => {
+  const { javascript } = await readCatalogFiles();
+  const byLabel = new Map(javascript.records.filter(r => r.type === "member").map(r => [r.label, r]));
+  const expectedLabels = [
+  "Window.prototype.self",
+  "Window.prototype.frames",
+  "Window.prototype.length",
+  "Window.prototype.parent",
+  "Window.prototype.top",
+  "Window.prototype.innerWidth",
+  "Window.prototype.innerHeight",
+  "Window.prototype.outerWidth",
+  "Window.prototype.outerHeight",
+  "Window.prototype.devicePixelRatio",
+  "Window.prototype.scrollX",
+  "Window.prototype.scrollY",
+  "Window.prototype.pageXOffset",
+  "Window.prototype.pageYOffset",
+  "Window.prototype.screen",
+  "Window.prototype.performance",
+  "Window.prototype.crypto",
+  "Window.prototype.localStorage",
+  "Window.prototype.sessionStorage",
+  "Window.prototype.history",
+  "Window.prototype.location",
+  "Window.prototype.navigator",
+  "Window.prototype.closed",
+  "Window.prototype.name",
+  "Window.prototype.matchMedia",
+  "Window.prototype.getComputedStyle",
+  "Window.prototype.scrollTo",
+  "Window.prototype.scrollBy",
+  "Window.prototype.postMessage",
+  "Window.prototype.open",
+  "Window.prototype.clearTimeout",
+  "Window.prototype.setInterval",
+  "Window.prototype.clearInterval",
+  "Window.prototype.cancelAnimationFrame",
+  "Location.prototype.href",
+  "Location.prototype.origin",
+  "Location.prototype.protocol",
+  "Location.prototype.host",
+  "Location.prototype.hostname",
+  "Location.prototype.port",
+  "Location.prototype.pathname",
+  "Location.prototype.search",
+  "Location.prototype.hash",
+  "Location.prototype.assign",
+  "Location.prototype.replace",
+  "Location.prototype.reload",
+  "History.prototype.back",
+  "History.prototype.forward",
+  "History.prototype.go",
+  "History.prototype.pushState",
+  "History.prototype.replaceState",
+  "History.prototype.length",
+  "History.prototype.state",
+  "History.prototype.scrollRestoration",
+  "Navigator.prototype.language",
+  "Navigator.prototype.languages",
+  "Navigator.prototype.onLine",
+  "Navigator.prototype.cookieEnabled",
+  "Navigator.prototype.hardwareConcurrency",
+  "Navigator.prototype.maxTouchPoints",
+  "Navigator.prototype.clipboard",
+  "Navigator.prototype.storage",
+  "Navigator.prototype.geolocation",
+  "Navigator.prototype.serviceWorker",
+  "Storage.prototype.key",
+  "Storage.prototype.getItem",
+  "Storage.prototype.setItem",
+  "Storage.prototype.removeItem",
+  "Storage.prototype.clear",
+  "Storage.prototype.length",
+  "StorageEvent.prototype.key",
+  "StorageEvent.prototype.oldValue",
+  "StorageEvent.prototype.newValue",
+  "StorageEvent.prototype.storageArea",
+  "StorageEvent.prototype.url",
+  "Clipboard.prototype.read",
+  "Clipboard.prototype.readText",
+  "Clipboard.prototype.write",
+  "Clipboard.prototype.writeText",
+  "Screen.prototype.width",
+  "Screen.prototype.height",
+  "Screen.prototype.availWidth",
+  "Screen.prototype.availHeight",
+  "Screen.prototype.colorDepth",
+  "Screen.prototype.pixelDepth",
+  "Performance.prototype.now",
+  "Performance.prototype.mark",
+  "Performance.prototype.measure",
+  "Performance.prototype.getEntriesByType",
+  "Performance.prototype.clearMarks",
+  "Performance.prototype.clearMeasures",
+  "Performance.prototype.timeOrigin",
+  "StorageManager.prototype.estimate",
+  "StorageManager.prototype.persist",
+  "StorageManager.prototype.persisted"
+];
+  assert.equal(expectedLabels.length, 95);
+  for (const label of expectedLabels) {
+    const record = byLabel.get(label);
+    assert.ok(record, "missing JS-9 browser API member: " + label);
+    assert.equal(record.enabled, true, label);
+    assert.ok(["instance-method","instance-property"].includes(record.memberKind), label);
+    assert.equal(record.runtimeScope, "web-api", label);
+    assert.equal(record.availability, "window-only", label);
+    assert.ok(["WHATWG HTML","W3C Clipboard API","W3C Performance Timeline","WHATWG Storage"].includes(record.standardSource), label);
+    assert.ok(Number.isInteger(record.order) && record.order > 0, label);
+    assert.match(record.category, /^JS-9:/, label);
+  }
+  for (const [label, source, availability] of [
+    ["location","WHATWG HTML","window-only"],["history","WHATWG HTML","window-only"],
+    ["sessionStorage","WHATWG HTML","window-only"],["screen","WHATWG HTML","window-only"],
+    ["performance","W3C Performance Timeline","window-only"],["crypto","W3C Web Crypto API","browser-and-worker"]
+  ]) {
+    const record = javascript.records.find(r => r.type === "identifier" && r.label === label);
+    assert.ok(record, "missing JS-9 global identifier: " + label);
+    assert.equal(record.runtimeScope, "web-api");
+    assert.equal(record.standardSource, source);
+    assert.equal(record.availability, availability);
+  }
+  assert.match(byLabel.get("Window.prototype.postMessage").description, /origin/);
+  assert.match(byLabel.get("Window.prototype.open").description, /popup blocker/);
+  assert.match(byLabel.get("Navigator.prototype.clipboard").description, /secure context/);
+  assert.match(byLabel.get("Navigator.prototype.geolocation").description, /secure context/);
+  assert.match(byLabel.get("Storage.prototype.setItem").description, /synchronous/);
+  assert.ok(!byLabel.has("Window.prototype.navigation"), "newer Navigation API omitted from default suggestions");
 });
