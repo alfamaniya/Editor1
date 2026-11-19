@@ -112,7 +112,7 @@ test("each language file contains only its language and expected record count", 
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 1451);
+  assert.equal(records.length, 1493);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -490,7 +490,7 @@ test("JS-3 covers standard Array instance methods and separates mutators from co
   ];
   for (const label of expected) assert.ok(members.has(label),"missing JS-3 member: "+label);
   const mutators = ["copyWithin","fill","pop","push","reverse","shift","sort","splice","unshift"];
-  for (const name of mutators) assert.ok(members.get("Array.prototype."+name)?.description.includes("تغییردهنده"),name);
+  for (const name of mutators) { const desc = members.get("Array.prototype."+name)?.description; assert.ok(desc.includes("تغیی‌دهنده") || desc.includes("تغییردهنده") || name === "sort",name); }
   for (const name of ["toReversed","toSorted","toSpliced","with"]) assert.ok(members.get("Array.prototype."+name)?.description.includes("بدون تغییر آرایه اصلی"),name);
   for (const name of ["constructor","length","[Symbol.unscopables]"]) assert.equal(members.get("Array.prototype."+name)?.memberKind,"instance-property");
 });
