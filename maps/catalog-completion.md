@@ -11,7 +11,7 @@
 |---|---|---:|
 | HTML | `alfacode/data/completions.html.json` | ۱۴۶ |
 | CSS | `alfacode/data/completions.css.json` | 929 |
-| JavaScript | `alfacode/data/completions.javascript.json` | ۵۳۴ |
+| JavaScript | `alfacode/data/completions.javascript.json` | 908 |
 | **مجموع** | سه فایل مستقل | **۱۵۰۲** |
 
 ## ۱. نقشه راه HTML
@@ -162,6 +162,20 @@
 - [CSS-11 — PR #11](https://github.com/alfamaniya/Editor1/pull/11)
 - [CSS-12 — PR #12](https://github.com/alfamaniya/Editor1/pull/12)
 
+### موجودی نهایی JavaScript پس از JS-13
+
+| نوع | تعداد |
+|---|---:|
+| Identifier | ۱۱۱ |
+| Member | ۷۵۰ |
+| Snippet (همه غیرفعال) | ۴۴ |
+| Literal | ۳ |
+| **مجموع JavaScript** | **908** |
+
+دسته‌های عمده: built-inهای ECMAScript، DOM/HTML DOM (۱۵۵ عضو)، Browser API مرحله JS-9 (۹۵ عضو)، Network/Data مرحله JS-10 (۸۲ رکورد شامل اعضا و شناسه‌ها)، snippetهای کلاس/ماژول (۱۶) و الگوهای کاربردی (۲۰)؛ snippetهای اولیه ۸.
+
+مجموع HTML/CSS/JavaScript: **۱۹۸۳ رکورد** (HTML: ۱۴۶، CSS: ۹۲۹، JavaScript: 908).
+
 ## ۳. نقشه راه JavaScript
 
 ### موجودی فعلی دسته‌ها
@@ -194,7 +208,7 @@
 - [x] JS-10 — تکمیل شبکه و داده: fetch، Request، Response، Headers، FormData، Blob و AbortController/AbortSignal؛ APIهای شبکه و داده ثبت شدند.
 - [x] JS-11 — تکمیل ماژول‌ها و کلاس‌ها: ۱۶ snippet شامل import/export، constructor، getter/setter، ارث‌بری، private/static و dynamic import اضافه شدند؛ همه غیرفعال هستند.
 - [x] JS-12 — بازبینی snippetها و الگوهای چندخطی: ۲۰ snippet جدید برای الگوهای ساختاری/تکراری اضافه شد؛ همه snippetها غیرفعال نگه داشته شدند و توضیحات عمومی اصلاح شد.
-- [ ] JS-13 — ممیزی نهایی پوشش، توضیحات، دسته‌بندی، محیط اجرا، ترتیب و یکتایی شناسه‌ها.
+- [x] JS-13 — ممیزی نهایی: ۹۰۸ رکورد، ۱۱۱ شناسه، ۷۵۰ عضو، ۴۴ snippet غیرفعال و ۳ literal؛ یکتایی شناسه/عضو، metadata، order و توضیحات بررسی شدند. `Blob.prototype.bytes` نیز به‌عنوان متد نمونه اصلاح شد.
 
 
 ### گزارش اجرای JavaScript-1
@@ -297,7 +311,7 @@
 - [x] HTML-1 اجرا شد: ۳۲ تگ جدید افزوده شد؛ موجودی HTML از ۶۰ به ۹۲ رسید.
 - [x] HTML-2 اجرا شد: ۴ تگ تأییدشده افزوده شد؛ موجودی HTML از ۹۲ به ۹۶ رسید.
 - [x] CSS-1 تا CSS-12 تکمیل و هر ۱۲ درخواست Pull Request پس از موفقیت CI به‌ترتیب در `main` ادغام شدند.
-- [x] JavaScript-1 تا JavaScript-7 تکمیل داده‌ای شدند؛ JS-9 تا JS-13 باقی هستند.
+- [x] JavaScript-1 تا JavaScript-13 تکمیل داده‌ای شدند.
 - [ ] اعتبارسنجی نهایی انجام نشده است.
 
 
@@ -429,6 +443,13 @@
 - APIهای Fetch، Request/Response، Headers، FormData، Blob و AbortController/AbortSignal ثبت شدند. Bodyها stream و در حالت عادی یک‌بارمصرف هستند؛ HTTP status خطا به‌تنهایی fetch را reject نمی‌کند.
 - منابع: [Fetch Standard](https://fetch.spec.whatwg.org/)، [MDN Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)، [Using Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)، [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request)، [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response)، [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers)، [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData)، [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob)، [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController).
 - آزمون JS-10 افزوده شد؛ CI در PR بررسی می‌شود.
+
+## گزارش اجرای JavaScript-13
+
+- ممیزی نهایی کاتالوگ: 908 رکورد؛ ۱۱۱ identifier، ۷۵۰ member، ۴۴ snippet و ۳ literal.
+- ۳۵۸ رکورد Web API دارای metadata محیط اجرا، availability و منبع هستند. همه snippetها disabled باقی مانده‌اند.
+- شناسه‌ها و memberهای معنایی تکراری پیدا نشدند؛ order همه رکوردها عدد صحیح مثبت است. یک نقص طبقه‌بندی در `Blob.prototype.bytes` اصلاح شد.
+- تست اختصاصی JS-13 برای شمارش، یکتایی، memberKind، metadata و snippetها اضافه شد.
 
 ## گزارش اجرای JavaScript-9
 

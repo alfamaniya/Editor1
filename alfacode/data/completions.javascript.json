@@ -13446,10 +13446,11 @@
       "insertText": "bytes",
       "order": 7,
       "enabled": true,
-      "memberKind": "Read as Uint8Array",
+      "memberKind": "instance-method",
       "runtimeScope": "web-api",
       "availability": "browser-and-worker",
-      "standardSource": "W3C File API"
+      "standardSource": "W3C File API",
+      "description": "Read Blob data as Uint8Array; asynchronous, non-mutating"
     },
     {
       "id": "javascript:member:JS10:AbortController_prototype:signal",
