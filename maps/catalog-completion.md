@@ -189,7 +189,7 @@
 - [x] JS-5 — تکمیل متدها و ویژگی‌های سازنده و prototype در Object، Date و RegExp؛ شامل ویژگی‌های سازنده، متدهای نمادین RegExp و تبدیل Date به primitive.
 - [x] JS-6 — تکمیل Math و JSON و پوشش Map/Set/WeakMap/WeakSet؛ شامل متدها، ویژگی‌ها، iteratorها و روش‌های جدید ES2026.
 - [x] JS-7 — تکمیل اعضای Promise و کنترل ناهمگام؛ متدهای static، prototype، withResolvers/try و پوشش کلیدواژه‌های async/await.
-- [ ] JS-8 — تکمیل DOM: انتخاب عناصر، پیمایش، ساخت/حذف، ویژگی‌ها، کلاس‌ها، dataset، style، رویدادها و فرم‌ها.
+- [x] JS-8 — تکمیل DOM: انتخاب عناصر، پیمایش، ساخت/حذف، ویژگی‌ها، کلاس‌ها، dataset، style، رویدادها و فرم‌ها.
 - [ ] JS-9 — تکمیل Browser API: window، location، history، navigator، storage، timers، URL، clipboard و APIهای پرکاربرد؛ با تفکیک محیط مرورگر از JavaScript عمومی.
 - [ ] JS-10 — تکمیل شبکه و داده: fetch، Request، Response، Headers، FormData، Blob و مدیریت خطا.
 - [ ] JS-11 — تکمیل ماژول‌ها، کلاس‌ها و الگوهای کدنویسی: import/export، constructor، getter/setter، ارث‌بری و الگوهای متداول.
@@ -394,3 +394,15 @@
 - آزمون اختصاصی JS-7 برای ۱۲ عضو، نسخه استاندارد و وجود کلیدواژه‌های `async` و `await` اضافه شد.
 - منابع رسمی: [ECMA-262 2026 — Promise Objects](https://tc39.es/ecma262/2026/multipage/control-abstraction-objects.html)، [MDN Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)، [MDN async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)، [MDN await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await).
 - این مرحله داده و آزمون را تغییر می‌دهد؛ اتصال کاتالوگ به موتور پیشنهادها و آزمایش دستی مرورگر/IME انجام نشده است.
+
+
+## گزارش اجرای JavaScript-8
+
+- تاریخ اجرا: ۲۰۲۶-۱۱-۱۹
+- تعداد **155 عضو DOM و HTML DOM** افزوده شد؛ کاتالوگ JavaScript از ۵۳۴ به **689 رکورد** و مجموع سه کاتالوگ از ۱۶۰۹ به **1764 رکورد** رسید.
+- دامنه شامل Node و tree manipulation، ParentNode/ChildNode، EventTarget، Document، Element و selector/attributeها، HTMLElement، DOMTokenList، فرم و کنترل‌های input/textarea/select/button است.
+- همه رکوردهای افزوده با runtimeScope برابر `web-api`، availability برابر `window-only` و منبع مشخص `WHATWG DOM` یا `WHATWG HTML` ثبت شدند؛ اعضای deprecated، legacy و experimental به پیشنهاد عادی وارد نشدند.
+- برای `innerHTML`، `insertAdjacentHTML` و `HTMLFormElement.submit` هشدارهای امنیتی/رفتاری درج شد تا کاربرد ورودی نامطمئن و bypass اعتبارسنجی فرم روشن باشد.
+- آزمون اختصاصی JS-8 برای تمام 155 عضو و فراداده، دسته‌بندی، order مثبت، یکتایی شناسه/label و موارد امنیتی افزوده شد.
+- منابع: [WHATWG DOM Living Standard](https://dom.spec.whatwg.org/)، [WHATWG HTML — DOM interfaces](https://html.spec.whatwg.org/multipage/dom.html)، [MDN DOM overview](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)، [MDN EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget)، [MDN HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)، [MDN HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement).
+- این مرحله داده و آزمون را تغییر می‌دهد؛ اتصال کاتالوگ به موتور پیشنهادها و آزمون دستی مرورگر/IME انجام نشده است.
