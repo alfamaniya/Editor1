@@ -79,3 +79,18 @@
 .visual-gradient-row select,.visual-gradient-row input[type=number]{min-width:0;background:#22252a;color:#eee;border:1px solid #393b40;border-radius:6px;padding:6px;font-size:11px}
 .visual-gradient-row input[type=color]{width:32px;height:30px;padding:2px;background:#222;border:1px solid #393b40;border-radius:6px}
 @media(max-width:520px){.visual-color-row{grid-template-columns:1fr 34px minmax(70px,1fr)}.visual-color-swatches{grid-template-columns:repeat(5,1fr)}}
+
+/* Single right-side Visual Editor panel; mode tabs replace the dual-rail layout. */
+#visual-editor-shell{position:fixed;inset:0;z-index:40;pointer-events:none}
+.visual-editor-topbar{left:12px;top:12px;transform:none;z-index:2}
+.visual-editor-right-panel{position:absolute;top:0;right:0;bottom:0;width:min(340px,38vw);min-width:270px;display:flex;flex-direction:column;overflow:hidden;padding:12px 12px 14px;border-left:1px solid #373940;background:#1d1e21;box-shadow:-8px 0 24px #0003;pointer-events:auto}
+.visual-editor-mode-tabs{display:flex;gap:6px;padding:42px 0 10px;border-bottom:1px solid #34363b}
+.visual-editor-mode-tabs button{flex:1;border:1px solid #393b41;border-radius:7px;padding:8px;background:#292a2e;color:#bfc1c8;font:inherit;cursor:pointer}
+.visual-editor-mode-tabs button.is-active{border-color:#ff6a22;background:#38271e;color:#fff}
+.visual-editor-elements{position:static;display:block;width:auto;flex:1;min-height:0;overflow:auto;padding:10px 2px;border:0;border-radius:0;background:transparent;box-shadow:none;pointer-events:auto}
+#visual-inspector{position:static;display:block;width:auto;flex:1;min-height:0;overflow:auto;padding:10px 2px;border:0;border-radius:0;background:transparent;box-shadow:none;pointer-events:auto}
+#visual-editor-shell[data-mode="elements"] #visual-inspector{display:none}
+#visual-editor-shell[data-mode="settings"] .visual-editor-elements{display:none}
+.visual-editor-topbar button{background:#292a2e}
+.visual-editor-topbar button:hover{border-color:#ff6a22;color:#fff}
+@media(max-width:650px){.visual-editor-right-panel{width:min(320px,86vw);min-width:0;padding:8px}.visual-editor-mode-tabs{padding-top:42px}.visual-editor-topbar{top:8px;left:8px}.visual-editor-selection-status{display:none}}
