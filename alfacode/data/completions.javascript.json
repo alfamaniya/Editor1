@@ -11840,7 +11840,7 @@
       "type": "member",
       "category": "JS-9: Storage",
       "label": "Storage.prototype.setItem",
-      "description": "ثبت/به‌روزرسانی مقدار رشته‌ای؛ ممکن است quota یا security error رخ دهد.",
+      "description": "ثبت/به‌روزرسانی مقدار رشته‌ای به‌صورت synchronous؛ ممکن است quota یا security error رخ دهد.",
       "mode": "member",
       "owner": "Storage.prototype",
       "insertText": "setItem",
