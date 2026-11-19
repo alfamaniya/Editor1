@@ -11,8 +11,8 @@
 |---|---|---:|
 | HTML | `alfacode/data/completions.html.json` | ۱۴۶ |
 | CSS | `alfacode/data/completions.css.json` | 929 |
-| JavaScript | `alfacode/data/completions.javascript.json` | ۱۲۸ |
-| **مجموع** | سه فایل مستقل | **1189** |
+| JavaScript | `alfacode/data/completions.javascript.json` | ۳۷۶ |
+| **مجموع** | سه فایل مستقل | **۱۴۵۱** |
 
 ## ۱. نقشه راه HTML
 
@@ -183,7 +183,7 @@
 
 ### مراحل تکمیل JavaScript
 - [x] JS-1 — بازبینی کلمات کلیدی و مقادیر زبانی: پوشش واژه‌های رزروشده، رزروشده آینده، زمینه‌ای و literalهای ثابت؛ تفکیک دقیق کلیدواژه از مقدار و نام سراسری.
-- [ ] JS-2 — تکمیل اشیاء و توابع استاندارد سراسری: Number، String، Object، Date، RegExp، Map، Set، Symbol، Error، URL و توابع تبدیل و بررسی.
+- [x] JS-2 — تکمیل اشیاء و توابع استاندارد سراسری: Number، String، Object، Date، RegExp، Map، Set، Symbol، Error، URL و توابع تبدیل و بررسی؛ متدهای ایستا و نمونه، ویژگی‌ها و APIهای محیطی با وضعیت استاندارد تفکیک شدند.
 - [ ] JS-3 — تکمیل متدهای Array: متدهای پیمایش، جست‌وجو، تبدیل، تغییر آرایه، کپی و مرتب‌سازی.
 - [ ] JS-4 — تکمیل متدهای String و Number: متدهای رشته، قالب‌بندی، بررسی و تبدیل عددی.
 - [ ] JS-5 — تکمیل متدهای Object، Date و RegExp: ساخت، بررسی، پیمایش و عملیات متداول.
@@ -204,11 +204,28 @@
 - موارد جاافتاده شامل `with`، `enum`، شش واژه رزروشده آینده در strict mode و کلیدواژه‌های زمینه‌ای `as`، `get`، `set`، `meta` و `target` اضافه شدند.
 - `true`، `false` و `null` از دسته کلیدواژه‌ها خارج و با نوع مستقل `literal` ثبت شدند. `this` کلیدواژه باقی ماند؛ `undefined`، `NaN` و `Infinity` literal نیستند و در دامنه نام‌های سراسری بررسی می‌شوند.
 - literalهای عددی، رشته‌ای، template و regular expression به‌صورت نمونه ثابت پیشنهاد نمی‌شوند؛ دامنه مقادیر آن‌ها باز است و باید هنگام تایپ ساخته شوند. آرایه و شیء نیز ساختارهای عبارتی‌اند، نه literal اتمی مستقل برای پیشنهاد ثابت.
-- `with` و واژه‌های رزروشده آینده به‌صورت غیرفعال نگهداری می‌شوند تا در پیشنهادهای عادی ظاهر نشوند. `using` نیز با برچسب `stage-3-proposal` و حالت غیرفعال ثبت شد؛ مخزن رسمی TC39 این پیشنهاد را در مرحله ۳ نشان می‌دهد و هنوز نباید به‌عنوان قابلیت استانداردشده معرفی شود.
+- `with` و واژه‌های رزروشده آینده به‌صورت غیرفعال نگهداری می‌شوند تا در پیشنهادهای عادی ظاهر نشوند. `using` با وضعیت `stage-4-es2027` و حالت غیرفعال نگهداری می‌شود؛ پیشنهاد مدیریت صریح منابع در ۱۲ نوامبر ۲۰۲۶ به مرحله ۴ رسیده، اما جزو نسخه منتشرشده ES2026 نیست.
 - آزمون‌های اختصاصی برای پوشش دسته‌بندی کلیدواژه‌ها، تفکیک literalها و غیرفعال‌بودن موارد آینده اضافه شدند. این مرحله فقط داده و اعتبارسنجی کاتالوگ را تغییر می‌دهد؛ اتصال به موتور زمان اجرا و آزمون دستی مرورگر در دامنه آن نیست.
 - منابع بررسی: [ECMAScript 2026 — Lexical Grammar](https://262.ecma-international.org/index.html#sec-ecmascript-language-lexical-grammar)، [MDN — Lexical grammar](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar)، [MDN — Grammar and types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types)، و [TC39 — Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management).
 
-- PR مرحله JS-1: [#14](https://github.com/alfamaniya/Editor1/pull/14)؛ اجرای [AlfaCode Tests #44394508336](https://github.com/alfamaniya/Editor1/actions/runs/44394508336) با ۶۹ موفق و صفر ناموفق پایان یافت. PR هنوز در شاخه `main` ادغام نشده است.
+- PR مرحله JS-1: [#14](https://github.com/alfamaniya/Editor1/pull/14) در `main` ادغام شد؛ commit ادغام `e9379e9` است. اجرای [AlfaCode Tests #44394508336](https://github.com/alfamaniya/Editor1/actions/runs/44394508336) با ۶۹ موفق و صفر ناموفق پایان یافت.
+
+
+### گزارش اجرای JavaScript-2
+
+- موجودی کاتالوگ JavaScript از ۱۲۸ به **۳۷۶ رکورد** رسید؛ مجموع سه کاتالوگ HTML، CSS و JavaScript اکنون **۱۴۵۱ رکورد** است.
+- تعداد رکوردهای JavaScript: ۹۸ شناسه، ۲۶۷ عضو/ویژگی، ۸ snippet غیرفعال و ۳ literal.
+- ۴۳ شیء/تابع سراسری و اعضای مرتبط تکمیل شدند؛ موارد جدید شامل `BigInt`، `Function`، `globalThis`، توابع تبدیل URI، توابع بررسی عددی و سازنده‌های فرعی Error هستند.
+- اعضای `Number`، `String`، `Object`، `Date`، `RegExp`، `Map`، `Set`، `Symbol`، `Error` و `BigInt` به متدهای ایستا، متدهای نمونه و ویژگی‌ها تفکیک شدند؛ `Boolean.prototype` و `Function.prototype` نیز برای تکمیل APIهای پایه پوشش داده شدند.
+- متدهای `Set` از ES2025، `Object.groupBy` و `Map.groupBy` و متدهای رشته‌ای Unicode از ES2024، و `RegExp.escape` از ES2025 با برچسب نسخه استاندارد ثبت شدند.
+- `Error.isError` در ES2026 استاندارد است، اما به‌دلیل پشتیبانی محدود مرورگرها غیرفعال نگه داشته شد. ویژگی `Error.stack` استاندارد ECMAScript نیست و به‌صورت وابسته به پیاده‌سازی و غیرفعال ثبت شد.
+- `URL` و اعضایش طبق WHATWG URL Standard ثبت شدند، اما با `runtimeScope=web-api` از اشیاء داخلی ECMAScript جدا هستند. `createObjectURL` و `revokeObjectURL` به محیط Window و Dedicated Worker محدود شدند.
+- `Symbol.dispose`، `Symbol.asyncDispose`، `SuppressedError`، `DisposableStack`، `AsyncDisposableStack` و کلیدواژه `using` با وضعیت `stage-4-es2027` و غیرفعال ثبت شدند؛ پیشنهاد Explicit Resource Management در ۱۲ نوامبر ۲۰۲۶ به مرحله ۴ رسیده، اما هنوز در استاندارد منتشرشده ES2026 نیست.
+- توابع قدیمی `escape` و `unescape` با وضعیت deprecated و غیرفعال نگهداری شدند تا در پیشنهادهای عادی ظاهر نشوند.
+- برای رکوردهای member فیلد `memberKind` اضافه شد تا متد/ویژگی ایستا، نمونه‌ای و API میزبان به‌صورت روشن تفکیک شود. ترتیب رکوردها در هر دسته بازشماری شد؛ ممیزی اولیه شناسه و کلید معنایی تکراری، رکورد بدون owner یا دسته‌بندی ناقص نشان نداد.
+- آزمون‌های اختصاصی JS-2 برای پوشش اشیاء و توابع سراسری، اعضای static/prototype، وضعیت نسخه‌های جدید، جداسازی URL و APIهای آینده/منسوخ اضافه شدند. اتصال این داده‌ها به موتور پیشنهاد زمان اجرا و آزمون دستی مرورگر در دامنه این مرحله نیست.
+- منابع: [ECMAScript 2026](https://262.ecma-international.org/)، [MDN Standard built-in objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects)، [MDN Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)، [MDN String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)، [MDN Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)، [MDN Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)، [MDN Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)، [MDN Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)، [MDN RegExp.escape](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/escape)، [MDN Error.isError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/isError)، [WHATWG URL Standard](https://url.spec.whatwg.org/)، [TC39 Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management)، [TC39 finished proposals](https://github.com/tc39/proposals/blob/main/finished-proposals.md) و [ECMAScript 2027 draft](https://tc39.es/ecma262/).
+- PR مرحله JS-2: [#15](https://github.com/alfamaniya/Editor1/pull/15)؛ اجرای [AlfaCode Tests #44397119631](https://github.com/alfamaniya/Editor1/actions/runs/44397119631) با ۷۶ موفق و صفر ناموفق پایان یافت. PR هنوز در `main` ادغام نشده است.
 
 ## ۴. روش گردآوری منابع و صحت‌سنجی (الزامی)
 
@@ -280,7 +297,7 @@
 - [x] HTML-1 اجرا شد: ۳۲ تگ جدید افزوده شد؛ موجودی HTML از ۶۰ به ۹۲ رسید.
 - [x] HTML-2 اجرا شد: ۴ تگ تأییدشده افزوده شد؛ موجودی HTML از ۹۲ به ۹۶ رسید.
 - [x] CSS-1 تا CSS-12 تکمیل و هر ۱۲ درخواست Pull Request پس از موفقیت CI به‌ترتیب در `main` ادغام شدند.
-- [ ] اجرای تکمیل JavaScript آغاز نشده است.
+- [x] JavaScript-1 و JavaScript-2 تکمیل داده‌ای شدند؛ JS-3 تا JS-13 باقی هستند.
 - [ ] اعتبارسنجی نهایی انجام نشده است.
 
 
@@ -315,5 +332,5 @@
 ## وضعیت اجرای HTML
 - [x] HTML-1 تا HTML-10 تکمیل شدند.
 - [x] موجودی HTML: ۱۴۶ رکورد.
-- [ ] CSS و JavaScript هنوز طبق مراحل مستقل نقشه راه تکمیل نشده‌اند.
+- [x] CSS-1 تا CSS-12 تکمیل شدند؛ JS-1 و JS-2 نیز تکمیل داده‌ای شدند.
 - [ ] اتصال کاتالوگ به موتور زمان اجرا خارج از این مجموعه تغییرات است.

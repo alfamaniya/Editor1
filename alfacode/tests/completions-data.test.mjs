@@ -71,6 +71,7 @@ function validateCatalog(catalog) {
       if(!nonEmpty(r.insertText)) add(p+".insertText","must be a non-empty string");
       if(r.mode !== r.type) add(p+".mode","must match type");
       if(r.type === "member" && !nonEmpty(r.owner)) add(p+".owner","required for JavaScript members");
+      if(r.type === "member" && !["static-method","instance-method","static-property","instance-property","host-method"].includes(r.memberKind)) add(p+".memberKind","required valid classification for JavaScript members");
       if(r.type === "snippet" && r.enabled !== false) add(p+".enabled","JavaScript snippets must remain disabled");
       if(r.type === "literal" && !["boolean","null"].includes(r.literalKind)) add(p+".literalKind","must be boolean or null for JavaScript literals");
       if(r.type === "identifier" && r.category === "کلمات کلیدی" && !["reserved","strict-reserved","contextual-reserved","contextual","future-reserved"].includes(r.keywordKind)) add(p+".keywordKind","required valid classification for JavaScript keywords");
@@ -104,14 +105,14 @@ test("each language catalog has a supported and consistent envelope", async () =
 });
 test("each language file contains only its language and expected record count", async () => {
   const catalogs = await readCatalogFiles();
-  const expected = { html: 146, css: 929, javascript: 128 };
+  const expected = { html: 146, css: 929, javascript: 376 };
   for (const [language, catalog] of Object.entries(catalogs)) {
     assert.equal(catalog.records.length, expected[language], language);
     assert.ok(catalog.records.every(record => record.language === language),
       language + " file must not contain records from another language");
   }
   const records = (await readCatalog()).records;
-  assert.equal(records.length, 1203);
+  assert.equal(records.length, 1451);
 });
 test("each language file and the merged catalog satisfy the catalog schema", async () => {
   const catalogs = await readCatalogFiles();
@@ -378,6 +379,94 @@ test("JS-1 keeps future-reserved and next-edition syntax out of ordinary suggest
     assert.equal(byLabel.get(word)?.enabled, false);
   }
   assert.equal(byLabel.get("using")?.keywordKind, "contextual");
-  assert.equal(byLabel.get("using")?.standardStatus, "stage-3-proposal");
+  assert.equal(byLabel.get("using")?.standardStatus, "stage-4-es2027");
   assert.equal(byLabel.get("using")?.enabled, false);
+});
+
+
+test("JS-2 includes standard ECMAScript globals and conversion/checking functions", async () => {
+  const { javascript } = await readCatalogFiles();
+  const globals = new Map(javascript.records.filter(r => r.category === "اشیاء و توابع سراسری").map(r => [r.label,r]));
+  for (const name of ["BigInt","Function","globalThis","Number","String","Object","Date","RegExp","Map","Set","Symbol","Error","AggregateError","RangeError","ReferenceError","SyntaxError","TypeError","URIError","isFinite","isNaN","encodeURI","encodeURIComponent","decodeURI","decodeURIComponent"]) {
+    assert.ok(globals.has(name), "missing JS-2 global: " + name);
+  }
+  assert.equal(globals.get("URL")?.runtimeScope,"web-api","URL must remain distinct from ECMAScript built-ins");
+  assert.equal(globals.get("URL")?.standardSource,"WHATWG URL");
+  for (const name of ["escape","unescape"]) {
+    assert.equal(globals.get(name)?.enabled,false);
+    assert.equal(globals.get(name)?.availability,"deprecated");
+  }
+});
+
+test("JS-2 records static and prototype APIs with explicit member kinds", async () => {
+  const { javascript } = await readCatalogFiles();
+  const members = new Map(javascript.records.filter(r => r.type === "member").map(r => [r.label,r]));
+  const expected = [
+    "Number.isFinite","Number.isSafeInteger","Number.prototype.toFixed",
+    "String.fromCodePoint","String.raw","String.prototype.includes","String.prototype.replaceAll",
+    "String.prototype.isWellFormed","Object.entries","Object.fromEntries","Object.hasOwn",
+    "Object.prototype.hasOwnProperty","Date.now","Date.prototype.toISOString",
+    "RegExp.prototype.exec","RegExp.prototype.test","RegExp.escape",
+    "Map.prototype.get","Map.prototype.set","Map.prototype.size",
+    "Set.prototype.union","Set.prototype.isSubsetOf","Symbol.for","Symbol.iterator",
+    "Error.isError","Error.prototype.toString","BigInt.asUintN","Function.prototype.bind"
+  ];
+  for (const label of expected) assert.ok(members.has(label),"missing JS-2 member: "+label);
+  for (const record of members.values()) {
+    assert.ok(["static-method","instance-method","static-property","instance-property","host-method"].includes(record.memberKind),record.label);
+    assert.ok(record.standardSource,record.label+" must identify its source family");
+  }
+});
+
+test("JS-2 Set composition APIs and their edition metadata are represented", async () => {
+  const { javascript } = await readCatalogFiles();
+  const members = new Map(javascript.records.filter(r => r.type === "member").map(r => [r.label,r]));
+  for (const name of ["difference","intersection","isDisjointFrom","isSubsetOf","isSupersetOf","symmetricDifference","union"]) {
+    assert.equal(members.get("Set.prototype."+name)?.standardStatus,"es2025",name);
+  }
+  assert.equal(members.get("Object.groupBy")?.standardStatus,"es2024");
+  assert.equal(members.get("Map.groupBy")?.standardStatus,"es2024");
+  assert.equal(members.get("RegExp.escape")?.standardStatus,"es2025");
+});
+
+test("JS-2 separates URL Web API records from ECMAScript built-ins", async () => {
+  const { javascript } = await readCatalogFiles();
+  const urlRecords = javascript.records.filter(r => r.label === "URL" || r.label.startsWith("URL.") || r.label.startsWith("URL.prototype."));
+  assert.ok(urlRecords.length >= 15);
+  assert.ok(urlRecords.every(r => r.runtimeScope === "web-api" && r.standardSource === "WHATWG URL"));
+  const objectUrlMethods = new Set(["URL.createObjectURL","URL.revokeObjectURL"]);
+  for (const record of urlRecords) {
+    if (objectUrlMethods.has(record.label)) assert.equal(record.availability,"window-and-dedicated-worker");
+    else assert.equal(record.availability,"browser-and-worker");
+  }
+});
+
+test("JS-2 does not expose deprecated global URI escape helpers by default", async () => {
+  const { javascript } = await readCatalogFiles();
+  const byLabel = new Map(javascript.records.map(r => [r.label,r]));
+  for (const name of ["escape","unescape"]) {
+    assert.equal(byLabel.get(name)?.enabled,false);
+    assert.equal(byLabel.get(name)?.standardStatus,"deprecated");
+  }
+});
+
+
+test("JS-2 keeps ES2027 resource-management APIs out of current default suggestions", async () => {
+  const { javascript } = await readCatalogFiles();
+  const byLabel = new Map(javascript.records.map(record => [record.label,record]));
+  for (const label of ["using","Symbol.dispose","Symbol.asyncDispose","SuppressedError","DisposableStack","AsyncDisposableStack"]) {
+    assert.equal(byLabel.get(label)?.standardStatus,"stage-4-es2027",label);
+    assert.equal(byLabel.get(label)?.enabled,false,label);
+    assert.equal(byLabel.get(label)?.availability,"future-standard",label);
+  }
+});
+
+test("JS-2 marks limited and non-standard Error APIs accurately", async () => {
+  const { javascript } = await readCatalogFiles();
+  const byLabel = new Map(javascript.records.map(record => [record.label,record]));
+  assert.equal(byLabel.get("Error.isError")?.standardStatus,"es2026");
+  assert.equal(byLabel.get("Error.isError")?.enabled,false);
+  assert.equal(byLabel.get("Error.isError")?.availability,"limited-compatibility");
+  assert.equal(byLabel.get("Error.instance.stack")?.standardSource,"implementation-defined");
+  assert.equal(byLabel.get("Error.instance.stack")?.enabled,false);
 });
