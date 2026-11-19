@@ -54,23 +54,22 @@ const INSTANCE_OWNER_BY_TYPE = Object.freeze({
 
 function inferMemberOwner(source, expression) {
   if (GLOBALS.includes(expression) || ["console", "document", "window"].includes(expression)) return expression;
-  const escaped = expression.replace(/[.*+?^\${}()|[\]\\]/g, "\\export function getJavaScriptCompletionSuggestions");
   const declaration = new RegExp(
-    "(?:\\b(?:const|let|var)\\s+" + escaped + "\\s*=|\\b" + escaped + "\\s*=)\\s*([^;\\n]+)", "g"
+    "(?:\\b(?:const|let|var)\\s+" + expression + "\\s*=|\\b" + expression + "\\s*=)\\s*([^;\\n]+)", "g"
   );
   let initializer = null;
   for (const match of source.matchAll(declaration)) initializer = match[1].trim();
   if (!initializer) return null;
-  const constructor = initializer.match(/^new\\s+([A-Za-z_$][\\w$]*)\\s*\\(/);
+  const constructor = initializer.match(/^new\s+([A-Za-z_$][\w$]*)\s*\(/);
   if (constructor) return INSTANCE_OWNER_BY_TYPE[constructor[1]] ?? constructor[1] + ".prototype";
-  if (/^(?:\\[\\s*\\]|Array\\s*\\()/i.test(initializer)) return "Array.prototype";
-  if (/^(?:["'\\x60]|String\\s*\\()/i.test(initializer)) return "String.prototype";
-  if (/^(?:-?\\d+(?:\\.\\d+)?|Number\\s*\\()/i.test(initializer)) return "Number.prototype";
-  if (/^(?:true|false|Boolean\\s*\\()/i.test(initializer)) return "Boolean.prototype";
-  if (/^(?:\\{\\s*\\}|Object\\s*\\()/i.test(initializer)) return "Object.prototype";
-  if (/^\\/(?:[^/]|\\\\.)+\\/[dgimsuvy]*$/.test(initializer)) return "RegExp.prototype";
-  if (/^document\\.querySelector(?:All)?\\s*\\(/.test(initializer)) return "Element.prototype";
-  if (/^document\\.createElement\\s*\\(/.test(initializer)) return "HTMLElement.prototype";
+  if (/^(?:\[\s*\]|Array\s*\()/i.test(initializer)) return "Array.prototype";
+  if (/^(?:["'\x60]|String\s*\()/i.test(initializer)) return "String.prototype";
+  if (/^(?:-?\d+(?:\.\d+)?|Number\s*\()/i.test(initializer)) return "Number.prototype";
+  if (/^(?:true|false|Boolean\s*\()/i.test(initializer)) return "Boolean.prototype";
+  if (/^(?:\{\s*\}|Object\s*\()/i.test(initializer)) return "Object.prototype";
+  if (/^\/(?:[^/]|\\.)+\/[dgimsuvy]*$/.test(initializer)) return "RegExp.prototype";
+  if (/^document\.querySelector(?:All)?\s*\(/.test(initializer)) return "Element.prototype";
+  if (/^document\.createElement\s*\(/.test(initializer)) return "HTMLElement.prototype";
   return null;
 }
 
