@@ -331,3 +331,22 @@ export function getHTMLCompletionCatalog() {
   }
   return [...unique.values()];
 }
+
+
+/**
+ * Build a complete HTML tag suggestion insertion.
+ * Initial open-tag suggestions preserve the typed "<"; chained child suggestions
+ * begin at the cursor and therefore must include it themselves.
+ */
+export function buildHTMLTagInsertion(option) {
+  if (!option || typeof option.label !== "string") throw new TypeError("A tag suggestion is required.");
+  const isClosing = option.kind === "close";
+  const prefix = !isClosing && option.kind === "child" ? "<" : "";
+  const insertion = isClosing
+    ? option.label + ">"
+    : prefix + option.label + ">" + (option.isVoid ? "" : "</" + option.label + ">");
+  return {
+    insertion,
+    cursorOffset: isClosing ? insertion.length : prefix.length + option.label.length + 1
+  };
+}
