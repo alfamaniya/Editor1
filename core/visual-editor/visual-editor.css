@@ -60,3 +60,21 @@
 .visual-gradient-row select,.visual-gradient-row input[type=number]{min-width:0;background:#22252a;color:#eee;border:1px solid #393b40;border-radius:6px;padding:6px;font-size:11px}
 .visual-gradient-row input[type=color]{width:32px;height:30px;padding:2px;background:#222;border:1px solid #393b40;border-radius:6px}
 @media(max-width:520px){.visual-color-row{grid-template-columns:1fr 34px minmax(70px,1fr)}.visual-color-swatches{grid-template-columns:repeat(5,1fr)}}
+
+/* Color property inspector */
+.visual-color-panel{display:grid;gap:12px;padding:3px 0}
+.visual-color-panel>small{font-size:10px;color:#9699a3;text-transform:uppercase;letter-spacing:.06em}
+.visual-color-row{display:grid;grid-template-columns:minmax(70px,1fr) 36px minmax(80px,1.2fr);align-items:center;gap:7px}
+.visual-color-row>span{font-size:11px;color:#c8cad0}
+.visual-color-row input[type=color]{width:34px;height:30px;padding:2px;background:#222;border:1px solid #393b40;border-radius:6px;cursor:pointer}
+.visual-color-row input[type=text]{width:100%;min-width:0;background:#22252a;color:#eee;border:1px solid #393b40;border-radius:6px;padding:7px 8px;font:11px ui-monospace,monospace}
+.visual-color-row input[aria-invalid=true]{border-color:#f66!important}
+.visual-alpha-row{grid-template-columns:minmax(70px,1fr) minmax(60px,1.4fr) 40px}
+.visual-alpha-row output{font-size:10px;color:#aaa;text-align:right}
+.visual-color-swatches{display:grid;grid-template-columns:repeat(10,minmax(20px,1fr));gap:5px}
+.visual-color-swatches button{height:22px;border:1px solid #45474c;border-radius:5px;cursor:pointer}
+.visual-color-swatches button:hover{outline:2px solid #ff7938;outline-offset:1px}
+.visual-gradient-row{display:grid;grid-template-columns:1fr 56px 32px 32px;gap:6px}
+.visual-gradient-row select,.visual-gradient-row input[type=number]{min-width:0;background:#22252a;color:#eee;border:1px solid #393b40;border-radius:6px;padding:6px;font-size:11px}
+.visual-gradient-row input[type=color]{width:32px;height:30px;padding:2px;background:#222;border:1px solid #393b40;border-radius:6px}
+@media(max-width:520px){.visual-color-row{grid-template-columns:1fr 34px minmax(70px,1fr)}.visual-color-swatches{grid-template-columns:repeat(5,1fr)}}
