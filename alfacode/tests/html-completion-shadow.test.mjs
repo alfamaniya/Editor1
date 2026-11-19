@@ -65,7 +65,7 @@ function getJSONShadowSuggestions(legacy, records, source, tagStart) {
       record.parentTags.some(value => value.toLowerCase() === state.parent) ||
       legacyCompatible;
     if (!parentAllowed) return false;
-    if (record.contexts?.length && !record.contexts.includes(state.context)) return false;
+    if (record.contexts?.length && !record.contexts.includes(state.context) && !legacyCompatible) return false;
     return true;
   });
 
@@ -172,6 +172,7 @@ test("HTML JSON shadow adapter compares all fixed fixtures against legacy behavi
   console.log("HTML shadow fixtures:", htmlCompletionFixtures.length,
     "behavioral differences:", differences.length,
     JSON.stringify(differences));
-  assert.ok(Array.isArray(differences));
+  assert.equal(differences.length, 0,
+    "JSON shadow output must preserve the full Legacy option labels and ordering; inspect the diagnostic diff above.");
   assert.equal(htmlCompletionFixtures.length, 32);
 });
