@@ -23,7 +23,7 @@
   panel.className="visual-editor-shell";
   document.body.appendChild(panel);
   const modeTabs=panel.querySelector(".visual-editor-mode-tabs");
-  function setMode(mode){state.mode=mode==="settings"?"settings":"elements";panel.dataset.mode=state.mode;modeTabs.querySelectorAll("[data-mode]").forEach(btn=>btn.classList.toggle("is-active",btn.dataset.mode===state.mode));}
+  function setMode(mode){state.mode=mode==="settings"&&state.selector?"settings":"elements";panel.dataset.mode=state.mode;modeTabs.querySelectorAll("[data-mode]").forEach(btn=>{btn.classList.toggle("is-active",btn.dataset.mode===state.mode);if(btn.dataset.mode==="settings")btn.disabled=!state.selector;});}
   function enterVisual(){state.visualMode=true;panel.hidden=false;setMode("elements");state.picking=true;picker(true);window.parent.postMessage({type:"alfacode:visual-mode-active",active:true},"*");}
   function exitVisual(){state.visualMode=false;state.picking=false;panel.hidden=true;state.draft={...(state.committed[state.selector]||{})};previewCSS(state.committed);picker(false);window.parent.postMessage({type:"alfacode:visual-mode-active",active:false},"*");}
   const title=panel.querySelector("[data-title]"),status=panel.querySelector("[data-status]"),selectedLabel=panel.querySelector("[data-element-label]"),selectorLabel=panel.querySelector("[data-selector-label]"),grid=panel.querySelector("[data-categories]"),controls=panel.querySelector("[data-controls]"),actions=panel.querySelector("[data-actions]");
