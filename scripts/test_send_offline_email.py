@@ -28,7 +28,7 @@ class OfflineEmailChunkTests(unittest.TestCase):
         self.assertEqual(len(messages), 2)
         self.assertIn("Part 001 of 002", messages[0]["Subject"])
         self.assertIn("Part 002 of 002", messages[1]["Subject"])
-        attachments = [m.get_attachments()[0] for m in messages]
+        attachments = [list(m.iter_attachments())[0] for m in messages]
         self.assertEqual(b"".join(a.get_content() for a in attachments), source)
         self.assertIn(hashlib.sha256(source).hexdigest(),
                       messages[0].get_content())
