@@ -23,11 +23,13 @@ test("live CSS completion uses catalog properties, values, at-rules, functions a
   const propertySource = ".box { dis";
   const property = getCSSCompletionSuggestions(propertySource, propertySource.length, { catalog });
   assert.ok(property?.options.some(option => option.label === "display"));
-  const value = getCSSCompletionSuggestions(".box { display: fl", 18, { catalog });
+  const valueSource = ".box { display: fl";
+  const value = getCSSCompletionSuggestions(valueSource, valueSource.length, { catalog });
   assert.ok(value?.options.some(option => option.label === "flex"));
   const atRule = getCSSCompletionSuggestions("@med", 4, { catalog });
   assert.ok(atRule?.options.some(option => option.label === "@media"));
-  const fn = getCSSCompletionSuggestions(".box { width: va(", 17, { catalog });
+  const functionSource = ".box { width: va(";
+  const fn = getCSSCompletionSuggestions(functionSource, functionSource.length, { catalog });
   assert.ok(fn?.options.some(option => option.label === "var()"));
   const unitSource = ".box { width: 12p";
   const unit = getCSSCompletionSuggestions(unitSource, unitSource.length, { catalog });
