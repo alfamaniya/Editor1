@@ -9,14 +9,14 @@
     spacing:[["Padding","padding","text","padding"],["Margin","margin","text","margin"],["Gap","gap","text","gap"]],
     typography:[["Font size","font-size","text","fontSize"],["Font weight","font-weight","select","fontWeight"],["Line height","line-height","text","lineHeight"],["Letter spacing","letter-spacing","text","letterSpacing"]]
   };
-  const state={picking:false,selector:"",tag:"",computed:{},committed:{},draft:{}};
+  const state={picking:false,selector:"",tag:"",computed:{},committed:{},draft:{}};\n  const shared=window.Editor1PropertyControls;\n  const drafts=shared?shared.createDraftState():null;
   const panel=document.createElement("aside"); panel.id="visual-editor-shell"; panel.hidden=true;
   panel.innerHTML=`<div class="visual-editor-topbar"><span class="visual-editor-brand"><i></i> VISUAL EDITOR</span><span class="visual-editor-selection-status" data-status>Choose an element on canvas</span><button type="button" data-close aria-label="Close Visual Editor">Close</button></div>
   <aside class="visual-editor-elements"><div class="visual-editor-sidehead"><strong>Elements</strong><span>Canvas</span></div><div class="visual-editor-search"><span>⌕</span><input type="search" placeholder="Search elements" disabled aria-label="Element search (not available yet)"></div><div class="visual-editor-group"><small>SELECT</small><button class="visual-editor-pick" data-pick><span class="visual-editor-icon">⌖</span><span><b>Select Element</b><small>Click an item in preview</small></span></button></div><div class="visual-editor-group"><small>RECENTLY USED</small><div class="visual-editor-tilegrid"><div class="visual-editor-tile"><span>▤</span>Text</div><div class="visual-editor-tile"><span>H</span>Heading</div><div class="visual-editor-tile"><span>☷</span>List</div><div class="visual-editor-tile"><span>▣</span>Section</div><div class="visual-editor-tile"><span>▱</span>Container</div><div class="visual-editor-tile"><span>▥</span>Grid</div></div></div><div class="visual-editor-group"><small>MEDIA</small><div class="visual-editor-tilegrid"><div class="visual-editor-tile"><span>▧</span>Image</div><div class="visual-editor-tile"><span>▷</span>Video</div></div></div><p class="visual-editor-note">Element insertion will be connected in a later stage.</p></aside>
   <aside id="visual-inspector"><div class="visual-inspector-head"><div><small>INSPECTOR</small><strong data-title>Visual Settings</strong></div><button type="button" data-close aria-label="Close Visual Editor">×</button></div>
   <div class="visual-editor-selected" data-selected><span>Selected element</span><b data-element-label>None</b><code data-selector-label>—</code></div>
   <div class="visual-category-grid" data-categories><button data-cat="color"><i>◉</i>Color</button><button data-cat="border"><i>▢</i>Border</button><button data-cat="size"><i>↔</i>Size</button><button data-cat="shadow"><i>◩</i>Shadow</button><button data-cat="spacing"><i>⇥</i>Spacing</button><button data-cat="typography"><i>Aa</i>Typography</button></div>
-  <section data-controls hidden></section><div class="visual-actions" data-actions hidden><button data-back>Back</button><button data-apply>Apply</button></div></aside>`;
+  <section data-controls hidden></section><div class="visual-actions" data-actions hidden><button data-back>Cancel</button><button data-reset>Reset Category</button><button data-apply>Apply</button></div></aside>`;
   panel.className="visual-editor-shell";
   document.body.appendChild(panel);
   const title=panel.querySelector("[data-title]"),status=panel.querySelector("[data-status]"),selectedLabel=panel.querySelector("[data-element-label]"),selectorLabel=panel.querySelector("[data-selector-label]"),grid=panel.querySelector("[data-categories]"),controls=panel.querySelector("[data-controls]"),actions=panel.querySelector("[data-actions]");
@@ -29,16 +29,28 @@
   function showCategories(){grid.hidden=false;controls.hidden=true;actions.hidden=true;if(selectedLabel)selectedLabel.textContent=state.tag||"None";if(selectorLabel)selectorLabel.textContent=state.selector||"—";if(status)status.textContent=state.selector?("Editing "+state.tag+" · "+state.selector):"Choose an element on canvas";title.textContent=state.selector?"Element Settings · "+state.tag:"Select an element";}
   function valueFor(prop,type,computed){if(Object.prototype.hasOwnProperty.call(state.draft,prop))return state.draft[prop];const val=state.computed[computed]||"";return type==="color"?hex(val):val;}
   function makeControl(row){
-    const [label,prop,type,computed]=row;const wrap=document.createElement("label");wrap.className="visual-control-row";const caption=document.createElement("span");caption.textContent=label;let input;
+    const [label,prop,type,computed]=row;
+    const val=valueFor(prop,type,computed);
+    if(shared){
+      const field=shared.createField({label,value:val,type,options:type==="select"?(prop==="border-style"?["none","solid","dashed","dotted","double"]:["normal","100","200","300","400","500","600","700","800","900"]):[],min:type==="range"?0:undefined,max:type==="range"?1:undefined,step:type==="range"?0.05:undefined,onChange:value=>{state.draft[prop]=value;if(drafts)drafts.set(prop,value);draftPreview();}});
+      return field.element;
+    }
+    const wrap=document.createElement("label");wrap.className="visual-control-row";const caption=document.createElement("span");caption.textContent=label;let input;
     if(type==="select"){input=document.createElement("select");const choices=prop==="border-style"?["none","solid","dashed","dotted","double"]:["normal","100","200","300","400","500","600","700","800","900"];choices.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;input.appendChild(o);});}
-    else {input=document.createElement("input");input.type=type;if(type==="range"){input.min=0;input.max=1;input.step=.05;}}
-    input.value=valueFor(prop,type,computed);wrap.append(caption,input);
+    else{input=document.createElement("input");input.type=type;if(type==="range"){input.min=0;input.max=1;input.step=.05;}}
+    input.value=val;wrap.append(caption,input);
     if(type==="range"){const output=document.createElement("output");output.textContent=input.value;wrap.appendChild(output);input.addEventListener("input",()=>output.textContent=input.value);}
-    const change=()=>{state.draft[prop]=input.value;draftPreview();};input.addEventListener("input",change);input.addEventListener("change",change);return wrap;
+    const change=()=>{state.draft[prop]=input.value;if(drafts)drafts.set(prop,input.value);draftPreview();};input.addEventListener("input",change);input.addEventListener("change",change);return wrap;
   }
-  function openCategory(cat){state.draft={...(state.committed[state.selector]||{})};controls.replaceChildren();specs[cat].forEach(row=>controls.appendChild(makeControl(row)));grid.hidden=true;controls.hidden=false;actions.hidden=false;title.textContent=cat[0].toUpperCase()+cat.slice(1);}
+  function resetCategory(cat){
+    const props=specs[cat].map(row=>row[1]);props.forEach(prop=>delete state.draft[prop]);
+    if(drafts)drafts.reset(props);
+    controls.replaceChildren();specs[cat].forEach(row=>controls.appendChild(makeControl(row)));
+    draftPreview();
+  }
+  function openCategory(cat){state.draft={...(state.committed[state.selector]||{})};if(drafts)drafts.begin(state.draft);controls.replaceChildren();specs[cat].forEach(row=>controls.appendChild(makeControl(row)));grid.hidden=true;controls.hidden=false;actions.hidden=false;title.textContent=cat[0].toUpperCase()+cat.slice(1);}
   function sendCSS(){window.parent.postMessage({type:"alfacode:visual-css-update",css:cssFor(state.committed)},"*");}
-  panel.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.matches("[data-pick]")){state.picking=true;title.textContent="Select an element";grid.hidden=true;controls.hidden=true;actions.hidden=true;if(status)status.textContent="Click an element in the preview";picker(true);return;}if(b.matches("[data-close]")){state.picking=false;state.draft={...(state.committed[state.selector]||{})};previewCSS(state.committed);panel.hidden=true;picker(false);return;}if(b.dataset.cat)openCategory(b.dataset.cat);if(b.matches("[data-back]")){state.draft={...(state.committed[state.selector]||{})};draftPreview();showCategories();}if(b.matches("[data-apply]")){state.committed[state.selector]={...(state.committed[state.selector]||{}),...state.draft};sendCSS();showCategories();}});
+  panel.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.matches("[data-pick]")){state.picking=true;title.textContent="Select an element";grid.hidden=true;controls.hidden=true;actions.hidden=true;if(status)status.textContent="Click an element in the preview";picker(true);return;}if(b.matches("[data-close]")){state.picking=false;state.draft={...(state.committed[state.selector]||{})};previewCSS(state.committed);panel.hidden=true;picker(false);return;}if(b.dataset.cat)openCategory(b.dataset.cat);if(b.matches("[data-back]")){state.draft={...(state.committed[state.selector]||{})};if(drafts)state.draft=drafts.cancel();draftPreview();showCategories();}if(b.matches("[data-reset]")){const active=title.textContent.toLowerCase();const cat=Object.keys(specs).find(k=>k===active);if(cat)resetCategory(cat);}if(b.matches("[data-apply]")){state.committed[state.selector]={...(state.committed[state.selector]||{}),...(drafts?drafts.commit():state.draft)};sendCSS();showCategories();}});
   window.addEventListener("message",e=>{if(e.source!==window.parent||!e.data)return;if(e.data.type==="alfacode:visual-toggle"){state.picking=!state.picking;panel.hidden=!state.picking;if(!state.picking){state.draft={...(state.committed[state.selector]||{})};previewCSS(state.committed);picker(false);return;}title.textContent="Select an element";grid.hidden=true;controls.hidden=true;actions.hidden=true;picker(true);}});
   window.addEventListener("message",e=>{if(e.source!==preview.contentWindow||e.data?.type!=="alfacode:visual-selected")return;state.selector=e.data.selector||"";state.tag=e.data.tag||"";state.computed=e.data.computed||{};state.picking=false;panel.hidden=false;picker(false);showCategories();});
   function pickerScript(){return `<script>
