@@ -140,7 +140,7 @@ function openCategory(category) {
 }
 function applyDraft(){
   if(!selectedSelector || !frame.contentWindow) return;
-  const declarations=Object.entries(draftRules).filter(([,value])=>String(value).trim()).map(([property,value])=>property+": "+value+( ["width","height","border-width","border-radius","padding","margin","font-size"].includes(property) && /^\\d+(\\.\\d+)?$/.test(String(value)) ? "px" : "")+";");
+  const declarations=Object.entries(draftRules).filter(([,value])=>String(value).trim()).map(([property,value])=>property+": "+value+( ["width","height","border-width","border-radius","padding","margin","font-size"].includes(property) && /^\d+(\.\d+)?$/.test(String(value)) ? "px" : "")+";");
   const all={...committedRules,[selectedSelector]:declarations.join("\n")};
   frame.contentWindow.postMessage({type:"alfacode:visual-preview-css", css:Object.entries(all).map(([selector,decl])=>selector+" {"+decl+"}").join("\n")}, "*");
 }
