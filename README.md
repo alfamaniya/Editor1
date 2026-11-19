@@ -24,6 +24,7 @@
 - The dark UI uses a restrained orange accent and compact panel/control styling.
 - The left-side element tiles and search field are currently non-functional placeholders; element insertion and search are future roadmap work.
 - Detailed completion plan: [`maps/VISUAL-EDITOR-ROADMAP.md`](maps/VISUAL-EDITOR-ROADMAP.md). Browser/manual and offline verification remain pending.
+- The Visual Editor tooltip regression test now loads the module source and imports Node's test/assert APIs correctly; CI verification is pending.
 - Hover identity tooltip implemented in `core/visual-editor/visual-editor.js`: moving over a Preview element in Visual mode shows its ID and class beside the pointer (tag fallback), clamped to the Preview and with pointer events disabled. CI/manual browser verification is pending; details: `maps/VISUAL-EDITOR-ROADMAP.md`.
 
 
