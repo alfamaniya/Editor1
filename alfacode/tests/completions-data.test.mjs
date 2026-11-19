@@ -470,3 +470,27 @@ test("JS-2 marks limited and non-standard Error APIs accurately", async () => {
   assert.equal(byLabel.get("Error.instance.stack")?.standardSource,"implementation-defined");
   assert.equal(byLabel.get("Error.instance.stack")?.enabled,false);
 });
+
+
+test("JS-3 covers standard Array instance methods and separates mutators from copying methods", async () => {
+  const { javascript } = await readCatalogFiles();
+  const members = new Map(javascript.records.filter(r => r.type === "member").map(r => [r.label,r]));
+  const expected = [
+    "Array.prototype.at","Array.prototype.concat","Array.prototype.copyWithin","Array.prototype.entries",
+    "Array.prototype.every","Array.prototype.fill","Array.prototype.filter","Array.prototype.find",
+    "Array.prototype.findIndex","Array.prototype.findLast","Array.prototype.findLastIndex","Array.prototype.flat",
+    "Array.prototype.flatMap","Array.prototype.forEach","Array.prototype.includes","Array.prototype.indexOf",
+    "Array.prototype.join","Array.prototype.keys","Array.prototype.lastIndexOf","Array.prototype.map",
+    "Array.prototype.pop","Array.prototype.push","Array.prototype.reduce","Array.prototype.reduceRight",
+    "Array.prototype.reverse","Array.prototype.shift","Array.prototype.slice","Array.prototype.some",
+    "Array.prototype.sort","Array.prototype.splice","Array.prototype.toLocaleString","Array.prototype.toReversed",
+    "Array.prototype.toSorted","Array.prototype.toSpliced","Array.prototype.toString","Array.prototype.unshift",
+    "Array.prototype.values","Array.prototype.with","Array.prototype[Symbol.iterator]",
+    "Array.prototype.constructor","Array.prototype.length","Array.prototype[Symbol.unscopables]"
+  ];
+  for (const label of expected) assert.ok(members.has(label),"missing JS-3 member: "+label);
+  const mutators = ["copyWithin","fill","pop","push","reverse","shift","sort","splice","unshift"];
+  for (const name of mutators) assert.ok(members.get("Array.prototype."+name)?.description.includes("تغییردهنده"),name);
+  for (const name of ["toReversed","toSorted","toSpliced","with"]) assert.ok(members.get("Array.prototype."+name)?.description.includes("بدون تغییر آرایه اصلی"),name);
+  for (const name of ["constructor","length","[Symbol.unscopables]"]) assert.equal(members.get("Array.prototype."+name)?.memberKind,"instance-property");
+});
