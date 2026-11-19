@@ -325,3 +325,10 @@ Editor1/
 - Desktop footer helper keys are unchanged.
 - Visibility and placement use the Visual Viewport API with a height-loss heuristic; browser/keyboard combinations may vary.
 - [ ] Test on Android/iOS browsers, landscape mode, tab switching, keyboard hide/show, and offline build.
+
+
+## Live Preview regression fix — 19 November 2026
+
+- [x] Corrected literal escaped newline characters accidentally inserted into `core/editor-bridge.js`, which caused a JavaScript syntax error and stopped source-change relaying to Preview.
+- [x] Corrected the malformed newline in the mobile Helper Keys pointerdown listener.
+- [ ] Run syntax/build checks and test live preview in browser.
