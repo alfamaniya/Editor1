@@ -130,3 +130,13 @@ Turn Visual Editor into a polished, capable visual styling tool: select an eleme
 - Mark items complete only after implementation and the relevant verification.
 - Keep README and `maps/ROADMAP.md` updated when this roadmap or project status changes.
 - This document is the detailed source of truth for Visual Editor completion tasks.
+
+
+## Property Inspector completion map
+- [x] Created a separate detailed controls checklist covering every property category and controls nested within each category.
+- [x] Registered the property map in README and the main roadmap.
+- [ ] Implement shared control behavior/readback/draft/apply/cancel/reset.
+- [ ] Implement categories in the ordered sequence defined in `maps/VISUAL-PROPERTIES-ROADMAP.md`.
+- [ ] Complete CSS integrity, regression tests, and browser/offline verification.
+
+Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PROPERTIES-ROADMAP.md).
