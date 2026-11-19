@@ -20,17 +20,17 @@
         <button type="button" role="tab" data-language="css" aria-selected="false">CSS</button>
         <button type="button" role="tab" data-language="javascript" aria-selected="false">JavaScript</button>
       </div>
-      <label class="search"><span>جست‌وجو</span><input id="search" type="search" placeholder="نام، دسته یا توضیح..." autocomplete="off"></label>
+      <label class="search"><span>جست‌وجو</span><input id="search" type="search" placeholder="جست‌وجو در تمام فیلدهای JSON..." autocomplete="off"></label>
     </section>
     <section class="summary" aria-live="polite"><strong id="count">0</strong><span>مورد در فهرست</span><span id="updated"></span></section>
     <p id="load-errors" class="load-errors" role="alert" hidden></p>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>زبان</th><th>دسته‌بندی</th><th>واژه / پیشنهاد</th><th>توضیحات</th></tr></thead>
+        <thead id="columns"><tr><th>در حال آماده‌سازی ستون‌ها...</th></tr></thead>
         <tbody id="rows"><tr><td colspan="4">در حال بارگذاری فهرست...</td></tr></tbody>
       </table>
     </div>
-    <p class="footnote">این جدول مستقیماً از سه فایل JSON مستقل HTML، CSS و JavaScript بارگذاری می‌شود.</p>
+    <p class="footnote">جدول تمام فیلدهای موجود در JSONها را نمایش می‌دهد؛ ستون‌ها با داده‌ها ساخته می‌شوند، برای مرتب‌سازی روی عنوان ستون کلیک کنید و برای مشاهده فیلدهای بیشتر اسکرول افقی کنید.</p>
   </main>
   <script type="module" src="./completion-catalog.js"></script>
 </body>
