@@ -42,4 +42,7 @@ test("Visual workspace uses one right-side panel with Elements and Settings mode
   const bridge = await readFile(new URL("core/editor-bridge.js", ROOT), "utf8");
   assert.ok(bridge.includes("alfacode:visual-mode-active"));
   assert.ok(bridge.includes('classList.toggle("visual-mode", data.active)'));
+  assert.ok(bridge.includes("function portalPreview(active)"));
+  assert.ok(bridge.includes("document.body.appendChild(previewFrame)"));
+  assert.ok(bridge.includes("previewPlaceholder.parentNode.insertBefore(previewFrame, previewPlaceholder)"));
 });
