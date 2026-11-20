@@ -230,3 +230,12 @@ Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PRO
 - [x] Temporarily portal `#previewFrame` to `document.body` on Visual mode entry, set it viewport-fixed, then restore its original position and inline style on exit.
 - [x] Added regression checks for portal and restore path.
 - [ ] CI and manual browser verification pending.
+
+
+## Corrected Visual panel layout — 20 November 2026
+- [x] Keep the Preview iframe in its original workspace pane (do not portal it).
+- [x] Portal only the Visual Editor control shell from the Preview iframe into the top-level document to make its fixed panel viewport-relative.
+- [x] Load Visual Editor CSS in the top-level page for the portaled panel.
+- [x] Preview workspace reserves the right panel width, allowing canvas to fill the remaining space.
+- [x] Regression test expectations updated to assert this architecture.
+- [ ] CI and browser validation pending.
