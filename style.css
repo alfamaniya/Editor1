@@ -77,15 +77,19 @@ body.dragging { cursor: col-resize; user-select: none; -webkit-user-select: none
   .mobile-helper-keys button:active { background: rgba(255,255,255,.24); }
 }
 
-/* Visual Editor full-screen mode: Preview expands, normal workspace is hidden. */
+/* Visual Editor mode: editor hidden, Preview fills remaining width, Visual panel is portaled to root page. */
 body.visual-mode .main-header,body.visual-mode .main-footer{display:none!important}
-body.visual-mode .split{position:fixed;inset:0;z-index:50;flex:0 0 auto;width:100%;height:100%;height:100dvh;min-height:0}
+body.visual-mode .split{position:fixed;inset:0;z-index:50;flex:0 0 auto;width:100%;height:100dvh;min-height:0}
 body.visual-mode #leftPane,body.visual-mode #divider{display:none!important}
-/* Preview occupies only the canvas area to the left of the fixed Visual panel. */
-body.visual-mode #rightPane{position:absolute;left:0;top:0;bottom:0;right:0;flex:none;width:auto;min-width:0}
+body.visual-mode #rightPane{position:absolute;left:0;top:0;bottom:0;right:min(340px,38vw);flex:none;width:auto;min-width:0}
 body.visual-mode #rightPane .pane-header{display:none}
 body.visual-mode #rightPane .pane-content{height:100%;width:100%;min-height:0;overflow:hidden}
 body.visual-mode #previewFrame{width:100%;height:100%}
-/* Expand the Preview host iframe itself to the real browser viewport. The Visual panel is inside this iframe, so anchoring only its internal shell cannot reach the outer page edge if the host iframe is constrained. */
-body.visual-mode #previewFrame{position:fixed;inset:0;width:100vw;height:100dvh;z-index:60;}
+#visual-editor-shell.root-portal{position:fixed!important;inset:0!important;z-index:1000!important;pointer-events:none!important}
+#visual-editor-shell.root-portal .visual-editor-right-panel{position:absolute!important;top:0!important;right:0!important;bottom:0!important;width:min(340px,38vw)!important}
+#visual-editor-shell.root-portal .visual-editor-topbar{position:absolute!important;left:12px!important;top:12px!important}
+@media(max-width:650px){
+body.visual-mode #rightPane{right:min(320px,86vw)}
+#visual-editor-shell.root-portal .visual-editor-right-panel{width:min(320px,86vw)!important}
+}
 body.visual-mode #visualSettings[aria-pressed="true"]{background:#ff6a22;color:#fff}
