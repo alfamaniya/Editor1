@@ -699,42 +699,106 @@ window.addEventListener("message", event => {
     const markerBlock = /\/\* Editor1 Visual Styles - Start \*\/([\s\S]*?)\/\* Editor1 Visual Styles - End \*\//;
     const baseCSS = (sources.css || "").replace(markerBlock, "").trimEnd();
     const parsedUpdates = [];
-    const generatedRules = /([^{}]+)\{([^{}]*)\}/g;
-    let generatedMatch;
-    while ((generatedMatch = generatedRules.exec(command.css))) {
-      const selector = generatedMatch[1].trim();
-      const declarations = generatedMatch[2].split(";").map(item => item.trim()).filter(Boolean);
-      if (!selector || selector.endsWith(">") || selector.endsWith("+") || selector.endsWith("~")) continue;
-      parsedUpdates.push({ selector, declarations });
+
+    function parseRuleBlocks(css) {
+      const rules = [];
+      let cursor = 0;
+      while (cursor < css.length) {
+        let open = -1;
+        let quote = null;
+        let comment = false;
+        for (let index = cursor; index < css.length; index++) {
+          const char = css[index];
+          const next = css[index + 1];
+          if (comment) { if (char === "*" && next === "/") { comment = false; index++; } continue; }
+          if (quote) { if (char === "\\" && quote) { index++; } else if (char === quote) quote = null; continue; }
+          if (char === "/" && next === "*") { comment = true; index++; continue; }
+          if (char === "\"" || char === "'") { quote = char; continue; }
+          if (char === "{") { open = index; break; }
+        }
+        if (open < 0) break;
+        let depth = 1;
+        quote = null;
+        comment = false;
+        let close = -1;
+        for (let index = open + 1; index < css.length; index++) {
+          const char = css[index];
+          const next = css[index + 1];
+          if (comment) { if (char === "*" && next === "/") { comment = false; index++; } continue; }
+          if (quote) { if (char === "\\") index++; else if (char === quote) quote = null; continue; }
+          if (char === "/" && next === "*") { comment = true; index++; continue; }
+          if (char === "\"" || char === "'") { quote = char; continue; }
+          if (char === "{") depth++;
+          if (char === "}") { depth--; if (depth === 0) { close = index; break; } }
+        }
+        if (close < 0) break;
+        const header = css.slice(cursor, open).trim();
+        const body = css.slice(open + 1, close);
+        rules.push({ header, body, start: cursor, open, close });
+        cursor = close + 1;
+      }
+      return rules;
     }
-    function mergeRuleBody(existingBody, updates) {
+
+    for (const match of baseCSS.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      const selector = match[1].trim();
+      if (!selector || selector.includes("@") || selector.startsWith("/*") || selector.endsWith(">") || selector.endsWith("+") || selector.endsWith("~")) continue;
+      if (/^(?:html|body|\.?)\b/.test(selector)) continue;
+    }
+
+    function parseDeclarations(body) {
       const declarations = new Map();
-      existingBody.split(";").map(item => item.trim()).filter(Boolean).forEach(item => {
+      body.split(";").map(item => item.trim()).filter(Boolean).forEach(item => {
         const colon = item.indexOf(":");
         if (colon > 0) declarations.set(item.slice(0, colon).trim(), item.slice(colon + 1).trim());
       });
+      return declarations;
+    }
+
+    function parseUpdates(css) {
+      const updates = [];
+      for (const rule of parseRuleBlocks(css)) {
+        if (!rule.header || rule.header.startsWith("@")) continue;
+        const declarations = [...parseDeclarations(rule.body).entries()].map(([property, value]) => property + ": " + value);
+        updates.push({ selector: rule.header, declarations });
+      }
+      return updates;
+    }
+
+    function mergeRuleBody(existingBody, updates) {
+      const declarations = parseDeclarations(existingBody);
       updates.forEach(item => {
         const colon = item.indexOf(":");
         if (colon > 0) declarations.set(item.slice(0, colon).trim(), item.slice(colon + 1).trim());
       });
       return [...declarations].map(([property, value]) => "  " + property + ": " + value + ";").join("\n");
     }
+
+    parsedUpdates.push(...parseUpdates(command.css));
     let mergedCSS = baseCSS;
     const unmatchedRules = [];
+    const removals = Array.isArray(command.removals) ? command.removals.filter(prop => typeof prop === "string") : [];
+    const targetSelector = typeof command.selector === "string" ? command.selector : null;
     for (const update of parsedUpdates) {
-      const chunks = mergedCSS.split("}");
+      const rules = parseRuleBlocks(mergedCSS);
       let merged = false;
-      for (let index = 0; index < chunks.length; index++) {
-        const chunk = chunks[index];
-        const openBrace = chunk.lastIndexOf("{");
-        if (openBrace < 0 || chunk.slice(0, openBrace).trim() !== update.selector) continue;
-        const existingBody = chunk.slice(openBrace + 1);
-        chunks[index] = chunk.slice(0, openBrace + 1) + mergeRuleBody(existingBody, update.declarations);
+      for (let index = rules.length - 1; index >= 0; index--) {
+        const rule = rules[index];
+        if (rule.header !== update.selector) continue;
+        mergedCSS = mergedCSS.slice(0, rule.open + 1) + "\n" + mergeRuleBody(rule.body, update.declarations) + "\n" + mergedCSS.slice(rule.close);
         merged = true;
         break;
       }
-      mergedCSS = chunks.join("}");
-      if (!merged) unmatchedRules.push(update.selector + " {\n" + update.declarations.map(item => "  " + item.replace(/;?$/, ";")).join("\n") + "\n}");
+      if (!merged) unmatchedRules.push(update.selector + " {\n" + update.declarations.map(item => "  " + item + ";").join("\n") + "\n}");
+    }
+    if (removals.length) {
+      for (const rule of parseRuleBlocks(mergedCSS).reverse()) {
+        if (targetSelector && rule.header !== targetSelector) continue;
+        const declarations = parseDeclarations(rule.body);
+        removals.forEach(property => declarations.delete(property));
+        const body = [...declarations].map(([property, value]) => "  " + property + ": " + value + ";").join("\n");
+        mergedCSS = mergedCSS.slice(0, rule.open + 1) + (body ? "\n" + body + "\n" : "") + mergedCSS.slice(rule.close);
+      }
     }
     const extraBlock = unmatchedRules.join("\n\n");
     sources.css = mergedCSS + (extraBlock ? "\n\n" + startMarker + "\n" + extraBlock + "\n" + endMarker : "");

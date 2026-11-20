@@ -67,5 +67,6 @@
 .visual-gradient-row{display:grid;grid-template-columns:1fr 56px 32px 32px;gap:6px}
 .visual-gradient-row select,.visual-gradient-row input[type=number]{min-width:0;background:#22252a;color:#eee;border:1px solid #393b40;border-radius:6px;padding:6px;font-size:11px}
 .visual-gradient-row input[type=color]{width:32px;height:30px;padding:2px;background:#222;border:1px solid #393b40;border-radius:6px}
+.visual-preset-panel{display:grid;gap:8px}.visual-preset-panel button{width:100%;justify-content:flex-start;text-align:left}
 @media(max-width:650px){.visual-editor-right-panel{width:min(320px,86vw);min-width:0;padding:8px}.visual-editor-mode-tabs{padding-top:42px}.visual-editor-topbar{top:8px;left:8px}.visual-editor-selection-status{display:none}.visual-editor-tilegrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.visual-color-row{grid-template-columns:1fr 34px minmax(70px,1fr)}.visual-color-swatches{grid-template-columns:repeat(5,1fr)}}

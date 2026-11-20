@@ -16,6 +16,17 @@ test("Visual preview picker shows a non-interactive hovered element identity too
   assert.ok(visual.includes("hideIdentity()"));
 });
 
+test("Visual Inspector exposes full property categories and exact CSS controls", () => {
+  for (const category of ["color","border","size","shadow","spacing","typography","layout","position","effects","transform","transition","content","responsive","presets"]) {
+    assert.match(visual, new RegExp('data-cat="' + category + '"'));
+  }
+  for (const property of ["border-top-left-radius","grid-template-columns","backdrop-filter","transform-origin","animation-duration","object-fit","--visual-breakpoint","box-shadow"]) {
+    assert.ok(visual.includes(property), "missing Visual Inspector property: " + property);
+  }
+  assert.ok(visual.includes("applyShadowPreset"));
+  assert.ok(visual.includes("selectOptions"));
+});
+
 test("Visual workspace uses one right-side panel with Elements and Settings modes", async () => {
   assert.ok(visual.includes('data-mode="elements"'));
   assert.ok(visual.includes('data-mode="settings"'));
