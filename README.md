@@ -415,3 +415,9 @@ Editor1/
 - Corrected the layout approach: the Visual panel is rendered inside the Preview host iframe, so the host iframe itself must expand to the actual viewport while Visual mode is active.
 - Added root CSS to make `#previewFrame` fixed to the viewport (`100vw`/`100dvh`) with a stacking layer above the workspace. The inner Preview content still reserves space for the panel.
 - Added a regression assertion for host iframe viewport expansion. CI/browser verification pending.
+
+
+### Visual Preview clipping fix (portal) — 20 November 2026
+- The root Preview iframe is now moved directly under `document.body` while Visual mode is active, bypassing clipping from split-pane ancestors with overflow rules.
+- A comment placeholder preserves the iframe's original DOM position; inline styles are restored when Visual mode exits.
+- Added source-level regression checks for portal activation and restoration. CI and browser validation remain pending.
