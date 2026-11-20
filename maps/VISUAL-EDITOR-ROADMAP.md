@@ -203,3 +203,8 @@ Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PRO
 - [x] AlfaCode Tests: **116 passed, 0 failed** (Run 44623052830).
 - [x] Offline build and audit completed successfully; generated HTML commit pushed (Run 44623039708).
 - [ ] Manual browser checks for layout, scroll independence, selection and exit/restore remain open.
+
+
+## Mobile Preview regression test correction — 20 November 2026
+- [x] Fixed the CSS media-query assertion: it now matches whitespace and literal parentheses correctly instead of escaped-backslash text.
+- [ ] Rerun CI to confirm the regression suite passes; this is a test correction, not browser validation.
