@@ -32,6 +32,8 @@ test("Visual workspace uses one right-side panel with Elements and Settings mode
   assert.match(visualCss, /#visual-editor-shell\[data-mode="settings"\]\s+\.visual-editor-elements\s*\{[^}]*display:\s*none/s);
   const rootCss = await readFile(new URL("style.css", ROOT), "utf8");
   assert.match(rootCss, /body\.visual-mode\s+#leftPane[^}]*display:\s*none/s);
+  assert.match(rootCss, /body\.visual-mode\s+#rightPane\{[^}]*right:min\(340px,38vw\)/s);
+  assert.match(rootCss, /@media\s*\(max-width:\s*650px\)[^}]*body\.visual-mode\s+#rightPane\{[^}]*right:min\(320px,86vw\)/s);
   const bridge = await readFile(new URL("core/editor-bridge.js", ROOT), "utf8");
   assert.ok(bridge.includes("alfacode:visual-mode-active"));
   assert.ok(bridge.includes('classList.toggle("visual-mode", data.active)'));
