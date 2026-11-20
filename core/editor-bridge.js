@@ -19,28 +19,30 @@
   let startX = 0;
   let startLeftWidth = 0;
   let containerWidth = 0;
-  // Visual mode portals the Preview iframe to document.body to avoid clipping
-  // by the split-pane ancestors (overflow:hidden/auto).
-  let previewPlaceholder = null;
-  let previewOriginalStyle = null;
-  function portalPreview(active) {
+  // Move Visual controls into the root page to keep them visible outside the Preview iframe bounds.
+  let visualShellPlaceholder = null;
+  let rootVisualStylesheet = null;
+  function portalVisualShell(active) {
+    const childDoc = previewFrame.contentDocument;
+    const shell = childDoc?.getElementById("visual-editor-shell");
     if (active) {
-      if (previewPlaceholder) return;
-      previewOriginalStyle = previewFrame.getAttribute("style");
-      previewPlaceholder = document.createComment("Preview iframe original position");
-      previewFrame.parentNode.insertBefore(previewPlaceholder, previewFrame);
-      document.body.appendChild(previewFrame);
-      Object.assign(previewFrame.style, {
-        position: "fixed", inset: "0", width: "100vw", height: "100dvh",
-        zIndex: "60", border: "0", margin: "0"
-      });
-    } else if (previewPlaceholder) {
-      previewPlaceholder.parentNode.insertBefore(previewFrame, previewPlaceholder);
-      previewPlaceholder.remove();
-      previewPlaceholder = null;
-      if (previewOriginalStyle === null) previewFrame.removeAttribute("style");
-      else previewFrame.setAttribute("style", previewOriginalStyle);
-      previewOriginalStyle = null;
+      if (!shell || visualShellPlaceholder) return;
+      visualShellPlaceholder = childDoc.createComment("Visual panel original position");
+      shell.parentNode.insertBefore(visualShellPlaceholder, shell);
+      if (!rootVisualStylesheet) {
+        rootVisualStylesheet = document.createElement("link");
+        rootVisualStylesheet.rel = "stylesheet";
+        rootVisualStylesheet.href = new URL("core/visual-editor/visual-editor.css", document.baseURI).href;
+        rootVisualStylesheet.dataset.visualEditorRootStyles = "true";
+        document.head.appendChild(rootVisualStylesheet);
+      }
+      shell.classList.add("root-portal");
+      document.body.appendChild(shell);
+    } else if (visualShellPlaceholder && shell) {
+      shell.classList.remove("root-portal");
+      visualShellPlaceholder.parentNode.insertBefore(shell, visualShellPlaceholder);
+      visualShellPlaceholder.remove();
+      visualShellPlaceholder = null;
     }
   }
 
@@ -68,7 +70,7 @@
 
     if (event.source === previewFrame.contentWindow && data.type === "alfacode:visual-mode-active" && typeof data.active === "boolean") {
       document.body.classList.toggle("visual-mode", data.active);
-      portalPreview(data.active);
+      portalVisualShell(data.active);
       document.getElementById("visualSettings")?.setAttribute("aria-pressed", String(data.active));
       return;
     }
