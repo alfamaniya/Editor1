@@ -17,17 +17,28 @@ test("Visual preview picker shows a non-interactive hovered element identity too
 });
 
 test("Visual Inspector exposes full property categories and exact CSS controls", () => {
-  for (const category of ["color","border","size","shadow","spacing","typography","layout","position","effects","transform","transition","content","responsive","presets"]) {
+  for (const category of ["color","background","border","outline","size","shadow","spacing","typography","layout","flex","grid","position","effects","transform","transition","animation","content","scroll","svg","responsive","custom","presets"]) {
     assert.match(visual, new RegExp('data-cat="' + category + '"'));
   }
-  for (const property of ["border-top-left-radius","grid-template-columns","backdrop-filter","transform-origin","animation-duration","object-fit","--visual-breakpoint","box-shadow"]) {
+  for (const property of ["border-top-left-radius","border-image-source","outline-offset","background-image","grid-template-columns","grid-template-areas","flex-flow","backdrop-filter","mask-composite","transform-origin","animation-timeline","scroll-snap-type","stroke-dasharray","container-type","box-shadow","text-shadow","CSS declaration"]) {
     assert.ok(visual.includes(property), "missing Visual Inspector property: " + property);
   }
+  assert.ok(visual.includes("function renderCustomControls()"));
+  assert.ok(visual.includes("function validDeclaration(prop,value)"));
+  assert.ok(visual.includes("JSON.stringify(computedProperties)"));
   assert.ok(visual.includes("applyShadowPreset"));
   for (const feature of ["parseShadowLayers","splitShadowLayers","text-shadow","Add shadow layer","Inset","Spread","CSS value","window.CSS.supports"]) {
     assert.ok(visual.includes(feature), "missing shadow editor feature: " + feature);
   }
   assert.ok(visual.includes("selectOptions"));
+});
+
+test("CSS value suggestions remain editable and allow arbitrary valid CSS values", async () => {
+  const controls = await readFile(new URL("core/visual-editor/property-controls.js", ROOT), "utf8");
+  assert.ok(controls.includes('document.createElement("datalist")'));
+  assert.ok(controls.includes('input.setAttribute("list",list.id)'));
+  assert.ok(visual.includes("validDeclaration"));
+  assert.ok(visual.includes("Add CSS declaration"));
 });
 
 test("Visual workspace uses one right-side panel with Elements and Settings modes", async () => {

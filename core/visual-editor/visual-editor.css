@@ -47,6 +47,7 @@
 .visual-control-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:9px 0;padding-bottom:7px;border-bottom:1px solid #303136}
 .visual-control-row span{color:#aeb0b7;font-size:11px}
 .visual-control-row input,.visual-control-row select{width:112px;min-width:0;color:#f3f4f6;border:1px solid #393b41;background:#28292d;border-radius:6px;padding:6px;font:inherit;font-size:11px}
+.visual-control-row input[aria-invalid=true]{border-color:#f66}
 .visual-control-row input[type=color]{height:30px;padding:2px}
 .visual-control-row input[type=range]{padding:0;accent-color:#ff6a22}
 .visual-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
@@ -94,5 +95,13 @@
 .visual-shadow-hint{font-size:9px;line-height:1.45;color:#90939a}
 .visual-shadow-presets{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .visual-shadow-presets strong{flex:1 0 100%}
+.visual-custom-panel{display:grid;gap:10px}
+.visual-custom-rows{display:grid;gap:7px}
+.visual-custom-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) auto;align-items:center;gap:5px}
+.visual-custom-row input{min-width:0;width:100%;padding:7px 6px;border:1px solid #393b41;border-radius:5px;background:#222327;color:#f3f4f6;font:10px ui-monospace,SFMono-Regular,Consolas,monospace}
+.visual-custom-row input[aria-invalid=true]{border-color:#f66}
+.visual-custom-row button,.visual-custom-add{border:1px solid #42444a;border-radius:5px;background:#2b2c30;color:#dfe1e5;padding:6px 8px;font:inherit;font-size:10px;cursor:pointer}
+.visual-custom-row button:hover,.visual-custom-add:hover{border-color:#ff6a22}
+.visual-custom-add{justify-self:start;border-color:#8b4b2d;color:#ffad82}
 @media(max-width:650px){.visual-editor-header{right:min(320px,86vw)}.visual-editor-right-panel{width:min(320px,86vw);min-width:0;padding:8px}.visual-editor-selection-status{display:none}.visual-editor-tilegrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.visual-color-row{grid-template-columns:1fr 34px minmax(70px,1fr)}.visual-color-swatches{grid-template-columns:repeat(5,1fr)}}

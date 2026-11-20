@@ -41,12 +41,14 @@
 - Dedicated logic module: `core/visual-editor/visual-editor.js`; its panel styles are in `core/visual-editor/visual-editor.css`. Preview rendering is kept in `core/preview/preview.js`.
 
 - دکمه **Visual Settings** در Header، انتخاب عنصر را در Preview فعال می‌کند.
-- پس از انتخاب عنصر، پنل دسته‌بندی تنظیمات (Color، Border، Size، Shadow، Spacing، Typography) نمایش داده می‌شود.
+- پس از انتخاب عنصر، پنل تنظیمات شامل دسته‌های Color، Background، Border، Outline، Size، Shadow، Spacing، Typography، Layout، Flexbox، Grid، Position، Effects، Transform، Transition، Animation، Content، Scroll، SVG، Responsive و Custom CSS است.
+- فیلدهای CSS هم پیشنهادهای رایج دارند و هم مقدار دلخواه CSS را می‌پذیرند؛ دسته Custom CSS برای افزودن و ویرایش هر پراپرتی استاندارد یا custom property در دسترس است.
+- مقادیر CSS پیش از اعمال اعتبارسنجی می‌شوند؛ تغییرات معتبر زنده در Preview دیده می‌شوند و با Apply ذخیره می‌شوند.
 - کنترل‌ها تغییرات را به CSS Editor ارسال می‌کنند؛ Apply آن‌ها را تأیید و Back به دسته‌ها برمی‌گرداند.
 - CSS تولیدی تنظیمات بصری با Selector موجود ادغام می‌شود؛ پراپرتی‌های قبلی همان Rule حفظ و فقط مقدار پراپرتی‌های تغییرکرده جایگزین می‌شود. برای Selectorهایی که Rule ندارند، بلوک نشانه‌گذاری‌شده اضافه می‌شود.
 - انتخاب خود `body` به Selector مستقل `body` تبدیل می‌شود؛ Selector ناقص `body >` تولید نمی‌شود.
 - در بارگذاری Preview، بلوک CSS تولیدشده دوباره به state ابزار بصری خوانده می‌شود تا Apply بعدی تنظیمات قبلی را از بین نبرد.
-- این قابلیت اولیه است؛ انتخاب selectorهای پیچیده و آزمون مرورگر/آفلاین هنوز نیاز به بررسی دارند.
+- انتخاب selectorهای پیچیده و آزمون آفلاین همچنان نیاز به بررسی دارند.
 
 ### Visual Editor completion plan
 

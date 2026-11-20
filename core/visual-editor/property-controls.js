@@ -4,6 +4,7 @@
 (() => {
   "use strict";
   const clone = value => ({...(value||{})});
+  let listId=0;
   function createDraftState(){
     let base={},values={};
     return {
@@ -21,8 +22,10 @@
     const caption=document.createElement("span");caption.textContent=label;
     let input;
     if(type==="select"){
-      input=document.createElement("select");
-      options.forEach(item=>{const option=document.createElement("option");option.value=item;option.textContent=item;input.appendChild(option);});
+      input=document.createElement("input");input.type="text";
+      const list=document.createElement("datalist");list.id="visual-property-options-"+(++listId);
+      options.forEach(item=>{const option=document.createElement("option");option.value=item;list.appendChild(option);});
+      input.setAttribute("list",list.id);wrap.appendChild(list);
     }else{
       input=document.createElement("input");input.type=type;
       if(min!==undefined)input.min=min;if(max!==undefined)input.max=max;if(step!==undefined)input.step=step;
