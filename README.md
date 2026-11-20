@@ -392,3 +392,9 @@ Editor1/
 - AlfaCode Tests passed: **116/116** on commit `612e162` (Run [44623052830](https://github.com/alfamaniya/Editor1/actions/runs/44623052830)).
 - Offline build and static audit passed, and the generated standalone HTML was committed: Run [44623039708](https://github.com/alfamaniya/Editor1/actions/runs/44623039708).
 - Browser/manual viewport verification is still pending; CI does not confirm visual appearance or interaction on real devices.
+
+
+## Visual Editor preview/panel overlap fix — 20 November 2026
+- [x] Preview canvas width now reserves the fixed right-side Visual panel space, instead of stretching behind it.
+- [x] Desktop sizing reserves up to 340px (or 38vw); narrow viewports reserve the responsive panel width up to 320px (or 86vw).
+- [ ] Browser/manual checks at desktop, tablet and mobile remain pending.
