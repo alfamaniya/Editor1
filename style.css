@@ -18,6 +18,7 @@ body {
   flex: 0 0 auto; background: var(--ui-header); color: #f9fafb;
   overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: thin;
 }
+.mobile-workspace-tabs { display: none; }
 .scroll-area {
   display: inline-flex; align-items: center; gap: 0.5rem;
   padding: 0.5rem 0.75rem; white-space: nowrap; min-width: 100%;
@@ -77,6 +78,42 @@ body.dragging { cursor: col-resize; user-select: none; -webkit-user-select: none
   .mobile-helper-keys button:active { background: rgba(255,255,255,.24); }
 }
 
+@media (max-width: 700px) {
+  .main-header { padding-top: env(safe-area-inset-top, 0px); }
+  .main-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .scroll-area { gap: 6px; padding: 8px calc(10px + env(safe-area-inset-right, 0px)) 8px calc(10px + env(safe-area-inset-left, 0px)); }
+  .scroll-area .item { min-height: 44px; padding: 0 11px; font-size: 13px; }
+  .mobile-workspace-tabs {
+    display: flex; flex: 0 0 auto; gap: 6px;
+    padding: 6px calc(10px + env(safe-area-inset-right, 0px)) 6px calc(10px + env(safe-area-inset-left, 0px));
+    background: #e5e7eb; border-bottom: 1px solid var(--ui-border);
+  }
+  .mobile-workspace-tabs button {
+    flex: 1 1 0; min-height: 44px; border: 1px solid #c5cad2; border-radius: 7px;
+    background: #f9fafb; color: #374151; font: 600 14px/1 Tahoma, sans-serif;
+    touch-action: manipulation;
+  }
+  .mobile-workspace-tabs button[aria-pressed="true"] { border-color: #374151; background: #1f2937; color: #fff; }
+  .split { position: relative; display: block; min-height: 0; }
+  .split > .pane { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .split > .divider { display: none; }
+  .pane-header { min-height: 38px; padding: 9px 12px; }
+  .mobile-workspace-editor #rightPane { display: none; }
+  .mobile-workspace-preview #leftPane { display: none; }
+  .mobile-workspace-tabs button:focus-visible,
+  .scroll-area .item:focus-visible,
+  .mobile-helper-keys button:focus-visible { outline: 2px solid #f97316; outline-offset: 2px; }
+  .mobile-helper-keys {
+    left: env(safe-area-inset-left, 0px); right: env(safe-area-inset-right, 0px);
+    bottom: 0; padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+  }
+  .mobile-helper-keys button { min-width: 44px; min-height: 44px; }
+  body.visual-mode .mobile-workspace-tabs { display: none; }
+  body.visual-mode .split { position: fixed; inset: 0; }
+  body.visual-mode #rightPane { display: flex; }
+  body.visual-mode #rightPane .pane-content { padding-top: calc(52px + env(safe-area-inset-top, 0px)); }
+}
+
 /* Visual Editor mode: editor hidden, Preview fills remaining width, Visual panel is portaled to root page. */
 body.visual-mode .main-header,body.visual-mode .main-footer{display:none!important}
 body.visual-mode .split{position:fixed;inset:0;z-index:50;flex:0 0 auto;width:100%;height:100dvh;min-height:0}
@@ -88,7 +125,18 @@ body.visual-mode #previewFrame{width:100%;height:100%}
 #visual-editor-shell.root-portal{position:fixed!important;inset:0!important;z-index:1000!important;pointer-events:none!important}
 #visual-editor-shell.root-portal .visual-editor-right-panel{position:absolute!important;top:0!important;right:0!important;bottom:0!important;width:min(340px,38vw)!important}
 @media(max-width:650px){
-body.visual-mode #rightPane{right:min(320px,86vw)}
-#visual-editor-shell.root-portal .visual-editor-right-panel{width:min(320px,86vw)!important}
+body.visual-mode #rightPane{right:0;top:calc(52px + env(safe-area-inset-top, 0px));height:auto}
+body.visual-mode #rightPane .pane-content{padding-top:0}
+#visual-editor-shell.root-portal .visual-editor-header{right:0}
+#visual-editor-shell.root-portal .visual-editor-right-panel{top:auto!important;left:0!important;right:0!important;bottom:0!important;width:100%!important;height:56dvh;min-height:280px;max-height:76dvh;padding-bottom:calc(10px + env(safe-area-inset-bottom, 0px))}
+}
+@media(max-height:500px) and (orientation:landscape){
+  .main-header,.main-footer{padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+  .scroll-area{padding-top:4px;padding-bottom:4px}
+  .scroll-area .item{min-height:38px}
+  .mobile-workspace-tabs{display:none}
+  body.visual-mode #rightPane{left:env(safe-area-inset-left,0px);right:calc(min(340px,38vw) + env(safe-area-inset-right,0px))}
+  #visual-editor-shell.root-portal .visual-editor-header{left:env(safe-area-inset-left,0px);right:calc(min(340px,38vw) + env(safe-area-inset-right,0px))}
+  #visual-editor-shell.root-portal .visual-editor-right-panel{right:env(safe-area-inset-right,0px)!important}
 }
 body.visual-mode #visualSettings[aria-pressed="true"]{background:#ff6a22;color:#fff}

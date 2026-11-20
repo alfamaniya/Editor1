@@ -34,10 +34,33 @@ test("iframe resize notification is sent on panel resize and divider movement", 
 
 
 
-test("mobile-only responsive overrides and controls are removed from the main app", async () => {
+test("mobile workspace view controls and touch-sized editor surfaces are available", async () => {
+  const shell = await readFile(new URL("index.html", ROOT), "utf8");
+  assert.match(shell, /viewport-fit=cover/);
+  assert.match(shell, /class="mobile-workspace-tabs"/);
+  assert.match(shell, /data-workspace="editor"/);
+  assert.match(shell, /data-workspace="preview"/);
+  assert.match(css, /safe-area-inset-top/);
+  assert.match(css, /safe-area-inset-bottom/);
+  assert.match(css, /\.mobile-workspace-editor\s+#rightPane\s*\{\s*display:\s*none/);
+  assert.match(css, /\.mobile-workspace-preview\s+#leftPane\s*\{\s*display:\s*none/);
+  assert.match(css, /body\.visual-mode\s+#rightPane\s*\{\s*display:\s*flex/);
+  assert.match(css, /@media\(max-height:500px\) and \(orientation:landscape\)/);
+  const editorCss = await readFile(new URL("core/editor/editor.css", ROOT), "utf8");
+  assert.match(editorCss, /@media\s*\(max-width:\s*700px\)/);
+  assert.match(editorCss, /\.editor-tab[^}]*min-height:\s*44px/);
+  const bridge = await readFile(new URL("core/editor-bridge.js", ROOT), "utf8");
+  assert.match(bridge, /function setMobileWorkspace\(view\)/);
+  assert.match(bridge, /workspaceBeforeVisual/);
+  const visualCss = await readFile(new URL("core/visual-editor/visual-editor.css", ROOT), "utf8");
+  assert.match(visualCss, /@media\(max-width:700px\)/);
+  assert.match(visualCss, /min-height:44px/);
+  assert.match(css, /height:56dvh/);
+});
+
+test("unrelated legacy modules do not load mobile workspace switchers", async () => {
+  const shell = await readFile(new URL("index.html", ROOT), "utf8");
   const mobileCssPaths = [
-    "style.css",
-    "core/editor/editor.css",
     "backup/core-old/header/header.css",
     "core/new-page-action/new-page-action.css",
     "backup/core-old/clear-tabs/clear-tabs.css",
@@ -48,15 +71,9 @@ test("mobile-only responsive overrides and controls are removed from the main ap
   ];
   for (const path of mobileCssPaths) {
     const source = await readFile(new URL(path, ROOT), "utf8");
-    if (path === "style.css") {
-      // Root responsive rules are intentionally limited to mobile helper keys and divider behavior.
-      assert.doesNotMatch(source, /mobile-workspace-switcher|mobile-extra-keys|mobile-workspace\.js|mobile-extra-keys\.js/);
-      continue;
-    }
     assert.doesNotMatch(source, /@media\s*\(\s*max-width\s*:/i, path + " should not contain mobile width overrides");
     assert.doesNotMatch(source, /@media[^{}]*pointer\s*:\s*coarse/i, path + " should not contain touch-pointer responsive overrides");
   }
-  const shell = await readFile(new URL("index.html", ROOT), "utf8");
   assert.doesNotMatch(shell, /mobile-workspace-switcher|mobile-extra-keys|mobile-workspace\.js|mobile-extra-keys\.js/);
   const manifest = await readFile(new URL("scripts/offline-manifest.json", ROOT), "utf8");
   assert.doesNotMatch(manifest, /mobile-workspace|mobile-extra-keys/);

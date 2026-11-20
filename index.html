@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Editor1 — Responsive Workspace</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -22,6 +22,11 @@
       <button type="button" class="item">4</button>
     </nav>
   </header>
+
+  <nav class="mobile-workspace-tabs" aria-label="Workspace view">
+    <button type="button" data-workspace="editor" aria-pressed="true">Editor</button>
+    <button type="button" data-workspace="preview" aria-pressed="false">Preview</button>
+  </nav>
 
   <!-- فضای کاری: پنل Editor و Preview با جداکننده قابل تغییر اندازه. -->
   <main class="split" id="split" dir="ltr">

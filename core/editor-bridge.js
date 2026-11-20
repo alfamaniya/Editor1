@@ -7,11 +7,29 @@
   const divider = document.getElementById("divider");
   const editorFrame = document.getElementById("editorFrame");
   const previewFrame = document.getElementById("previewFrame");
+  const mobileWorkspaceTabs = document.querySelectorAll("[data-workspace]");
 
   if (!split || !leftPane || !divider || !editorFrame || !previewFrame) {
     console.error("Editor1 Bridge: required workspace elements are missing.");
     return;
   }
+
+  let mobileWorkspace = "editor";
+  let workspaceBeforeVisual = "editor";
+  function setMobileWorkspace(view) {
+    if (view !== "editor" && view !== "preview") return;
+    mobileWorkspace = view;
+    document.body.classList.toggle("mobile-workspace-editor", view === "editor");
+    document.body.classList.toggle("mobile-workspace-preview", view === "preview");
+    mobileWorkspaceTabs.forEach(button => {
+      button.setAttribute("aria-pressed", String(button.dataset.workspace === view));
+    });
+    window.dispatchEvent(new Event("resize"));
+  }
+  mobileWorkspaceTabs.forEach(button => {
+    button.addEventListener("click", () => setMobileWorkspace(button.dataset.workspace));
+  });
+  setMobileWorkspace(mobileWorkspace);
 
   const MIN_PANE = 100;
   const sources = { html: "", css: "", javascript: "" };
@@ -70,6 +88,12 @@
 
     if (event.source === previewFrame.contentWindow && data.type === "alfacode:visual-mode-active" && typeof data.active === "boolean") {
       document.body.classList.toggle("visual-mode", data.active);
+      if (data.active) {
+        workspaceBeforeVisual = mobileWorkspace;
+        setMobileWorkspace("preview");
+      } else {
+        setMobileWorkspace(workspaceBeforeVisual);
+      }
       portalVisualShell(data.active);
       document.getElementById("visualSettings")?.setAttribute("aria-pressed", String(data.active));
       return;
@@ -159,4 +183,3 @@
   window.addEventListener("touchend", endDrag);
   window.addEventListener("touchcancel", endDrag);
 })();
-

@@ -44,6 +44,7 @@
 - پس از انتخاب عنصر، پنل تنظیمات شامل دسته‌های Color، Background، Border، Outline، Size، Shadow، Spacing، Typography، Layout، Flexbox، Grid، Position، Effects، Transform، Transition، Animation، Content، Scroll، SVG، Responsive و Custom CSS است.
 - فیلدهای CSS هم پیشنهادهای رایج دارند و هم مقدار دلخواه CSS را می‌پذیرند؛ دسته Custom CSS برای افزودن و ویرایش هر پراپرتی استاندارد یا custom property در دسترس است.
 - مقادیر CSS پیش از اعمال اعتبارسنجی می‌شوند؛ تغییرات معتبر زنده در Preview دیده می‌شوند و با Apply ذخیره می‌شوند.
+- در صفحه‌نمایش‌های موبایل، Editor و Preview با تب‌های لمسی جابه‌جا می‌شوند؛ حالت Visual Editor به پنل پایین صفحه با safe area و کنترل‌های مناسب لمس تبدیل می‌شود.
 - کنترل‌ها تغییرات را به CSS Editor ارسال می‌کنند؛ Apply آن‌ها را تأیید و Back به دسته‌ها برمی‌گرداند.
 - CSS تولیدی تنظیمات بصری با Selector موجود ادغام می‌شود؛ پراپرتی‌های قبلی همان Rule حفظ و فقط مقدار پراپرتی‌های تغییرکرده جایگزین می‌شود. برای Selectorهایی که Rule ندارند، بلوک نشانه‌گذاری‌شده اضافه می‌شود.
 - انتخاب خود `body` به Selector مستقل `body` تبدیل می‌شود؛ Selector ناقص `body >` تولید نمی‌شود.

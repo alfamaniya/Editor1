@@ -53,3 +53,14 @@ html, body { width: 100%; height: 100%; min-height: 0; margin: 0; overflow: hidd
 
 /* The popup is positioned against the editor iframe viewport. */
 .editor-host { position: relative; }
+
+@media(max-width:700px){
+  .editor-tabs{flex-basis:48px;gap:6px;padding:0 8px;scroll-snap-type:x proximity}
+  .editor-tab{min-width:76px;min-height:44px;padding:0 12px;scroll-snap-align:start;touch-action:manipulation}
+  .editor-host .alfacode-editor-view{padding:12px 10px;font-size:14px;line-height:1.55}
+  .alfacode-line-numbers{padding:12px 8px 12px 0}
+  .alfacode-gutter-host{flex-basis:36px;width:36px;min-width:36px;max-width:36px}
+  .alfacode-line-number{font-size:14px}
+  .editor-footer{flex-basis:30px;gap:6px;padding:0 8px}
+  .editor-status,.browser-storage-status{font-size:10px}
+}
