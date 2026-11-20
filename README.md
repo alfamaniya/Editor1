@@ -10,6 +10,14 @@
 
 **قانون CSS/JS:** هر صفحه یا بخش اصلی می‌تواند یک CSS مخصوص ظاهر خود داشته باشد؛ عناصر مشابه از استایل مشترک استفاده کنند. قابلیت‌ها و اکشن‌های دارای منطق در JavaScript جدا نگهداری شوند. [سند معماری](maps/CSS-ARCHITECTURE.md)
 
+## اکشن ساخت فایل آفلاین
+
+- دکمه `Build Offline File` در نوار ابزار پروژه موجود است.
+- در نسخه آفلاین، اکشن خود سند Standalone را دانلود می‌کند.
+- در نسخه آنلاین، اکشن ابتدا نسخه آماده‌شده `offline/AlfaCode-Offline.html` را دانلود می‌کند.
+- ساخت و ممیزی محلی با `npm.cmd run offline` انجام می‌شود.
+- خروجی به صورت `AlfaCode-Offline.html` و بدون منابع خارجی دانلود می‌شود.
+
 **اصلاح اندازه Gutter:** ستون شماره خطوط در Editor روی عرض ۴۲px قفل شده؛ محتوای کد جداگانه در ظرف اسکرول افقی رشد می‌کند.
 
 ## Visual Editor redesign (builder-inspired)\n\n### Stage 1 — shared Inspector controls\n- Added `core/visual-editor/property-controls.js` as the shared control factory and draft-state helper.\n- Inspector now uses the shared control factory when available, while keeping a fallback renderer.\n- Added Cancel, Apply, and Reset Category lifecycle actions.\n- Reset Category clears only the active category properties in the preview draft.\n- Current controls still need category-specific readback, validation, specialized widgets, and browser testing.\n

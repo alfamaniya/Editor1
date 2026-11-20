@@ -7,6 +7,9 @@ assert.match(html, /<!doctype html>/i, "standalone document doctype is present")
 assert.match(html, /editorFrame\.srcdoc\s*=/, "editor is embedded as srcdoc");
 assert.match(html, /previewFrame\.srcdoc\s*=/, "preview is embedded as srcdoc");
 assert.match(html, /window\.__ALFACODE_COMPLETION_CATALOGS__\s*=/, "offline catalog payload is embedded");
+assert.match(html, /id="buildOffline"/, "offline build toolbar action is present");
+assert.match(html, /Offline file ready|Building offline|Build Offline File/, "offline build action has user feedback");
+assert.match(html, /window\.__ALFACODE_OFFLINE_BUILD__\s*=\s*true/, "standalone offline build marker is embedded");
 for (const language of ["html", "css", "javascript"]) {
   const source = JSON.parse(await fs.readFile(new URL("../alfacode/data/completions." + language + ".json", import.meta.url), "utf8"));
   assert.ok(html.includes(source.records[0].id), language + " catalog sample is embedded");
