@@ -24,6 +24,9 @@ test("Visual Inspector exposes full property categories and exact CSS controls",
     assert.ok(visual.includes(property), "missing Visual Inspector property: " + property);
   }
   assert.ok(visual.includes("applyShadowPreset"));
+  for (const feature of ["parseShadowLayers","splitShadowLayers","text-shadow","Add shadow layer","Inset","Spread","CSS value","window.CSS.supports"]) {
+    assert.ok(visual.includes(feature), "missing shadow editor feature: " + feature);
+  }
   assert.ok(visual.includes("selectOptions"));
 });
 
@@ -34,6 +37,7 @@ test("Visual workspace uses one right-side panel with Elements and Settings mode
   assert.ok(visual.includes('btn.disabled=!state.selector'));
   assert.ok(visual.includes("function enterVisual()"));
   assert.ok(visual.includes("function exitVisual()"));
+  assert.match(visual, /<header class="visual-editor-header"><div class="visual-editor-topbar">/);
   assert.ok(visual.includes("window.parent.postMessage({type:\"alfacode:visual-mode-active\",active:true}"));
   assert.ok(visual.includes("visual-editor-right-panel"));
   assert.ok(visual.includes("visual-editor-mode-tabs"));
@@ -44,6 +48,8 @@ test("Visual workspace uses one right-side panel with Elements and Settings mode
   const rootCss = await readFile(new URL("style.css", ROOT), "utf8");
   assert.match(rootCss, /body\.visual-mode\s+#leftPane[^}]*display:\s*none/s);
   assert.match(rootCss, /body\.visual-mode\s+#rightPane\{[^}]*right:min\(340px,38vw\)/s);
+  assert.match(rootCss, /body\.visual-mode\s+#rightPane\{[^}]*top:52px/s);
+  assert.match(visualCss, /\.visual-editor-header\s*\{[^}]*height:\s*52px/s);
   assert.match(rootCss, /#visual-editor-shell\.root-portal\{[^}]*position:fixed/s);
   assert.match(rootCss, /root-portal\s+\.visual-editor-right-panel\{[^}]*right:0/s);
   assert.match(visual, /document\.body\.classList\.add\("visual-mode"\)/);
