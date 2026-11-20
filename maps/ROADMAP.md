@@ -516,3 +516,9 @@
 - [x] 116/116 automated tests passed (Run 44623052830).
 - [x] Offline build/audit passed and artifact commit pushed (Run 44623039708).
 - [ ] Browser and responsive visual verification remain pending.
+
+
+## Visual Editor preview/panel overlap correction — 20 November 2026
+- [x] Root workspace styles now set Preview's right edge to the panel's left edge; the preview no longer extends beneath the fixed settings panel.
+- [x] Desktop uses the panel width rule; small viewports use the same responsive width rule as the panel.
+- [ ] Confirm visual appearance and resizing in a browser at desktop/tablet/mobile.
