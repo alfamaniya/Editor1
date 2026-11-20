@@ -19,6 +19,30 @@
   let startX = 0;
   let startLeftWidth = 0;
   let containerWidth = 0;
+  // Visual mode portals the Preview iframe to document.body to avoid clipping
+  // by the split-pane ancestors (overflow:hidden/auto).
+  let previewPlaceholder = null;
+  let previewOriginalStyle = null;
+  function portalPreview(active) {
+    if (active) {
+      if (previewPlaceholder) return;
+      previewOriginalStyle = previewFrame.getAttribute("style");
+      previewPlaceholder = document.createComment("Preview iframe original position");
+      previewFrame.parentNode.insertBefore(previewPlaceholder, previewFrame);
+      document.body.appendChild(previewFrame);
+      Object.assign(previewFrame.style, {
+        position: "fixed", inset: "0", width: "100vw", height: "100dvh",
+        zIndex: "60", border: "0", margin: "0"
+      });
+    } else if (previewPlaceholder) {
+      previewPlaceholder.parentNode.insertBefore(previewFrame, previewPlaceholder);
+      previewPlaceholder.remove();
+      previewPlaceholder = null;
+      if (previewOriginalStyle === null) previewFrame.removeAttribute("style");
+      else previewFrame.setAttribute("style", previewOriginalStyle);
+      previewOriginalStyle = null;
+    }
+  }
 
   // دریافت کد از Editor و ارسال آن برای Preview
   function renderPreview() {
@@ -44,6 +68,7 @@
 
     if (event.source === previewFrame.contentWindow && data.type === "alfacode:visual-mode-active" && typeof data.active === "boolean") {
       document.body.classList.toggle("visual-mode", data.active);
+      portalPreview(data.active);
       document.getElementById("visualSettings")?.setAttribute("aria-pressed", String(data.active));
       return;
     }
