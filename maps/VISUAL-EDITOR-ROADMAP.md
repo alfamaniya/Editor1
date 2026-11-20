@@ -216,3 +216,10 @@ Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PRO
 - [x] Inner content preview reserves panel width at desktop and narrow viewport sizes to prevent canvas overlap.
 - [x] Added regression assertions for outer pane full width and inner preview width reservation.
 - [ ] CI and real browser checks pending.
+
+
+## Visual host iframe viewport expansion — 20 November 2026
+- [x] Identified the panel's containing block: the Visual Editor panel is inside the Preview host iframe, not the top-level Editor1 page.
+- [x] Expanded the Preview host iframe itself to fixed viewport dimensions in Visual mode, so the panel can anchor to the true right edge of the browser viewport.
+- [x] Added a regression test for the host iframe fixed viewport rule.
+- [ ] CI run and manual browser validation pending.
