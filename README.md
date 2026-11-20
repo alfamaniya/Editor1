@@ -398,3 +398,8 @@ Editor1/
 - [x] Preview canvas width now reserves the fixed right-side Visual panel space, instead of stretching behind it.
 - [x] Desktop sizing reserves up to 340px (or 38vw); narrow viewports reserve the responsive panel width up to 320px (or 86vw).
 - [ ] Browser/manual checks at desktop, tablet and mobile remain pending.
+
+
+### Visual workspace mobile CSS test correction — 20 November 2026
+- Corrected the mobile Preview sizing regression assertion to use valid JavaScript regular-expression whitespace and escaped literal parentheses. The test now checks the existing mobile media-query rule rather than accidentally looking for backslash characters in the CSS.
+- This change only fixes the test expression; CI rerun is pending.
