@@ -208,3 +208,11 @@ Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PRO
 ## Mobile Preview regression test correction — 20 November 2026
 - [x] Fixed the CSS media-query assertion: it now matches whitespace and literal parentheses correctly instead of escaped-backslash text.
 - [ ] Rerun CI to confirm the regression suite passes; this is a test correction, not browser validation.
+
+
+## Visual panel viewport anchoring — 20 November 2026
+- [x] Outer Preview pane fills the entire viewport; removed duplicate right-side panel-width reservation from the root workspace.
+- [x] Visual panel anchors to the right edge of its host viewport.
+- [x] Inner content preview reserves panel width at desktop and narrow viewport sizes to prevent canvas overlap.
+- [x] Added regression assertions for outer pane full width and inner preview width reservation.
+- [ ] CI and real browser checks pending.
