@@ -409,3 +409,9 @@ Editor1/
 - The outer Preview pane now spans the entire viewport during Visual mode; it no longer pre-reserves the right-panel width and thereby traps the panel inside a narrower iframe.
 - The inner preview canvas explicitly reserves the overlay panel width during Visual mode, so content does not extend underneath the panel.
 - Visual mode toggles a body class inside the Preview host to activate responsive canvas sizing. CI validation is pending.
+
+
+### Visual Editor host viewport fix — 20 November 2026
+- Corrected the layout approach: the Visual panel is rendered inside the Preview host iframe, so the host iframe itself must expand to the actual viewport while Visual mode is active.
+- Added root CSS to make `#previewFrame` fixed to the viewport (`100vw`/`100dvh`) with a stacking layer above the workspace. The inner Preview content still reserves space for the panel.
+- Added a regression assertion for host iframe viewport expansion. CI/browser verification pending.
