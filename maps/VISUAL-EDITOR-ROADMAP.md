@@ -223,3 +223,10 @@ Detailed property controls map: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](VISUAL-PRO
 - [x] Expanded the Preview host iframe itself to fixed viewport dimensions in Visual mode, so the panel can anchor to the true right edge of the browser viewport.
 - [x] Added a regression test for the host iframe fixed viewport rule.
 - [ ] CI run and manual browser validation pending.
+
+
+## Visual mode Preview portal fix — 20 November 2026
+- [x] Diagnosed clipping caused by Preview iframe remaining inside split-pane/overflow ancestors.
+- [x] Temporarily portal `#previewFrame` to `document.body` on Visual mode entry, set it viewport-fixed, then restore its original position and inline style on exit.
+- [x] Added regression checks for portal and restore path.
+- [ ] CI and manual browser verification pending.
