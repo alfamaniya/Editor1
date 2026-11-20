@@ -403,3 +403,9 @@ Editor1/
 ### Visual workspace mobile CSS test correction — 20 November 2026
 - Corrected the mobile Preview sizing regression assertion to use valid JavaScript regular-expression whitespace and escaped literal parentheses. The test now checks the existing mobile media-query rule rather than accidentally looking for backslash characters in the CSS.
 - This change only fixes the test expression; CI rerun is pending.
+
+
+### Visual Editor viewport edge correction — 20 November 2026
+- The outer Preview pane now spans the entire viewport during Visual mode; it no longer pre-reserves the right-panel width and thereby traps the panel inside a narrower iframe.
+- The inner preview canvas explicitly reserves the overlay panel width during Visual mode, so content does not extend underneath the panel.
+- Visual mode toggles a body class inside the Preview host to activate responsive canvas sizing. CI validation is pending.
