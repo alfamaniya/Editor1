@@ -1,0 +1,13 @@
+{
+  "name": "editor1-alfacode",
+  "private": true,
+  "scripts": {
+    "build:offline": "node scripts/build-offline.mjs",
+    "audit:offline": "node scripts/audit-offline-output.mjs",
+    "offline": "npm run build:offline && npm run audit:offline",
+    "test": "node --test alfacode/tests/alfacode.test.mjs alfacode/tests/completions-data.test.mjs alfacode/tests/html-completion-shadow.test.mjs alfacode/tests/completion-runtime.test.mjs alfacode/tests/catalog-manager.test.mjs alfacode/tests/workspace-layout.test.mjs alfacode/tests/visual-editor.test.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}

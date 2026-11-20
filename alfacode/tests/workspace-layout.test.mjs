@@ -6,6 +6,12 @@ const ROOT = new URL("../../", import.meta.url);
 const css = await readFile(new URL("style.css", ROOT), "utf8");
 const divider = await readFile(new URL("backup/core-old/workspace-divider/workspace-divider.js", ROOT), "utf8");
 
+test("toolbar exposes an offline build action and loads its module", async () => {
+  const shell = await readFile(new URL("index.html", ROOT), "utf8");
+  assert.match(shell, /id="buildOffline"/);
+  assert.match(shell, /core\/offline-build-action\/offline-build-action\.js/);
+});
+
 test("workspace flex panes and frames shrink without overflow", () => {
   assert.match(css, /\.split\s*\{[^}]*display:\s*flex/);
   assert.match(css, /\.split\s*\{[^}]*min-height:\s*0/);
