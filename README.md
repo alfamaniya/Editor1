@@ -421,3 +421,9 @@ Editor1/
 - The root Preview iframe is now moved directly under `document.body` while Visual mode is active, bypassing clipping from split-pane ancestors with overflow rules.
 - A comment placeholder preserves the iframe's original DOM position; inline styles are restored when Visual mode exits.
 - Added source-level regression checks for portal activation and restoration. CI and browser validation remain pending.
+
+
+### Visual panel visibility/layout correction — 20 November 2026
+- Previous portal attempt incorrectly moved the Preview iframe itself, which obscured the Visual panel and made the Preview consume the full page.
+- Corrected architecture: keep Preview iframe in the normal workspace host; portal only `#visual-editor-shell` into the root document so its panel is viewport-anchored and visible; constrain Preview to the remaining left-side area.
+- Root document loads the Visual Editor stylesheet for the portaled shell. Regression tests updated. CI/browser verification pending.
