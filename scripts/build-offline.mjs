@@ -510,7 +510,7 @@ async function main() {
     }
   }
     // The Repository Tree relies on online GitHub access; remove its runtime script from standalone output.
-  shell = shell.replace(/\s*<script\\b[^>]*src=["\'][^"\']*repository-tree-action\\.js["\'][^>]*>\\s*<\\/script>/i, "");
+  shell = shell.replace(/\s*<script\b[^>]*src=["\'][^"\']*repository-tree-action\.js["\'][^>]*>\s*<\/script>/i, "");
 // The standalone document must not initiate relative iframe navigations.
   // Both child documents are supplied below through srcdoc.
   shell = shell.replace(/(<iframe\b[^>]*?)\s+src=(["'])[^"']*\2/gi, "$1");
