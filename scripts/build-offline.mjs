@@ -497,7 +497,9 @@ async function main() {
   );
   const previewDocument = inlinePreviewDocument(previewTemplate, previewCss, previewScript);
 
-  let shell = indexTemplate;
+  let shell = indexTemplate.trimStart();
+  if (!shell.trim()) throw new Error("Offline shell template is empty; refusing to generate a blank HTML file.");
+  if (!/^<!doctype html\s*>/i.test(shell)) shell = "<!DOCTYPE html>\n" + shell;
   const escapeRegExp = value => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   for (const stylePath of entry(assembly.shell).styles || []) {
     const styleName = escapeRegExp(path.basename(stylePath));
@@ -572,6 +574,7 @@ async function main() {
   shell = injectBeforeBodyEnd(shell, "<script>\n" + escapeScript(bootstrap) + "\n</script>");
 
   const outputChecks = {
+    nonEmptyOutput: Boolean(shell.trim()),
     doctype: /<!doctype html>/i.test(shell),
     editorDocument: Boolean(editorDocument.trim()),
     previewDocument: Boolean(previewDocument.trim()),
