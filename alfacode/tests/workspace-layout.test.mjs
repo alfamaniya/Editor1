@@ -1,4 +1,4 @@
-// #workspace-layout.test.mjs: آزمون چیدمان workspace و رفتار اجزای رابط
+// #workspace-layout.test.mjs: آزمون چیدمان workspace و قابلیت درخت مخزن در نسخه آفلاین
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
