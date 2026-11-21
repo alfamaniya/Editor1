@@ -1,4 +1,4 @@
-# complete-file-comments.py: تکمیل کامنت فارسی خط اول فایل‌های قابل کامنت‌گذاری مخزن
+# #complete-file-comments.py: تکمیل کامنت فارسی خط اول فایل‌های قابل کامنت‌گذاری مخزن
 """Add Persian first-line descriptions to commentable tracked files without overwriting existing ones."""
 from pathlib import Path
 import subprocess
