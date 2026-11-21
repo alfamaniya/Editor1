@@ -77,7 +77,7 @@ Editor1/
 │       ├── [ ] alfacode-tests.yml
 │       ├── [ ] build-offline.yml
 │       ├── [ ] repository-tree-update.yml
-│       └── [ ] send-offline-email.yml
+│       └── [x] send-offline-email.yml
 ├── alfacode/
 │   ├── data/
 │   │   ├── [-] completions.css.json
@@ -302,3 +302,9 @@ Editor1/
 - [x] Kept the toolbar entry but labeled it `Repository Tree (Online)`; offline click explains that the live repository tree requires internet.
 - [x] Added a regression test in `alfacode/tests/workspace-layout.test.mjs` for the builder stripping rule and online-only label.
 - [ ] Confirm the new GitHub Actions build and audit run succeeds; browser/manual verification pending.
+
+
+## اصلاح ارسال ایمیل نسخه آفلاین — ۲۱ نوامبر ۲۰۲۶
+- [x] Workflow ارسال ایمیل اکنون قبل از ارسال، Node.js و esbuild را آماده کرده و Build و Audit نسخه مستقل را اجرا می‌کند.
+- [x] ارسال فقط پس از تولید و اعتبارسنجی HTML آفلاین به مرحله ارسال ایمیل می‌رسد.
+- [ ] اجرای Workflow جدید و تأیید ارسال واقعی ایمیل.
