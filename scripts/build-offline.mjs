@@ -422,7 +422,6 @@ async function main() {
   const previewScript = previewScripts.join("\n");
   const extraKeyModule = await readEntry(assembly.shell, "scripts", 1);
   const clearEditorStorageModule = await readEntry(assembly.shell, "scripts", 2);
-  const offlineBuildModule = await readEntry(assembly.shell, "scripts", 3);
   const actionAssets = await Promise.all(assembly.actionComponents.map(async id => ({
     markup: await readEntry(id, "html"), css: await readEntry(id, "styles"),
     module: await readEntry(id, "scripts")
@@ -552,7 +551,6 @@ async function main() {
   ${coordinator}
   ${extraKeyModule}
   window.__ALFACODE_OFFLINE_BUILD__ = true;
-  ${offlineBuildModule}
   editorFrame.srcdoc = ${JSON.stringify(editorDocument)};
   previewFrame.srcdoc = ${JSON.stringify(previewDocument)};
 })();
