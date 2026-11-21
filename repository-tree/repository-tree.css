@@ -60,3 +60,14 @@ main { max-width: 1200px; margin: 0 auto; padding: 20px; }
   .tree-root ul { padding-left: 16px; }
   .toolbar button { padding: 8px 10px; }
 }
+/* #repository-tree.css: نمایش شرح استخراج‌شده از کامنت ابتدای فایل‌ها در فهرست درخت مخزن */
+.file-description {
+  color: var(--muted);
+  font-size: 12px;
+  max-width: 560px;
+  overflow-wrap: anywhere;
+}
+.file-row { flex-wrap: wrap; }
+@media (max-width: 700px) {
+  .file-description { flex-basis: 100%; padding-left: 26px; }
+}
