@@ -416,7 +416,11 @@ async function main() {
     readEntry(assembly.editor, "html"), readEntry(assembly.editor, "styles"),
     readEntry(assembly.preview, "html")
   ]);
-  const previewStyles = await Promise.all((entry(assembly.preview).styles || []).map(read));
+  const previewStylePaths = entry(assembly.preview).styles || [];
+  const rootVisualStylesheetPath = previewStylePaths.find(item => item.includes("visual-editor.css"));
+  if (!rootVisualStylesheetPath) throw new Error("Offline preview manifest is missing the Visual Editor stylesheet.");
+  const rootVisualStylesheet = await read(rootVisualStylesheetPath);
+  const previewStyles = await Promise.all(previewStylePaths.map(read));
   const previewScripts = await Promise.all((entry(assembly.preview).scripts || []).map(read));
   const previewCss = previewStyles.join("\n");
   const previewScript = previewScripts.join("\n");
@@ -507,7 +511,7 @@ async function main() {
   // The standalone document must not initiate relative iframe navigations.
   // Both child documents are supplied below through srcdoc.
   shell = shell.replace(/(<iframe\b[^>]*?)\s+src=(["'])[^"']*\2/gi, "$1");
-  shell = shell.replace("</head>", "<style>\n" + rootCss + "\n</style>\n</head>");
+  shell = shell.replace("</head>", "<style>\n" + rootCss + "\n" + rootVisualStylesheet + "\n</style>\n</head>");
 
   const bootstrap = `
 (() => {
@@ -564,6 +568,8 @@ async function main() {
     editorSrcdoc: shell.includes("editorFrame.srcdoc"),
     previewSrcdoc: shell.includes("previewFrame.srcdoc"),
     catalogBootstrap: shell.includes("completionCatalogDocument"),
+    sharedVisualControls: previewScript.includes("Editor1PropertyControls") && shell.includes("Editor1PropertyControls"),
+    rootVisualStyles: shell.includes("Visual Editor full-screen overlay"),
     objectUrlBootstrap: shell.includes("URL.createObjectURL"),
     forbiddenAboutBlank: shell.includes('window.open("about:blank"'),
     inlineStyle: new RegExp("<style\\b[^>]*>[\\s\\S]*?</style>", "i").test(shell),
