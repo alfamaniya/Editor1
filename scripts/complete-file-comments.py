@@ -53,7 +53,7 @@ def has_standard_comment(line, path):
     return path.name in line and ":" in line and line.strip().startswith(("#", "//", "/*", "<!--"))
 
 def main():
-    tracked = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode("utf-8").split("\\0")
+    tracked = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode("utf-8").split("\0")
     changed = []
     for raw in tracked:
         if not raw:
@@ -72,7 +72,7 @@ def main():
             continue
         opening, closing = syntax
         comment = f"{opening}#{path.name}: {description_for(path)}{closing}"
-        path.write_text(comment + "\\n" + content, encoding="utf-8")
+        path.write_text(comment + "\n" + content, encoding="utf-8")
         changed.append(raw)
     print(f"Persian file comments added: {len(changed)}")
     for item in changed:
