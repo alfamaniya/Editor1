@@ -1,0 +1,33 @@
+/* #repository-tree.css: تعریف ظاهر صفحه مستقل درخت مخزن، شامل رنگ‌ها، چیدمان و اجزای صفحه */
+:root {
+  color-scheme: dark;
+  --bg: #111318;
+  --surface: #1b1e24;
+  --border: #30343d;
+  --text: #e6e8ed;
+  --muted: #9ba2ae;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.55 system-ui, sans-serif;
+}
+.page-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+h1 { margin: 0; font-size: 20px; font-weight: 650; }
+.page-header p { color: var(--muted); margin: 6px 0 0; }
+main { max-width: 1000px; padding: 24px; margin: auto; }
+.placeholder {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  background: var(--surface);
+}
+.placeholder h2 { margin: 0 0 8px; font-size: 16px; }
+.placeholder p { color: var(--muted); margin: 0; }
