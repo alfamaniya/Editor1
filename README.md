@@ -298,9 +298,20 @@ Editor1/
 │   ├── [ ] clear-editor-storage.js
 │   └── [ ] editor-bridge.js
 ├── maps/
+│   ├── [ ] ALFACODE.md
+│   ├── [ ] ARCHITECTURE.md
 │   ├── [ ] CSS-ARCHITECTURE.md
+│   ├── [ ] DATA-FLOW.md
+│   ├── [ ] ENGINES.md
+│   ├── [ ] MODULES.md
+│   ├── [ ] OFFLINE.md
+│   ├── [ ] PAGES.md
 │   ├── [ ] ROADMAP.md
+│   ├── [ ] RULES.md
+│   ├── [ ] STORAGE.md
+│   ├── [ ] TESTING.md
 │   ├── [ ] VISUAL-EDITOR-ROADMAP.md
+│   ├── [ ] VISUAL-EDITOR.md
 │   └── [ ] VISUAL-PROPERTIES-ROADMAP.md
 ├── offline/
 │   └── [ ] AlfaCode-Offline.html
@@ -311,7 +322,7 @@ Editor1/
 ├── scripts/
 │   ├── [ ] audit-offline-output.mjs
 │   ├── [ ] build-offline.mjs
-│   ├── [ ] complete-file-comments.py
+│   ├── [x] complete-file-comments.py
 │   ├── [ ] offline-manifest.json
 │   ├── [ ] send-offline-email.py
 │   ├── [ ] test_send_offline_email.py
