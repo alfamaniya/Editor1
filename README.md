@@ -284,7 +284,7 @@ Editor1/
 │   └── [ ] repository-tree.js
 ├── scripts/
 │   ├── [ ] audit-offline-output.mjs
-│   ├── [ ] build-offline.mjs
+│   ├── [x] build-offline.mjs
 │   ├── [x] complete-file-comments.py
 │   ├── [ ] offline-manifest.json
 │   ├── [ ] send-offline-email.py
