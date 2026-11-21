@@ -72,102 +72,219 @@
 - The page renders static HTML without calling GitHub API at runtime; file entries link to GitHub source. Refresh reloads the page; Expand all and Collapse all control folders.
 - Empty directories are not tracked by Git and therefore do not appear.
 
-## درخت مخزن
+## درخت مخزن و وضعیت تکمیل کامنت‌ها
+
+**قانون پیگیری کامنت‌ها:** تیک `[x]` فقط زمانی ثبت می‌شود که من (ChatGPT) محتوای فایل را بررسی کرده و کامنت فارسی خط اول را کامل/اصلاح کرده باشم. وجود کامنت قبلی یا کامنت خودکار به‌تنهایی تیک نمی‌گیرد. در پایان هر درخواست اجرایی شما، پس از انجام کار اصلی، یک فایل بدون تیک را انتخاب می‌کنم و کامنت آن را تکمیل می‌کنم؛ سپس تیک همان فایل را ثبت و این درخت را به‌روز می‌کنم. فایل‌های JSON و مواردی که syntax کامنت معتبر ندارند از این پیگیری مستثنا هستند.
 
 ```text
 Editor1/
-├── .github/workflows/
-│   ├── alfacode-tests.yml
-│   ├── build-offline.yml
-│   └── send-offline-email.yml
-├── index.html (Layout؛ استایل کلی Buttonها از style.css دریافت می‌شود)
-├── repository-tree/ (صفحه مستقل درخت مخزن؛ HTML/CSS/JS جداگانه)
-│   ├── index.html (ساختار صفحه و اتصال فایل‌های CSS/JS)
-│   ├── repository-tree.css (استایل اختصاصی صفحه)
-│   └── repository-tree.js (محل منطق صفحه)
-├── backup/index-original-disabled.html (نسخه پشتیبان ایندکس قدیمی) (نسخه قبلی ورودی اصلی؛ نگهداری‌شده و غیرفعال)
-├── backup/
-│   ├── core-old/ (legacy components archive)
-│   ├── style.css (CSS ریشه ساختار قبلی)
-│   ├── style-backup.css (نسخه پشتیبان قدیمی CSS)
-│   └── script.js (هماهنگ‌کننده قبلی Editor/Preview)
-├── style.css (استایل عمومی Buttonهای Header و Footer؛ فعلاً فقط ظاهر کلی)\n├── README.md
-│   ├── browser-storage/ ...
-│   ├── clear-project-cookies/ ...
-│   ├── clear-tabs/ ...
-│   ├── completion-catalog/ ...
-│   ├── css-suggestions/ ...
-│   ├── editor/ ...
-│   ├── header/ ...
-│   ├── javascript-suggestions/ ...
-│   ├── new-page-action/ ...
-│   ├── preview/ ...
-│   ├── project-reset/ ...
-│   ├── tag-suggestions/ ...
-│   └── workspace-divider/ ...
-├── core/ (active JavaScript files)
-│   ├── repository-tree-action/repository-tree-action.js (اتصال دکمه Header به صفحه درخت مخزن)
-│   └── browser-storage.js (unified LocalStorage, IndexedDB, cookies, projects, auto-save and quota helpers)
- (html, css, js)
-│   ├── clear-project-cookies/ (html, css, js)
-│   ├── clear-tabs/ (html, css خالی، js، clear-tabs-style-backup.css)
-│   ├── completion-catalog/
-│   │   ├── catalog-loader.js
-│   │   ├── catalog-manager.js
-│   │   └── completion-catalog/ (html, css, js)
-│   ├── css-suggestions/ (html, css, js)
-│   ├── editor/ (editor.html, editor.css, editor.js)
-│   ├── header/ (header.html, header.css, header.js)
-│   ├── javascript-suggestions/ (html, css, js)
-│   ├── new-page-action/ (html, css, js)
-│   ├── preview/ (html, css, js)
-│   ├── project-reset/ (html, css, js)
-│   ├── tag-suggestions/ (html, css, js)
-│   └── workspace-divider/ (html, css, js)
+├── .github/
+│   └── workflows/
+│       ├── [ ] alfacode-tests.yml
+│       ├── [ ] build-offline.yml
+│       ├── [ ] repository-tree-update.yml
+│       └── [ ] send-offline-email.yml
 ├── alfacode/
-│   ├── README.md
 │   ├── data/
-│   │   ├── completions.html.json
-│   │   ├── completions.css.json
-│   │   └── completions.javascript.json
-│   ├── examples/.gitkeep
+│   │   ├── [ ] completions.css.json
+│   │   ├── [ ] completions.html.json
+│   │   └── [ ] completions.javascript.json
+│   ├── examples/
+│   │   └── [ ] .gitkeep
 │   ├── src/
-│   │   ├── core-old/ (document.js, editor-state.js, editor.js, history.js, selection.js, transaction.js)
+│   │   ├── core/
+│   │   │   ├── [ ] document.js
+│   │   │   ├── [ ] editor-state.js
+│   │   │   ├── [ ] editor.js
+│   │   │   ├── [ ] history.js
+│   │   │   ├── [ ] selection.js
+│   │   │   └── [ ] transaction.js
 │   │   ├── features/
-│   │   │   ├── bracket-matching/bracket-matcher.js
-│   │   │   ├── line-numbers/line-numbers.js
-│   │   │   └── syntax-highlighting/highlighter.js
-│   │   ├── input/ (clipboard-handler.js, input-controller.js, keyboard-handler.js, suggestion-dispatcher.js)
+│   │   │   ├── bracket-matching/
+│   │   │   │   └── [ ] bracket-matcher.js
+│   │   │   ├── line-numbers/
+│   │   │   │   └── [ ] line-numbers.js
+│   │   │   └── syntax-highlighting/
+│   │   │       └── [ ] highlighter.js
+│   │   ├── input/
+│   │   │   ├── [ ] clipboard-handler.js
+│   │   │   ├── [ ] input-controller.js
+│   │   │   ├── [ ] keyboard-handler.js
+│   │   │   └── [ ] suggestion-dispatcher.js
 │   │   ├── language/
-│   │   │   ├── tokenizer.js, language-manager.js, parser-manager.js
-│   │   │   ├── css/ (css-completion.js, css-language.js, css-parser.js, css-rules.js)
-│
-│   │   │   ├── html/ (html-completion.js, html-language.js, html-parser.js, html-rules.js)
-│
-│   │   │   └── javascript/ (javascript-completion.js, javascript-language.js, javascript-parser.js, javascript-rules.js)
-│
-│   │   ├── rendering/ (cursor-renderer.js, editor-view.js, line-renderer.js)
-│   │   ├── themes/ (dark.css, light.css, theme-manager.js)
-│   │   └── utils/ (dom.js, helpers.js)
+│   │   │   ├── css/
+│   │   │   │   ├── [ ] css-completion.js
+│   │   │   │   ├── [ ] css-language.js
+│   │   │   │   ├── [ ] css-parser.js
+│   │   │   │   └── [ ] css-rules.js
+│   │   │   ├── html/
+│   │   │   │   ├── [ ] html-completion.js
+│   │   │   │   ├── [ ] html-language.js
+│   │   │   │   ├── [ ] html-parser.js
+│   │   │   │   └── [ ] html-rules.js
+│   │   │   ├── javascript/
+│   │   │   │   ├── [ ] javascript-completion.js
+│   │   │   │   ├── [ ] javascript-language.js
+│   │   │   │   ├── [ ] javascript-parser.js
+│   │   │   │   └── [ ] javascript-rules.js
+│   │   │   ├── [ ] language-manager.js
+│   │   │   ├── [ ] parser-manager.js
+│   │   │   └── [ ] tokenizer.js
+│   │   ├── rendering/
+│   │   │   ├── [ ] cursor-renderer.js
+│   │   │   ├── [ ] editor-view.js
+│   │   │   └── [ ] line-renderer.js
+│   │   ├── themes/
+│   │   │   ├── [ ] dark.css
+│   │   │   ├── [ ] light.css
+│   │   │   └── [ ] theme-manager.js
+│   │   └── utils/
+│   │       ├── [ ] dom.js
+│   │       └── [ ] helpers.js
 │   ├── tests/
-│   │   ├── .gitkeep
-│   │   ├── alfacode.test.mjs
-│   │   ├── catalog-manager.test.mjs
-│   │   ├── completion-runtime.test.mjs
-│   │   ├── completions-data.test.mjs
-│   │   ├── html-completion-fixtures.mjs
-│   │   ├── html-completion-shadow.test.mjs
-│   │   └── workspace-layout.test.mjs
+│   │   ├── [ ] .gitkeep
+│   │   ├── [ ] alfacode.test.mjs
+│   │   ├── [ ] catalog-manager.test.mjs
+│   │   ├── [ ] completion-runtime.test.mjs
+│   │   ├── [ ] completions-data.test.mjs
+│   │   ├── [ ] html-completion-fixtures.mjs
+│   │   ├── [ ] html-completion-shadow.test.mjs
+│   │   ├── [ ] visual-editor.test.mjs
+│   │   └── [ ] workspace-layout.test.mjs
+│   └── [ ] README.md
+├── backup/
+│   ├── core-old/
+│   │   ├── browser-storage/
+│   │   │   ├── [ ] browser-storage.css
+│   │   │   ├── [ ] browser-storage.html
+│   │   │   └── [ ] browser-storage.js
+│   │   ├── clear-project-cookies/
+│   │   │   ├── [ ] clear-project-cookies.css
+│   │   │   ├── [ ] clear-project-cookies.html
+│   │   │   └── [ ] clear-project-cookies.js
+│   │   ├── clear-tabs/
+│   │   │   ├── [ ] clear-tabs-style-backup.css
+│   │   │   ├── [ ] clear-tabs.css
+│   │   │   ├── [ ] clear-tabs.html
+│   │   │   └── [ ] clear-tabs.js
+│   │   ├── completion-catalog/
+│   │   │   ├── [ ] catalog-loader.js
+│   │   │   ├── [ ] catalog-manager.js
+│   │   │   ├── [ ] completion-catalog.css
+│   │   │   ├── [ ] completion-catalog.html
+│   │   │   └── [ ] completion-catalog.js
+│   │   ├── css-suggestions/
+│   │   │   ├── [ ] css-suggestions.css
+│   │   │   ├── [ ] css-suggestions.html
+│   │   │   └── [ ] css-suggestions.js
+│   │   ├── editor/
+│   │   │   ├── [ ] editor.css
+│   │   │   ├── [ ] editor.html
+│   │   │   └── [ ] editor.js
+│   │   ├── header/
+│   │   │   ├── [ ] header-style-backup.css
+│   │   │   ├── [ ] header.css
+│   │   │   ├── [ ] header.html
+│   │   │   └── [ ] header.js
+│   │   ├── javascript-suggestions/
+│   │   │   ├── [ ] javascript-suggestions.css
+│   │   │   ├── [ ] javascript-suggestions.html
+│   │   │   └── [ ] javascript-suggestions.js
+│   │   ├── new-page-action/
+│   │   │   ├── [ ] new-page-action.css
+│   │   │   ├── [ ] new-page-action.html
+│   │   │   └── [ ] new-page-action.js
+│   │   ├── preview/
+│   │   │   ├── [ ] preview.css
+│   │   │   ├── [ ] preview.html
+│   │   │   └── [ ] preview.js
+│   │   ├── project-reset/
+│   │   │   ├── [ ] project-reset.css
+│   │   │   ├── [ ] project-reset.html
+│   │   │   └── [ ] project-reset.js
+│   │   ├── tag-suggestions/
+│   │   │   ├── [ ] tag-suggestions.css
+│   │   │   ├── [ ] tag-suggestions.html
+│   │   │   └── [ ] tag-suggestions.js
+│   │   ├── workspace-divider/
+│   │   │   ├── [ ] workspace-divider.css
+│   │   │   ├── [ ] workspace-divider.html
+│   │   │   └── [ ] workspace-divider.js
+│   │   └── [ ] .gitkeep
+│   ├── [ ] index-original-disabled.html
+│   ├── [ ] script.js
+│   ├── [ ] style-backup.css
+│   └── [ ] style.css
+├── core/
+│   ├── browser-storage/
+│   │   ├── [ ] browser-storage.css
+│   │   ├── [ ] browser-storage.html
+│   │   └── [ ] browser-storage.js
+│   ├── completion-catalog/
+│   │   ├── [ ] catalog-loader.js
+│   │   ├── [ ] catalog-manager.js
+│   │   ├── [ ] completion-catalog.css
+│   │   ├── [ ] completion-catalog.html
+│   │   └── [ ] completion-catalog.js
+│   ├── css-suggestions/
+│   │   ├── [ ] css-suggestions.css
+│   │   ├── [ ] css-suggestions.html
+│   │   └── [ ] css-suggestions.js
+│   ├── editor/
+│   │   ├── [ ] editor.css
+│   │   ├── [ ] editor.html
+│   │   └── [ ] editor.js
+│   ├── extra-key-action/
+│   │   └── [ ] extra-key-action.js
+│   ├── javascript-suggestions/
+│   │   ├── [ ] javascript-suggestions.css
+│   │   ├── [ ] javascript-suggestions.html
+│   │   └── [ ] javascript-suggestions.js
+│   ├── new-page-action/
+│   │   ├── [ ] new-page-action.css
+│   │   ├── [ ] new-page-action.html
+│   │   └── [ ] new-page-action.js
+│   ├── preview/
+│   │   ├── [ ] preview.css
+│   │   ├── [ ] preview.html
+│   │   └── [ ] preview.js
+│   ├── repository-tree-action/
+│   │   └── [ ] repository-tree-action.js
+│   ├── tag-suggestions/
+│   │   ├── [ ] tag-suggestions.css
+│   │   ├── [ ] tag-suggestions.html
+│   │   └── [ ] tag-suggestions.js
+│   ├── visual-editor/
+│   │   ├── [ ] property-controls.js
+│   │   ├── [ ] visual-editor.css
+│   │   └── [ ] visual-editor.js
+│   ├── [ ] .gitkeep
+│   ├── [ ] browser-storage.js
+│   ├── [ ] clear-editor-storage.js
+│   └── [ ] editor-bridge.js
 ├── maps/
-│   ├── CSS-ARCHITECTURE.md (قانون رسمی CSS مرکزی و استایل مشترک)
-│   └── ROADMAP.md
+│   ├── [ ] CSS-ARCHITECTURE.md
+│   ├── [ ] ROADMAP.md
+│   ├── [ ] VISUAL-EDITOR-ROADMAP.md
+│   └── [ ] VISUAL-PROPERTIES-ROADMAP.md
+├── offline/
+│   └── [ ] AlfaCode-Offline.html
+├── repository-tree/
+│   ├── [ ] index.html
+│   ├── [ ] repository-tree.css
+│   └── [ ] repository-tree.js
 ├── scripts/
-│   ├── offline-manifest.json
-│   ├── build-offline.mjs
-│   ├── audit-offline-output.mjs
-│   ├── send-offline-email.py
-│   └── test_send_offline_email.py
-└── offline/AlfaCode-Offline.html (فایل خروجی تولیدی)
+│   ├── [ ] audit-offline-output.mjs
+│   ├── [ ] build-offline.mjs
+│   ├── [ ] complete-file-comments.py
+│   ├── [ ] offline-manifest.json
+│   ├── [ ] send-offline-email.py
+│   ├── [ ] test_send_offline_email.py
+│   └── [ ] update-repository-tree.py
+├── [ ] README.md
+├── [ ] index.html
+├── [ ] package.json
+└── [ ] style.css
 ```
 
 ## شرح فایل‌ها (فهرست کامل)
