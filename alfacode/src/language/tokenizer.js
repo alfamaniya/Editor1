@@ -1,3 +1,4 @@
+// #tokenizer.js: فایل tokenizer مربوط به بخش language پروژه
 /**
  * Tokenizer
  * Runs a registered language tokenizer and validates its UTF-16 token ranges.

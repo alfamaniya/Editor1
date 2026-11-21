@@ -1,3 +1,4 @@
+// #clear-project-cookies.js: فایل clear project cookies مربوط به بخش clear project cookies پروژه
 class ClearProjectCookiesAction extends HTMLElement {
   constructor() { super(); this.attachShadow({ mode: "open" }); }
   async connectedCallback() {

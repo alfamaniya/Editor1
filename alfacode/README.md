@@ -1,3 +1,4 @@
+<!-- #README.md: مستندات اصلی و راهنمای پروژه -->
 # AlfaCode
 
 موتور ویرایش کد ماژولار Editor1 برای HTML، CSS و JavaScript.

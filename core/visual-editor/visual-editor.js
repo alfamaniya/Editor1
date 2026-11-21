@@ -1,3 +1,4 @@
+// #visual-editor.js: مدیریت انتخاب المان و تنظیمات بصری
 (() => {
   "use strict";
   const preview=document.getElementById("preview-frame"); if(!preview)return;

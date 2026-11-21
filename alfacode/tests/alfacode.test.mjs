@@ -1,3 +1,4 @@
+// #alfacode.test.mjs: فایل alfacode.test مربوط به بخش tests پروژه
 import test from "node:test";
 import { getHTMLTagSuggestions, buildHTMLTagInsertion } from "../src/language/html/html-completion.js";
 import { getCSSCompletionSuggestions } from "../src/language/css/css-completion.js";

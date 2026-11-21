@@ -1,3 +1,4 @@
+// #html-completion.js: فایل html completion مربوط به بخش html پروژه
 import { isVoidElement } from "./html-rules.js";
 import { parseHTML } from "./html-parser.js";
 

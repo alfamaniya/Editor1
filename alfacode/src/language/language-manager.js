@@ -1,3 +1,4 @@
+// #language-manager.js: فایل language manager مربوط به بخش language پروژه
 /**
  * LanguageManager
  * Registers language definitions and resolves them by id, alias, or extension.

@@ -1,3 +1,4 @@
+/* #new-page-action.css: فایل new page action مربوط به بخش new page action پروژه */
 :host { display:inline-flex; flex:0 0 auto; }
 .new-page-button { min-height:36px; padding:0 12px; border:1px solid #3a4659; border-radius:7px; background:#222c3b; color:#e8edf5; font:600 12px/1 Inter,"Segoe UI",Arial,sans-serif; white-space:nowrap; cursor:pointer; }
 .new-page-button:hover { background:#2d3a4d; border-color:#6685b5; }

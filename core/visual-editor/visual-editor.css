@@ -1,3 +1,4 @@
+/* #visual-editor.css: استایل پنل و ابزارهای ویرایش بصری */
 /* Visual Editor full-screen overlay with a single right-side control panel. */
 #visual-editor-shell{position:fixed;inset:0;z-index:40;pointer-events:none;background:transparent;color:#e7e8ec;font:12px/1.45 Inter,system-ui,sans-serif}
 #visual-editor-shell[hidden],#visual-inspector[hidden],#visual-inspector [hidden]{display:none!important}

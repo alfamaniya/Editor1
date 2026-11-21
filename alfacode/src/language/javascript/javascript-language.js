@@ -1,3 +1,4 @@
+// #javascript-language.js: فایل javascript language مربوط به بخش javascript پروژه
 import { JavaScriptParser, tokenizeJavaScript } from "./javascript-parser.js";
 
 const parser = new JavaScriptParser();

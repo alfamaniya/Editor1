@@ -1,3 +1,4 @@
+// #preview.js: مدیریت پیش‌نمایش و به‌روزرسانی محتوای آن
 /* Preview renderer only. Visual selection and properties are handled by visual-editor.js. */
 (() => {
   "use strict";

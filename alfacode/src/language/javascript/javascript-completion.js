@@ -1,3 +1,4 @@
+// #javascript-completion.js: فایل javascript completion مربوط به بخش javascript پروژه
 const KEYWORDS = [
   "async","await","break","case","catch","class","const","continue","debugger","default","delete",
   "do","else","export","extends","false","finally","for","from","function","if","import","in",

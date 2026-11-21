@@ -1,3 +1,4 @@
+# test_send_offline_email.py: آزمون‌های ارسال و بازسازی بخش‌های فایل آفلاین
 import hashlib
 import importlib.util
 from pathlib import Path

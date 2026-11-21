@@ -1,3 +1,4 @@
+// #catalog-loader.js: فایل catalog loader مربوط به بخش completion catalog پروژه
 const CATALOG_PATHS = {
   html: "../../alfacode/data/completions.html.json",
   css: "../../alfacode/data/completions.css.json",

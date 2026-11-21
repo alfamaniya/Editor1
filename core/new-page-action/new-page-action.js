@@ -1,3 +1,4 @@
+// #new-page-action.js: فایل new page action مربوط به بخش new page action پروژه
 class NewPageAction extends HTMLElement {
   constructor() { super(); this.attachShadow({ mode: "open" }); }
   async connectedCallback() {

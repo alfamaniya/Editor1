@@ -1,3 +1,4 @@
+// #line-numbers.js: فایل line numbers مربوط به بخش line numbers پروژه
 /**
  * LineNumbers
  * Creates an accessible line-number gutter for an AlfaCode document.

@@ -1,3 +1,4 @@
+// #html-parser.js: فایل html parser مربوط به بخش html پروژه
 import { isVoidElement, isRawTextElement } from "./html-rules.js";
 
 function normalizeSource(value) {

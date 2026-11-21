@@ -1,3 +1,4 @@
+// #browser-storage.js: فایل browser storage مربوط به بخش core پروژه
 /* 
  * Editor1 Browser Storage
  * موتور یکپارچه ذخیره‌سازی مرورگر برای Editor1.

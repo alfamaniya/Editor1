@@ -1,3 +1,4 @@
+// #javascript-rules.js: فایل javascript rules مربوط به بخش javascript پروژه
 /** Shared JavaScript lexical vocabulary and parser classification rules. */
 export const JAVASCRIPT_KEYWORDS = new Set([
   "as","async","await","break","case","catch","class","const","continue","debugger",

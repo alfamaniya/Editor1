@@ -1,3 +1,4 @@
+/* #project-reset.css: فایل project reset مربوط به بخش project reset پروژه */
 :host { display: inline-flex; flex: 0 0 auto; min-width: 44px; }
 .header-action { display: inline-flex; align-items: center; justify-content: center; gap: .45em; min-height: 2.4em; padding: .35em .75em; border: 1px solid #39475b; border-radius: .5em; background: #202b3b; color: #dce6f4; font: 600 .82em/1.2 Inter, "Segoe UI", Arial, sans-serif; white-space: nowrap; cursor: pointer;  }
 .header-action:hover { background: #2a3a50; }

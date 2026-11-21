@@ -1,3 +1,4 @@
+// #input-controller.js: فایل input controller مربوط به بخش input پروژه
 import KeyboardHandler from "./keyboard-handler.js";
 import ClipboardHandler from "./clipboard-handler.js";
 

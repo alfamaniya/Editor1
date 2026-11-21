@@ -1,3 +1,4 @@
+// #highlighter.js: فایل highlighter مربوط به بخش syntax highlighting پروژه
 /**
  * SyntaxHighlighter
  * Converts a language token stream into safe, styled DOM nodes.

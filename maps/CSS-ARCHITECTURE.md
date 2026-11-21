@@ -1,3 +1,4 @@
+<!-- #CSS-ARCHITECTURE.md: فایل CSS ARCHITECTURE مربوط به بخش maps پروژه -->
 # معماری CSS و JavaScript — Editor1
 
 این سند قانون رسمی معماری فایل‌های ظاهر (CSS) و رفتار (JavaScript) پروژه است.

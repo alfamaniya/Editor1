@@ -1,3 +1,4 @@
+// #editor-bridge.js: فایل editor bridge مربوط به بخش core پروژه
 /* واسطه مرکزی Editor1: مدیریت ارتباط Editor، Preview و تغییر اندازه پنل‌ها */
 (() => {
   "use strict";

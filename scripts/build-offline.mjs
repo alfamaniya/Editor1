@@ -1,3 +1,4 @@
+// #build-offline.mjs: ساخت نسخه مستقل و آفلاین پروژه
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";

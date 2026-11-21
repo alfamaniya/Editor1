@@ -1,3 +1,4 @@
+// #catalog-manager.js: فایل catalog manager مربوط به بخش completion catalog پروژه
 const LANGUAGE_TYPES = {
   html: ["tag"], css: ["property", "selector", "value", "at-rule", "function", "unit"],
   javascript: ["identifier", "member", "snippet", "literal"]

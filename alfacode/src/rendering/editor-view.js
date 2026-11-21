@@ -1,3 +1,4 @@
+// #editor-view.js: فایل editor view مربوط به بخش rendering پروژه
 import LineRenderer from "./line-renderer.js";
 import CursorRenderer from "./cursor-renderer.js";
 

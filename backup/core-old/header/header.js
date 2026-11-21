@@ -1,3 +1,4 @@
+// #header.js: مدیریت رفتار و دکمه‌های سربرگ
 class AppHeader extends HTMLElement {
   async connectedCallback() {
     if (this.querySelector(".header-bar")) return;

@@ -1,3 +1,4 @@
+// #css-parser.js: فایل css parser مربوط به بخش css پروژه
 import { isDeclarationAtRule } from "./css-rules.js";
 
 function normalizeSource(value) {

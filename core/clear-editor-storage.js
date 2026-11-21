@@ -1,3 +1,4 @@
+// #clear-editor-storage.js: فایل clear editor storage مربوط به بخش core پروژه
 /* Editor1 data cleanup action.
  * Remove storage data associated with Editor1 only.
  */

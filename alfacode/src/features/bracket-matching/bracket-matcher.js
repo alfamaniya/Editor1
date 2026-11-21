@@ -1,3 +1,4 @@
+// #bracket-matcher.js: فایل bracket matcher مربوط به بخش bracket matching پروژه
 /**
  * BracketMatcher
  * Finds matching (), [] and {} pairs in source text.

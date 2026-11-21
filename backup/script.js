@@ -1,3 +1,4 @@
+// #script.js: فایل script مربوط به بخش backup پروژه
 // Main application coordinator for editor-to-preview communication and toolbar commands.
 (() => {
   const editorFrame = document.querySelector(".editor-panel .section-frame");

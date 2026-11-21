@@ -1,3 +1,4 @@
+// #html-language.js: فایل html language مربوط به بخش html پروژه
 import { HTMLParser, tokenizeHTML } from "./html-parser.js";
 const parser = new HTMLParser();
 export const htmlLanguage = Object.freeze({

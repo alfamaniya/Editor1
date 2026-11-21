@@ -1,3 +1,4 @@
+// #audit-offline-output.mjs: ممیزی خروجی آفلاین و منابع وابسته
 import fs from "node:fs/promises";
 import assert from "node:assert/strict";
 

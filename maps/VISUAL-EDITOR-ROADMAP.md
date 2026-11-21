@@ -1,3 +1,4 @@
+<!-- #VISUAL-EDITOR-ROADMAP.md: فایل VISUAL EDITOR ROADMAP مربوط به بخش maps پروژه -->
 # Visual Editor Completion Roadmap
 
 **Created:** 19 November 2026  

@@ -1,3 +1,4 @@
+// #clear-tabs.js: فایل clear tabs مربوط به بخش clear tabs پروژه
 class ClearTabsAction extends HTMLElement {
   async connectedCallback() {
     if (this.querySelector("button")) return;

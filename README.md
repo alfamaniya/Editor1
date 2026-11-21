@@ -1,3 +1,4 @@
+<!-- #README.md: مستندات اصلی و راهنمای پروژه -->
 # Editor1
 
 **UI language and direction:** English only; left-to-right (`LTR`) throughout. No Persian text is permitted in user-visible interface labels, messages, tooltips, or accessibility text. Source-code comments may be Persian.

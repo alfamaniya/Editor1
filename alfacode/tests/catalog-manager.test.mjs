@@ -1,3 +1,4 @@
+// #catalog-manager.test.mjs: فایل catalog manager.test مربوط به بخش tests پروژه
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createBlankRecord, parseCatalogImport, serializeCatalog, validateCatalogDraft } from "../../core/completion-catalog/catalog-manager.js";

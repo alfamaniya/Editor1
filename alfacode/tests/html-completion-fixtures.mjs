@@ -1,3 +1,4 @@
+// #html-completion-fixtures.mjs: فایل html completion fixtures مربوط به بخش tests پروژه
 // Stable HTML completion inputs for shadow comparisons.
 // This file contains fixtures only; it does not execute either completion engine.
 const atEnd = (id, context, source, extra = {}) => ({

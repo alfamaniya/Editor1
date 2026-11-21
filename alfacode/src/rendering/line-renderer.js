@@ -1,3 +1,4 @@
+// #line-renderer.js: فایل line renderer مربوط به بخش rendering پروژه
 /**
  * LineRenderer
  * Builds safe DOM nodes for document lines without interpreting source as HTML.

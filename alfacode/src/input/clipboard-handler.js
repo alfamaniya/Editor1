@@ -1,3 +1,4 @@
+// #clipboard-handler.js: فایل clipboard handler مربوط به بخش input پروژه
 /**
  * ClipboardHandler
  * Handles copy, cut, and paste through standard clipboard events.

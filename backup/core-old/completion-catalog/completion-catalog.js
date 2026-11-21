@@ -1,3 +1,4 @@
+// #completion-catalog.js: فایل completion catalog مربوط به بخش completion catalog پروژه
 import { loadCompletionCatalogs } from "./catalog-loader.js";
 import { createBlankRecord, parseCatalogImport, validateCatalogDraft, serializeCatalog } from "./catalog-manager.js";
 

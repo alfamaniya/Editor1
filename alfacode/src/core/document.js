@@ -1,3 +1,4 @@
+// #document.js: فایل document مربوط به بخش core پروژه
 /**
  * Document
  * Stores and manages the plain-text content of an editor document.

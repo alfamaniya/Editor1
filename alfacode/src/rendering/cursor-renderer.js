@@ -1,3 +1,4 @@
+// #cursor-renderer.js: فایل cursor renderer مربوط به بخش rendering پروژه
 /**
  * CursorRenderer
  * Inserts a visual caret at a UTF-16 offset inside a rendered line.

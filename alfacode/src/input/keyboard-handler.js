@@ -1,3 +1,4 @@
+// #keyboard-handler.js: فایل keyboard handler مربوط به بخش input پروژه
 /**
  * KeyboardHandler
  * Translates keyboard commands into operations on the AlfaCode Editor facade.

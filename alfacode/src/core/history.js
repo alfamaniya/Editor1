@@ -1,3 +1,4 @@
+// #history.js: فایل history مربوط به بخش core پروژه
 import Document from "./document.js";
 import Transaction from "./transaction.js";
 

@@ -1,3 +1,4 @@
+// #css-rules.js: فایل css rules مربوط به بخش css پروژه
 /** Shared CSS vocabulary used by the tokenizer and parser. */
 export const CSS_AT_RULES = new Set([
   "charset", "container", "counter-style", "document", "font-face", "font-feature-values",

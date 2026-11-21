@@ -1,3 +1,4 @@
+// #suggestion-dispatcher.js: فایل suggestion dispatcher مربوط به بخش input پروژه
 /**
  * Routes a completion through the menu that owns the selected option.
  * HTML uses tag-aware insertion; CSS and JavaScript insert plain text.

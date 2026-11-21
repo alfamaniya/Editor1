@@ -1,3 +1,4 @@
+/* #clear-project-cookies.css: فایل clear project cookies مربوط به بخش clear project cookies پروژه */
 :host { display: inline-flex; flex: 0 0 auto; min-width: 44px; }
 .header-action { display: inline-flex; align-items: center; justify-content: center; gap: .45em; min-height: 2.4em; padding: .35em .75em; border: 1px solid #694044; border-radius: .5em; background: #38252c; color: #f4dfe2; font: 600 .82em/1.2 Inter, "Segoe UI", Arial, sans-serif; white-space: nowrap; cursor: pointer;  }
 .header-action:hover { background: #4b2d36; }

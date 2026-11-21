@@ -1,3 +1,4 @@
+// #css-completion.js: فایل css completion مربوط به بخش css پروژه
 const CSS_PROPERTIES = [
   "align-content","align-items","align-self","animation","background","background-color","background-image","border","border-radius","bottom","box-shadow","box-sizing","color","column-gap","cursor","display","flex","flex-basis","flex-direction","flex-wrap","font-family","font-size","font-weight","gap","grid-template-columns","grid-template-rows","height","justify-content","left","line-height","margin","max-height","max-width","min-height","min-width","opacity","overflow","padding","position","right","text-align","text-decoration","text-transform","top","transform","transition","vertical-align","visibility","white-space","width","z-index"
 ];

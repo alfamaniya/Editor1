@@ -1,3 +1,4 @@
+// #editor-state.js: فایل editor state مربوط به بخش core پروژه
 import Document from "./document.js";
 
 /**

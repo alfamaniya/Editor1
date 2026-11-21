@@ -1,3 +1,4 @@
+// #css-language.js: فایل css language مربوط به بخش css پروژه
 import { CSSParser, tokenizeCSS } from "./css-parser.js";
 
 const parser = new CSSParser();

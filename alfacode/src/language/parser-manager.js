@@ -1,3 +1,4 @@
+// #parser-manager.js: فایل parser manager مربوط به بخش language پروژه
 /**
  * ParserManager
  * Registers and invokes parsers independently from tokenization and rendering.

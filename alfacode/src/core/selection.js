@@ -1,3 +1,4 @@
+// #selection.js: فایل selection مربوط به بخش core پروژه
 /**
  * Selection
  * Manages a text selection independently from the editor UI.

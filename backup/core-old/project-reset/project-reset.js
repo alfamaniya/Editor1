@@ -1,3 +1,4 @@
+// #project-reset.js: فایل project reset مربوط به بخش project reset پروژه
 class ProjectResetAction extends HTMLElement {
   constructor() { super(); this.attachShadow({ mode: "open" }); }
   async connectedCallback() {

@@ -1,3 +1,4 @@
+// #preview.js: مدیریت پیش‌نمایش و به‌روزرسانی محتوای آن
 const frame = document.getElementById("preview-frame");
 
 function insertBeforeClosingTag(source, tagName, content) {

@@ -1,3 +1,4 @@
+// #editor.js: مدیریت رفتار و رویدادهای ویرایشگر
 import Editor from "../../alfacode/src/core/editor.js";
 import EditorView from "../../alfacode/src/rendering/editor-view.js";
 import LineRenderer from "../../alfacode/src/rendering/line-renderer.js";

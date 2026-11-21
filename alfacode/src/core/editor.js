@@ -1,3 +1,4 @@
+// #editor.js: مدیریت رفتار و رویدادهای ویرایشگر
 import Document from "./document.js";
 import EditorState from "./editor-state.js";
 import Selection from "./selection.js";

@@ -1,3 +1,4 @@
+// #property-controls.js: ساخت کنترل‌های تنظیم پراپرتی‌های بصری
 /* Editor1 Visual Editor shared property controls.
  * Centralizes field rendering and draft-state behavior for all inspector categories.
  */

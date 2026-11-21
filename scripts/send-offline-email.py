@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# send-offline-email.py: تقسیم و ارسال فایل نسخه آفلاین از طریق ایمیل
 """Send the standalone AlfaCode HTML in one email with three ordered attachments."""
 from email.message import EmailMessage
 from pathlib import Path

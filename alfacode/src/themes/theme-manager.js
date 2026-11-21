@@ -1,3 +1,4 @@
+// #theme-manager.js: فایل theme manager مربوط به بخش themes پروژه
 /**
  * ThemeManager
  * Registers editor themes and applies their CSS hook classes to an explicit DOM root.

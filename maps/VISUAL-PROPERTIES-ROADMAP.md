@@ -1,3 +1,4 @@
+<!-- #VISUAL-PROPERTIES-ROADMAP.md: فایل VISUAL PROPERTIES ROADMAP مربوط به بخش maps پروژه -->
 # Visual Editor — Properties & Controls Completion Map
 
 > Status: Planned / not implemented. This map defines the full property inspector and the controls within each property category. The redesigned workspace is the UI foundation; functional controls are to be implemented in stages.

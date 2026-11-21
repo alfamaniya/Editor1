@@ -1,3 +1,4 @@
+// #transaction.js: فایل transaction مربوط به بخش core پروژه
 import Document from "./document.js";
 
 /**

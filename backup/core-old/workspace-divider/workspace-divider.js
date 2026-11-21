@@ -1,3 +1,4 @@
+// #workspace-divider.js: فایل workspace divider مربوط به بخش workspace divider پروژه
 class WorkspaceDivider extends HTMLElement {
   constructor() {
     super();

@@ -1,3 +1,4 @@
+// #browser-storage.js: فایل browser storage مربوط به بخش browser storage پروژه
 const STORAGE_KEY = "alfacode.editor1.sources.v1";
 const SAVE_DELAY = 250;
 

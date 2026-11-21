@@ -1,3 +1,4 @@
+// #extra-key-action.js: فایل extra key action مربوط به بخش extra key action پروژه
 /* Helper Keys: desktop footer remains unchanged; mobile row follows editor focus and keyboard viewport. */
 (() => {
   "use strict";
