@@ -1,4 +1,4 @@
-// #audit-offline-output.mjs: ممیزی خروجی آفلاین و منابع وابسته
+// #audit-offline-output.mjs: بررسی صحت HTML مستقل و ممنوعیت وابستگی‌های شبکه‌ای
 import fs from "node:fs/promises";
 import assert from "node:assert/strict";
 
