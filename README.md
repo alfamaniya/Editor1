@@ -407,3 +407,12 @@ Editor1/
 - On narrow screens, the panel becomes a bottom sheet with safe-area-aware sizing; touch controls are enlarged.
 - Selecting an element from Preview switches the panel to Settings; closing Visual restores the regular workspace.
 - Automated regression assertions cover layout and mode communication. Manual browser verification is pending.
+
+
+## حذف دکمه ناخواسته Build Offline File — ۲۱ نوامبر ۲۰۲۶
+- [x] حذف دکمه دانلود `Build Offline File` از رابط اصلی.
+- [x] حذف اتصال اسکریپت اکشن دانلود از `index.html` و Offline Manifest.
+- [x] حذف تزریق ماژول دانلود از Builder مستقل؛ روند ساخت `offline/AlfaCode-Offline.html` با CI حفظ می‌شود.
+- [x] اصلاح تست workspace و audit تا نبود دکمه در خروجی آفلاین را تأیید کنند.
+- [x] حذف فایل اکشن اضافی.
+- [ ] تأیید CI: Build و Audit خروجی آفلاین.
