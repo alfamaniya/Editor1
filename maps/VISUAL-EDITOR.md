@@ -16,6 +16,13 @@
 - بررسی دستی viewport، scroll، selection، keyboard، restore و offline جدا از تست خودکار ثبت می‌شود.
 ## دسته‌ها
 Color، Background، Border، Outline، Size، Shadow، Spacing، Typography، Layout، Flexbox، Grid، Position، Effects، Transform، Transition، Animation، Content، Scroll، SVG، Responsive و Custom CSS.
+## آیکون‌های محلی و آفلاین
+- مجموعه SVG در `core/icons/icon-pack.js` نگهداری می‌شود؛ پنل آیکون‌ها را با `data-icon` و API پکیج تزریق می‌کند.
+- آیکون‌ها به شکل SVG inline رندر می‌شوند؛ نیاز به CDN یا اتصال اینترنت ندارند.
+- فایل پکیج در `core/preview/preview.html` بارگذاری شده و Builder آفلاین آن را از مسیر محلی جمع‌آوری می‌کند.
+- API پکیج شامل `svg`، `mount`، `sprite` و `symbolUse` است. جاسازی خودکار آیکون‌های موردنیاز در HTML خروجی مستقل هنوز مرحله بعدی است.
+
+
 ## وضعیت
 Shared control factory و draft lifecycle پایه ثبت شده؛ تکمیل دسته‌ها، readback/validation، merge edge cases، تست و verification در roadmap پیگیری می‌شود.
 - [Visual Editor completion roadmap](VISUAL-EDITOR-ROADMAP.md)

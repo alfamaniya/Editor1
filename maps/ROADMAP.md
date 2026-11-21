@@ -21,6 +21,14 @@
 
 ## Visual Editor — انتخاب المان و تنظیمات بصری
 
+### پکیج آیکون SVG آفلاین — ۲۱ نوامبر ۲۰۲۶
+- [x] ایجاد پکیج مرکزی `core/icons/icon-pack.js` با SVGهای inline، نام‌های ثابت، `mount`، `sprite` و `symbolUse`.
+- [x] جایگزینی glyphهای متنی در Visual Editor با آیکون‌های SVG یکدست.
+- [x] بارگذاری پکیج از Preview و دسترس‌پذیری مسیر آن در ساخت Offline.
+- [ ] تست مرورگر و نسخه Offline؛ اجرای واقعی هنوز تأیید نشده.
+- [ ] تزریق آیکون‌های لازم در HTML خروجی مستقل، بدون وابستگی به فایل‌های خارجی.
+
+
 - [x] افزودن دکمه Visual Settings به نوار ابزار.
 - [x] فعال‌سازی انتخاب المان در Preview و نمایش دسته‌های Color، Border، Size، Shadow، Spacing و Typography.
 - [x] ساخت پنل کنترل دسته‌ای با Apply و Back.

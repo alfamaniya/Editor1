@@ -84,6 +84,7 @@ Turn Visual Editor into a polished, capable visual styling tool: select an eleme
 - [ ] Keep committed styles through Preview refresh and offline operation.
 
 ## Stage F — UI refinement
+- [x] Replace glyph placeholders with a consistent offline SVG icon pack (`core/icons/icon-pack.js`) and wire it into the Visual Editor Preview.
 - [ ] Use a restrained dark palette with a single accent.
 - [ ] Consistent icon language, button sizing, and typography.
 - [ ] Prefer clear spacing/dividers over excessive nested borders.
@@ -103,6 +104,8 @@ Turn Visual Editor into a polished, capable visual styling tool: select an eleme
 - [ ] Before/after CSS diff
 
 ## Stage H — Tests and acceptance criteria
+- [ ] Verify icon package and Visual Editor integration in browser and built offline HTML.
+- [ ] Embed only used icons into standalone exported HTML without external icon-file references.
 - [ ] Selecting `body` generates the correct selector `body`.
 - [ ] Changing body background preserves existing margin, line-height, and other declarations.
 - [ ] Reopening Color shows the current color, not a default value.

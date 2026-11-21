@@ -52,12 +52,16 @@
 - `preview/preview.html`: سند Preview و iframe نمایش خروجی.
 - `preview/preview.css`: قواعد اندازه Preview و iframe خروجی.
 - `preview/preview.js`: دریافت پیام‌های render و اعمال HTML/CSS/JavaScript در Preview.
+- `preview/preview.html`: ترتیب بارگذاری Preview، پکیج آیکون محلی و ابزارهای Visual Editor.
 - `project-reset/project-reset.html`: markup دکمه Reset پروژه.
 - `project-reset/project-reset.css`: ظاهر دکمه Reset.
 - `project-reset/project-reset.js`: رفتار reset و ارسال فرمان به Editor.
 - `workspace-divider/workspace-divider.html`: markup تقسیم‌کننده قابل کشیدن.
 - `workspace-divider/workspace-divider.css`: عرض، ظاهر، cursor و handle تقسیم‌کننده.
 - `workspace-divider/workspace-divider.js`: drag/keyboard interaction و تغییر نسبت عرض Editor و Preview.
+
+### پکیج آیکون داخلی `core/icons/`
+- `core/icons/icon-pack.js`: مجموعه یکپارچه SVGهای محلی، رندر inline با `svg(name)`، تزریق به عناصر `data-icon` با `mount(root)`، تولید Sprite و ساخت reference با `symbolUse(name)`؛ برای استفاده آفلاین.
 
 ### موتور AlfaCode `alfacode/src/`
 #### Core

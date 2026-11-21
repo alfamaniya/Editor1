@@ -52,6 +52,7 @@
 
 - Workspace، Editor، Preview و Visual Editor: [صفحات](maps/PAGES.md) و [معماری](maps/ARCHITECTURE.md).
 - AlfaCode: [مرجع موتور](maps/ALFACODE.md).
+- پکیج آیکون SVG آفلاین: `core/icons/icon-pack.js`؛ همه آیکون‌های Visual Editor از یک فایل محلی.
 - Storage و Offline: [ذخیره‌سازی](maps/STORAGE.md) و [نسخه آفلاین](maps/OFFLINE.md).
 - تست و CI: [راهنمای تست](maps/TESTING.md).
 - شرح فایل‌ها و مسیرها: [FILE-REFERENCE.md](maps/FILE-REFERENCE.md).
@@ -209,6 +210,8 @@ Editor1/
 │   ├── [ ] style-backup.css
 │   └── [ ] style.css
 ├── core/
+│   ├── icons/
+│   │   └── [x] icon-pack.js
 │   ├── browser-storage/
 │   │   ├── [ ] browser-storage.css
 │   │   ├── [ ] browser-storage.html
@@ -250,7 +253,7 @@ Editor1/
 │   ├── visual-editor/
 │   │   ├── [ ] property-controls.js
 │   │   ├── [ ] visual-editor.css
-│   │   └── [ ] visual-editor.js
+│   │   └── [x] visual-editor.js
 │   ├── [-] .gitkeep
 │   ├── [ ] browser-storage.js
 │   ├── [ ] clear-editor-storage.js
