@@ -416,3 +416,10 @@ Editor1/
 - [x] اصلاح تست workspace و audit تا نبود دکمه در خروجی آفلاین را تأیید کنند.
 - [x] حذف فایل اکشن اضافی.
 - [ ] تأیید CI: Build و Audit خروجی آفلاین.
+
+
+## اصلاح بسته Offline Visual Editor — ۲۱ نوامبر ۲۰۲۶
+- [x] اضافه شدن `core/visual-editor/property-controls.js` به manifest، پیش از `visual-editor.js` برای ثبت factory مشترک.
+- [x] تعبیه CSS مخصوص Visual Editor در پوسته اصلی Offline تا پنل Portal شده در صفحه ریشه بدون stylesheet خارجی استایل بگیرد.
+- [x] افزایش بررسی‌های Builder و Audit برای اطمینان از وجود کنترل‌های مشترک و CSS پنل Portal در خروجی.
+- [ ] اجرای CI و تأیید فایل بازتولیدشده `offline/AlfaCode-Offline.html`؛ این اصلاح سورس تا زمان اجرای workflow تست‌شده محسوب نمی‌شود.
