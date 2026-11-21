@@ -645,4 +645,5 @@
 - [x] ایجاد راهنمای Offline Build/Audit: `maps/OFFLINE.md`.
 - [x] ایجاد راهنمای تست و verification: `maps/TESTING.md`.
 - [ ] بررسی عمیق هر سند با سورس واقعی، تکمیل API/dependency/eventها و اصلاح statusها.
-- [ ] تبدیل README به نمایه سبک: انتقال تدریجی توضیحات تخصصی به سند حوزه مربوط، بدون حذف یا جابه‌جایی ناگهانی اطلاعات.
+- [x] انتقال یکباره توضیحات تخصصی و فهرست فایل‌ها از README به `maps/FILE-REFERENCE.md`؛ گزارش‌های اجرایی/تاریخی به `maps/HISTORY.md` منتقل شدند و README به نمایه، خلاصه و درخت مخزن محدود شد.
+- [x] افزودن لینک دو سند جدید به Documentation Index و درخت README.
