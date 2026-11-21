@@ -54,7 +54,7 @@ def already_described(line, path):
     return path.name in line and ":" in line and line.strip().startswith(("#", "//", "/*", "<!--"))
 
 def main():
-    tracked = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode("utf-8").split("\\0")
+    tracked = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode("utf-8").split("\0")
     added = []
     for relative in tracked:
         if not relative:
@@ -79,9 +79,9 @@ def main():
         comment = f"{prefix}{path.name}: {description_for(path)}{suffix}"
         if insertion:
             lines.insert(insertion, comment)
-            updated = "\\n".join(lines) + ("\\n" if source.endswith("\\n") else "")
+            updated = "\n".join(lines) + ("\n" if source.endswith("\n") else "")
         else:
-            updated = comment + "\\n" + source
+            updated = comment + "\n" + source
         path.write_text(updated, encoding="utf-8")
         added.append(relative)
     print(f"Persian descriptions added: {len(added)}")
