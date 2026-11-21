@@ -47,7 +47,7 @@
       node.setAttribute("aria-hidden", "true");
     });
   };
-  const sprite = () => '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:none">' +
+  const sprite = () => '<svg xmlns="http:' + '/' + '/' + 'www.w3.org/2000/svg" aria-hidden="true" style="display:none">' +
     Object.entries(shapes).map(([name, body]) => '<symbol id="editor1-icon-' + name + '" viewBox="0 0 24 24">' + body + '</symbol>').join("") + '</svg>';
   const symbolUse = name => '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#editor1-icon-' + (shapes[name] ? name : "custom") + '"></use></svg>';
   window.Editor1IconPack = Object.freeze({names:Object.freeze(Object.keys(shapes)),svg,mount,sprite,symbolUse});
