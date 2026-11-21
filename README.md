@@ -286,7 +286,7 @@ Editor1/
 │   ├── [x] audit-offline-output.mjs
 │   ├── [x] build-offline.mjs
 │   ├── [x] complete-file-comments.py
-│   ├── [ ] offline-manifest.json
+│   ├── [-] offline-manifest.json
 │   ├── [ ] send-offline-email.py
 │   ├── [ ] test_send_offline_email.py
 │   └── [ ] update-repository-tree.py
@@ -297,12 +297,12 @@ Editor1/
 ```
 
 
-## Offline audit fix — Repository Tree in standalone HTML (21 November 2026)
-- [x] Embedded the repository tree HTML, stylesheet, and interaction script into the offline builder output.
-- [x] The standalone toolbar opens Repository Tree (Offline) as a separate embedded snapshot.
-- [x] Folder toggles, refresh, counters, expand all, and collapse all work without network access.
+## Offline Repository Tree integration (21 November 2026)
+- [x] Embedded the repository tree HTML, stylesheet, and interaction script into the offline builder.
+- [x] Declared the tree HTML/CSS/JS as shell `runtimeFiles` in `scripts/offline-manifest.json`, resolving the build's undeclared-input audit failure.
+- [x] The standalone toolbar opens Repository Tree (Offline) in a separate window; tree controls work offline.
 - [x] File source links are disabled in the offline snapshot because GitHub source browsing requires internet.
-- [x] Updated the workspace-layout regression test and offline documentation.
+- [x] Updated offline docs and regression test.
 - [ ] Confirm GitHub Actions build/audit and browser verification succeed.
 
 
