@@ -247,8 +247,7 @@ Editor1/
 │   ├── repository-tree-action/
 │   │   └── [ ] repository-tree-action.js
 │   ├── tag-suggestions/
-│   │   ├── [ ] tag-suggestions.css
-│   │   ├── [ ] tag-suggestions.html
+│   │   ├── [ ] tag-suggestions.css│   │   ├── [ ] tag-suggestions.html
 │   │   └── [ ] tag-suggestions.js
 │   ├── visual-editor/
 │   │   ├── [ ] property-controls.js
@@ -301,7 +300,7 @@ Editor1/
 - [x] Embedded the repository tree HTML, stylesheet, and interaction script into the offline builder.
 - [x] Declared the tree HTML/CSS/JS as shell `runtimeFiles` in `scripts/offline-manifest.json`, resolving the build's undeclared-input audit failure.
 - [x] The standalone toolbar opens Repository Tree (Offline) in a separate window; tree controls work offline.
-- [x] File source links are disabled in the offline snapshot because GitHub source browsing requires internet.
+- [x] Source GitHub links in the repository-tree snapshot are neutralized during offline embedding; the final-output audit still checks for network URLs/endpoints.
 - [x] Updated offline docs and regression test.
 - [ ] Confirm GitHub Actions build/audit and browser verification succeed.
 
