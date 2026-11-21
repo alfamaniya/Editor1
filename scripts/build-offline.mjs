@@ -509,7 +509,9 @@ async function main() {
       shell = shell.replace(new RegExp("<script\\b[^>]*" + scriptName + "[^>]*>\\s*<\\/script>", "gi"), "");
     }
   }
-  // The standalone document must not initiate relative iframe navigations.
+    // The Repository Tree relies on online GitHub access; remove its runtime script from standalone output.
+  shell = shell.replace(/\s*<script\\b[^>]*src=["\'][^"\']*repository-tree-action\\.js["\'][^>]*>\\s*<\\/script>/i, "");
+// The standalone document must not initiate relative iframe navigations.
   // Both child documents are supplied below through srcdoc.
   shell = shell.replace(/(<iframe\b[^>]*?)\s+src=(["'])[^"']*\2/gi, "$1");
   shell = shell.replace("</head>", "<style>\n" + rootCss + "\n" + rootVisualStylesheet + "\n</style>\n</head>");
@@ -540,6 +542,13 @@ async function main() {
     window.open(catalogUrl, "_blank", "noopener");
     window.setTimeout(() => URL.revokeObjectURL(catalogUrl), 60000);
   });
+  const repositoryTreeButton = document.getElementById("repositoryTree");
+  if (repositoryTreeButton) {
+    repositoryTreeButton.textContent = "Repository Tree (Online)";
+    repositoryTreeButton.addEventListener("click", () => {
+      window.alert("Repository Tree requires an internet connection. Open the online Editor1 workspace to view it.");
+    });
+  }
   window.__ALFACODE_ACTION_ASSETS__ = {
     "clear-tabs": { html: ${JSON.stringify(clearTabsMarkup)}, css: ${JSON.stringify(clearTabsCss)} },
     "project-reset": { html: ${JSON.stringify(projectResetMarkup)}, css: ${JSON.stringify(projectResetCss)} },
