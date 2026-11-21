@@ -21,6 +21,10 @@ export default class BrowserStorage {
         saved.version === 1 &&
         ["html", "css", "javascript"].every(key => typeof saved.sources?.[key] === "string");
       if (!valid) return { sources: fallback, restored: false };
+      // # مهاجرت: نمونه قدیمی HTML Showcase با پنل ویژوال پیش‌فرض جایگزین می‌شود؛ داده‌های شخصی دیگر حفظ می‌شوند.
+      if (saved.sources.html.includes("<title>HTML Element Showcase</title>")) {
+        return { sources: fallback, restored: false };
+      }
       return { sources: { ...fallback, ...saved.sources }, restored: true };
     } catch (error) {
       this.onStatus("Browser storage unavailable", "error");
