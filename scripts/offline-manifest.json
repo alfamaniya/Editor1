@@ -159,6 +159,7 @@
       ],
       "scripts": [
         "core/visual-editor/property-controls.js",
+        "core/icons/icon-pack.js",
         "core/preview/preview.js",
         "core/visual-editor/visual-editor.js"
       ]
