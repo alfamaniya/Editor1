@@ -93,9 +93,11 @@ test("editor content overflow stays inside its scroll host", async () => {
   assert.match(editorCss, /\.alfacode-editor-canvas[^}]*min-width:\s*max-content/);
 });
 
-test("offline builder strips the online-only repository tree script and labels its action", async () => {
+test("offline builder embeds an interactive Repository Tree snapshot", async () => {
   const builder = await readFile(new URL("scripts/build-offline.mjs", ROOT), "utf8");
-  assert.match(builder, /repository-tree-action\.js/);
-  assert.match(builder, /Repository Tree \(Online\)/);
-  assert.match(builder, /Repository Tree requires an internet connection/);
+  assert.match(builder, /repository-tree\/index\.html/);
+  assert.match(builder, /repository-tree\/repository-tree\.css/);
+  assert.match(builder, /repository-tree\/repository-tree\.js/);
+  assert.match(builder, /Repository Tree \(Offline\)/);
+  assert.match(builder, /offlineRepositoryTree/);
 });
