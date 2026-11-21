@@ -545,3 +545,12 @@
 - [x] حفظ `scripts/build-offline.mjs`، `scripts/offline-manifest.json` و Workflow ساخت خروجی آفلاین.
 - [x] تست و Audit برای تأیید حذف دکمه از خروجی و نبود اشاره به ماژول اکشن تنظیم شد.
 - [ ] منتظر اجرای CI برای تولید مجدد `offline/AlfaCode-Offline.html` و پاس شدن Audit.
+
+
+## رفع وابستگی‌های Visual Editor در Build آفلاین — ۲۱ نوامبر ۲۰۲۶
+- [x] افزودن `property-controls.js` به اسکریپت‌های Preview در Offline Manifest و قرار دادن آن قبل از `visual-editor.js`.
+- [x] تزریق stylesheet پنل Visual به پوسته اصلی Offline برای حالت Portal (به‌جای اتکا به URL فایل CSS بیرونی).
+- [x] Builder چک می‌کند که shared controls و CSS پنل در خروجی حضور داشته باشند.
+- [x] Audit خروجی این دو مورد را بررسی می‌کند.
+- [ ] CI/build جدید و تأیید عملکرد Visual Settings در فایل Offline.
+**دامنه:** فقط اکشن/مسیر تولید `offline/AlfaCode-Offline.html` و manifest/audit مرتبط تغییر داده شدند؛ موتور AlfaCode دست‌نخورده است.
