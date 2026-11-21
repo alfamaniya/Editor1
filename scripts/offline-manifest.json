@@ -15,6 +15,11 @@
         "core/extra-key-action/extra-key-action.js",
         "core/clear-editor-storage.js"
       ],
+      "runtimeFiles": [
+        "repository-tree/index.html",
+        "repository-tree/repository-tree.css",
+        "repository-tree/repository-tree.js"
+      ],
       "includes": [
         "header",
         "clear-tabs",
