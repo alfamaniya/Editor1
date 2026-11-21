@@ -1,4 +1,4 @@
-<!-- #index.html: ساختار صفحه مستقل درخت مخزن و اتصال فایل‌های استایل و رفتار آن -->
+<!-- #index.html: رابط کاربری صفحه مستقل درخت مخزن و بخش نمایش وضعیت و ساختار فایل‌ها -->
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -9,13 +9,23 @@
 </head>
 <body>
   <header class="page-header">
-    <h1>Repository Tree</h1>
-    <p>Editor1 repository structure — dedicated workspace reserved for future development.</p>
+    <div class="heading">
+      <h1>Repository Tree</h1>
+      <p>Live file and folder structure from the GitHub repository.</p>
+    </div>
+    <div class="toolbar">
+      <button type="button" id="refreshTree">Refresh</button>
+      <button type="button" id="expandAll">Expand all</button>
+      <button type="button" id="collapseAll">Collapse all</button>
+    </div>
   </header>
   <main>
-    <section class="placeholder" aria-label="Repository tree workspace">
-      <h2>Repository Tree</h2>
-      <p>This page is intentionally a placeholder. Tree browsing, navigation, and actions will be defined later.</p>
+    <section class="tree-card" aria-label="Repository tree">
+      <div class="tree-meta">
+        <span id="treeStatus" role="status">Loading repository tree…</span>
+        <span id="treeCounts"></span>
+      </div>
+      <div id="treeRoot" class="tree-root"></div>
     </section>
   </main>
   <script src="repository-tree.js"></script>
