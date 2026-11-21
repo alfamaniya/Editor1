@@ -67,7 +67,7 @@
 ## Live Repository Tree
 
 - GitHub Actions workflow `.github/workflows/repository-tree-update.yml` regenerates the hardcoded HTML tree inside `repository-tree/index.html` after every push to `main`.
-- Generator script `scripts/update-repository-tree.py` reads tracked Git paths, builds the nested tree, and updates only the marked generated section.
+- Generator script `scripts/update-repository-tree.py` reads tracked Git paths, builds the nested tree, extracts the description from each file's first-line comment (when it matches the agreed `#filename: description` format), and displays that description before the filename in the generated tree.
 - The page renders static HTML without calling GitHub API at runtime; file entries link to GitHub source. Refresh reloads the page; Expand all and Collapse all control folders.
 - Empty directories are not tracked by Git and therefore do not appear.
 
