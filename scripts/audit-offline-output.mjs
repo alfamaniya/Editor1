@@ -4,7 +4,9 @@ import assert from "node:assert/strict";
 
 const outputPath = new URL("../offline/AlfaCode-Offline.html", import.meta.url);
 const html = await fs.readFile(outputPath, "utf8");
-assert.match(html, /<!doctype html>/i, "standalone document doctype is present");
+assert.ok(Buffer.byteLength(html, "utf8") > 0, "standalone HTML output is non-empty");
+assert.match(html.trimStart(), /^<!doctype html\s*>/i, "standalone document starts with a valid DOCTYPE");
+assert.match(html, /<html\b[\s\S]*<\/html\s*>/i, "standalone document has complete html root tags");
 assert.match(html, /editorFrame\.srcdoc\s*=/, "editor is embedded as srcdoc");
 assert.match(html, /previewFrame\.srcdoc\s*=/, "preview is embedded as srcdoc");
 assert.match(html, /Editor1PropertyControls/, "shared Visual Editor property controls are embedded");
