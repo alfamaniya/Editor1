@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# send-offline-email.py: تقسیم و ارسال فایل نسخه آفلاین از طریق ایمیل
+# send-offline-email.py: تقسیم، اعتبارسنجی و ارسال فایل نسخه آفلاین از طریق ایمیل
 """Send the standalone AlfaCode HTML in one email with three ordered attachments."""
 from email.message import EmailMessage
 from pathlib import Path
@@ -63,8 +63,14 @@ def main() -> int:
     except UnicodeDecodeError as error:
         print(f"Offline HTML is not valid UTF-8: {error}", file=sys.stderr)
         return 1
-    if not source.lstrip().lower().startswith("<!doctype html") or not raw:
-        print("Offline HTML validation failed: empty file or missing DOCTYPE.", file=sys.stderr)
+    if not raw or not source.strip():
+        print("Offline HTML validation failed: generated file is empty.", file=sys.stderr)
+        return 1
+    if not source.lstrip().lower().startswith("<!doctype html"):
+        print("Offline HTML validation failed: missing leading DOCTYPE.", file=sys.stderr)
+        return 1
+    if "<html" not in source.lower() or "</html>" not in source.lower():
+        print("Offline HTML validation failed: incomplete HTML root document.", file=sys.stderr)
         return 1
 
     try:
