@@ -144,7 +144,7 @@ Editor1/
 │   │   ├── [ ] html-completion-fixtures.mjs
 │   │   ├── [ ] html-completion-shadow.test.mjs
 │   │   ├── [ ] visual-editor.test.mjs
-│   │   └── [ ] workspace-layout.test.mjs
+│   │   └── [x] workspace-layout.test.mjs
 │   └── [ ] README.md
 ├── backup/
 │   ├── core-old/
@@ -283,7 +283,7 @@ Editor1/
 │   ├── [ ] repository-tree.css
 │   └── [ ] repository-tree.js
 ├── scripts/
-│   ├── [ ] audit-offline-output.mjs
+│   ├── [x] audit-offline-output.mjs
 │   ├── [x] build-offline.mjs
 │   ├── [x] complete-file-comments.py
 │   ├── [ ] offline-manifest.json
@@ -297,11 +297,13 @@ Editor1/
 ```
 
 
-## Offline audit fix — Repository Tree action (21 November 2026)
-- [x] Removed the online-only `repository-tree-action.js` script from the standalone HTML during offline assembly so no external `script src` remains.
-- [x] Kept the toolbar entry but labeled it `Repository Tree (Online)`; offline click explains that the live repository tree requires internet.
-- [x] Added a regression test in `alfacode/tests/workspace-layout.test.mjs` for the builder stripping rule and online-only label.
-- [ ] Confirm the new GitHub Actions build and audit run succeeds; browser/manual verification pending.
+## Offline audit fix — Repository Tree in standalone HTML (21 November 2026)
+- [x] Embedded the repository tree HTML, stylesheet, and interaction script into the offline builder output.
+- [x] The standalone toolbar opens Repository Tree (Offline) as a separate embedded snapshot.
+- [x] Folder toggles, refresh, counters, expand all, and collapse all work without network access.
+- [x] File source links are disabled in the offline snapshot because GitHub source browsing requires internet.
+- [x] Updated the workspace-layout regression test and offline documentation.
+- [ ] Confirm GitHub Actions build/audit and browser verification succeed.
 
 
 ## اصلاح ارسال ایمیل نسخه آفلاین — ۲۱ نوامبر ۲۰۲۶
