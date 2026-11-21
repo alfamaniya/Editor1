@@ -567,3 +567,11 @@
 - [x] تفکیک ساختار صفحه، استایل و منطق در `index.html`، `repository-tree.css` و `repository-tree.js`.
 - [x] افزودن کامنت فارسی با قالب توافق‌شده در ابتدای هر فایل.
 - [ ] اتصال دکمه Header و پیاده‌سازی قابلیت‌های درخت؛ منتظر دستور بعدی.
+
+
+## اتصال دکمه Repository Tree — ۲۱ نوامبر ۲۰۲۶
+- [x] افزودن شناسه `repositoryTree` به دکمه Header.
+- [x] ایجاد `core/repository-tree-action/repository-tree-action.js` برای اتصال دکمه به صفحه مستقل `repository-tree/index.html`.
+- [x] باز کردن صفحه در تب جدید با مسیر نسبی.
+- [x] ثبت تغییر در README.
+- [ ] آزمون کلیک در مرورگر و نسخه آفلاین.
