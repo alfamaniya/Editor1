@@ -61,8 +61,8 @@
 ### Visual Editor completion plan
 
 - Detailed implementation plan: [`maps/VISUAL-EDITOR-ROADMAP.md`](maps/VISUAL-EDITOR-ROADMAP.md).
-- Scope includes full UI/UX redesign, completing the setting categories and controls, safe CSS merging, Draft/Apply/Cancel/Reset behavior, advanced layout/effects, and acceptance tests.
-- The plan is registered as **Planned**; implementation work for these phases has not started yet.
+- Implementation is underway: shared controls, Draft/Apply/Cancel/Reset Category lifecycle, initial Color controls, single-panel workspace, and responsive mobile workspace have been added.
+- Remaining work includes completing all property categories, category readback and validation, CSS integrity edge cases, tests, and browser/offline verification.
 
 ## درخت مخزن
 
