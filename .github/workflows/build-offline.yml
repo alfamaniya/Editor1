@@ -1,3 +1,4 @@
+# build-offline.yml: ساخت و ممیزی نسخه مستقل آفلاین پروژه
 name: Build AlfaCode Offline
 
 on:
