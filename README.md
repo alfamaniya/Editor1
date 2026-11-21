@@ -20,14 +20,21 @@
 
 **اصلاح اندازه Gutter:** ستون شماره خطوط در Editor روی عرض ۴۲px قفل شده؛ محتوای کد جداگانه در ظرف اسکرول افقی رشد می‌کند.
 
-## Visual Editor redesign (builder-inspired)\n\n### Stage 1 — shared Inspector controls\n- Added `core/visual-editor/property-controls.js` as the shared control factory and draft-state helper.\n- Inspector now uses the shared control factory when available, while keeping a fallback renderer.\n- Added Cancel, Apply, and Reset Category lifecycle actions.\n- Reset Category clears only the active category properties in the preview draft.\n- Current controls still need category-specific readback, validation, specialized widgets, and browser testing.\n
+## Visual Editor redesign (builder-inspired)
+
+### Stage 1 — shared Inspector controls (implemented, verification pending)
+- Added `core/visual-editor/property-controls.js` as the shared control factory and draft-state helper.
+- Inspector uses the shared factory when available, with a fallback renderer.
+- Draft lifecycle actions: Cancel, Apply, and Reset Category; reset is scoped to the active category.
+- Category-specific readback, validation, specialized controls, and browser verification remain incomplete.
+
 ### Inspector properties and controls plan
 - Detailed checklist for every Visual Editor property category and the settings nested within each category: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](maps/VISUAL-PROPERTIES-ROADMAP.md).
 - Includes color formats/palette/gradients, independent border sides and corners, sizing/units, layered shadows, box model, typography, Flex/Grid, positioning, filters/effects, transforms, transitions/animations, element-specific options, responsive breakpoints, presets, and CSS integrity safeguards.
 - This is a registered plan; controls are not yet implemented just because they are listed.
 
 
-- The Visual Editor full-screen workspace design is planned around a single fixed right-side panel for both element browsing and Inspector settings; Preview fills the remaining area. Implementation and browser verification are pending.
+- Visual mode uses a full-screen workspace with one fixed right-side panel for Elements/Settings; Preview occupies the remaining area. CI regression assertions exist, while manual browser verification is still pending.
 - The Inspector now displays the selected element's tag and selector, and offers a dedicated **Select Element** action to re-enter preview selection.
 - The dark UI uses a restrained orange accent and compact panel/control styling.
 - The left-side element tiles and search field are currently non-functional placeholders; element insertion and search are future roadmap work.
@@ -380,61 +387,23 @@ Editor1/
 
 
 ### Color property progress
-- Initial Color inspector includes Background, Text and Border color pickers with HEX entry, quick palette, opacity slider, and a two-stop Linear/Radial gradient builder. Per-control clear, richer color formats, and verification remain incomplete.
+- Initial Color inspector includes Background, Text and Border pickers with HEX entry, quick palette, opacity slider, and a two-stop Linear/Radial gradient builder.
+- Per-control clear, expanded color formats, richer gradient-stop management, readback, and verification remain incomplete.
 - Progress checklist: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](maps/VISUAL-PROPERTIES-ROADMAP.md).
 
+## Mobile workspace — 20 November 2026
+- Mobile Editor/Preview tabs were added; switching tabs hides the other pane.
+- Visual mode automatically switches to Preview and restores the previous mobile tab when exited.
+- Safe-area padding and touch-sized editor/Visual controls were added for mobile layouts. Device verification is pending.
 
-### Color property progress
-- Initial Color inspector includes Background, Text and Border color pickers with HEX entry, quick palette, opacity slider, and a two-stop Linear/Radial gradient builder. Per-control clear, richer color formats, and verification remain incomplete.
-- Progress checklist: [`maps/VISUAL-PROPERTIES-ROADMAP.md`](maps/VISUAL-PROPERTIES-ROADMAP.md).
-
-
-## Visual Editor workspace layout refinement
-- Visual mode is planned to become a dedicated full-screen workspace. The left Elements rail and right Inspector rail will remain fixed to viewport height and position; the Preview/Canvas will occupy the flexible space between them. Rail contents and Preview will scroll independently, while page-level scrolling is disabled during Visual mode. Responsive rail behavior and safe return to the normal editor are included in the implementation/verification checklist. This is a registered design requirement, not yet implemented.
+## Offline build toolbar action — 20 November 2026
+- Added the **Build Offline File** toolbar action and included it in the offline manifest and Builder.
+- In a bundled/offline or local iframe/srcdoc environment, the action snapshots the current standalone shell; in online mode it downloads the generated offline artifact.
+- The download action, error feedback, and audit assertions are implemented. Actual browser/download verification remains pending.
 
 ## Visual Editor workspace update — single right-side panel
-
-- Visual mode now has a full-screen workspace state: the Preview expands to the viewport, while the normal header/footer, Editor pane, and divider are hidden.
-- The Visual Editor uses one fixed right-side panel with **Elements** and **Settings** modes instead of separate side rails.
-- Selecting an element from Preview switches the panel to Settings; closing Visual restores the normal workspace.
-- Automated regression checks cover mode markup, CSS panel layout, and the parent/Preview mode message. CI and manual browser verification are pending.
-
-### Verification update
-- AlfaCode Tests passed: **116/116** on commit `612e162` (Run [44623052830](https://github.com/alfamaniya/Editor1/actions/runs/44623052830)).
-- Offline build and static audit passed, and the generated standalone HTML was committed: Run [44623039708](https://github.com/alfamaniya/Editor1/actions/runs/44623039708).
-- Browser/manual viewport verification is still pending; CI does not confirm visual appearance or interaction on real devices.
-
-
-## Visual Editor preview/panel overlap fix — 20 November 2026
-- [x] Preview canvas width now reserves the fixed right-side Visual panel space, instead of stretching behind it.
-- [x] Desktop sizing reserves up to 340px (or 38vw); narrow viewports reserve the responsive panel width up to 320px (or 86vw).
-- [ ] Browser/manual checks at desktop, tablet and mobile remain pending.
-
-
-### Visual workspace mobile CSS test correction — 20 November 2026
-- Corrected the mobile Preview sizing regression assertion to use valid JavaScript regular-expression whitespace and escaped literal parentheses. The test now checks the existing mobile media-query rule rather than accidentally looking for backslash characters in the CSS.
-- This change only fixes the test expression; CI rerun is pending.
-
-
-### Visual Editor viewport edge correction — 20 November 2026
-- The outer Preview pane now spans the entire viewport during Visual mode; it no longer pre-reserves the right-panel width and thereby traps the panel inside a narrower iframe.
-- The inner preview canvas explicitly reserves the overlay panel width during Visual mode, so content does not extend underneath the panel.
-- Visual mode toggles a body class inside the Preview host to activate responsive canvas sizing. CI validation is pending.
-
-
-### Visual Editor host viewport fix — 20 November 2026
-- Corrected the layout approach: the Visual panel is rendered inside the Preview host iframe, so the host iframe itself must expand to the actual viewport while Visual mode is active.
-- Added root CSS to make `#previewFrame` fixed to the viewport (`100vw`/`100dvh`) with a stacking layer above the workspace. The inner Preview content still reserves space for the panel.
-- Added a regression assertion for host iframe viewport expansion. CI/browser verification pending.
-
-
-### Visual Preview clipping fix (portal) — 20 November 2026
-- The root Preview iframe is now moved directly under `document.body` while Visual mode is active, bypassing clipping from split-pane ancestors with overflow rules.
-- A comment placeholder preserves the iframe's original DOM position; inline styles are restored when Visual mode exits.
-- Added source-level regression checks for portal activation and restoration. CI and browser validation remain pending.
-
-
-### Visual panel visibility/layout correction — 20 November 2026
-- Previous portal attempt incorrectly moved the Preview iframe itself, which obscured the Visual panel and made the Preview consume the full page.
-- Corrected architecture: keep Preview iframe in the normal workspace host; portal only `#visual-editor-shell` into the root document so its panel is viewport-anchored and visible; constrain Preview to the remaining left-side area.
-- Root document loads the Visual Editor stylesheet for the portaled shell. Regression tests updated. CI/browser verification pending.
+- Visual mode uses a full-screen workspace; the normal header/footer, Editor pane, and divider are hidden.
+- One fixed right-side panel switches between **Elements** and **Settings**. Preview fills the remaining desktop space.
+- On narrow screens, the panel becomes a bottom sheet with safe-area-aware sizing; touch controls are enlarged.
+- Selecting an element from Preview switches the panel to Settings; closing Visual restores the regular workspace.
+- Automated regression assertions cover layout and mode communication. Manual browser verification is pending.
