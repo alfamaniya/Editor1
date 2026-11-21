@@ -73,7 +73,10 @@ Editor1/
 │   ├── build-offline.yml
 │   └── send-offline-email.yml
 ├── index.html (Layout؛ استایل کلی Buttonها از style.css دریافت می‌شود)
-├── repository-tree.html (صفحه اختصاصی درخت مخزن؛ فعلاً صفحه آماده توسعه و بدون اتصال دکمه)
+├── repository-tree/ (صفحه مستقل درخت مخزن؛ HTML/CSS/JS جداگانه)
+│   ├── index.html (ساختار صفحه و اتصال فایل‌های CSS/JS)
+│   ├── repository-tree.css (استایل اختصاصی صفحه)
+│   └── repository-tree.js (محل منطق صفحه)
 ├── backup/index-original-disabled.html (نسخه پشتیبان ایندکس قدیمی) (نسخه قبلی ورودی اصلی؛ نگهداری‌شده و غیرفعال)
 ├── backup/
 │   ├── core-old/ (legacy components archive)
