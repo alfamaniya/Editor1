@@ -6,6 +6,8 @@ const html = await fs.readFile(outputPath, "utf8");
 assert.match(html, /<!doctype html>/i, "standalone document doctype is present");
 assert.match(html, /editorFrame\.srcdoc\s*=/, "editor is embedded as srcdoc");
 assert.match(html, /previewFrame\.srcdoc\s*=/, "preview is embedded as srcdoc");
+assert.match(html, /Editor1PropertyControls/, "shared Visual Editor property controls are embedded");
+assert.match(html, /Visual Editor full-screen overlay/, "Visual Editor portal stylesheet is embedded in the root shell");
 assert.match(html, /window\.__ALFACODE_COMPLETION_CATALOGS__\s*=/, "offline catalog payload is embedded");
 assert.doesNotMatch(html, /id="buildOffline"/, "offline build toolbar action is removed");
 assert.doesNotMatch(html, /Offline file ready|Building offline|Build Offline File/, "offline build action UI and feedback are removed");
