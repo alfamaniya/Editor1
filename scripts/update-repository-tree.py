@@ -46,7 +46,7 @@ def render(current, depth=0):
         description_html = f'<span class="file-description">{html.escape(description)}</span>' if description else ""
         encoded = "/".join(quote(part, safe="") for part in file["path"].split("/"))
         url = f"https://github.com/{OWNER}/{REPO}/blob/{BRANCH}/{encoded}"
-        rows.append(f'<li class="file-node"><div class="node-row file-row"><span class="twisty"></span><span class="file-icon">📄</span>{description_html}<a class="file-name file-link" href="{url}" target="_blank" rel="noopener noreferrer" title="{path}">{name}</a></div></li>')
+        rows.append(f'<li class="file-node"><div class="node-row file-row"><span class="twisty"></span><span class="file-icon">📄</span><a class="file-name file-link" href="{url}" target="_blank" rel="noopener noreferrer" title="{path}">{name}</a>{description_html}</div></li>')
     return "\n".join(rows)
 
 def main():
