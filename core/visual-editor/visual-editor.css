@@ -149,3 +149,10 @@
   .visual-color-row{grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr)}
   .visual-gradient-row{grid-template-columns:minmax(0,1fr) 56px 36px 36px}
 }
+
+/* #icon-pack.css overrides: sizing and alignment for the offline SVG icon package */
+.visual-editor-icon svg{width:18px;height:18px;display:block}
+.visual-editor-tile span svg{width:18px;height:18px;display:block}
+.visual-editor-search [data-icon] svg{width:14px;height:14px;display:block}
+.visual-category-grid button i{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;flex:0 0 18px}
+.visual-category-grid button i svg{width:15px;height:15px;display:block}
