@@ -295,3 +295,10 @@ Editor1/
 ├── [ ] package.json
 └── [ ] style.css
 ```
+
+
+## Offline audit fix — Repository Tree action (21 November 2026)
+- [x] Removed the online-only `repository-tree-action.js` script from the standalone HTML during offline assembly so no external `script src` remains.
+- [x] Kept the toolbar entry but labeled it `Repository Tree (Online)`; offline click explains that the live repository tree requires internet.
+- [x] Added a regression test in `alfacode/tests/workspace-layout.test.mjs` for the builder stripping rule and online-only label.
+- [ ] Confirm the new GitHub Actions build and audit run succeeds; browser/manual verification pending.
