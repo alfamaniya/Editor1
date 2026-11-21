@@ -18,6 +18,8 @@ jobs:
         with:
           ref: main
           fetch-depth: 1
+      - name: Complete Persian comments for commentable files
+        run: python scripts/complete-file-comments.py
       - name: Generate static tree
         run: python scripts/update-repository-tree.py
       - name: Commit generated tree if changed
