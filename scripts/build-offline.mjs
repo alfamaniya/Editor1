@@ -558,7 +558,7 @@ async function main() {
   if (repositoryTreeButton) {
     repositoryTreeButton.textContent = "Repository Tree (Offline)";
     repositoryTreeButton.addEventListener("click", () => {
-      const treeBlob = new Blob([\${JSON.stringify(offlineRepositoryTree)}], { type: "text/html;charset=utf-8" });
+      const treeBlob = new Blob([${JSON.stringify(offlineRepositoryTree)}], { type: "text/html;charset=utf-8" });
       const treeUrl = URL.createObjectURL(treeBlob);
       window.open(treeUrl, "_blank", "noopener");
       window.setTimeout(() => URL.revokeObjectURL(treeUrl), 60000);
