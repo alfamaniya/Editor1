@@ -1,3 +1,4 @@
+# send-offline-email.yml: ارسال نسخه آفلاین پروژه از طریق ایمیل
 name: Send AlfaCode Offline by Gmail
 
 on:
