@@ -66,9 +66,10 @@
 
 ## Live Repository Tree
 
-- `repository-tree/repository-tree.js` fetches the recursive Git tree from the GitHub API for branch `main` and renders folders/files automatically.
-- Newly added or removed files and folders are reflected on refresh without code edits; files link to their GitHub source.
-- The page includes Refresh, Expand all, and Collapse all controls. GitHub API rate limits or network restrictions may temporarily prevent loading.
+- GitHub Actions workflow `.github/workflows/repository-tree-update.yml` regenerates the hardcoded HTML tree inside `repository-tree/index.html` after every push to `main`.
+- Generator script `scripts/update-repository-tree.py` reads tracked Git paths, builds the nested tree, and updates only the marked generated section.
+- The page renders static HTML without calling GitHub API at runtime; file entries link to GitHub source. Refresh reloads the page; Expand all and Collapse all control folders.
+- Empty directories are not tracked by Git and therefore do not appear.
 
 ## درخت مخزن
 
