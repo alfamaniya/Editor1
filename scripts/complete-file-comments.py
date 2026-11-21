@@ -71,7 +71,7 @@ def main():
         if not content or has_standard_comment(content.splitlines()[0], path):
             continue
         opening, closing = syntax
-        comment = f"{opening}#{path.name}: {description_for(path)}{closing}"
+        marker = "" if opening == "# " else "#"\n        comment = f"{opening}{marker}{path.name}: {description_for(path)}{closing}"
         path.write_text(comment + "\n" + content, encoding="utf-8")
         changed.append(raw)
     print(f"Persian file comments added: {len(changed)}")
