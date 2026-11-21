@@ -20,6 +20,8 @@
 - مسیر: `index.html`؛ Shell با Header/Footer، Editor، Preview و Divider.
 - CSS: `style.css`؛ رفتار/bridge: `core/editor-bridge.js` و ماژول‌های `core/`.
 - وضعیت: فعال؛ تأیید دستی مرورگر/موبایل برای برخی موارد pending است.
+- **Editor starter source:** `core/editor/editor.js` seeds HTML/CSS/JavaScript with an editable Visual Settings panel scaffold (instead of the HTML Showcase demo); legacy demo seed is migrated while other saved sources are preserved.
+
 ### AlfaCode Editor
 - مسیر: `core/editor/editor.html`؛ ویرایش HTML/CSS/JS با AlfaCode.
 - CSS/JS: `core/editor/editor.css`، `core/editor/editor.js` و `alfacode/src/`.
