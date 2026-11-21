@@ -60,7 +60,7 @@ def main():
         if not relative:
             continue
         path = ROOT / relative
-        if not path.is_file() or path.name == ".gitkeep" or path.suffix.lower() in SKIP_EXTENSIONS:
+        if not path.is_file() or path.name == ".gitkeep" or relative.startswith(".github/workflows/") or path.suffix.lower() in SKIP_EXTENSIONS:
             continue
         syntax = comment_syntax(path)
         if syntax is None:
