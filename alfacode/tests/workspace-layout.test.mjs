@@ -95,7 +95,7 @@ test("editor content overflow stays inside its scroll host", async () => {
 
 test("offline builder strips the online-only repository tree script and labels its action", async () => {
   const builder = await readFile(new URL("scripts/build-offline.mjs", ROOT), "utf8");
-  assert.match(builder, /repository-tree-action\\.js/);
+  assert.match(builder, /repository-tree-action\.js/);
   assert.match(builder, /Repository Tree \(Online\)/);
   assert.match(builder, /Repository Tree requires an internet connection/);
 });
