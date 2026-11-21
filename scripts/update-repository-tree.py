@@ -29,6 +29,8 @@ def first_line_description(path):
     try:
         with (ROOT / path).open("r", encoding="utf-8", errors="replace") as source:
             line = source.readline(4096).strip()
+            if line.startswith("#!"):
+                line = source.readline(4096).strip()
     except (OSError, UnicodeError):
         return ""
     match = DESCRIPTION_PATTERN.search(line)
