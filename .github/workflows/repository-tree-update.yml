@@ -1,0 +1,33 @@
+# repository-tree-update.yml: بازسازی خودکار درخت HTML ثابت بعد از هر Push به main
+name: Update Repository Tree
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: repository-tree-main
+  cancel-in-progress: false
+jobs:
+  update-tree:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Generate static tree
+        run: python scripts/update-repository-tree.py
+      - name: Commit generated tree if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add repository-tree/index.html
+          if git diff --cached --quiet; then
+            echo "Tree already current."
+          else
+            git commit -m "chore: update static repository tree"
+            git push
+          fi
