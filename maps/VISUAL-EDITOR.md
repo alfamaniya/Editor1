@@ -1,5 +1,11 @@
 <!-- #VISUAL-EDITOR.md: راهنمای کاربرد و معماری ابزار Visual Editor -->
 # Visual Editor
+## Editor practice scaffold
+- The Editor's initial HTML/CSS/JavaScript content is now a lightweight editable mock of the Visual Settings panel (Elements/Settings modes, property categories, value entry, Apply/Reset) to provide a starting point for panel work.
+- This scaffold is a code-editing sample, not a replacement for the live Visual Editor implementation. The actual live panel remains in `core/visual-editor/visual-editor.js` and its CSS.
+- Existing browser-saved sources are preserved; the old default HTML Showcase starter is replaced during load.
+
+
 ## هدف
 ویرایش بصری CSS عناصر انتخاب‌شده در Preview.
 ## گردش کار
