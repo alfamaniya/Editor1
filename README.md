@@ -48,6 +48,8 @@
 
 **قانون CSS/JS:** هر صفحه یا بخش اصلی می‌تواند یک CSS مخصوص ظاهر خود داشته باشد؛ عناصر مشابه از استایل مشترک استفاده کنند. قابلیت‌ها و اکشن‌های دارای منطق در JavaScript جدا نگهداری شوند. [سند معماری](maps/CSS-ARCHITECTURE.md)
 
+**Default Editor starter:** New/cleared editor sessions load an editable Visual Settings panel scaffold instead of the HTML Showcase demo. The legacy Showcase starter is automatically replaced on load; other saved editor content is retained.
+
 ## نمای کلی سریع
 
 - Workspace، Editor، Preview و Visual Editor: [صفحات](maps/PAGES.md) و [معماری](maps/ARCHITECTURE.md).
