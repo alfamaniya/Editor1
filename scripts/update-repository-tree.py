@@ -1,4 +1,4 @@
-# update-repository-tree.py: تولید HTML ثابت درخت مخزن و نمایش شرح خط اول فایل‌ها
+# update-repository-tree.py: تولید HTML ثابت درخت Git مخزن، خواندن شرح کامنت فایل‌ها و بازسازی نمایش ساختار
 import html
 import re
 import subprocess
