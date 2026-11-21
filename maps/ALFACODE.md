@@ -15,9 +15,15 @@
 - Line Numbers: شماره خطوط و خط فعال.
 - Syntax Highlighting: رنگ‌آمیزی بر پایه tokenها.
 ### Input
-Clipboard handler، input controller، keyboard handler و suggestion dispatcher.### Language pipeline
-Tokenizer، Language Manager و Parser Manager؛ برای HTML/CSS/JavaScript adapters، parsers، rules و completionهای مرتبط.### Rendering
-Editor View، Line Renderer و Cursor Renderer.### Themes and utilities
+Clipboard handler، input controller، keyboard handler و suggestion dispatcher.
+
+### Language pipeline
+Tokenizer، Language Manager و Parser Manager؛ برای HTML/CSS/JavaScript adapters، parsers، rules و completionهای مرتبط.
+
+### Rendering
+Editor View، Line Renderer و Cursor Renderer.
+
+### Themes and utilities
 Theme Manager و dark/light CSS؛ utilityها در حال حاضر placeholderهای خالی گزارش شده‌اند.
 ## Completion data
 `alfacode/data/completions.html.json`، `completions.css.json` و `completions.javascript.json` داده‌های پیشنهادها را نگهداری می‌کنند. ساختار و runtime آن‌ها باید با تست‌ها بررسی شوند.
