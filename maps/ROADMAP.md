@@ -522,3 +522,19 @@
 - [x] Root workspace styles now set Preview's right edge to the panel's left edge; the preview no longer extends beneath the fixed settings panel.
 - [x] Desktop uses the panel width rule; small viewports use the same responsive width rule as the panel.
 - [ ] Confirm visual appearance and resizing in a browser at desktop/tablet/mobile.
+
+
+
+## ثبت تغییرات ۲۰ نوامبر ۲۰۲۶ — بررسی کار VS Code
+- [x] افزودن تب‌های موبایل Editor/Preview و تعویض پنل فعال با کلاس‌های workspace.
+- [x] هنگام ورود Visual، نمایش Preview و بازگردانی تب قبلی موبایل هنگام خروج.
+- [x] پشتیبانی safe-area و اندازه‌های مناسب لمس برای Editor و پنل Visual در موبایل.
+- [x] افزودن اکشن نوار ابزار **Build Offline File** و ثبت ماژول آن در Offline Manifest/Builder.
+- [x] اکشن آفلاین: Snapshot از پوسته Standalone؛ اکشن آنلاین: دانلود خروجی Offline آماده.
+- [x] ساخت factory مشترک کنترل‌های Inspector و چرخه Draft / Apply / Cancel / Reset Category.
+- [x] آغاز پیاده‌سازی Color: HEX، palette، opacity و گرادیان Linear/Radial با دو color stop.
+- [x] تک‌پنل Visual Editor با Elements/Settings و رفتار پنل bottom-sheet در موبایل.
+- [ ] اجرای CI روی تغییرات جدید و تأیید دانلود واقعی در مرورگر.
+- [ ] تست دستی Visual Editor و workspace در موبایل/دسکتاپ، و بررسی عملکرد آفلاین.
+
+**یادداشت:** تیک‌های بالا به معنی ثبت پیاده‌سازی در commitهای ۲۰ نوامبر هستند، نه ادعای تست مرورگر دستی. وضعیت CI/مرورگر را جداگانه ثبت می‌کنیم.
