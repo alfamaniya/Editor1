@@ -554,3 +554,9 @@
 - [x] Audit خروجی این دو مورد را بررسی می‌کند.
 - [ ] CI/build جدید و تأیید عملکرد Visual Settings در فایل Offline.
 **دامنه:** فقط اکشن/مسیر تولید `offline/AlfaCode-Offline.html` و manifest/audit مرتبط تغییر داده شدند؛ موتور AlfaCode دست‌نخورده است.
+
+
+## آماده‌سازی Repository Tree (۲۱ نوامبر ۲۰۲۶)
+- [x] عنوان دکمه شماره ۲ در Header به `Repository Tree` تغییر کرد؛ هنوز اکشن کلیک ندارد.
+- [x] صفحه مستقل `repository-tree.html` ایجاد شد و فعلاً placeholder ساده است.
+- [ ] تعریف رفتار درخت مخزن و اتصال دکمه؛ منتظر دستور کاربر.
