@@ -98,6 +98,7 @@ Editor1/
 │   ├── tag-suggestions/ ...
 │   └── workspace-divider/ ...
 ├── core/ (active JavaScript files)
+│   ├── repository-tree-action/repository-tree-action.js (اتصال دکمه Header به صفحه درخت مخزن)
 │   └── browser-storage.js (unified LocalStorage, IndexedDB, cookies, projects, auto-save and quota helpers)
  (html, css, js)
 │   ├── clear-project-cookies/ (html, css, js)
