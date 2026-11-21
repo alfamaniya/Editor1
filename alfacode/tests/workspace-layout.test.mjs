@@ -1,4 +1,4 @@
-// #workspace-layout.test.mjs: فایل workspace layout.test مربوط به بخش tests پروژه
+// #workspace-layout.test.mjs: آزمون چیدمان workspace و رفتار اجزای رابط
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
@@ -91,4 +91,11 @@ test("editor content overflow stays inside its scroll host", async () => {
   assert.match(editorCss, /\.alfacode-gutter-host[^}]*width:\s*42px/);
   assert.match(editorCss, /\.alfacode-gutter-host[^}]*max-width:\s*42px/);
   assert.match(editorCss, /\.alfacode-editor-canvas[^}]*min-width:\s*max-content/);
+});
+
+test("offline builder strips the online-only repository tree script and labels its action", async () => {
+  const builder = await readFile(new URL("scripts/build-offline.mjs", ROOT), "utf8");
+  assert.match(builder, /repository-tree-action\\.js/);
+  assert.match(builder, /Repository Tree \(Online\)/);
+  assert.match(builder, /Repository Tree requires an internet connection/);
 });
