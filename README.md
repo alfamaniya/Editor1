@@ -74,7 +74,7 @@
 
 ## درخت مخزن و وضعیت تکمیل کامنت‌ها
 
-**قانون پیگیری کامنت‌ها:** تیک `[x]` فقط زمانی ثبت می‌شود که من (ChatGPT) محتوای فایل را بررسی کرده و کامنت فارسی خط اول را کامل/اصلاح کرده باشم. وجود کامنت قبلی یا کامنت خودکار به‌تنهایی تیک نمی‌گیرد. در پایان هر درخواست اجرایی شما، پس از انجام کار اصلی، یک فایل بدون تیک را انتخاب می‌کنم و کامنت آن را تکمیل می‌کنم؛ سپس تیک همان فایل را ثبت و این درخت را به‌روز می‌کنم. فایل‌های JSON و مواردی که syntax کامنت معتبر ندارند از این پیگیری مستثنا هستند.
+**قانون پیگیری کامنت‌ها:** تیک `[x]` فقط زمانی ثبت می‌شود که من (ChatGPT) محتوای فایل را بررسی کرده و کامنت فارسی خط اول را کامل/اصلاح کرده باشم. وجود کامنت قبلی یا کامنت خودکار به‌تنهایی تیک نمی‌گیرد. در پایان هر درخواست اجرایی شما، پس از انجام کار اصلی، یک فایل بدون تیک را انتخاب می‌کنم و کامنت آن را تکمیل می‌کنم؛ سپس تیک همان فایل را ثبت و این درخت را به‌روز می‌کنم. فایل‌های JSON و مواردی که syntax کامنت معتبر ندارند با علامت `[-]` از این پیگیری مستثنا هستند.
 
 ```text
 Editor1/
@@ -86,11 +86,11 @@ Editor1/
 │       └── [ ] send-offline-email.yml
 ├── alfacode/
 │   ├── data/
-│   │   ├── [ ] completions.css.json
-│   │   ├── [ ] completions.html.json
-│   │   └── [ ] completions.javascript.json
+│   │   ├── [-] completions.css.json
+│   │   ├── [-] completions.html.json
+│   │   └── [-] completions.javascript.json
 │   ├── examples/
-│   │   └── [ ] .gitkeep
+│   │   └── [-] .gitkeep
 │   ├── src/
 │   │   ├── core/
 │   │   │   ├── [ ] document.js
@@ -142,7 +142,7 @@ Editor1/
 │   │       ├── [ ] dom.js
 │   │       └── [ ] helpers.js
 │   ├── tests/
-│   │   ├── [ ] .gitkeep
+│   │   ├── [-] .gitkeep
 │   │   ├── [ ] alfacode.test.mjs
 │   │   ├── [ ] catalog-manager.test.mjs
 │   │   ├── [ ] completion-runtime.test.mjs
@@ -210,7 +210,7 @@ Editor1/
 │   │   │   ├── [ ] workspace-divider.css
 │   │   │   ├── [ ] workspace-divider.html
 │   │   │   └── [ ] workspace-divider.js
-│   │   └── [ ] .gitkeep
+│   │   └── [-] .gitkeep
 │   ├── [ ] index-original-disabled.html
 │   ├── [ ] script.js
 │   ├── [ ] style-backup.css
@@ -258,7 +258,7 @@ Editor1/
 │   │   ├── [ ] property-controls.js
 │   │   ├── [ ] visual-editor.css
 │   │   └── [ ] visual-editor.js
-│   ├── [ ] .gitkeep
+│   ├── [-] .gitkeep
 │   ├── [ ] browser-storage.js
 │   ├── [ ] clear-editor-storage.js
 │   └── [ ] editor-bridge.js
