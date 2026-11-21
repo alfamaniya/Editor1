@@ -64,6 +64,12 @@
 - Implementation is underway: shared controls, Draft/Apply/Cancel/Reset Category lifecycle, initial Color controls, single-panel workspace, and responsive mobile workspace have been added.
 - Remaining work includes completing all property categories, category readback and validation, CSS integrity edge cases, tests, and browser/offline verification.
 
+## Live Repository Tree
+
+- `repository-tree/repository-tree.js` fetches the recursive Git tree from the GitHub API for branch `main` and renders folders/files automatically.
+- Newly added or removed files and folders are reflected on refresh without code edits; files link to their GitHub source.
+- The page includes Refresh, Expand all, and Collapse all controls. GitHub API rate limits or network restrictions may temporarily prevent loading.
+
 ## درخت مخزن
 
 ```text
